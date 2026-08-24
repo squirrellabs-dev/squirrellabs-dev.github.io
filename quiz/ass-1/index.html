@@ -3,749 +3,696 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>A.S.S. I — Did Any of It Stick?</title>
-<meta name="description" content="A one-week check-in on what people learned and changed after Agentic Squirrel Symposium I." />
+<title>A.S.S. I — Week-One Check-In</title>
+<meta name="description" content="A short check-in on what people learned and now use after Agentic Squirrel Symposium I." />
 <meta name="theme-color" content="#eee8da" />
 <meta name="robots" content="noindex,nofollow" />
 <style>
   :root {
-    --desk: #b9b2a3; --paper: #f7f1e4; --paper-deep: #eee5d2; --ink: #171713;
-    --muted: #625e54; --rule: #2e2c27; --red: #7d1f22; --red-soft: #ead8d3;
-    --blue: #1f465c; --blue-soft: #dbe5e8; --green: #31543c; --shadow: rgba(35,29,20,.24);
+    --desk: #b9b2a3;
+    --paper: #f8f2e5;
+    --paper-deep: #eee4d0;
+    --ink: #181713;
+    --muted: #625e54;
+    --rule: #302e29;
+    --red: #7d1f22;
+    --red-soft: #ead8d3;
+    --blue: #204b62;
+    --green: #31543c;
+    --green-soft: #dce7dd;
+    --shadow: rgba(35, 29, 20, .24);
   }
   * { box-sizing: border-box; }
   html { background: var(--desk); color: var(--ink); font-family: "Times New Roman", "Nimbus Roman No9 L", Georgia, serif; }
   body {
-    margin: 0; min-height: 100vh; overflow-x: hidden;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
     background:
-      linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.12)),
-      repeating-linear-gradient(0deg, transparent 0 31px, rgba(58,48,36,.035) 31px 32px),
-      repeating-linear-gradient(90deg, transparent 0 47px, rgba(58,48,36,.025) 47px 48px),
+      repeating-linear-gradient(0deg, transparent 0 31px, rgba(58, 48, 36, .035) 31px 32px),
+      repeating-linear-gradient(90deg, transparent 0 47px, rgba(58, 48, 36, .025) 47px 48px),
       var(--desk);
   }
   button, input, textarea { font: inherit; }
   button { cursor: pointer; }
   button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex="-1"]:focus-visible {
-    outline: 3px solid var(--blue); outline-offset: 3px;
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
   }
   .hidden { display: none !important; }
-  .sr-only {
-    position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
-    margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important;
-    white-space: nowrap !important; border: 0 !important;
-  }
   .formulae {
-    position: fixed; inset: 0; pointer-events: none; overflow: hidden; color: rgba(53,46,37,.11);
-    font-family: "Cambria Math", "Times New Roman", serif; font-style: italic; z-index: 0;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    color: rgba(53, 46, 37, .11);
+    font-family: "Cambria Math", "Times New Roman", serif;
+    font-style: italic;
+    pointer-events: none;
   }
   .formulae span { position: absolute; white-space: nowrap; }
-  .formulae span:nth-child(1) { left: 2vw; top: 9vh; transform: rotate(-7deg); font-size: 22px; }
-  .formulae span:nth-child(2) { right: 1vw; top: 25vh; transform: rotate(8deg); font-size: 18px; }
-  .formulae span:nth-child(3) { left: 3vw; bottom: 12vh; transform: rotate(5deg); font-size: 20px; }
-  .formulae span:nth-child(4) { right: 2vw; bottom: 6vh; transform: rotate(-9deg); font-size: 24px; }
+  .formulae span:nth-child(1) { left: 2vw; top: 10vh; transform: rotate(-7deg); font-size: 22px; }
+  .formulae span:nth-child(2) { right: 2vw; top: 31vh; transform: rotate(8deg); font-size: 18px; }
+  .formulae span:nth-child(3) { left: 3vw; bottom: 15vh; transform: rotate(5deg); font-size: 20px; }
+  .formulae span:nth-child(4) { right: 2vw; bottom: 7vh; transform: rotate(-9deg); font-size: 22px; }
   .paper {
-    position: relative; z-index: 1; width: min(940px, calc(100% - 28px)); min-height: 100vh;
-    margin: 26px auto; padding: 34px clamp(22px, 6vw, 72px) 58px;
+    position: relative;
+    z-index: 1;
+    width: min(920px, calc(100% - 28px));
+    min-height: 100vh;
+    margin: 24px auto;
+    padding: 30px clamp(20px, 6vw, 68px) 44px;
     background:
-      radial-gradient(circle at 15% 12%, rgba(126,92,38,.04), transparent 26%),
-      radial-gradient(circle at 87% 72%, rgba(126,92,38,.035), transparent 22%), var(--paper);
-    border: 1px solid #8f8878; box-shadow: 0 16px 42px var(--shadow), 0 2px 4px rgba(35,29,20,.22);
+      radial-gradient(circle at 15% 12%, rgba(126, 92, 38, .04), transparent 26%),
+      radial-gradient(circle at 87% 72%, rgba(126, 92, 38, .035), transparent 22%),
+      var(--paper);
+    border: 1px solid #8f8878;
+    box-shadow: 0 16px 42px var(--shadow), 0 2px 4px rgba(35, 29, 20, .22);
   }
   .paper::before {
-    content: "PREPRINT · WEEK-ONE REPORT"; position: absolute; top: 250px; right: -93px;
-    padding: 7px 78px; border-block: 2px solid rgba(125,31,34,.45); color: rgba(125,31,34,.48);
-    font: 700 11px/1 Georgia, serif; letter-spacing: 2px; transform: rotate(90deg); pointer-events: none;
+    content: "PREPRINT · N = YOU";
+    position: absolute;
+    top: 215px;
+    right: -69px;
+    padding: 7px 52px;
+    border-block: 2px solid rgba(125, 31, 34, .42);
+    color: rgba(125, 31, 34, .48);
+    font: 700 11px/1 Georgia, serif;
+    letter-spacing: 2px;
+    transform: rotate(90deg);
+    pointer-events: none;
   }
-  body[data-stage="checkin"] .title-block,
-  body[data-stage="done"] .title-block { display: none; }
   .running-head {
-    display: flex; justify-content: space-between; gap: 14px; padding-bottom: 7px;
-    border-bottom: 1px solid var(--rule); color: var(--muted); font-size: 11px;
-    font-variant: small-caps; letter-spacing: .8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 12px;
+    font-variant: small-caps;
+    letter-spacing: .7px;
   }
   .running-head span:last-child { text-align: right; }
-  .title-block { text-align: center; padding: 44px 0 24px; }
-  .title-block .journal { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; }
-  h1 {
-    max-width: 760px; margin: 15px auto 9px; font-size: clamp(34px, 6.7vw, 58px);
-    line-height: .98; font-weight: 400; letter-spacing: -.035em;
-  }
-  .subtitle { max-width: 690px; margin: 0 auto; font-size: 19px; line-height: 1.35; font-style: italic; }
-  .authors { margin: 25px 0 5px; font-size: 16px; font-variant: small-caps; letter-spacing: 1px; }
-  .affiliation { color: var(--muted); font-size: 12px; line-height: 1.45; }
-  .metadata { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px 18px; margin-top: 16px; color: var(--muted); font-size: 10.5px; }
+  .title-block { padding: 35px 0 18px; text-align: center; }
+  .journal { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  h1 { margin: 12px auto 7px; font-size: clamp(34px, 7vw, 56px); font-weight: 400; letter-spacing: -.035em; line-height: 1; }
+  .subtitle { max-width: 670px; margin: 0 auto; font-size: 18px; font-style: italic; line-height: 1.35; }
+  .authors { margin: 20px 0 3px; font-size: 15px; font-variant: small-caps; letter-spacing: 1px; }
+  .affiliation { margin: 0; color: var(--muted); font-size: 13px; }
+  .metadata { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px 16px; margin-top: 12px; color: var(--muted); font-size: 12px; }
   .abstract {
-    margin: 18px auto 12px; padding: 17px 22px; border-block: 3px double var(--rule);
-    font-size: 14px; line-height: 1.55; text-align: justify;
+    margin: 14px 0 16px;
+    padding: 14px 18px;
+    border-block: 3px double var(--rule);
+    font-size: 15px;
+    line-height: 1.48;
   }
-  .abstract strong { font-variant: small-caps; letter-spacing: .5px; }
-  .keywords { margin: 12px 0 0; font-size: 12px; }
-  .equation {
-    margin: 24px auto; text-align: center; font-family: "Cambria Math", "Times New Roman", serif;
-    font-size: clamp(18px, 4vw, 28px); font-style: italic; overflow-wrap: anywhere;
+  .abstract strong, .small-caps { font-variant: small-caps; letter-spacing: .45px; }
+  .method-note {
+    margin: 16px 0;
+    padding: 13px 15px;
+    border: 1px solid var(--rule);
+    background: rgba(255, 255, 255, .3);
+    box-shadow: 4px 4px 0 var(--paper-deep);
+    font-size: 14px;
+    line-height: 1.45;
   }
-  .equation .number { float: right; font: 13px "Times New Roman", serif; font-style: normal; }
-  .theorem {
-    position: relative; margin: 22px 0; padding: 16px 18px 15px; border: 1px solid var(--rule);
-    background: rgba(255,255,255,.28); box-shadow: 4px 4px 0 var(--paper-deep);
-    font-size: 14px; line-height: 1.5;
+  .identity { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; margin: 18px 0 10px; }
+  label.text-label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; }
+  .text-input, .note-input, .task-output {
+    width: 100%;
+    border: 1px solid #777064;
+    border-radius: 0;
+    background: #fffdf6;
+    color: var(--ink);
+    font-size: 16px;
   }
-  .theorem strong { font-variant: small-caps; letter-spacing: .5px; }
-  .proof-end { float: right; font-size: 17px; }
-  h2.section-title { margin: 34px 0 12px; font-size: 22px; line-height: 1.2; font-weight: 400; }
-  h2.section-title .sec { padding-right: 8px; font-weight: 700; }
-  .lede { margin: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.55; }
-  .small-note { color: var(--muted); font-size: 11px; line-height: 1.45; }
-  details.appendix { margin: 24px 0; border-block: 1px solid var(--rule); background: rgba(255,255,255,.19); }
-  details.appendix > summary {
-    list-style: none; padding: 13px 4px; font-size: 14px; font-weight: 700;
-    font-variant: small-caps; letter-spacing: .55px; cursor: pointer;
-  }
-  details.appendix > summary::-webkit-details-marker { display: none; }
-  details.appendix > summary::before { content: "▸ "; color: var(--red); }
-  details.appendix[open] > summary::before { content: "▾ "; }
-  .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 24px; padding: 5px 4px 20px; }
-  .talk { padding: 11px 0; border-bottom: 1px dotted #999184; font-size: 12px; line-height: 1.45; min-width: 0; }
-  .talk h3 { margin: 0 0 3px; font-size: 13px; line-height: 1.25; overflow-wrap: anywhere; }
-  .talk .who { color: var(--red); font-size: 10px; font-variant: small-caps; letter-spacing: .7px; }
-  .talk p { margin: 4px 0 0; }
-  .response-key { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; margin: 18px 0; }
-  .key-chip { padding: 9px; border: 1px solid #a79f8f; background: rgba(255,255,255,.25); font-size: 11px; line-height: 1.35; }
-  .key-chip strong { display: block; margin-bottom: 2px; color: var(--red); }
+  .text-input { min-height: 46px; padding: 10px 12px; }
+  .date-stamp { min-width: 125px; padding: 11px 12px; border: 1px solid #aaa293; color: var(--muted); font-size: 14px; text-align: center; }
   .button {
-    min-height: 47px; padding: 11px 18px; border: 1px solid var(--ink); background: var(--ink);
-    color: var(--paper); font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
-    box-shadow: 3px 3px 0 #9d9587;
+    min-height: 46px;
+    padding: 11px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    background: var(--ink);
+    color: #fffdf6;
+    font-size: 15px;
+    font-weight: 700;
   }
-  .button:hover:not(:disabled) { background: var(--red); border-color: var(--red); }
-  .button.secondary { background: transparent; color: var(--ink); box-shadow: none; }
-  .button.secondary:hover:not(:disabled) { color: var(--paper); }
-  .button:disabled { cursor: not-allowed; opacity: .38; }
+  .button:hover:not(:disabled) { background: var(--red); }
+  .button:disabled { cursor: not-allowed; opacity: .5; }
+  .button.secondary { background: transparent; color: var(--ink); }
+  .button.secondary:hover:not(:disabled) { background: var(--paper-deep); }
   .button.full { width: 100%; }
-  .start-button { margin-top: 22px; font-size: 15px; }
-  .progress-head { margin-top: 31px; }
-  .progress-copy { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; font-variant: small-caps; letter-spacing: .7px; }
-  .progress-track { height: 5px; margin-top: 6px; border: 1px solid var(--ink); background: transparent; }
-  .progress-fill { height: 100%; width: 0; background: var(--red); transition: width .2s ease; }
-  .item-browser { margin-top: 12px; padding: 11px; border: 1px solid #9f9787; background: rgba(255,255,255,.2); }
-  .item-browser-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 11px; line-height: 1.35; }
-  .item-browser-head strong { font-variant: small-caps; letter-spacing: .55px; }
-  .item-browser-head span { color: var(--muted); text-align: right; }
-  .item-map { display: grid; grid-template-columns: repeat(10, minmax(36px, 1fr)); gap: 5px; }
-  .item-jump {
-    position: relative; min-width: 0; min-height: 39px; padding: 5px 2px; border: 1px solid #9f9787;
-    background: var(--paper); color: var(--ink); font-size: 12px; font-weight: 700; line-height: 1;
+  .hint { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+  .stage-head { margin: 22px 0 14px; }
+  .stage-kicker { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .stage-title { margin: 5px 0; font-size: clamp(28px, 5vw, 40px); font-weight: 400; line-height: 1.05; }
+  .stage-copy { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+  .progress-line { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; font-size: 14px; }
+  .progress-track { height: 9px; margin-top: 7px; overflow: hidden; border: 1px solid var(--rule); background: #fffdf6; }
+  .progress-fill { width: 0; height: 100%; background: var(--red); transition: width .18s ease; }
+  .topic-browser { margin: 16px 0 20px; padding: 12px; border: 1px solid #8c8579; background: rgba(255,255,255,.22); }
+  .browser-head { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 9px; font-size: 14px; }
+  .topic-map { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; }
+  .topic-jump {
+    min-height: 50px;
+    padding: 7px 6px;
+    border: 1px solid #81796d;
+    background: #fffdf6;
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: left;
   }
-  .item-jump:hover { border-color: var(--red); color: var(--red); }
-  .item-jump.answered { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); }
-  .item-jump.answered::after { content: "✓"; position: absolute; top: 2px; right: 3px; font-size: 8px; }
-  .item-jump.current { border: 3px double var(--red); padding: 3px 0; background: var(--red); color: var(--paper); }
-  .item-jump.current::after { color: var(--paper); }
-  .item-map-legend { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 8px; color: var(--muted); font-size: 9.5px; }
-  .legend-mark::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 4px; border: 1px solid #9f9787; vertical-align: -1px; background: var(--paper); }
-  .legend-mark.current::before { border: 2px solid var(--red); background: var(--red); }
-  .legend-mark.answered::before { border-color: var(--blue); background: var(--blue-soft); }
-  .map-finish { margin-top: 10px; min-height: 42px; font-size: 11px; }
-  .map-return { width: 100%; margin-top: 9px; min-height: 42px; font-size: 11px; }
-  .instrument {
-    position: relative; margin-top: 20px; padding: clamp(18px, 4vw, 34px);
-    border: 3px double var(--rule); background: rgba(255,255,255,.22);
+  .topic-jump strong { display: block; margin-bottom: 2px; color: var(--red); font-size: 11px; }
+  .topic-jump.done { border-color: var(--green); background: var(--green-soft); }
+  .topic-jump.current { border: 2px solid var(--red); padding: 6px 5px; }
+  .map-review { margin-top: 9px; }
+  .instrument { padding: clamp(15px, 3.5vw, 25px); border: 1px solid var(--rule); background: rgba(255,255,255,.28); box-shadow: 5px 5px 0 var(--paper-deep); }
+  .item-meta { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+  .item-title { margin: 6px 0 5px; font-size: clamp(27px, 5vw, 38px); font-weight: 400; line-height: 1.08; }
+  .item-prompt { margin: 0 0 18px; color: var(--muted); font-size: 15px; line-height: 1.4; }
+  fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
+  legend { margin-bottom: 8px; font-size: 16px; font-weight: 700; }
+  .options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+  .option { position: relative; min-width: 0; }
+  .option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .option-copy {
+    display: flex;
+    align-items: center;
+    min-height: 54px;
+    padding: 8px 9px;
+    border: 1px solid #81796d;
+    background: #fffdf6;
+    font-size: 14px;
+    line-height: 1.25;
   }
-  .item-meta { color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; }
-  .item-title { margin: 10px 0 16px; font-size: clamp(23px, 4.8vw, 34px); line-height: 1.1; font-weight: 400; }
-  .proposition { margin: 16px 0; padding: 13px 15px; border-left: 4px solid var(--red); background: var(--red-soft); font-size: 14px; line-height: 1.5; }
-  .proposition strong { font-variant: small-caps; letter-spacing: .5px; }
-  .why { margin: 12px 0 19px; color: var(--muted); font-size: 12px; line-height: 1.5; }
-  .why strong { color: var(--ink); }
-  .experiment { margin: 12px 0; padding: 11px 13px; border-left: 4px solid var(--blue); background: var(--blue-soft); font-size: 12px; line-height: 1.5; }
-  .experiment strong { color: var(--ink); }
-  .item-evidence-label { display: block; margin: 15px 0 5px; font-size: 12px; font-weight: 700; }
-  .item-evidence {
-    width: 100%; min-height: 45px; padding: 9px 11px; border: 1px solid var(--rule);
-    background: #fffaf0; color: var(--ink); border-radius: 0;
+  .option input:checked + .option-copy { border: 2px solid var(--red); padding: 7px 8px; background: var(--red-soft); font-weight: 700; }
+  .option input:focus-visible + .option-copy { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .note-wrap { margin-top: 18px; }
+  .note-input { min-height: 46px; padding: 10px 12px; }
+  .note-input:disabled { background: #ebe6db; color: var(--muted); }
+  .counter { float: right; color: var(--muted); font-size: 12px; }
+  .instrument-status { min-height: 20px; margin: 9px 0 0; color: var(--blue); font-size: 13px; line-height: 1.35; }
+  .instrument-nav { display: grid; grid-template-columns: auto 1fr; gap: 9px; margin-top: 15px; }
+  .review-list { display: grid; gap: 9px; margin: 18px 0; }
+  .review-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 13px; border: 1px solid #8c8579; background: rgba(255,255,255,.28); }
+  .review-row h3 { margin: 0 0 4px; font-size: 17px; }
+  .review-row p { margin: 2px 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
+  .review-row .button { min-width: 72px; }
+  .lock-note { margin: 14px 0; padding: 12px 14px; border-left: 4px solid var(--red); background: var(--red-soft); font-size: 14px; line-height: 1.4; }
+  .results-head { margin-bottom: 15px; }
+  .respondent-line { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 15px 0; }
+  .metric { min-width: 0; padding: 10px 8px; border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule); text-align: center; }
+  .metric strong { display: block; color: var(--red); font-size: 28px; line-height: 1; }
+  .metric span { display: block; margin-top: 5px; font-size: 12px; line-height: 1.2; }
+  .export-box { margin: 17px 0; padding: 15px; border: 2px solid var(--rule); background: #fffaf0; box-shadow: 5px 5px 0 var(--paper-deep); }
+  .export-box h2 { margin: 0 0 5px; font-size: 22px; font-weight: 400; }
+  .export-box p { margin: 0 0 10px; color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .task-output { min-height: 190px; padding: 11px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; line-height: 1.4; }
+  .export-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 9px; }
+  .result-status { min-height: 20px; margin-top: 8px; color: var(--blue); font-size: 13px; }
+  .next-step { margin: 18px 0; padding: 13px 15px; border-left: 4px solid var(--green); background: var(--green-soft); font-size: 15px; line-height: 1.42; }
+  .next-step strong { display: block; margin-bottom: 3px; }
+  .section-title { margin: 28px 0 9px; font-size: 22px; font-weight: 400; }
+  details.topic-note, details.appendix { margin: 8px 0; border: 1px solid #8c8579; background: rgba(255,255,255,.24); }
+  details.topic-note > summary, details.appendix > summary { min-height: 46px; padding: 12px 14px; cursor: pointer; font-size: 15px; font-weight: 700; }
+  .topic-note-body { padding: 0 14px 14px; }
+  .topic-note-body p { margin: 8px 0; font-size: 15px; line-height: 1.45; }
+  .topic-note-body .source { color: var(--muted); font-size: 13px; }
+  .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 20px; padding: 0 14px 14px; }
+  .talk { min-width: 0; padding: 10px 0; border-bottom: 1px dotted #999184; }
+  .talk h3 { margin: 0 0 3px; font-size: 15px; line-height: 1.25; overflow-wrap: anywhere; }
+  .talk .who { color: var(--red); font-size: 12px; font-variant: small-caps; }
+  .talk p { margin: 5px 0 0; font-size: 14px; line-height: 1.4; }
+  .source-basis { margin: 13px 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+  .page-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; padding-top: 8px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12px; }
+  @media (max-width: 700px) {
+    .paper { width: min(100% - 14px, 920px); margin: 7px auto; padding: 22px 16px 34px; }
+    .paper::before { display: none; }
+    .title-block { padding-top: 24px; }
+    .identity { grid-template-columns: 1fr; }
+    .date-stamp { text-align: left; }
+    .topic-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .talk-grid { grid-template-columns: 1fr; }
   }
-  .item-evidence::placeholder { color: var(--muted); }
-  fieldset { margin: 0; padding: 0; border: 0; }
-  legend { width: 100%; margin: 0 0 9px; padding: 0; font-size: 14px; font-weight: 700; line-height: 1.4; }
-  .options { display: grid; gap: 7px; counter-reset: response; }
-  .response {
-    counter-increment: response; display: grid; grid-template-columns: 36px 1fr; gap: 10px;
-    align-items: start; min-width: 0; padding: 10px 11px; border: 1px solid #aaa292;
-    background: rgba(247,241,228,.75); cursor: pointer;
-    transition: border-color .12s, background .12s, transform .12s;
-  }
-  .response:hover { border-color: var(--red); transform: translateX(2px); }
-  .response.selected { border: 2px solid var(--red); padding: 9px 10px; background: #fffaf0; }
-  .response input {
-    appearance: none; width: 25px; height: 25px; margin: 0; border: 1px solid var(--ink);
-    border-radius: 50%; background: transparent; display: grid; place-content: center;
-  }
-  .response input::before { content: ""; width: 13px; height: 13px; border-radius: 50%; transform: scale(0); background: var(--red); }
-  .response input:checked::before { transform: scale(1); }
-  .response-copy { min-width: 0; overflow-wrap: anywhere; }
-  .response-copy strong { display: block; font-size: 13px; line-height: 1.25; }
-  .response-copy strong::before { content: "(" counter(response, lower-alpha) ") "; color: var(--red); }
-  .response-copy span { display: block; margin-top: 2px; color: var(--muted); font-size: 11.5px; line-height: 1.35; }
-  .answer-confirm { margin-top: 10px; }
-  .source-note { margin-top: 15px; color: var(--muted); font-size: 10.5px; line-height: 1.4; }
-  .source-note summary { cursor: pointer; font-style: italic; }
-  .instrument-nav { display: grid; grid-template-columns: 1fr 1.65fr; gap: 9px; margin-top: 19px; }
-  .nav-progress { grid-column: 1 / -1; color: var(--muted); font-size: 10px; text-align: center; font-variant: small-caps; letter-spacing: .55px; }
-  .answer-status { min-height: 18px; margin-top: 8px; color: var(--green); font-size: 11px; }
-  .compile-log {
-    padding: 15px 17px; border: 1px solid var(--rule); background: #e9e1d1; color: #37332c;
-    font: 12px/1.55 "Courier New", monospace; overflow-wrap: anywhere; white-space: pre-line;
-  }
-  .result-title { margin: 26px 0 4px; text-align: center; font-size: clamp(28px, 6vw, 46px); font-weight: 400; line-height: 1.05; }
-  .result-subtitle { margin: 0 0 24px; text-align: center; color: var(--muted); font-style: italic; }
-  .summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
-  .metric { min-width: 0; padding: 12px 9px; border: 1px solid #9f9787; text-align: center; background: rgba(255,255,255,.26); }
-  .metric strong { display: block; color: var(--red); font-size: 27px; line-height: 1; }
-  .metric span { display: block; margin-top: 5px; font-size: 10px; line-height: 1.25; text-transform: uppercase; letter-spacing: .55px; overflow-wrap: anywhere; }
-  .interpretation { margin: 18px 0; padding: 15px 17px; border-block: 3px double var(--rule); font-size: 14px; line-height: 1.55; }
-  .interpretation strong { font-variant: small-caps; }
-  .next-study { margin: 15px 0 25px; padding: 14px 16px; border-left: 4px solid var(--blue); background: var(--blue-soft); font-size: 13px; line-height: 1.5; }
-  .results-list { list-style: none; margin: 16px 0 28px; padding: 0; counter-reset: result; }
-  .result-item { counter-increment: result; padding: 12px 0; border-bottom: 1px dotted #999184; }
-  .result-item h3 { margin: 0 0 4px; font-size: 14px; line-height: 1.3; }
-  .result-item h3::before { content: counter(result) ". "; color: var(--red); }
-  .result-answer { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 700; }
-  .result-practice, .result-evidence, .result-revision { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
-  .result-revision { margin-bottom: 4px; color: var(--green); font-weight: 700; }
-  .result-evidence { margin-top: 4px; color: var(--ink); }
-  .result-edit { margin-top: 8px; padding: 5px 8px; border: 1px solid #8d8577; background: transparent; color: var(--blue); font-size: 10px; font-weight: 700; }
-  .result-edit:hover { border-color: var(--blue); background: var(--blue-soft); }
-  .export-box { margin-top: 24px; padding: 18px; border: 3px double var(--red); background: rgba(255,255,255,.25); }
-  .export-box h2 { margin: 0 0 8px; font-size: 20px; font-weight: 400; }
-  .task-output {
-    width: 100%; min-height: 320px; margin-top: 12px; padding: 12px; border: 1px solid #857d6f;
-    background: #eee7da; color: #292721; font: 11px/1.45 "Courier New", monospace;
-    resize: vertical; overflow-wrap: anywhere;
-  }
-  .export-actions { display: grid; grid-template-columns: 1.55fr 1fr; gap: 9px; margin-top: 9px; }
-  .result-status { min-height: 20px; margin-top: 8px; color: var(--green); font-size: 12px; font-weight: 700; }
-  .secondary-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
-  .bibliography { margin-top: 36px; padding-top: 15px; border-top: 1px solid var(--rule); font-size: 10px; line-height: 1.45; color: var(--muted); }
-  .bibliography h2 { margin: 0 0 8px; color: var(--ink); font-size: 14px; font-variant: small-caps; }
-  .page-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; color: var(--muted); font-size: 9px; font-variant: small-caps; letter-spacing: .5px; }
-  @media (max-width: 650px) {
-    .paper { width: calc(100% - 14px); margin: 7px auto; padding: 21px 16px 42px; }
-    .paper::before, .formulae { display: none; }
-    .running-head { font-size: 9px; }
-    .title-block { padding-top: 31px; }
-    .talk-grid, .response-key { grid-template-columns: 1fr; }
-    .summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .instrument { padding: 17px 13px; }
-    .instrument-nav, .export-actions, .secondary-actions { grid-template-columns: 1fr; }
-    .item-map { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  }
-  @media (max-width: 360px) {
+  @media (max-width: 390px) {
     .paper { width: 100%; margin: 0; border-inline: 0; padding-inline: 12px; }
-    .response { grid-template-columns: 30px 1fr; padding-inline: 8px; }
-    .response.selected { padding-inline: 7px; }
-    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .running-head { font-size: 11px; }
+    .instrument { padding: 14px 11px; }
+    .option-copy { font-size: 13.5px; }
+    .review-row { grid-template-columns: 1fr; }
+    .review-row .button { width: 100%; }
+    .export-actions { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
   }
   @media print {
     body { background: #fff; }
+    .formulae, .button, .topic-browser, .export-actions { display: none !important; }
     .paper { width: 100%; margin: 0; border: 0; box-shadow: none; }
-    .formulae, .button, .instrument-nav { display: none !important; }
   }
 </style>
 </head>
 <body data-stage="start">
 <div class="formulae" aria-hidden="true">
-  <span>ΔK = after − before</span>
-  <span>Σ tokens ≠ quality</span>
-  <span>merged ≠ live ∎</span>
-  <span>∥ agents + one coordinator = fewer naps</span>
+  <span>N = you</span>
+  <span>p(acorn) &lt; 0.05</span>
+  <span>Reviewer 2 is typing…</span>
+  <span>∎ eventually</span>
 </div>
 <main class="paper">
   <div class="running-head" aria-hidden="true">
     <span>Proceedings of the Agentic Squirrel Society · Vol. I</span>
-    <span>A.S.S. Collective · Week-One Report</span>
+    <span>Week-One Field Note</span>
   </div>
-  <header class="title-block">
-    <div class="journal">A.S.S. Academy Working Paper No. 01</div>
-    <h1 id="pageTitle">Did Any of It Stick?</h1>
-    <p class="subtitle">A Very Serious One-Week Check-In After Agentic Squirrel Symposium I</p>
-    <p class="authors">The A.S.S. Academy Research Collective<sup>*</sup></p>
-    <p class="affiliation">Department of Applied Acornics, Squirrel Labs<br />Correspondence: Reviewer No. 2, currently requesting one more screenshot</p>
-    <div class="metadata">
-      <span>Received: one week ago</span><span>Accepted: pending evidence</span><span>Faux DOI: 10.1337/ASS.I.RETENTION</span>
-    </div>
-  </header>
-  <section id="stStart" aria-labelledby="pageTitle">
+  <section id="stageStart" aria-labelledby="pageTitle">
+    <header class="title-block">
+      <div class="journal">A.S.S. Academy Working Paper No. 01</div>
+      <h1 id="pageTitle">Did Any of It Stick?</h1>
+      <p class="subtitle">A short check-in after Agentic Squirrel Symposium I</p>
+      <p class="authors">The Department of Applied Acornics</p>
+      <p class="affiliation">Peer review status: the squirrel has concerns</p>
+      <div class="metadata"><span>10 topics</span><span>About 4 minutes</span><span>Zero grades</span></div>
+    </header>
     <div class="abstract">
-      <strong>Abstract.</strong> You heard 14 talks last week. This check-in asks about the 10 work habits that could matter most. You do not need to remember the agenda. Each page names one habit. Pick and save an answer; the best-practice note opens after. At the end, copy your report into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link.
-      <p class="keywords"><strong>Keywords:</strong> better work; honest answers; proof; very serious squirrels.</p>
+      <strong>Abstract.</strong> The event had 14 talks. You may have heard some, all, or none. For each topic, say what the event added and what you do now. You do not need the agenda.
     </div>
-    <div class="equation" aria-label="Showing up is not the same as learning, and saying is not the same as doing">
-      showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ doing <span class="number">(1)</span>
+    <div class="method-note"><strong>Method.</strong> Answer from memory. The best-practice notes appear only after your final review. High numbers do not win. Honest answers help the team.</div>
+    <div class="identity">
+      <label class="text-label" for="respondentName">Name or handle for the task
+        <input class="text-input" id="respondentName" maxlength="60" autocomplete="name" placeholder="e.g. Konrad" />
+      </label>
+      <div class="date-stamp" id="startDate" aria-label="Completion date"></div>
     </div>
-    <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> Pick an answer, check it, then save it. That saved answer goes in the event report. The guidance then opens. You can update how you feel after reading it, but your saved answer stays clear. If the event led to a real change that is still in use, pick “I changed my work.” It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
-    </div>
-    <h2 class="section-title"><span class="sec">1.</span>How to answer</h2>
-    <p class="lede">Use the same six answers on every page. They show what was new, what you knew before, and what you used.</p>
-    <div class="response-key" id="responseKey"></div>
-    <p class="small-note"><sup>*</sup> N = you. This takes about 5–7 minutes. Your answers stay in this tab. If you close or reload it, they are gone. The page does not send anything.</p>
-    <button class="button full start-button" id="btnStart" type="button">Start the very serious study</button>
+    <button class="button full" id="btnStart" type="button" disabled>Begin the study</button>
+    <p class="hint" id="startHint">Add a name or handle. Your answers stay in this tab until you copy them.</p>
   </section>
-  <section id="stCheckin" class="hidden" aria-labelledby="itemTitle">
-    <div class="progress-head">
-      <div class="progress-copy"><span id="progressText"></span><span id="progressSection"></span></div>
-      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics done" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-    <nav class="item-browser" aria-labelledby="itemBrowserTitle">
-      <div class="item-browser-head"><strong id="itemBrowserTitle">Jump to any topic</strong><span id="answeredCount" aria-live="polite"></span></div>
-      <div class="item-map" id="itemMap"></div>
-      <div class="item-map-legend" aria-hidden="true">
-        <span class="legend-mark current">here now</span><span class="legend-mark answered">done</span><span class="legend-mark">not done</span>
-      </div>
-      <button class="button full map-finish hidden" id="btnFinishMap" type="button">All 10 done — see my report →</button>
-      <button class="button secondary map-return hidden" id="btnReturnResults" type="button">← Back to my report</button>
+  <section id="stageCheckin" class="hidden" aria-labelledby="checkinTitle">
+    <header class="stage-head">
+      <div class="stage-kicker">Section 1 · Field work</div>
+      <h1 class="stage-title" id="checkinTitle">Ten work habits</h1>
+      <p class="stage-copy">Open any topic. Pick two answers, add one fact if useful, then save.</p>
+      <div class="progress-line"><strong id="progressText">0 of 10 saved</strong><span id="progressName"></span></div>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics saved" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+    </header>
+    <nav class="topic-browser" aria-labelledby="browserTitle">
+      <div class="browser-head"><strong id="browserTitle">Browse all 10 topics</strong><span>✓ = saved</span></div>
+      <div class="topic-map" id="topicMap"></div>
+      <button class="button full map-review hidden" id="btnMapReview" type="button">Review all answers</button>
     </nav>
-    <article class="instrument">
+    <article class="instrument" aria-labelledby="itemTitle">
       <div class="item-meta" id="itemMeta"></div>
-      <h1 class="item-title" id="itemTitle" tabindex="-1" aria-describedby="itemMeta navProgress"></h1>
+      <h2 class="item-title" id="itemTitle" tabindex="-1"></h2>
+      <p class="item-prompt" id="itemPrompt"></p>
       <fieldset>
-        <legend>Before this page teaches anything, what did Symposium I change for you? Pick one, then save it.</legend>
-        <div class="options" id="responseOptions"></div>
+        <legend>What did the event add?</legend>
+        <div class="options" id="learningOptions"></div>
       </fieldset>
-      <button class="button full answer-confirm" id="btnConfirmFirst" type="button" disabled>Save first answer &amp; show guidance</button>
-      <div class="hidden" id="postAnswer">
-        <div class="proposition" id="practiceText"></div>
-        <p class="why" id="whyText"></p>
-        <p class="experiment" id="experimentText"></p>
-        <details class="source-note">
-          <summary>Where this came from (optional)</summary>
-          <div id="sourceText"></div>
-        </details>
-        <label class="item-evidence-label" id="itemEvidenceLabel" for="itemEvidence"></label>
-        <input class="item-evidence" id="itemEvidence" maxlength="160" autocomplete="off" aria-describedby="itemEvidenceHelp" />
-        <p class="small-note" id="itemEvidenceHelp">Optional. Add a short fact or proof. Do not paste a private link, secret, or customer data.</p>
+      <fieldset>
+        <legend>What do you do now?</legend>
+        <div class="options" id="useOptions"></div>
+      </fieldset>
+      <div class="note-wrap">
+        <label class="text-label" id="noteLabel" for="itemNote"></label>
+        <span class="counter" id="noteCounter">0/140</span>
+        <input class="note-input" id="itemNote" maxlength="140" autocomplete="off" />
+        <p class="hint">Optional. No secrets, private links, or customer data.</p>
       </div>
-      <div class="answer-status" id="answerStatus" role="status" aria-live="polite"></div>
+      <div class="instrument-status" id="instrumentStatus" role="status" aria-live="polite"></div>
       <div class="instrument-nav">
-        <div class="nav-progress" id="navProgress"></div>
         <button class="button secondary" id="btnBack" type="button">← Back</button>
-        <button class="button" id="btnNext" type="button" disabled>Save and next →</button>
+        <button class="button" id="btnSaveNext" type="button" disabled>Save &amp; next →</button>
       </div>
     </article>
   </section>
-  <section id="stDone" class="hidden" aria-labelledby="resultTitle">
-    <div class="compile-log" id="compileLog" role="status" aria-live="polite"></div>
-    <div id="resultContent" class="hidden">
-      <h1 class="result-title" id="resultTitle" tabindex="-1">Your Report</h1>
-      <p class="result-subtitle">The summary uses your first answer on each topic. Any later update appears below. There is no hidden score.</p>
-      <div class="summary-grid" id="summaryGrid"></div>
-      <div class="interpretation" id="interpretation"></div>
-      <div class="next-study" id="nextStudy"></div>
-      <details class="appendix">
-        <summary>Optional Appendix A — 14 talks in 14 short notes</summary>
-        <div class="talk-grid" id="talkGrid"></div>
-      </details>
-      <h2 class="section-title"><span class="sec">4.</span>All your answers</h2>
-      <p class="lede">Your first answer and any update are below. Nothing is right or wrong.</p>
-      <ol class="results-list" id="resultsList"></ol>
-      <div class="theorem">
-        <strong>Reality check.</strong> These answers show what you think you learned. They do not prove the team changed. To check that, pick an owner and look for a real sign later. A sign could be a checklist, a note, a log, a handoff, or the same good action happening again. <span class="proof-end" aria-hidden="true">□</span>
-      </div>
-      <section class="export-box" aria-labelledby="exportTitle">
-        <h2 id="exportTitle">Appendix B. Copy this into the task</h2>
-        <p class="lede">Copy the full note. Paste it into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link. This page cannot post for you. A downloaded file is only a backup.</p>
-        <textarea class="task-output" id="taskOutput" readonly aria-label="Report ready to paste into the task"></textarea>
-        <div class="export-actions">
-          <button class="button" id="btnCopyTask" type="button">Copy my full report</button>
-          <button class="button secondary" id="btnDownloadText" type="button">Download a backup</button>
-        </div>
-        <div class="result-status" id="resultStatus" role="status" aria-live="polite"></div>
-      </section>
-      <div class="secondary-actions">
-        <button class="button secondary" id="btnReview" type="button">Review or edit answers</button>
-        <button class="button secondary" id="btnCopyCard" type="button">Copy report card</button>
-        <button class="button secondary" id="btnDownloadCard" type="button">Download report card</button>
-      </div>
-    </div>
+  <section id="stageReview" class="hidden" aria-labelledby="reviewTitle">
+    <header class="stage-head">
+      <div class="stage-kicker">Section 2 · Peer review</div>
+      <h1 class="stage-title" id="reviewTitle" tabindex="-1">Check your answers</h1>
+      <p class="stage-copy">This is your last clean look. The practice notes are still hidden.</p>
+    </header>
+    <div class="review-list" id="reviewList"></div>
+    <div class="lock-note"><strong>Why the dramatic lock?</strong> After you finish, the page teaches the practices. Your answers then lock so the lesson cannot rewrite the check-in.</div>
+    <button class="button full" id="btnFinish" type="button">Lock answers &amp; show my report</button>
   </section>
-  <section class="bibliography" aria-labelledby="referencesTitle">
-    <h2 id="referencesTitle">Sources and one small methods problem</h2>
-    <p>[1] Talk notes and transcript from Agentic Squirrel Symposium I. [2] Ten good work habits from the talks and known team gaps. [3] This check-in is a self-report, not a scientific study.</p>
+  <section id="stageResults" class="hidden" aria-labelledby="resultsTitle">
+    <header class="stage-head results-head">
+      <div class="stage-kicker">Section 3 · Findings</div>
+      <h1 class="stage-title" id="resultsTitle" tabindex="-1">Your week-one check-in</h1>
+      <p class="respondent-line" id="respondentLine"></p>
+    </header>
+    <div class="summary-grid" id="summaryGrid"></div>
+    <section class="export-box" aria-labelledby="exportTitle">
+      <h2 id="exportTitle">Copy this into the task</h2>
+      <p>This includes every answer and your notes. Paste it into the Agentic Squirrel Symposium I follow-up task.</p>
+      <textarea class="task-output" id="taskOutput" readonly aria-label="Results ready to paste into the task"></textarea>
+      <div class="export-actions">
+        <button class="button" id="btnCopy" type="button">Copy task update</button>
+        <button class="button secondary" id="btnSelect" type="button">Select text</button>
+      </div>
+      <div class="result-status" id="resultStatus" role="status" aria-live="polite"></div>
+    </section>
+    <div class="next-step" id="nextStep"></div>
+    <h2 class="section-title">The ten practice notes</h2>
+    <p class="stage-copy">Open any note. These are guides, not points.</p>
+    <div id="practiceNotes"></div>
+    <details class="appendix">
+      <summary>Appendix A · All 14 talks in one line each</summary>
+      <div class="talk-grid" id="talkGrid"></div>
+    </details>
+    <p class="source-basis"><strong>Source note.</strong> The talk recap uses the short notes saved in the first version of this page. No transcript is embedded or linked here. Items marked “team gap” are follow-up goals, not talk claims.</p>
   </section>
-  <footer class="page-foot"><span>squirrellabs.dev/quiz/ass-1</span><span>Page <span id="pageNumber">1</span> of ∞</span></footer>
+  <footer class="page-foot"><span>squirrellabs.dev/quiz/ass-1</span><span>Faux DOI 10.1337/ASS.I.CHECKIN</span></footer>
 </main>
 <script>
 const TALKS = [
-  { id: "T01", speaker: "Aleks", title: "Chip abuse", summary: "Chip is the team’s helper for saving tasks. Tell it why a side task matters and what to do next. Then return to your main task." },
-  { id: "T02", speaker: "Konrad", title: "Konrad's Brain Tricks", summary: "Agents can finish work faster than one person can review it. Group jobs that use the same checks. Read short updates to see where help is needed." },
-  { id: "T03", speaker: "Hugo", title: "Voice input and Playwright MCP", summary: "Speaking can be a fast way to give a full brief. Playwright is a tool that controls a browser. Let it do safe steps. Keep sign-in, MFA, and risky choices with a person." },
-  { id: "T04", speaker: "Konrad", title: "GenUI in Two Minutes", summary: "GenUI is a visual tool made for one choice, like a comparison board. Use it when choices affect each other. Skip it for tiny choices." },
-  { id: "T05", speaker: "Hugo", title: "HTML reports", summary: "A long note can hide how facts connect. A small web report can show those links and make the details easy to check." },
-  { id: "T06", speaker: "Kushagra", title: "multinut, six viewports at once, and why it does not replace our screenshot pipeline", summary: "Multinut shows a site at many screen sizes at once. Use it to find layout bugs. Use normal screenshots as proof. Keep repeated clicks away from live systems." },
-  { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "Tmux keeps a terminal job open. A VPS is a computer that stays online. Together they let long jobs keep running when your laptop closes." },
-  { id: "T08", speaker: "Konrad", title: "Disposable VM Manifesto", summary: "A virtual machine is a computer made with software. Use one to keep risky work away from your main system. Give it only the access it needs. Test how to reset it." },
-  { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "A Git worktree is a separate project folder. Split panes let you watch several jobs. Leave a clear handoff when another person takes over." },
-  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "Put every choice that needs a person in one list. Add the facts needed to decide. Separate work folders still share web addresses, running servers, and Git branches." },
-  { id: "T11", speaker: "Aleks", title: "support triage", summary: "An agent can sort common support cases with low risk. A named person must handle unclear cases and big choices." },
-  { id: "T12", speaker: "Konrad", title: "Vana", summary: "Vana tested an agent that could act in many situations. Give an agent one clear role. Limit the data and actions it can use. Keep important choices with a person." },
-  { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "When a bug comes back, write the rule that would stop it. Add a check for the rule. Then test the real steps a user takes in the live product." },
-  { id: "T14", speaker: "Jota", title: "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.", summary: "Check serious reports with direct evidence. Explain how the problem happens and who it affects. After a fix, test the live product." }
+  { id: "T01", speaker: "Aleks", title: "Chip abuse", summary: "Ask Chip to capture tasks the instant they appear; removing task-entry friction made organization stick." },
+  { id: "T02", speaker: "Konrad", title: "Konrad's Brain Tricks", summary: "People's attention, not computer power, is scarce. Group jobs that need the same proof. Check long runs before they drift." },
+  { id: "T03", speaker: "Hugo", title: "Voice input and Playwright MCP", summary: "Voice gives an agent rich context fast. Browser agents can handle slow screen work after a person handles sign-in and risky steps." },
+  { id: "T04", speaker: "Konrad", title: "GenUI in Two Minutes", summary: "Use a visual picker for a few important choices. Do not turn many tiny choices into a permanent plan." },
+  { id: "T05", speaker: "Hugo", title: "HTML reports", summary: "When terminal prose hides relationships, ask for a self-contained visual report that makes the whole system inspectable." },
+  { id: "T06", speaker: "Kushagra", title: "multinut, six viewports at once, and why it does not replace our screenshot pipeline", summary: "Six synced screen sizes show what moved. Normal screenshots still prove the fix. Keep repeated clicks on a local test copy." },
+  { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "An online server, a saved terminal, and a schedule can keep lead agents running. Logs and clear rules for asking a person keep them useful." },
+  { id: "T08", speaker: "Konrad", title: "Schizo VM Manifesto", summary: "Assume an agent computer may be wiped. Keep it separate, give it few passwords, and save copies so you can roll it back." },
+  { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "Arrange sessions by project and how much attention they need. End with a clear handoff so the next person does not have to dig." },
+  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "One list of decisions that need a person beats checking every job. Separate code folders still share web addresses, servers, and changing branches." },
+  { id: "T11", speaker: "Aleks", title: "support triage", summary: "A manager agent sorts work, gives helpers small cases, and gives people a short list of actions only they can take." },
+  { id: "T12", speaker: "Konrad", title: "Vana", summary: "Agents that can act in many places need narrow roles, replaceable tools, and clear approval stops. Safety rules are most of the work." },
+  { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "When a bug returns, write a rule an agent can read, explain why, and add a check that is easy to find. Merged code may not be live." },
+  { id: "T14", speaker: "Jota", title: "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.", summary: "Treat each report as something to check. Return proof or show it is wrong, inside safety rules written before the test." }
 ];
-const SOURCE_GAPS = [
-  { id: "GAP_RESUMABILITY", label: "a handoff that lets another person continue the job" },
-  { id: "GAP_COORDINATOR", label: "one lead agent that can start, track, and join helper-agent work" },
-  { id: "GAP_ADVERSARIAL_REVIEW", label: "an independent review that tries to prove findings wrong" },
-  { id: "GAP_TOKEN_BUDGET", label: "enough tokens for hard work, proof, and a handoff" }
+const TEAM_GAPS = {
+  GAP_COORDINATOR: "Team gap: a lead agent that can start, check, and join helper work",
+  GAP_TOKEN_BUDGET: "Team gap: enough task or token budget for work, proof, and a handoff",
+  GAP_ADVERSARIAL_REVIEW: "Team gap: a separate review that tries to prove findings wrong",
+  GAP_RESUMABILITY: "Team gap: context that lets another person or agent continue"
+};
+const LEARNING_OPTIONS = [
+  { id: "new", label: "New to me", report: "New to me" },
+  { id: "clearer", label: "Clearer now", report: "Clearer after the event" },
+  { id: "already", label: "I knew it", report: "Already knew it" },
+  { id: "unsure", label: "Not sure / missed it", report: "Not sure or missed it" },
+  { id: "irrelevant", label: "Not for my role", report: "Not relevant to my role" },
+  { id: "private", label: "Keep private", report: "Prefer not to say" }
 ];
-const RESPONSES = [
-  { id: "unclear", label: "Still fuzzy", detail: "I still cannot explain why this helps or what I should do." },
-  { id: "already", label: "Knew it already", detail: "I could explain and use this before the event, and I still can. The event taught me nothing new and changed nothing." },
-  { id: "understand", label: "I get it now", detail: "Because of the event, I can explain why this helps. I still need help to choose or use it safely." },
-  { id: "apply", label: "I learned something useful", detail: "The event added something useful. I can use this safely, but my real work has not changed." },
-  { id: "used", label: "I changed my work", detail: "Because of the event, I now use this in real work or made a workflow change that is still in place." },
-  { id: "na", label: "Skip for now", detail: "I cannot fairly judge what I learned, this topic did not apply to me, or I prefer not to answer." }
+const USE_OPTIONS = [
+  { id: "now", label: "Use it now", report: "Using it now" },
+  { id: "once", label: "Tried it once", report: "Tried it once or twice" },
+  { id: "stopped", label: "Tried, then stopped", report: "Tried it, then stopped" },
+  { id: "no", label: "Not using it", report: "Not using it" },
+  { id: "irrelevant", label: "Not for my role", report: "Not relevant to my role" },
+  { id: "private", label: "Keep private", report: "Prefer not to say" }
 ];
 const ITEMS = [
   {
-    id: "P01", section: "§ 2.1 · Parallel work", construct: "Parallel jobs",
-    prompt: "Running more than one agent or process on the same project.",
-    practice: "Run jobs at the same time only when they do not need each other’s answers. Give each job a clear result and pass/fail checks. Name who will join the results.",
-    why: "AI can be slow and thorough. Parallel work saves time when the jobs are separate. Hidden links cause repeats, conflicts, and extra review.",
-    source: ["T02", "T09"],
-    experiment: "Split one real task into independent and dependent parts. Run two independent parts together. Record elapsed time, rework, and whether the results joined cleanly.",
-    evidence: "Most agents or processes at once, what each did, and whether the results joined cleanly"
+    id: "P01", short: "Parallel work", title: "Do you run work in parallel?",
+    prompt: "Two or more agents or processes running at the same time, on one project or several projects.",
+    note: "Since the event: peak at once, how often, their jobs, and whether the results fit together",
+    practice: "Run separate jobs together only when they can stand alone. Give each job its own output and checks. Name who joins the results. Separate files, branches, ports, accounts, and other shared tools when needed.",
+    tryNext: "Run two independent jobs together. Record time saved, conflicts, and whether the outputs joined cleanly.",
+    source: ["T02", "T09", "T10"]
   },
   {
-    id: "P02", section: "§ 2.1 · Parallel work", construct: "Parallel job setup",
-    prompt: "Keeping several agent jobs from using the same files, code changes, app, or web address.",
-    practice: "For code, give each job its own project folder and Git branch—a separate line of changes. Give each running app its own terminal window and web address. Name an owner for shared servers, accounts, and branches. Check for conflicts before starting.",
-    why: "Separate folders protect files. They do not separate running apps, accounts, or shared code changes.",
-    source: ["T09", "T10"],
-    experiment: "Run two safe jobs with a short isolation checklist. Add any new conflict to the checklist.",
-    evidence: "Check used and number of conflicts found (zero is fine)"
+    id: "P02", short: "Coordinator", title: "Do you use a lead agent for helper agents?",
+    prompt: "One coordinator, such as Fable, starts focused helpers and joins their work.",
+    note: "Since the event: lead agent, helper count and jobs, checks, and final result",
+    practice: "For a big job with separate parts, give one lead agent the goal and checks. Let it start focused helpers, check their proof, resolve conflicts, and return one result. A person owns risky choices.",
+    tryNext: "Give one lead agent a job with two separate parts. Save the helper briefs, proof, and joined result.",
+    source: ["T11", "GAP_COORDINATOR"]
   },
   {
-    id: "P03", section: "§ 2.1 · Parallel work", construct: "Coordinator agents",
-    prompt: "One lead agent planning work for smaller helper agents.",
-    practice: "For a large job, use one strong lead agent. Fable is one example, but any good coordinator can work. It gives each helper agent one clear job, checks progress, asks for proof, and joins the results. Start helper agents only when separate work will help.",
-    why: "More agents can make more output without making one good result. A coordinator keeps the parts aimed at the same goal.",
-    source: ["T02", "T10", "T11", "T12", "GAP_COORDINATOR"],
-    experiment: "Give a lead agent one job with two separate parts. Save the helper instructions, proof, and final joined result.",
-    evidence: "Lead agent, helper roles and count, and whether the final result passed its checks"
+    id: "P03", short: "Long runs", title: "Do you run agents while you are away?",
+    prompt: "A useful agent job keeps going for an hour or more without being watched.",
+    note: "Longest run since the event: task, time, result, stop reason, and coordinator or supervisor used",
+    practice: "Use a machine and session that stay on. Set check-in and stop times. Save progress. Alert a named person on failure or a needed choice. Leave a handoff. Longest is not best; useful progress is the goal.",
+    tryNext: "Run one bounded long job with a checkpoint, stop rule, alert, and handoff.",
+    source: ["T02", "T07", "T09", "T10"]
   },
   {
-    id: "P04", section: "§ 2.2 · Long jobs", construct: "Long agent runs",
-    prompt: "An agent job may keep running for hours after you close your laptop.",
-    practice: "Run the job in a named terminal window that stays open on an online computer. Set a review or stop time. Save progress notes and a note that lets someone continue. Alert on failure, a missed update, an important finish, or a choice that needs a named person. Extend the run only while it makes useful progress.",
-    why: "A job can stay alive for hours while doing nothing useful. Checkpoints and stop rules make long work safe and easy to judge.",
-    source: ["T01", "T07", "T09", "T10", "GAP_RESUMABILITY"],
-    experiment: "For one long job, record its planned limit, real run time, result, and why it stopped or kept going.",
-    evidence: "Longest run since the event: duration, task, result, and why it stopped"
+    id: "P04", short: "Token budget", title: "Do you give hard jobs enough token budget?",
+    prompt: "Enough tokens, or another visible task limit, to do the work, check it, and leave a handoff.",
+    note: "Since the event: tool and visible limit, finished or cut off, and any check or handoff lost",
+    practice: "When the tool allows it, set a limit that fits the job. Leave room for proof and a handoff. If the job runs out, narrow or split it. More tokens do not prove better work.",
+    tryNext: "Plan one hard job's limit and checks. Record whether it finished, cut off, or needed a smaller scope.",
+    source: ["GAP_TOKEN_BUDGET"]
   },
   {
-    id: "P05", section: "§ 2.2 · Long jobs", construct: "Token budgets",
-    prompt: "Tokens are small pieces of text an agent can read or write. This topic is the token limit for a hard job.",
-    practice: "Match the token budget to the job’s size, difficulty, and risk. Leave room for proof and a handoff. If the budget is tight, narrow or split the job. Do not treat more tokens as proof of better work.",
-    why: "Too few tokens can cut off useful work. Too many can waste time or hide a weak brief. The right amount depends on the job.",
-    source: ["T02", "GAP_TOKEN_BUDGET"],
-    experiment: "Run one hard task with a planned budget and clear checks. Record whether it finished, ran out, or needed a smaller scope.",
-    evidence: "Token budget, result, and whether any check was cut short"
+    id: "P05", short: "AI visuals", title: "Do you try new AI-made decision visuals?",
+    prompt: "A table, flow, picker, or small report that makes an important choice easier to see.",
+    note: "Since the event: AI or tool, new visual method, decision, fact check, and what improved",
+    practice: "Try a new AI-made table, flow, picker, or report only when it makes an important choice or link easier to see than short text. Check the key facts in proportion to the risk.",
+    tryNext: "Turn one linked choice into a small visual. Ask one person if it made the decision easier.",
+    source: ["T04", "T05"]
   },
   {
-    id: "P06", section: "§ 2.3 · Visual work", construct: "AI visuals for choices",
-    prompt: "Using a table, flow, picker, or small web report for a hard choice.",
-    practice: "First name the link or trade-off people need to see. Make a visual only when it makes that link or choice clearer than short text. Use plain text for a simple choice.",
-    why: "A useful visual can make trade-offs clear. A new visual made only for novelty adds work and can distract from the choice.",
-    source: ["T04", "T05"],
-    experiment: "Turn one real, connected choice into a useful visual. Ask another person if it improved the choice or next step.",
-    evidence: "Visual you tried and the choice it helped"
+    id: "P06", short: "Browser agents", title: "Do agents use the browser for you?",
+    prompt: "An agent navigates, reads, types, or clicks during a bounded browser task.",
+    note: "Since the event: browser task, sites, allowed actions, safety stop, and result",
+    practice: "Give a browser agent only the sites, data, and actions it needs. A person handles sign-in, MFA, money, posts, deletion, and any step outside the written plan. In production, the agent stops before a lasting action.",
+    tryNext: "Delegate one safe browser chore with written sites, actions, stop points, and expected proof.",
+    source: ["T03", "T08", "T12"]
   },
   {
-    id: "P07", section: "§ 2.3 · Visual work", construct: "AI visual checks",
-    prompt: "Checking facts and labels in a visual made by AI.",
-    practice: "Check every fact, label, number, and line against the source. Add a clear title, readable labels, and a short text summary. Do not use color as the only signal. Ask another person to inspect it.",
-    why: "A polished picture can make wrong information feel true. Source checks and clear labels make it safer and easier to use.",
-    source: ["T05", "T06"],
-    experiment: "Make one AI visual. Check its sources and labels. Ask someone to find one wrong or unclear part, then fix it.",
-    evidence: "Check used and number of wrong parts found (zero is fine)"
+    id: "P07", short: "Browser QA", title: "Do agents test a full browser path?",
+    prompt: "An agent clicks through an important app path the way a person would.",
+    note: "Since the event: path, safe test place, result, issue seen, proof, and what was not tested",
+    practice: "Let an agent follow one full user path in a safe test place. Save screenshots or a log. Report passed, failed, issues seen, and what was not tested. One run cannot rule out every bug.",
+    tryNext: "Pick one important test path. Have an agent run it safely and save a scoped result with proof.",
+    source: ["T03", "T06", "T13", "T14"]
   },
   {
-    id: "P08", section: "§ 2.4 · Browser work", construct: "Browser agents",
-    prompt: "Letting an agent navigate, read, type, or click in a browser.",
-    practice: "Give it a clear list of allowed sites, data, and actions. Keep passwords, MFA—the extra sign-in check—money, posts, and deletion with a person unless an approved system was built for that exact job. Stop when the site or action falls outside the instructions.",
-    why: "A narrow browser job can save repeated clicking. Clear limits stop a changed page or surprise action from causing harm.",
-    source: ["T03", "T08", "T12"],
-    experiment: "Choose one safe browser job. Write its allowed actions and stop points. Let the agent do the routine steps and note where it stopped.",
-    evidence: "Browser task, steps delegated, and handoff point"
+    id: "P08", short: "Adversarial review", title: "Do agents try to disprove important claims?",
+    prompt: "A separate reviewer in fresh context attacks an important, uncertain, or risky finding.",
+    note: "Since the event: claim, first finder, separate reviewer, result, and safe human check",
+    practice: "For an important, uncertain, or risky claim, use a separate fresh reviewer to try to prove it wrong. Record supported, ruled out, or unresolved. A person checks serious results with safe evidence before the team acts.",
+    tryNext: "Give one material claim and its evidence to a fresh reviewer. Ask for a refutation, not agreement.",
+    source: ["T14", "GAP_ADVERSARIAL_REVIEW"]
   },
   {
-    id: "P09", section: "§ 2.4 · Browser work", construct: "Independent review",
-    prompt: "Having a second reviewer check claims made by the first reviewer.",
-    practice: "Let one reviewer find possible problems. Give each claim to a second reviewer. The second reviewer checks the source and tries to prove the claim wrong. Repeat steps only in a safe test place or with a safe test account. Stop before any lasting effect. A person checks serious claims with safe evidence before the team acts.",
-    why: "A reviewer can sound sure and still be wrong. Trying to disprove claims removes false alarms and makes real problems easier to trust.",
-    source: ["T13", "T14", "GAP_ADVERSARIAL_REVIEW"],
-    experiment: "Give one claim to a new reviewer. Ask them to try to prove it wrong and show safe steps and evidence.",
-    evidence: "Claim checked and result: supported or ruled out"
+    id: "P09", short: "Context handoff", title: "Can another agent resume the work?",
+    prompt: "A saved handoff makes paused or parallel work easy to continue.",
+    note: "Since the event: handoff used, what it saved, who resumed, and whether they got stuck",
+    practice: "When work pauses or moves, save the goal, completed work, exact files or links, proof, decisions, owner, blockers, and next step. Capture side tasks as soon as they appear with enough context to resume.",
+    tryNext: "Pause one job and write a short handoff. Ask another agent to continue without extra chat.",
+    source: ["T01", "T09", "T10", "GAP_RESUMABILITY"]
   },
   {
-    id: "P10", section: "§ 2.4 · Browser work", construct: "Full browser paths",
-    prompt: "Testing an app by following a user’s path from start to finish.",
-    practice: "Use the real browser screen to navigate, click, type, and check what appears. Use a test site or safe test account. Follow one normal user path and save screenshots or a short log. Stop before sending a form or message, changing live data or settings, posting, deleting, or moving money unless a person approved it.",
-    why: "Code checks can pass while buttons, screens, or the live path are broken. A full click-through checks what a user can really do.",
-    source: ["T03", "T06", "T13", "T14"],
-    experiment: "Replay one important user path with a safe account. Save the steps and result. Compare what it found with the code checks.",
-    evidence: "App path tested and issue found or ruled out"
+    id: "P10", short: "Rules and live proof", title: "Do repeat mistakes become rules and checks?",
+    prompt: "A repeated bug or mistake becomes a clear rule, a check, and safe proof on the deployed product.",
+    note: "Since the event: repeat issue, rule, automatic or searchable check, deployed proof, and result",
+    practice: "When a bug returns, write a clear rule and why it matters. Add an automatic or easy-to-find check. After the change ships, safely prove the real deployed behavior. Record proof, refutation, or unresolved.",
+    tryNext: "Take one repeat issue. Write the rule, add a check, and safely verify the shipped behavior.",
+    source: ["T13", "T14"]
   }
 ];
 const $ = (id) => document.getElementById(id);
-const stages = { start: $("stStart"), checkin: $("stCheckin"), done: $("stDone") };
-const answers = Array(ITEMS.length).fill(null);
-const firstAnswers = Array(ITEMS.length).fill(null);
-const evidenceNotes = Array(ITEMS.length).fill("");
-const skipReasons = Array(ITEMS.length).fill("");
-let position = 0;
-let reviewingResults = false;
-let lastExportSignature = null;
-let copyResetTimer = null;
-function showStage(name) {
-  Object.entries(stages).forEach(([key, element]) => element.classList.toggle("hidden", key !== name));
-  document.body.dataset.stage = name;
-  $("pageNumber").textContent = name === "start" ? "1" : name === "checkin" ? "2" : "3";
-  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+const state = {
+  name: "",
+  position: 0,
+  answers: ITEMS.map(() => ({ learning: "", use: "", note: "", saved: false })),
+  locked: false,
+  date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10)
+};
+function optionById(options, id) {
+  return options.find((option) => option.id === id);
 }
-function responseById(id) { return RESPONSES.find((response) => response.id === id); }
-function sourceLabel(id) {
-  const talk = TALKS.find((entry) => entry.id === id);
-  if (talk) return `${talk.title} — ${talk.speaker}`;
-  const gap = SOURCE_GAPS.find((entry) => entry.id === id);
-  return gap ? `Team gap: ${gap.label}` : id;
-}
-function renderStaticContent() {
-  $("progressTrack").setAttribute("aria-valuemax", String(ITEMS.length));
-  $("btnFinishMap").textContent = `All ${ITEMS.length} done — see my report →`;
-  RESPONSES.forEach((response) => {
-    const chip = document.createElement("div");
-    chip.className = "key-chip";
-    const strong = document.createElement("strong");
-    strong.textContent = response.label;
-    const span = document.createElement("span");
-    span.textContent = response.detail;
-    chip.append(strong, span);
-    $("responseKey").appendChild(chip);
+function showStage(stage) {
+  ["Start", "Checkin", "Review", "Results"].forEach((name) => {
+    $(`stage${name}`).classList.toggle("hidden", name.toLowerCase() !== stage);
   });
-  TALKS.forEach((talk) => {
-    const article = document.createElement("article");
-    article.className = "talk";
-    const heading = document.createElement("h3");
-    heading.id = `talk-${talk.id}`;
-    heading.textContent = talk.title;
-    article.setAttribute("aria-labelledby", heading.id);
-    const who = document.createElement("div");
-    who.className = "who";
-    who.textContent = `${talk.id} · ${talk.speaker}`;
-    const summary = document.createElement("p");
-    summary.textContent = talk.summary;
-    article.append(heading, who, summary);
-    $("talkGrid").appendChild(article);
-  });
+  document.body.dataset.stage = stage;
 }
-function beginCheckin() {
-  reviewingResults = false;
-  position = firstAnswers.findIndex((answer) => answer === null);
-  if (position < 0) position = 0;
-  showStage("checkin");
-  renderItem();
-}
-function answeredTotal() { return firstAnswers.filter((answer) => answer !== null).length; }
-function updateNextButton() {
-  const allAnswered = answeredTotal() === ITEMS.length;
-  $("btnNext").disabled = firstAnswers[position] === null;
-  if (position < ITEMS.length - 1) $("btnNext").textContent = "Next topic →";
-  else if (allAnswered) $("btnNext").textContent = "See my report →";
-  else $("btnNext").textContent = "Find a topic not done →";
-}
-function renderProgress() {
-  const answered = answeredTotal();
-  const percent = (answered / ITEMS.length) * 100;
-  $("progressText").textContent = `${answered} of ${ITEMS.length} done`;
-  $("progressSection").textContent = `Here: ${position + 1} · ${ITEMS[position].construct}`;
-  $("progressFill").style.width = `${percent}%`;
-  $("progressTrack").setAttribute("aria-valuenow", String(answered));
-  $("answeredCount").textContent = `${answered} done · on ${position + 1}`;
-  $("navProgress").textContent = `Topic ${position + 1} of ${ITEMS.length} · ${answered} done`;
-  const map = $("itemMap");
-  map.replaceChildren();
-  ITEMS.forEach((item, index) => {
-    const button = document.createElement("button");
-    const response = firstAnswers[index] ? responseById(answers[index]) : null;
-    button.type = "button";
-    button.className = `item-jump${response ? " answered" : ""}${index === position ? " current" : ""}`;
-    button.textContent = String(index + 1);
-    const state = response ? `done: ${response.label}` : "not done";
-    button.setAttribute("aria-label", `Topic ${index + 1}: ${item.construct}; ${state}`);
-    button.title = `${index + 1}. ${item.construct} — ${state}`;
-    if (index === position) button.setAttribute("aria-current", "step");
-    button.addEventListener("click", (event) => { if (event.detail <= 1) goToItem(index); });
-    map.appendChild(button);
-  });
-  $("btnFinishMap").classList.toggle("hidden", answered !== ITEMS.length || reviewingResults);
-  $("btnReturnResults").classList.toggle("hidden", !reviewingResults);
-}
-function goToItem(index, notice = "") {
-  if (index < 0 || index >= ITEMS.length) return;
-  position = index;
-  renderItem(notice);
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
-function renderEvidencePrompt() {
-  const item = ITEMS[position];
-  if (answers[position] === "na") {
-    $("itemEvidenceLabel").textContent = "Optional skip reason: could not judge, not relevant, or prefer not to say.";
-    $("itemEvidence").placeholder = "Short reason (optional)";
-    $("itemEvidence").value = skipReasons[position];
-    return;
-  }
-  $("itemEvidenceLabel").textContent = `Optional fact or proof: ${item.evidence}.`;
-  $("itemEvidence").placeholder = "Short note (optional)";
-  $("itemEvidence").value = evidenceNotes[position];
-}
-function renderItem(notice = "") {
-  const item = ITEMS[position];
-  $("itemMeta").textContent = `${item.id} · ${item.construct}`;
-  $("itemTitle").textContent = item.prompt;
-  $("practiceText").replaceChildren();
-  const propositionLabel = document.createElement("strong");
-  propositionLabel.textContent = "Best practice. ";
-  $("practiceText").append(propositionLabel, document.createTextNode(item.practice));
-  $("whyText").replaceChildren();
-  const whyLabel = document.createElement("strong");
-  whyLabel.textContent = "Why this helps. ";
-  $("whyText").append(whyLabel, document.createTextNode(item.why));
-  $("experimentText").replaceChildren();
-  const experimentLabel = document.createElement("strong");
-  experimentLabel.textContent = "Try it. ";
-  $("experimentText").append(experimentLabel, document.createTextNode(item.experiment));
-  $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
-  renderEvidencePrompt();
-  $("postAnswer").classList.toggle("hidden", firstAnswers[position] === null);
-  $("btnConfirmFirst").classList.toggle("hidden", firstAnswers[position] !== null);
-  $("btnConfirmFirst").disabled = answers[position] === null;
-  $("answerStatus").textContent = notice;
-  const host = $("responseOptions");
+function renderOptionGroup(hostId, groupName, options, selected) {
+  const host = $(hostId);
   host.replaceChildren();
-  RESPONSES.forEach((response) => {
+  options.forEach((option) => {
     const label = document.createElement("label");
-    label.className = `response${answers[position] === response.id ? " selected" : ""}`;
+    label.className = "option";
     const input = document.createElement("input");
     input.type = "radio";
-    input.name = `response-${item.id}`;
-    input.value = response.id;
-    input.checked = answers[position] === response.id;
-    input.setAttribute("aria-label", `${response.label}: ${response.detail}`);
-    input.addEventListener("change", () => selectResponse(response.id));
+    input.name = groupName;
+    input.value = option.id;
+    input.checked = selected === option.id;
     const copy = document.createElement("span");
-    copy.className = "response-copy";
-    copy.setAttribute("aria-hidden", "true");
-    const strong = document.createElement("strong");
-    strong.textContent = response.label;
-    const detail = document.createElement("span");
-    detail.textContent = response.detail;
-    copy.append(strong, detail);
+    copy.className = "option-copy";
+    copy.textContent = option.label;
+    input.addEventListener("change", () => updateDraft(groupName, option.id));
     label.append(input, copy);
     host.appendChild(label);
   });
-  $("btnBack").disabled = position === 0;
-  updateNextButton();
-  renderProgress();
-  $("itemTitle").focus({ preventScroll: true });
 }
-function selectResponse(id) {
-  const firstAnswerPending = firstAnswers[position] === null;
-  answers[position] = id;
-  [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
-    label.classList.toggle("selected", label.querySelector("input").value === id);
+function isPrivate(answer) {
+  return answer.learning === "private" || answer.use === "private";
+}
+function updateDraft(groupName, value) {
+  if (state.locked) return;
+  const answer = state.answers[state.position];
+  answer[groupName] = value;
+  answer.saved = false;
+  if (isPrivate(answer)) {
+    answer.note = "";
+    $("itemNote").value = "";
+  }
+  $("itemNote").disabled = isPrivate(answer);
+  $("itemNote").placeholder = isPrivate(answer) ? "Note removed for privacy" : "One short fact (optional)";
+  $("noteCounter").textContent = `${answer.note.length}/140`;
+  $("btnSaveNext").disabled = !answer.learning || !answer.use;
+  $("instrumentStatus").textContent = "Answer changed. Save this topic again.";
+  renderMap();
+}
+function renderMap() {
+  const host = $("topicMap");
+  host.replaceChildren();
+  ITEMS.forEach((item, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `topic-jump${state.answers[index].saved ? " done" : ""}${index === state.position ? " current" : ""}`;
+    button.setAttribute("aria-label", `${index + 1}. ${item.short}${state.answers[index].saved ? ", saved" : ", not saved"}`);
+    if (index === state.position) button.setAttribute("aria-current", "step");
+    const number = document.createElement("strong");
+    number.textContent = `${state.answers[index].saved ? "✓" : String(index + 1).padStart(2, "0")} ·`;
+    button.append(number, document.createTextNode(item.short));
+    button.addEventListener("click", () => goToItem(index));
+    host.appendChild(button);
   });
-  if (firstAnswerPending) {
-    $("btnConfirmFirst").disabled = false;
-    updateNextButton();
-    $("answerStatus").textContent = `Choice selected: ${responseById(id).label}. You can change it. Save it to open the guidance.`;
+  const saved = state.answers.filter((answer) => answer.saved).length;
+  $("progressText").textContent = `${saved} of ${ITEMS.length} saved`;
+  $("progressTrack").setAttribute("aria-valuenow", String(saved));
+  $("progressFill").style.width = `${saved / ITEMS.length * 100}%`;
+  $("btnMapReview").classList.toggle("hidden", saved !== ITEMS.length);
+}
+function renderItem(notice = "") {
+  const item = ITEMS[state.position];
+  const answer = state.answers[state.position];
+  $("itemMeta").textContent = `${item.id} · Topic ${state.position + 1} of ${ITEMS.length}${answer.saved ? " · saved" : ""}`;
+  $("itemTitle").textContent = item.title;
+  $("itemPrompt").textContent = item.prompt;
+  renderOptionGroup("learningOptions", "learning", LEARNING_OPTIONS, answer.learning);
+  renderOptionGroup("useOptions", "use", USE_OPTIONS, answer.use);
+  $("noteLabel").textContent = item.note;
+  $("itemNote").value = answer.note;
+  $("itemNote").disabled = isPrivate(answer);
+  $("itemNote").placeholder = isPrivate(answer) ? "Note removed for privacy" : "One short fact (optional)";
+  $("noteCounter").textContent = `${answer.note.length}/140`;
+  $("btnBack").disabled = state.position === 0;
+  $("btnSaveNext").disabled = !answer.learning || !answer.use;
+  $("btnSaveNext").textContent = state.position === ITEMS.length - 1 ? "Save & review →" : "Save & next →";
+  $("instrumentStatus").textContent = notice || (answer.saved ? "Saved. You can change it, then save again." : "");
+  renderMap();
+}
+function goToItem(index, notice = "") {
+  state.position = Math.max(0, Math.min(ITEMS.length - 1, index));
+  showStage("checkin");
+  renderItem(notice);
+  $("itemTitle").focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+function saveCurrent() {
+  const answer = state.answers[state.position];
+  if (!answer.learning || !answer.use) return;
+  answer.saved = true;
+  renderMap();
+  const firstUnsavedAfter = state.answers.findIndex((candidate, index) => index > state.position && !candidate.saved);
+  const anyUnsaved = state.answers.findIndex((candidate) => !candidate.saved);
+  if (anyUnsaved < 0) {
+    showReview();
     return;
   }
-  renderEvidencePrompt();
-  updateNextButton();
-  renderProgress();
-  if (firstAnswers.every((answer) => answer !== null)) updateTaskOutput();
-  invalidateExportState();
-  $("answerStatus").textContent = `Current answer updated: ${responseById(id).label}. Your first answer still powers the event summary.`;
+  goToItem(firstUnsavedAfter >= 0 ? firstUnsavedAfter : anyUnsaved, "Previous topic saved.");
 }
-function confirmFirstResponse() {
-  if (firstAnswers[position] !== null || answers[position] === null) return;
-  firstAnswers[position] = answers[position];
-  $("btnConfirmFirst").classList.add("hidden");
-  $("postAnswer").classList.remove("hidden");
-  renderEvidencePrompt();
-  updateNextButton();
-  renderProgress();
-  if (firstAnswers.every((answer) => answer !== null)) updateTaskOutput();
-  invalidateExportState();
-  $("answerStatus").textContent = `First answer saved: ${responseById(firstAnswers[position]).label}. Guidance opened below.`;
+function renderReview() {
+  const host = $("reviewList");
+  host.replaceChildren();
+  ITEMS.forEach((item, index) => {
+    const answer = state.answers[index];
+    const row = document.createElement("article");
+    row.className = "review-row";
+    const copy = document.createElement("div");
+    const title = document.createElement("h3");
+    title.textContent = `${index + 1}. ${item.short}`;
+    const status = document.createElement("p");
+    status.textContent = `Event: ${optionById(LEARNING_OPTIONS, answer.learning).label} · Now: ${optionById(USE_OPTIONS, answer.use).label}`;
+    copy.append(title, status);
+    if (answer.note) {
+      const note = document.createElement("p");
+      note.textContent = `Fact: ${answer.note}`;
+      copy.appendChild(note);
+    }
+    const edit = document.createElement("button");
+    edit.type = "button";
+    edit.className = "button secondary";
+    edit.textContent = "Edit";
+    edit.setAttribute("aria-label", `Edit ${item.short}`);
+    edit.addEventListener("click", () => goToItem(index, "Edit this topic, then save it again."));
+    row.append(copy, edit);
+    host.appendChild(row);
+  });
 }
-function previousItem(event) {
-  if (event && event.detail > 1) return;
-  if (position === 0) return;
-  goToItem(position - 1);
-}
-function nextItem(event) {
-  if (event && event.detail > 1) return;
-  if (firstAnswers[position] === null) return;
-  if (position < ITEMS.length - 1) { goToItem(position + 1); return; }
-  const firstOpen = firstAnswers.findIndex((answer) => answer === null);
-  if (firstOpen >= 0) {
-    goToItem(firstOpen, `Topic ${firstOpen + 1} is the first one not done.`);
-    return;
-  }
-  finishCheckin();
+function showReview() {
+  if (state.answers.some((answer) => !answer.saved)) return;
+  showStage("review");
+  renderReview();
+  $("reviewTitle").focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
 function metrics() {
-  const counts = Object.fromEntries(RESPONSES.map((response) => [response.id, 0]));
-  firstAnswers.forEach((answer) => { if (answer) counts[answer] += 1; });
-  return {
-    counts,
-    attributedChange: counts.understand + counts.apply + counts.used,
-    applied: counts.used,
-    already: counts.already,
-    unclear: counts.unclear,
-    unassessed: counts.na,
-    assessed: ITEMS.length - counts.na
-  };
+  const learned = state.answers.filter((answer) => ["new", "clearer"].includes(answer.learning)).length;
+  const learningAssessed = state.answers.filter((answer) => ["new", "clearer", "already"].includes(answer.learning)).length;
+  const usingNow = state.answers.filter((answer) => answer.use === "now").length;
+  const useAssessed = state.answers.filter((answer) => !["irrelevant", "private"].includes(answer.use)).length;
+  const triedNotRoutine = state.answers.filter((answer) => ["once", "stopped"].includes(answer.use)).length;
+  const stopped = state.answers.filter((answer) => answer.use === "stopped").length;
+  return { learned, learningAssessed, usingNow, useAssessed, triedNotRoutine, stopped };
 }
-function recommendedFollowup() {
-  const rules = [
-    { code: "unclear", basis: "Current topic marked ‘Still fuzzy’" },
-    { code: "understand", basis: "Current topic marked ‘I get it now’" },
-    { code: "apply", basis: "Current topic marked ‘I learned something useful’" }
+function recommendedNextStep() {
+  let index = state.answers.findIndex((answer) => answer.use === "stopped");
+  if (index >= 0) return { item: ITEMS[index], text: `Review why ${ITEMS[index].short.toLowerCase()} stopped. Keep it stopped if it was unsafe or not useful. Otherwise, try a smaller safe test.` };
+  index = state.answers.findIndex((answer) => ["new", "clearer"].includes(answer.learning) && answer.use === "no");
+  if (index >= 0) return { item: ITEMS[index], text: ITEMS[index].tryNext };
+  index = state.answers.findIndex((answer) => answer.learning === "unsure" && !["irrelevant", "private"].includes(answer.use));
+  if (index >= 0) return { item: ITEMS[index], text: `Read the ${ITEMS[index].short.toLowerCase()} note below, then decide if one safe test would help.` };
+  return { item: null, text: "No automatic next step was chosen. Pick one only if it would help your work." };
+}
+function markdownSafe(value) {
+  return String(value).replace(/\r?\n|\r/g, " ").replace(/\\/g, "\\\\").replace(/([`*_{}\[\]<>#])/g, "\\$1");
+}
+function taskReport() {
+  const result = metrics();
+  const next = recommendedNextStep();
+  const lines = [
+    "## Agentic Squirrel Symposium I — week-one check-in", "",
+    `**Name:** ${markdownSafe(state.name)}`, `**Date:** ${state.date}`, "", "### Summary", "",
+    `- Event added knowledge: **${result.learned}/${result.learningAssessed || 0} topics I could judge**`,
+    `- Using now: **${result.usingNow}/${result.useAssessed || 0} work-relevant topics**`,
+    `- Tried once or stopped: **${result.triedNotRoutine}**`, "", "### Answers", ""
   ];
-  for (const { code, basis } of rules) {
-    const index = answers.findIndex((answer) => answer === code);
-    if (index >= 0) return { item: ITEMS[index], basis, text: `${ITEMS[index].construct}: ${ITEMS[index].experiment}` };
-  }
-  return { item: null, basis: "No topic needs a next step", text: "No extra step for now. Add proof later if your work changes." };
+  ITEMS.forEach((item, index) => {
+    const answer = state.answers[index];
+    lines.push(`${index + 1}. **${item.short}** — Event: ${optionById(LEARNING_OPTIONS, answer.learning).report}; now: ${optionById(USE_OPTIONS, answer.use).report}.`);
+    if (answer.note && !isPrivate(answer)) lines.push(`   - Since the event: ${markdownSafe(answer.note)}`);
+  });
+  lines.push("", "### One next step", "", next.item ? `**${next.item.short}:** ${next.text}` : next.text);
+  return lines.join("\n");
 }
-function profileText(result) {
-  if (result.assessed === 0) {
-    return `You skipped all ${ITEMS.length} topics. That is fine. This report does not guess what you learned or changed.`;
-  }
-  return `Your first answers say the event helped you learn or change ${result.attributedChange} of ${result.assessed} topics you judged. Work changed: ${result.applied}. Knew already: ${result.already}. Still fuzzy: ${result.unclear}. Skipped: ${result.unassessed}.`;
+function sourceLabel(id) {
+  const talk = TALKS.find((entry) => entry.id === id);
+  if (talk) return `${talk.title} — ${talk.speaker}`;
+  return TEAM_GAPS[id] || id;
 }
 function renderResults() {
   const result = metrics();
   const cards = [
-    [result.attributedChange, "Learned or changed"], [result.applied, "Changed my work"],
-    [result.already, "Knew already"], [result.unclear, "Still fuzzy"],
-    [result.unassessed, "Skipped"], [ITEMS.length, "Topics"]
+    [`${result.learned}/${result.learningAssessed || 0}`, "Event added knowledge"],
+    [`${result.usingNow}/${result.useAssessed || 0}`, "Using now"],
+    [String(result.triedNotRoutine), "Tried, not routine"],
+    [String(result.stopped), "Tried, then stopped"]
   ];
   $("summaryGrid").replaceChildren();
   cards.forEach(([value, label]) => {
@@ -758,291 +705,105 @@ function renderResults() {
     card.append(strong, span);
     $("summaryGrid").appendChild(card);
   });
-  $("interpretation").replaceChildren();
-  const interpretationLabel = document.createElement("strong");
-  interpretationLabel.textContent = "What this means. ";
-  $("interpretation").append(interpretationLabel, document.createTextNode(profileText(result)));
-  const followup = recommendedFollowup();
-  $("nextStudy").replaceChildren();
-  const followupLabel = document.createElement("strong");
-  followupLabel.textContent = `${followup.basis}. `;
-  $("nextStudy").append(followupLabel, document.createTextNode(followup.text));
-  $("resultsList").replaceChildren();
+  $("respondentLine").textContent = `${state.name} · ${state.date} · answers locked before guidance`;
+  $("taskOutput").value = taskReport();
+  const next = recommendedNextStep();
+  $("nextStep").replaceChildren();
+  const strong = document.createElement("strong");
+  strong.textContent = next.item ? `Suggested next step · ${next.item.short}` : "Suggested next step";
+  $("nextStep").append(strong, document.createTextNode(next.text));
+  $("practiceNotes").replaceChildren();
   ITEMS.forEach((item, index) => {
-    const firstResponse = responseById(firstAnswers[index]);
-    const currentResponse = responseById(answers[index]);
-    const entry = document.createElement("li");
-    entry.className = "result-item";
-    const heading = document.createElement("h3");
-    heading.textContent = item.construct;
-    const selected = document.createElement("p");
-    selected.className = "result-answer";
-    selected.textContent = `First answer: ${firstResponse.label} — ${firstResponse.detail}`;
-    const revision = document.createElement("p");
-    revision.className = "result-revision";
-    revision.textContent = `After reading the guidance: ${currentResponse.label} — ${currentResponse.detail}`;
+    const details = document.createElement("details");
+    details.className = "topic-note";
+    const summary = document.createElement("summary");
+    summary.textContent = `${index + 1}. ${item.short}`;
+    const body = document.createElement("div");
+    body.className = "topic-note-body";
     const practice = document.createElement("p");
-    practice.className = "result-practice";
-    practice.textContent = `Best practice: ${item.practice}`;
-    const notes = [];
-    if (evidenceNotes[index].trim()) {
-      const evidence = document.createElement("p");
-      evidence.className = "result-evidence";
-      evidence.textContent = `Note saved with a non-skip answer: ${evidenceNotes[index].trim()}`;
-      notes.push(evidence);
-    }
-    if (skipReasons[index].trim()) {
-      const reason = document.createElement("p");
-      reason.className = "result-evidence";
-      reason.textContent = `Reason saved with “Skip for now”: ${skipReasons[index].trim()}`;
-      notes.push(reason);
-    }
-    if (notes.length === 0) {
-      const emptyNote = document.createElement("p");
-      emptyNote.className = "result-evidence";
-      emptyNote.textContent = answers[index] === "na" ? "No skip reason added." : "No practice note added.";
-      notes.push(emptyNote);
-    }
-    const edit = document.createElement("button");
-    edit.type = "button";
-    edit.className = "result-edit";
-    edit.textContent = `Update answer or note ${index + 1}`;
-    edit.setAttribute("aria-label", `Update current answer or note ${index + 1}: ${item.construct}`);
-    edit.addEventListener("click", (event) => { if (event.detail <= 1) reviewResponse(index); });
-    const parts = [heading, selected];
-    if (currentResponse.id !== firstResponse.id) parts.push(revision);
-    parts.push(practice, ...notes, edit);
-    entry.append(...parts);
-    $("resultsList").appendChild(entry);
+    practice.textContent = item.practice;
+    const trial = document.createElement("p");
+    const trialLabel = document.createElement("strong");
+    trialLabel.textContent = "Small test. ";
+    trial.append(trialLabel, document.createTextNode(item.tryNext));
+    const source = document.createElement("p");
+    source.className = "source";
+    source.textContent = `Basis: ${item.source.map(sourceLabel).join(" · ")}`;
+    body.append(practice, trial, source);
+    details.append(summary, body);
+    $("practiceNotes").appendChild(details);
   });
-  updateTaskOutput();
+  $("talkGrid").replaceChildren();
+  TALKS.forEach((talk) => {
+    const article = document.createElement("article");
+    article.className = "talk";
+    const heading = document.createElement("h3");
+    heading.textContent = talk.title;
+    const who = document.createElement("div");
+    who.className = "who";
+    who.textContent = `${talk.id} · ${talk.speaker}`;
+    const summary = document.createElement("p");
+    summary.textContent = talk.summary;
+    article.append(heading, who, summary);
+    $("talkGrid").appendChild(article);
+  });
 }
 function finishCheckin() {
-  if (firstAnswers.some((answer) => answer === null)) {
-    const firstOpen = firstAnswers.findIndex((answer) => answer === null);
-    goToItem(firstOpen, `Topic ${firstOpen + 1} is the first one not done.`);
-    return;
-  }
-  reviewingResults = false;
-  showStage("done");
-  $("resultContent").classList.add("hidden");
-  $("compileLog").textContent = `pdflatex very-serious-checkin.tex\n[1/${ITEMS.length}] checking for honest answers…\n[${ITEMS.length}/${ITEMS.length}] refusing to make up a team score…\nYour report is ready below (N = you).`;
-  const reveal = () => {
-    renderResults();
-    $("resultContent").classList.remove("hidden");
-    $("resultTitle").focus({ preventScroll: true });
-  };
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) reveal();
-  else setTimeout(reveal, 480);
+  if (state.answers.some((answer) => !answer.saved)) return;
+  state.locked = true;
+  showStage("results");
+  renderResults();
+  $("resultsTitle").focus({ preventScroll: true });
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
-function markdownSafeInline(value) {
-  return String(value)
-    .replace(/\r?\n|\r/g, " ")
-    .replace(/\\/g, "\\\\")
-    .replace(/([`*_{}\[\]<>#])/g, "\\$1");
-}
-function resultsSignature() {
-  return JSON.stringify({ firstAnswers, answers, evidenceNotes, skipReasons });
-}
-function recordExportSuccess(message, signature = resultsSignature()) {
-  if (signature !== resultsSignature()) {
-    lastExportSignature = null;
-    $("resultStatus").textContent = "Your results changed while that export was being made. Copy or download it again.";
-    return false;
-  }
-  lastExportSignature = signature;
-  $("resultStatus").textContent = message;
-  return true;
-}
-function invalidateExportState() {
-  if (lastExportSignature === null || lastExportSignature === resultsSignature()) return;
-  lastExportSignature = null;
-  if (copyResetTimer) clearTimeout(copyResetTimer);
-  $("btnCopyTask").textContent = "Copy my full report";
-  $("resultStatus").textContent = "Your answers changed. Copy or download the report again before you send it.";
-}
-function markdownResults() {
-  const result = metrics();
-  const followup = recommendedFollowup();
-  const noteCount = evidenceNotes.filter((note) => note.trim()).length;
-  const skipReasonCount = skipReasons.filter((note) => note.trim()).length;
-  const lines = [
-    "## Agentic Squirrel Symposium I — one-week check-in", "",
-    "> The event summary uses my first answer on each topic. Later updates are shown separately. This does not prove that the team changed.", "",
-    "### Summary", "",
-    `- Learned or changed because of the event: **${result.assessed === 0 ? "All topics skipped" : `${result.attributedChange}/${result.assessed} topics I judged`}**`,
-    `- Changed my work because of the event: **${result.applied}**`,
-    `- Knew it before the event: **${result.already}**`,
-    `- Still fuzzy: **${result.unclear}**`,
-    `- Skipped: **${result.unassessed}**`,
-    `- Practice notes added: **${noteCount}**`,
-    `- Skip reasons added: **${skipReasonCount}**`, "",
-    `**Next small step (${followup.basis.toLowerCase()}):** ${followup.text}`, "",
-    "### My answers", ""
-  ];
-  ITEMS.forEach((item, index) => {
-    const firstResponse = responseById(firstAnswers[index]);
-    const currentResponse = responseById(answers[index]);
-    lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${firstResponse.label}`);
-    lines.push(`   - Topic: ${item.prompt}`);
-    lines.push(`   - First answer for the event summary: ${firstResponse.detail}`);
-    if (currentResponse.id !== firstResponse.id) lines.push(`   - Current answer after guidance: ${currentResponse.detail}`);
-    lines.push(`   - Best practice: ${item.practice}`);
-    if (evidenceNotes[index].trim()) lines.push(`   - Note saved with a non-skip answer: ${markdownSafeInline(evidenceNotes[index].trim())}`);
-    if (skipReasons[index].trim()) lines.push(`   - Reason saved with “Skip for now”: ${markdownSafeInline(skipReasons[index].trim())}`);
-    if (!evidenceNotes[index].trim() && !skipReasons[index].trim()) {
-      const emptyLabel = answers[index] === "na" ? "Skip reason" : "Practice note";
-      lines.push(`   - ${emptyLabel}: None added`);
-    }
-    lines.push(`   - Source: ${item.source.map(sourceLabel).join(" · ")}`);
-  });
-  lines.push("", "### Check for team change", "",
-    "Name one owner. Pick a real sign you can see, such as a note, checklist, log, handoff, or repeated action. Check it again later.");
-  return lines.join("\n");
-}
-function updateTaskOutput() {
-  if ($("taskOutput")) $("taskOutput").value = markdownResults();
-}
-async function copyTaskBody() {
-  const signature = resultsSignature();
-  const text = markdownResults();
+async function copyReport() {
+  const text = taskReport();
   $("taskOutput").value = text;
   try {
     await navigator.clipboard.writeText(text);
+    $("btnCopy").textContent = "Copied ✓";
+    $("resultStatus").textContent = "Copied. Paste it into the follow-up task.";
   } catch {
     $("taskOutput").focus();
     $("taskOutput").select();
     const copied = document.execCommand("copy");
-    if (!copied) {
-      $("resultStatus").textContent = "Copy did not work. Select the report above and copy it yourself.";
-      return;
-    }
+    $("resultStatus").textContent = copied ? "Copied. Paste it into the follow-up task." : "Copy did not work. The text is selected; copy it now.";
   }
-  if (!recordExportSuccess("Report copied. Paste it into the Agentic Squirrel Symposium I follow-up task.", signature)) return;
-  $("btnCopyTask").textContent = "Copied — paste it into the task ✓";
-  if (copyResetTimer) clearTimeout(copyResetTimer);
-  copyResetTimer = setTimeout(() => { $("btnCopyTask").textContent = "Copy my full report"; }, 2200);
 }
-function downloadText() {
-  const signature = resultsSignature();
-  const text = markdownResults();
-  const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "ass-i-week-one-checkin.md";
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  recordExportSuccess("Backup downloaded. You still need to copy the report into the follow-up task.", signature);
+function selectReport() {
+  $("taskOutput").focus();
+  $("taskOutput").select();
+  $("resultStatus").textContent = "Text selected. Copy it, then paste it into the follow-up task.";
 }
-function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
-  const words = text.split(/\s+/);
-  const lines = [];
-  let line = "";
-  for (const word of words) {
-    const candidate = line ? `${line} ${word}` : word;
-    if (!line || context.measureText(candidate).width <= maxWidth) line = candidate;
-    else { lines.push(line); line = word; }
-  }
-  if (line) lines.push(line);
-  if (lines.length > maxLines) {
-    lines.length = maxLines;
-    let last = lines[maxLines - 1];
-    while (context.measureText(`${last}…`).width > maxWidth && last.length > 1) last = last.slice(0, -1);
-    lines[maxLines - 1] = `${last}…`;
-  }
-  lines.forEach((value, index) => context.fillText(value, x, y + index * lineHeight));
-}
-async function findingsCardBlob() {
-  const result = metrics();
-  const canvas = document.createElement("canvas");
-  canvas.width = 1080; canvas.height = 1080;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "#f7f1e4"; context.fillRect(0, 0, 1080, 1080);
-  context.strokeStyle = "#171713"; context.lineWidth = 5; context.strokeRect(34, 34, 1012, 1012);
-  context.strokeStyle = "#7d1f22"; context.lineWidth = 2; context.strokeRect(48, 48, 984, 984);
-  context.textAlign = "center";
-  context.fillStyle = "#7d1f22"; context.font = "700 24px Georgia, serif";
-  context.fillText("PROCEEDINGS OF THE AGENTIC SQUIRREL SOCIETY · VOL. I", 540, 115);
-  context.fillStyle = "#171713"; context.font = "400 64px Georgia, serif";
-  wrapCanvasText(context, "Did Any of It Stick?", 540, 205, 880, 70, 2);
-  context.fillStyle = "#625e54"; context.font = "italic 28px Georgia, serif";
-  context.fillText("One-Week Self-Report · N = you", 540, 360);
-  context.strokeStyle = "#171713"; context.lineWidth = 2;
-  context.beginPath(); context.moveTo(130, 400); context.lineTo(950, 400); context.stroke();
-  context.fillStyle = "#171713"; context.font = "italic 36px Georgia, serif";
-  wrapCanvasText(context, "What I learned or changed", 540, 450, 850, 44, 2);
-  context.fillStyle = "#7d1f22"; context.font = "700 122px Georgia, serif";
-  context.fillText(String(result.attributedChange), 300, 650); context.fillText(String(result.applied), 780, 650);
-  context.fillStyle = "#171713"; context.font = "700 22px Georgia, serif";
-  wrapCanvasText(context, "TOPICS I LEARNED OR CHANGED", 300, 695, 400, 27, 3);
-  wrapCanvasText(context, "TOPICS THAT CHANGED MY WORK", 780, 695, 400, 27, 3);
-  context.fillStyle = "#625e54"; context.font = "24px Georgia, serif";
-  context.fillText(`Knew already: ${result.already} · Still fuzzy: ${result.unclear} · Skipped: ${result.unassessed}`, 540, 790);
-  context.fillStyle = "#171713"; context.font = "italic 27px Georgia, serif";
-  wrapCanvasText(context, "This report does not prove the team changed. Pick an owner and check for a real sign later.", 540, 855, 850, 34, 2);
-  context.fillStyle = "#7d1f22"; context.font = "700 20px Georgia, serif";
-  context.fillText("FAUX DOI 10.1337/ASS.I.RETENTION · SQUIRRELLABS.DEV/QUIZ/ASS-1", 540, 985);
-  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Card rendering failed")), "image/png"));
-}
-function downloadBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url; link.download = filename; link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-async function shareCard(mode) {
-  const signature = resultsSignature();
-  const blob = await findingsCardBlob();
-  if (mode === "copy") {
-    try {
-      if (!navigator.clipboard || !window.ClipboardItem) throw new Error("Image clipboard unavailable");
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-      recordExportSuccess("Report card copied. You still need to paste the full report into the follow-up task.", signature);
-      return;
-    } catch {
-      downloadBlob(blob, "ass-i-week-one-findings.png");
-      recordExportSuccess("Copy did not work, so the report card was downloaded. This does not send your full report.", signature);
-      return;
-    }
-  }
-  downloadBlob(blob, "ass-i-week-one-findings.png");
-  recordExportSuccess("Report card downloaded. This does not send your full report.", signature);
-}
-function reviewResponse(index) {
-  reviewingResults = true;
-  showStage("checkin");
-  goToItem(index, "Update how you feel now or edit the note. Your first answer stays in the event summary.");
-}
-function reviewResponses() {
-  reviewResponse(0);
-}
-function returnToResults() {
-  if (firstAnswers.some((answer) => answer === null)) return;
-  reviewingResults = false;
-  showStage("done");
-  renderResults();
-  $("resultContent").classList.remove("hidden");
-  $("resultTitle").focus({ preventScroll: true });
-}
-$("btnStart").addEventListener("click", beginCheckin);
-$("btnBack").addEventListener("click", previousItem);
-$("btnConfirmFirst").addEventListener("click", confirmFirstResponse);
-$("btnNext").addEventListener("click", nextItem);
-$("btnFinishMap").addEventListener("click", finishCheckin);
-$("btnReturnResults").addEventListener("click", returnToResults);
-$("btnCopyTask").addEventListener("click", copyTaskBody);
-$("btnDownloadText").addEventListener("click", downloadText);
-$("btnReview").addEventListener("click", reviewResponses);
-$("btnCopyCard").addEventListener("click", () => shareCard("copy"));
-$("btnDownloadCard").addEventListener("click", () => shareCard("download"));
-$("itemEvidence").addEventListener("input", () => {
-  if (answers[position] === "na") skipReasons[position] = $("itemEvidence").value;
-  else evidenceNotes[position] = $("itemEvidence").value;
-  if (answers.every((answer) => answer !== null)) updateTaskOutput();
-  invalidateExportState();
+$("startDate").textContent = `Date · ${state.date}`;
+$("respondentName").addEventListener("input", () => {
+  state.name = $("respondentName").value.trim();
+  $("btnStart").disabled = !state.name;
+  $("startHint").textContent = state.name ? "Ready. Nothing is sent from this page." : "Add a name or handle. Your answers stay in this tab until you copy them.";
 });
-renderStaticContent();
+$("respondentName").addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && state.name) $("btnStart").click();
+});
+$("btnStart").addEventListener("click", () => {
+  if (!state.name) return;
+  $("progressName").textContent = state.name;
+  goToItem(0);
+});
+$("btnBack").addEventListener("click", () => goToItem(state.position - 1));
+$("btnSaveNext").addEventListener("click", saveCurrent);
+$("btnMapReview").addEventListener("click", showReview);
+$("btnFinish").addEventListener("click", finishCheckin);
+$("btnCopy").addEventListener("click", copyReport);
+$("btnSelect").addEventListener("click", selectReport);
+$("itemNote").addEventListener("input", () => {
+  if (state.locked) return;
+  const answer = state.answers[state.position];
+  answer.note = $("itemNote").value;
+  answer.saved = false;
+  $("noteCounter").textContent = `${answer.note.length}/140`;
+  $("instrumentStatus").textContent = "Note changed. Save this topic again.";
+  renderMap();
+});
 </script>
 </body>
 </html>
