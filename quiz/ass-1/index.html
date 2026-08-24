@@ -164,7 +164,7 @@
     width: 100%; min-height: 45px; padding: 9px 11px; border: 1px solid var(--rule);
     background: #fffaf0; color: var(--ink); border-radius: 0;
   }
-  .item-evidence::placeholder { color: #898274; }
+  .item-evidence::placeholder { color: var(--muted); }
   fieldset { margin: 0; padding: 0; border: 0; }
   legend { width: 100%; margin: 0 0 9px; padding: 0; font-size: 14px; font-weight: 700; line-height: 1.4; }
   .options { display: grid; gap: 7px; counter-reset: response; }
@@ -209,7 +209,8 @@
   .result-item h3 { margin: 0 0 4px; font-size: 14px; line-height: 1.3; }
   .result-item h3::before { content: counter(result) ". "; color: var(--red); }
   .result-answer { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 700; }
-  .result-practice, .result-evidence { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .result-practice, .result-evidence, .result-revision { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .result-revision { margin-bottom: 4px; color: var(--green); font-weight: 700; }
   .result-evidence { margin-top: 4px; color: var(--ink); }
   .result-edit { margin-top: 8px; padding: 5px 8px; border: 1px solid #8d8577; background: transparent; color: var(--blue); font-size: 10px; font-weight: 700; }
   .result-edit:hover { border-color: var(--blue); background: var(--blue-soft); }
@@ -284,15 +285,11 @@
       showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ doing <span class="number">(1)</span>
     </div>
     <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> Answer before the guidance opens. If the event led to a real action or workflow change, pick “I changed my work” even if you knew the idea before. “Knew it already” means the event taught you nothing new and changed nothing. It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
+      <strong>Definition 1 (an honest check-in).</strong> Your first pick is saved for the event report. The guidance then opens. You can update how you feel after reading it, but your first pick stays clear. If the event led to a real change that is still in use, pick “I changed my work.” It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
     </div>
     <h2 class="section-title"><span class="sec">1.</span>How to answer</h2>
     <p class="lede">Use the same six answers on every page. They show what was new, what you knew before, and what you used.</p>
     <div class="response-key" id="responseKey"></div>
-    <details class="appendix">
-      <summary>Optional Appendix A — 14 talks in 14 short notes</summary>
-      <div class="talk-grid" id="talkGrid"></div>
-    </details>
     <p class="small-note"><sup>*</sup> N = you. This takes about 5–7 minutes. Your answers stay in this tab. If you close or reload it, they are gone. The page does not send anything.</p>
     <button class="button full start-button" id="btnStart" type="button">Start the very serious study</button>
   </section>
@@ -314,7 +311,7 @@
       <div class="item-meta" id="itemMeta"></div>
       <h1 class="item-title" id="itemTitle" tabindex="-1" aria-describedby="itemMeta navProgress"></h1>
       <fieldset>
-        <legend>Because of Symposium I, which statement fits you today?</legend>
+        <legend>Before this page teaches anything, what did Symposium I change for you?</legend>
         <div class="options" id="responseOptions"></div>
       </fieldset>
       <div class="hidden" id="postAnswer">
@@ -341,12 +338,16 @@
     <div class="compile-log" id="compileLog" role="status" aria-live="polite"></div>
     <div id="resultContent" class="hidden">
       <h1 class="result-title" id="resultTitle" tabindex="-1">Your Report</h1>
-      <p class="result-subtitle">These are your answers. There is no hidden score.</p>
+      <p class="result-subtitle">The summary uses your first answer on each topic. Any later update appears below. There is no hidden score.</p>
       <div class="summary-grid" id="summaryGrid"></div>
       <div class="interpretation" id="interpretation"></div>
       <div class="next-study" id="nextStudy"></div>
+      <details class="appendix">
+        <summary>Optional Appendix A — 14 talks in 14 short notes</summary>
+        <div class="talk-grid" id="talkGrid"></div>
+      </details>
       <h2 class="section-title"><span class="sec">4.</span>All your answers</h2>
-      <p class="lede">Every answer is below. Nothing is right or wrong.</p>
+      <p class="lede">Your first answer and any update are below. Nothing is right or wrong.</p>
       <ol class="results-list" id="resultsList"></ol>
       <div class="theorem">
         <strong>Reality check.</strong> These answers show what you think you learned. They do not prove the team changed. To check that, pick an owner and look for a real sign later. A sign could be a checklist, a note, a log, a handoff, or the same good action happening again. <span class="proof-end" aria-hidden="true">□</span>
@@ -393,7 +394,7 @@ const TALKS = [
 ];
 const SOURCE_GAPS = [
   { id: "GAP_RESUMABILITY", label: "a handoff that lets another person continue the job" },
-  { id: "GAP_COORDINATOR", label: "one coordinator that can start, track, and join subagent work" },
+  { id: "GAP_COORDINATOR", label: "one lead agent that can start, track, and join helper-agent work" },
   { id: "GAP_ADVERSARIAL_REVIEW", label: "an independent review that tries to prove findings wrong" },
   { id: "GAP_TOKEN_BUDGET", label: "enough tokens for hard work, proof, and a handoff" }
 ];
@@ -401,50 +402,50 @@ const RESPONSES = [
   { id: "unclear", label: "Still fuzzy", detail: "I still cannot explain why this helps or what I should do." },
   { id: "already", label: "Knew it already", detail: "I could explain and use this before the event, and I still can. The event taught me nothing new and changed nothing." },
   { id: "understand", label: "I get it now", detail: "Because of the event, I can explain why this helps. I still need help to choose or use it safely." },
-  { id: "apply", label: "I know when to use it", detail: "Because of the event, I can choose and use this safely. I have not used it in real work yet." },
-  { id: "used", label: "I changed my work", detail: "Because of the event, I used this in real work or changed a real workflow." },
-  { id: "na", label: "Skip for now", detail: "This did not apply to me, I had no fair chance, or I prefer not to answer." }
+  { id: "apply", label: "I learned something useful", detail: "The event added something useful. I can use this safely, but my real work has not changed." },
+  { id: "used", label: "I changed my work", detail: "Because of the event, I now use this in real work or made a workflow change that is still in place." },
+  { id: "na", label: "Skip for now", detail: "I cannot fairly judge what I learned, this topic did not apply to me, or I prefer not to answer." }
 ];
 const ITEMS = [
   {
-    id: "P01", section: "§ 2.1 · Parallel work", construct: "Run independent jobs at once",
-    prompt: "A project has jobs that may be able to run at the same time.",
+    id: "P01", section: "§ 2.1 · Parallel work", construct: "Parallel jobs",
+    prompt: "Running more than one agent or process on the same project.",
     practice: "Run jobs at the same time only when they do not need each other’s answers. Give each job a clear result and pass/fail checks. Name who will join the results.",
     why: "AI can be slow and thorough. Parallel work saves time when the jobs are separate. Hidden links cause repeats, conflicts, and extra review.",
     source: ["T02", "T09"],
-    experiment: "Split one real task into independent and dependent parts. Run two independent parts together. Record the time saved and any rework.",
-    evidence: "Most agents or processes you ran at once, plus the task"
+    experiment: "Split one real task into independent and dependent parts. Run two independent parts together. Record elapsed time, rework, and whether the results joined cleanly.",
+    evidence: "Most agents or processes at once, what each did, and whether the results joined cleanly"
   },
   {
-    id: "P02", section: "§ 2.1 · Parallel work", construct: "Keep parallel jobs from colliding",
-    prompt: "Several agent jobs need separate files, branches, web addresses, and sessions.",
-    practice: "Give each writing job its own folder, branch, named session, and web address. Name an owner for every shared server, account, or branch. Check for collisions before starting.",
-    why: "Separate folders protect files. They do not separate running apps, accounts, or Git branches.",
+    id: "P02", section: "§ 2.1 · Parallel work", construct: "Parallel job setup",
+    prompt: "Keeping several agent jobs from using the same files, code changes, app, or web address.",
+    practice: "For code, give each job its own project folder and Git branch—a separate line of changes. Give each running app its own terminal window and web address. Name an owner for shared servers, accounts, and branches. Check for conflicts before starting.",
+    why: "Separate folders protect files. They do not separate running apps, accounts, or shared code changes.",
     source: ["T09", "T10"],
     experiment: "Run two safe jobs with a short isolation checklist. Add any new conflict to the checklist.",
-    evidence: "A collision you stopped or found"
+    evidence: "Check used and number of conflicts found (zero is fine)"
   },
   {
-    id: "P03", section: "§ 2.1 · Parallel work", construct: "Use one coordinator",
-    prompt: "One coordinator agent may plan a large job and start smaller subagents.",
-    practice: "For a large job, use one strong coordinator agent, such as Fable. It sets one goal, gives each subagent one clear job, checks progress, asks for proof, and joins the results. It should spawn agents only when separate work will help.",
+    id: "P03", section: "§ 2.1 · Parallel work", construct: "Coordinator agents",
+    prompt: "One lead agent planning work for smaller helper agents.",
+    practice: "For a large job, use one strong lead agent. Fable is one example, but any good coordinator can work. It gives each helper agent one clear job, checks progress, asks for proof, and joins the results. Start helper agents only when separate work will help.",
     why: "More agents can make more output without making one good result. A coordinator keeps the parts aimed at the same goal.",
     source: ["T02", "T10", "T11", "T12", "GAP_COORDINATOR"],
-    experiment: "Give a coordinator one job with two separate parts. Save the subagent briefs, proof, and final joined result.",
-    evidence: "Coordinator name, number of subagents, and task"
+    experiment: "Give a lead agent one job with two separate parts. Save the helper instructions, proof, and final joined result.",
+    evidence: "Lead agent, helper roles and count, and whether the final result passed its checks"
   },
   {
-    id: "P04", section: "§ 2.2 · Long jobs", construct: "Keep long runs useful",
+    id: "P04", section: "§ 2.2 · Long jobs", construct: "Long agent runs",
     prompt: "An agent job may keep running for hours after you close your laptop.",
-    practice: "Run the job in a named session on a computer that stays online. Set a review or stop time. Save checkpoints and a handoff. Alert a named person only when a choice needs them. Extend the run only when it still makes useful progress.",
+    practice: "Run the job in a named terminal window that stays open on an online computer. Set a review or stop time. Save progress notes and a note that lets someone continue. Alert on failure, a missed update, an important finish, or a choice that needs a named person. Extend the run only while it makes useful progress.",
     why: "A job can stay alive for hours while doing nothing useful. Checkpoints and stop rules make long work safe and easy to judge.",
     source: ["T01", "T07", "T09", "T10", "GAP_RESUMABILITY"],
     experiment: "For one long job, record its planned limit, real run time, result, and why it stopped or kept going.",
-    evidence: "Your longest run since the event, what it did, and how it ended"
+    evidence: "Longest run since the event: duration, task, result, and why it stopped"
   },
   {
-    id: "P05", section: "§ 2.2 · Long jobs", construct: "Give hard jobs enough tokens",
-    prompt: "A hard job needs enough tokens—the text an agent can read and write—to inspect, test, and finish.",
+    id: "P05", section: "§ 2.2 · Long jobs", construct: "Token budgets",
+    prompt: "Tokens are small pieces of text an agent can read or write. This topic is the token limit for a hard job.",
     practice: "Match the token budget to the job’s size, difficulty, and risk. Leave room for proof and a handoff. If the budget is tight, narrow or split the job. Do not treat more tokens as proof of better work.",
     why: "Too few tokens can cut off useful work. Too many can waste time or hide a weak brief. The right amount depends on the job.",
     source: ["T02", "GAP_TOKEN_BUDGET"],
@@ -452,8 +453,8 @@ const ITEMS = [
     evidence: "Token budget, result, and whether any check was cut short"
   },
   {
-    id: "P06", section: "§ 2.3 · Visual work", construct: "Use a visual for a hard choice",
-    prompt: "AI can turn a hard choice into a table, flow, picker, or small web report.",
+    id: "P06", section: "§ 2.3 · Visual work", construct: "AI visuals for choices",
+    prompt: "Using a table, flow, picker, or small web report for a hard choice.",
     practice: "First name the link or trade-off people need to see. Make a visual only when it makes that link or choice clearer than short text. Use plain text for a simple choice.",
     why: "A useful visual can make trade-offs clear. A new visual made only for novelty adds work and can distract from the choice.",
     source: ["T04", "T05"],
@@ -461,36 +462,36 @@ const ITEMS = [
     evidence: "Visual you tried and the choice it helped"
   },
   {
-    id: "P07", section: "§ 2.3 · Visual work", construct: "Check an AI-made visual",
-    prompt: "An AI-made visual may look clear even when a fact, label, or link is wrong.",
+    id: "P07", section: "§ 2.3 · Visual work", construct: "AI visual checks",
+    prompt: "Checking facts and labels in a visual made by AI.",
     practice: "Check every fact, label, number, and line against the source. Add a clear title, readable labels, and a short text summary. Do not use color as the only signal. Ask another person to inspect it.",
     why: "A polished picture can make wrong information feel true. Source checks and clear labels make it safer and easier to use.",
     source: ["T05", "T06"],
     experiment: "Make one AI visual. Check its sources and labels. Ask someone to find one wrong or unclear part, then fix it.",
-    evidence: "A visual check that found or fixed a problem"
+    evidence: "Check used and number of wrong parts found (zero is fine)"
   },
   {
-    id: "P08", section: "§ 2.4 · Browser work", construct: "Delegate safe browser work",
-    prompt: "A browser agent can navigate, read, type, and click for you.",
-    practice: "Give it a clear list of allowed sites, data, and actions. Keep passwords, MFA, money, posts, and deletion with a person unless an approved system was built for that exact job. Stop when the site or action falls outside the brief.",
+    id: "P08", section: "§ 2.4 · Browser work", construct: "Browser agents",
+    prompt: "Letting an agent navigate, read, type, or click in a browser.",
+    practice: "Give it a clear list of allowed sites, data, and actions. Keep passwords, MFA—the extra sign-in check—money, posts, and deletion with a person unless an approved system was built for that exact job. Stop when the site or action falls outside the instructions.",
     why: "A narrow browser job can save repeated clicking. Clear limits stop a changed page or surprise action from causing harm.",
     source: ["T03", "T08", "T12"],
     experiment: "Choose one safe browser job. Write its allowed actions and stop points. Let the agent do the routine steps and note where it stopped.",
     evidence: "Browser task, steps delegated, and handoff point"
   },
   {
-    id: "P09", section: "§ 2.4 · Browser work", construct: "Try to prove findings wrong",
-    prompt: "A separate reviewer can try to prove another agent’s findings wrong.",
-    practice: "Let one reviewer find possible problems. Give each bare claim to a separate verifier. The verifier checks the current source, tries to disprove the claim, and repeats the exact steps. A person repeats serious failures before action.",
+    id: "P09", section: "§ 2.4 · Browser work", construct: "Independent review",
+    prompt: "Having a second reviewer check claims made by the first reviewer.",
+    practice: "Let one reviewer find possible problems. Give each claim to a second reviewer. The second reviewer checks the source and tries to prove the claim wrong. Repeat steps only in a safe test place or with a safe test account. Stop before any lasting effect. A person checks serious claims with safe evidence before the team acts.",
     why: "A reviewer can sound sure and still be wrong. Trying to disprove claims removes false alarms and makes real problems easier to trust.",
     source: ["T13", "T14", "GAP_ADVERSARIAL_REVIEW"],
-    experiment: "Give one claim to a fresh verifier. Ask it to disprove the claim and show the exact steps and evidence.",
-    evidence: "A claim the verifier confirmed or refuted"
+    experiment: "Give one claim to a new reviewer. Ask them to try to prove it wrong and show safe steps and evidence.",
+    evidence: "Claim checked and result: supported or ruled out"
   },
   {
-    id: "P10", section: "§ 2.4 · Browser work", construct: "Click through the app like a user",
-    prompt: "An agent can click through the app from start to finish like a user.",
-    practice: "Use the real browser screen to navigate, click, type, and check what appears. Use a test site or safe test account. Follow one normal user path and save screenshots or a short log. Stop before any lasting action unless a person approved it.",
+    id: "P10", section: "§ 2.4 · Browser work", construct: "Full browser paths",
+    prompt: "Testing an app by following a user’s path from start to finish.",
+    practice: "Use the real browser screen to navigate, click, type, and check what appears. Use a test site or safe test account. Follow one normal user path and save screenshots or a short log. Stop before sending a form or message, changing live data or settings, posting, deleting, or moving money unless a person approved it.",
     why: "Code checks can pass while buttons, screens, or the live path are broken. A full click-through checks what a user can really do.",
     source: ["T03", "T06", "T13", "T14"],
     experiment: "Replay one important user path with a safe account. Save the steps and result. Compare what it found with the code checks.",
@@ -500,7 +501,9 @@ const ITEMS = [
 const $ = (id) => document.getElementById(id);
 const stages = { start: $("stStart"), checkin: $("stCheckin"), done: $("stDone") };
 const answers = Array(ITEMS.length).fill(null);
+const firstAnswers = Array(ITEMS.length).fill(null);
 const evidenceNotes = Array(ITEMS.length).fill("");
+const skipReasons = Array(ITEMS.length).fill("");
 let position = 0;
 let reviewingResults = false;
 let lastExportSignature = null;
@@ -549,12 +552,12 @@ function renderStaticContent() {
 }
 function beginCheckin() {
   reviewingResults = false;
-  position = answers.findIndex((answer) => answer === null);
+  position = firstAnswers.findIndex((answer) => answer === null);
   if (position < 0) position = 0;
   showStage("checkin");
   renderItem();
 }
-function answeredTotal() { return answers.filter((answer) => answer !== null).length; }
+function answeredTotal() { return firstAnswers.filter((answer) => answer !== null).length; }
 function updateNextButton() {
   const allAnswered = answeredTotal() === ITEMS.length;
   $("btnNext").disabled = answers[position] === null;
@@ -575,7 +578,7 @@ function renderProgress() {
   map.replaceChildren();
   ITEMS.forEach((item, index) => {
     const button = document.createElement("button");
-    const response = answers[index] ? responseById(answers[index]) : null;
+    const response = firstAnswers[index] ? responseById(answers[index]) : null;
     button.type = "button";
     button.className = `item-jump${response ? " answered" : ""}${index === position ? " current" : ""}`;
     button.textContent = String(index + 1);
@@ -586,7 +589,7 @@ function renderProgress() {
     button.addEventListener("click", (event) => { if (event.detail <= 1) goToItem(index); });
     map.appendChild(button);
   });
-  $("btnFinishMap").classList.toggle("hidden", answered !== ITEMS.length);
+  $("btnFinishMap").classList.toggle("hidden", answered !== ITEMS.length || reviewingResults);
   $("btnReturnResults").classList.toggle("hidden", !reviewingResults);
 }
 function goToItem(index, notice = "") {
@@ -598,12 +601,14 @@ function goToItem(index, notice = "") {
 function renderEvidencePrompt() {
   const item = ITEMS[position];
   if (answers[position] === "na") {
-    $("itemEvidenceLabel").textContent = "Optional skip reason: not relevant, no fair chance, or prefer not to say.";
+    $("itemEvidenceLabel").textContent = "Optional skip reason: could not judge, not relevant, or prefer not to say.";
     $("itemEvidence").placeholder = "Short reason (optional)";
+    $("itemEvidence").value = skipReasons[position];
     return;
   }
   $("itemEvidenceLabel").textContent = `Optional fact or proof: ${item.evidence}.`;
   $("itemEvidence").placeholder = "Short note (optional)";
+  $("itemEvidence").value = evidenceNotes[position];
 }
 function renderItem(notice = "") {
   const item = ITEMS[position];
@@ -623,8 +628,7 @@ function renderItem(notice = "") {
   $("experimentText").append(experimentLabel, document.createTextNode(item.experiment));
   $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
   renderEvidencePrompt();
-  $("itemEvidence").value = evidenceNotes[position];
-  $("postAnswer").classList.toggle("hidden", answers[position] === null);
+  $("postAnswer").classList.toggle("hidden", firstAnswers[position] === null);
   $("answerStatus").textContent = notice;
   const host = $("responseOptions");
   host.replaceChildren();
@@ -655,7 +659,9 @@ function renderItem(notice = "") {
   $("itemTitle").focus({ preventScroll: true });
 }
 function selectResponse(id) {
+  const isFirstAnswer = firstAnswers[position] === null;
   answers[position] = id;
+  if (isFirstAnswer) firstAnswers[position] = id;
   [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
     label.classList.toggle("selected", label.querySelector("input").value === id);
   });
@@ -665,7 +671,9 @@ function selectResponse(id) {
   renderProgress();
   if (answers.every((answer) => answer !== null)) updateTaskOutput();
   invalidateExportState();
-  $("answerStatus").textContent = `Saved: ${responseById(id).label}. You can change it.`;
+  $("answerStatus").textContent = isFirstAnswer
+    ? `First answer saved: ${responseById(id).label}. Guidance opened below.`
+    : `Current answer updated: ${responseById(id).label}. Your first answer still powers the event summary.`;
 }
 function previousItem(event) {
   if (event && event.detail > 1) return;
@@ -676,7 +684,7 @@ function nextItem(event) {
   if (event && event.detail > 1) return;
   if (!answers[position]) return;
   if (position < ITEMS.length - 1) { goToItem(position + 1); return; }
-  const firstOpen = answers.findIndex((answer) => answer === null);
+  const firstOpen = firstAnswers.findIndex((answer) => answer === null);
   if (firstOpen >= 0) {
     goToItem(firstOpen, `Topic ${firstOpen + 1} is the first one not done.`);
     return;
@@ -685,7 +693,7 @@ function nextItem(event) {
 }
 function metrics() {
   const counts = Object.fromEntries(RESPONSES.map((response) => [response.id, 0]));
-  answers.forEach((answer) => { if (answer) counts[answer] += 1; });
+  firstAnswers.forEach((answer) => { if (answer) counts[answer] += 1; });
   return {
     counts,
     attributedChange: counts.understand + counts.apply + counts.used,
@@ -700,7 +708,7 @@ function recommendedFollowup() {
   const rules = [
     { code: "unclear", basis: "First topic marked ‘Still fuzzy’" },
     { code: "understand", basis: "First topic marked ‘I get it now’" },
-    { code: "apply", basis: "First topic marked ‘I know when to use it’" }
+    { code: "apply", basis: "First topic marked ‘I learned something useful’" }
   ];
   for (const { code, basis } of rules) {
     const index = answers.findIndex((answer) => answer === code);
@@ -712,7 +720,7 @@ function profileText(result) {
   if (result.assessed === 0) {
     return `You skipped all ${ITEMS.length} topics. That is fine. This report does not guess what you learned or changed.`;
   }
-  return `You said the event helped you learn or change ${result.attributedChange} of ${result.assessed} topics you judged. Work changed: ${result.applied}. Knew already: ${result.already}. Still fuzzy: ${result.unclear}. Skipped: ${result.unassessed}.`;
+  return `Your first answers say the event helped you learn or change ${result.attributedChange} of ${result.assessed} topics you judged. Work changed: ${result.applied}. Knew already: ${result.already}. Still fuzzy: ${result.unclear}. Skipped: ${result.unassessed}.`;
 }
 function renderResults() {
   const result = metrics();
@@ -743,36 +751,49 @@ function renderResults() {
   $("nextStudy").append(followupLabel, document.createTextNode(followup.text));
   $("resultsList").replaceChildren();
   ITEMS.forEach((item, index) => {
-    const response = responseById(answers[index]);
+    const firstResponse = responseById(firstAnswers[index]);
+    const currentResponse = responseById(answers[index]);
     const entry = document.createElement("li");
     entry.className = "result-item";
     const heading = document.createElement("h3");
     heading.textContent = item.construct;
     const selected = document.createElement("p");
     selected.className = "result-answer";
-    selected.textContent = `${response.label} — ${response.detail}`;
+    selected.textContent = `First answer: ${firstResponse.label} — ${firstResponse.detail}`;
+    const revision = document.createElement("p");
+    revision.className = "result-revision";
+    revision.textContent = `After reading the guidance: ${currentResponse.label} — ${currentResponse.detail}`;
     const practice = document.createElement("p");
     practice.className = "result-practice";
     practice.textContent = `Best practice: ${item.practice}`;
     const evidence = document.createElement("p");
     evidence.className = "result-evidence";
-    evidence.textContent = evidenceNotes[index].trim()
-      ? `Your proof or useful number: ${evidenceNotes[index].trim()}`
-      : "No proof or useful number added.";
+    if (answers[index] === "na") {
+      evidence.textContent = skipReasons[index].trim()
+        ? `Skip reason: ${skipReasons[index].trim()}`
+        : "No skip reason added.";
+    } else {
+      evidence.textContent = evidenceNotes[index].trim()
+        ? `Your optional note: ${evidenceNotes[index].trim()}`
+        : "No optional note added.";
+    }
     const edit = document.createElement("button");
     edit.type = "button";
     edit.className = "result-edit";
-    edit.textContent = `Edit answer ${index + 1}`;
-    edit.setAttribute("aria-label", `Edit answer ${index + 1}: ${item.construct}`);
+    edit.textContent = `Update answer or note ${index + 1}`;
+    edit.setAttribute("aria-label", `Update current answer or note ${index + 1}: ${item.construct}`);
     edit.addEventListener("click", (event) => { if (event.detail <= 1) reviewResponse(index); });
-    entry.append(heading, selected, practice, evidence, edit);
+    const parts = [heading, selected];
+    if (currentResponse.id !== firstResponse.id) parts.push(revision);
+    parts.push(practice, evidence, edit);
+    entry.append(...parts);
     $("resultsList").appendChild(entry);
   });
   updateTaskOutput();
 }
 function finishCheckin() {
-  if (answers.some((answer) => answer === null)) {
-    const firstOpen = answers.findIndex((answer) => answer === null);
+  if (firstAnswers.some((answer) => answer === null)) {
+    const firstOpen = firstAnswers.findIndex((answer) => answer === null);
     goToItem(firstOpen, `Topic ${firstOpen + 1} is the first one not done.`);
     return;
   }
@@ -795,11 +816,17 @@ function markdownSafeInline(value) {
     .replace(/([`*_{}\[\]<>#])/g, "\\$1");
 }
 function resultsSignature() {
-  return JSON.stringify({ answers, evidenceNotes });
+  return JSON.stringify({ firstAnswers, answers, evidenceNotes, skipReasons });
 }
-function recordExportSuccess(message) {
-  lastExportSignature = resultsSignature();
+function recordExportSuccess(message, signature = resultsSignature()) {
+  if (signature !== resultsSignature()) {
+    lastExportSignature = null;
+    $("resultStatus").textContent = "Your results changed while that export was being made. Copy or download it again.";
+    return false;
+  }
+  lastExportSignature = signature;
   $("resultStatus").textContent = message;
+  return true;
 }
 function invalidateExportState() {
   if (lastExportSignature === null || lastExportSignature === resultsSignature()) return;
@@ -811,27 +838,32 @@ function invalidateExportState() {
 function markdownResults() {
   const result = metrics();
   const followup = recommendedFollowup();
-  const evidenceCount = evidenceNotes.filter((note) => note.trim()).length;
+  const noteCount = evidenceNotes.filter((note, index) => answers[index] !== "na" && note.trim()).length;
+  const skipReasonCount = skipReasons.filter((note, index) => answers[index] === "na" && note.trim()).length;
   const lines = [
     "## Agentic Squirrel Symposium I — one-week check-in", "",
-    "> This is what I think I learned or changed. It does not prove that the team changed.", "",
+    "> The event summary uses my first answer on each topic. Later updates are shown separately. This does not prove that the team changed.", "",
     "### Summary", "",
     `- Learned or changed because of the event: **${result.assessed === 0 ? "All topics skipped" : `${result.attributedChange}/${result.assessed} topics I judged`}**`,
     `- Changed my work because of the event: **${result.applied}**`,
     `- Knew it before the event: **${result.already}**`,
     `- Still fuzzy: **${result.unclear}**`,
     `- Skipped: **${result.unassessed}**`,
-    `- Topics with proof or a useful number: **${evidenceCount}**`, "",
+    `- Practice notes added: **${noteCount}**`,
+    `- Skip reasons added: **${skipReasonCount}**`, "",
     `**Next small step (${followup.basis.toLowerCase()}):** ${followup.text}`, "",
     "### My answers", ""
   ];
   ITEMS.forEach((item, index) => {
-    const response = responseById(answers[index]);
-    lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${response.label}`);
+    const firstResponse = responseById(firstAnswers[index]);
+    const currentResponse = responseById(answers[index]);
+    lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${firstResponse.label}`);
     lines.push(`   - Topic: ${item.prompt}`);
-    lines.push(`   - My answer: ${response.detail}`);
+    lines.push(`   - First answer for the event summary: ${firstResponse.detail}`);
+    if (currentResponse.id !== firstResponse.id) lines.push(`   - Current answer after guidance: ${currentResponse.detail}`);
     lines.push(`   - Best practice: ${item.practice}`);
-    lines.push(`   - Proof or useful number: ${markdownSafeInline(evidenceNotes[index].trim() || "None added")}`);
+    if (answers[index] === "na") lines.push(`   - Skip reason: ${markdownSafeInline(skipReasons[index].trim() || "None added")}`);
+    else lines.push(`   - Optional note: ${markdownSafeInline(evidenceNotes[index].trim() || "None added")}`);
     lines.push(`   - Source: ${item.source.map(sourceLabel).join(" · ")}`);
   });
   lines.push("", "### Check for team change", "",
@@ -842,6 +874,7 @@ function updateTaskOutput() {
   if ($("taskOutput")) $("taskOutput").value = markdownResults();
 }
 async function copyTaskBody() {
+  const signature = resultsSignature();
   const text = markdownResults();
   $("taskOutput").value = text;
   try {
@@ -855,20 +888,22 @@ async function copyTaskBody() {
       return;
     }
   }
-  recordExportSuccess("Report copied. Paste it into the Agentic Squirrel Symposium I follow-up task.");
+  if (!recordExportSuccess("Report copied. Paste it into the Agentic Squirrel Symposium I follow-up task.", signature)) return;
   $("btnCopyTask").textContent = "Copied — paste it into the task ✓";
   if (copyResetTimer) clearTimeout(copyResetTimer);
   copyResetTimer = setTimeout(() => { $("btnCopyTask").textContent = "Copy my full report"; }, 2200);
 }
 function downloadText() {
-  const blob = new Blob([markdownResults()], { type: "text/markdown;charset=utf-8" });
+  const signature = resultsSignature();
+  const text = markdownResults();
+  const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
   link.download = "ass-i-week-one-checkin.md";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  recordExportSuccess("Backup downloaded. You still need to copy the report into the follow-up task.");
+  recordExportSuccess("Backup downloaded. You still need to copy the report into the follow-up task.", signature);
 }
 function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
   const words = text.split(/\s+/);
@@ -927,32 +962,33 @@ function downloadBlob(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 async function shareCard(mode) {
+  const signature = resultsSignature();
   const blob = await findingsCardBlob();
   if (mode === "copy") {
     try {
       if (!navigator.clipboard || !window.ClipboardItem) throw new Error("Image clipboard unavailable");
       await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-      recordExportSuccess("Report card copied. You still need to paste the full report into the follow-up task.");
+      recordExportSuccess("Report card copied. You still need to paste the full report into the follow-up task.", signature);
       return;
     } catch {
       downloadBlob(blob, "ass-i-week-one-findings.png");
-      recordExportSuccess("Copy did not work, so the report card was downloaded. This does not send your full report.");
+      recordExportSuccess("Copy did not work, so the report card was downloaded. This does not send your full report.", signature);
       return;
     }
   }
   downloadBlob(blob, "ass-i-week-one-findings.png");
-  recordExportSuccess("Report card downloaded. This does not send your full report.");
+  recordExportSuccess("Report card downloaded. This does not send your full report.", signature);
 }
 function reviewResponse(index) {
   reviewingResults = true;
   showStage("checkin");
-  goToItem(index, "Edit this answer, or go back to your report.");
+  goToItem(index, "Update how you feel now or edit the note. Your first answer stays in the event summary.");
 }
 function reviewResponses() {
   reviewResponse(0);
 }
 function returnToResults() {
-  if (answers.some((answer) => answer === null)) return;
+  if (firstAnswers.some((answer) => answer === null)) return;
   reviewingResults = false;
   showStage("done");
   renderResults();
@@ -970,7 +1006,8 @@ $("btnReview").addEventListener("click", reviewResponses);
 $("btnCopyCard").addEventListener("click", () => shareCard("copy"));
 $("btnDownloadCard").addEventListener("click", () => shareCard("download"));
 $("itemEvidence").addEventListener("input", () => {
-  evidenceNotes[position] = $("itemEvidence").value;
+  if (answers[position] === "na") skipReasons[position] = $("itemEvidence").value;
+  else evidenceNotes[position] = $("itemEvidence").value;
   if (answers.every((answer) => answer !== null)) updateTaskOutput();
   invalidateExportState();
 });
