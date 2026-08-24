@@ -284,53 +284,53 @@
       <div class="metadata"><span>10 topics</span><span>About 5 minutes</span><span>Zero grades</span></div>
     </header>
     <div class="abstract">
-      <strong>Abstract.</strong> The event had 14 talks. You may have heard some, all, or none. For each topic, say what the event added and what you do now. You do not need the agenda.
+      <strong>Abstract.</strong> The event had 14 talks. You may have heard some, all, or none. For each topic, answer any parts you want. You do not need the agenda.
     </div>
-    <div class="method-note"><strong>Method.</strong> Answer from memory. The best-practice notes appear only after your final review. High numbers do not win. Honest answers help the team.</div>
+    <div class="method-note"><strong>Method.</strong> Every field is optional. Answer from memory or skip it. The best-practice notes appear only after your final review.</div>
     <div class="identity">
-      <label class="text-label" for="respondentName">Name or handle for the task
+      <label class="text-label" for="respondentName">Name or handle for the task (optional)
         <input class="text-input" id="respondentName" maxlength="60" autocomplete="name" placeholder="e.g. Konrad" />
       </label>
       <div class="date-stamp" id="startDate" aria-label="Completion date"></div>
     </div>
-    <button class="button full" id="btnStart" type="button" disabled>Begin the study</button>
-    <p class="hint" id="startHint">Add a name or handle. Your answers stay in this tab until you copy them.</p>
+    <button class="button full" id="btnStart" type="button">Begin the study</button>
+    <p class="hint" id="startHint">Your answers stay in this tab until you copy them.</p>
   </section>
   <section id="stageCheckin" class="hidden" aria-labelledby="checkinTitle">
     <header class="stage-head">
       <div class="stage-kicker">Section 1 · Field work</div>
       <h1 class="stage-title" id="checkinTitle">Ten work habits</h1>
-      <p class="stage-copy">Open any topic. If you report a use or trial, add one fact—or say you do not know.</p>
-      <div class="progress-line"><strong id="progressText">0 of 10 saved</strong><span id="progressName"></span></div>
-      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics saved" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="stage-copy">Open any topic. Every answer is optional. Leave it blank or choose Skip.</p>
+      <div class="progress-line"><strong id="progressText">0 of 10 done</strong><span id="progressName"></span></div>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics done" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
     </header>
     <nav class="topic-browser" aria-labelledby="browserTitle">
-      <div class="browser-head"><strong id="browserTitle">Browse all 10 topics</strong><span>✓ = saved</span></div>
+      <div class="browser-head"><strong id="browserTitle">Browse all 10 topics</strong><span>✓ = done</span></div>
       <div class="topic-map" id="topicMap"></div>
-      <button class="button full map-review hidden" id="btnMapReview" type="button">Review all answers</button>
+      <button class="button full map-review" id="btnMapReview" type="button">Review or finish now</button>
     </nav>
     <article class="instrument" aria-labelledby="itemTitle">
       <div class="item-meta" id="itemMeta"></div>
       <h2 class="item-title" id="itemTitle" tabindex="-1"></h2>
       <p class="item-prompt" id="itemPrompt"></p>
       <fieldset>
-        <legend>What did the event add?</legend>
+        <legend>What did the event add? (optional)</legend>
         <div class="options" id="learningOptions"></div>
       </fieldset>
       <fieldset>
-        <legend>What do you do now?</legend>
+        <legend>What do you do now? (optional)</legend>
         <div class="options" id="useOptions"></div>
       </fieldset>
       <fieldset class="hidden" id="outcomeWrap">
-        <legend>What happened?</legend>
+        <legend>What happened? (optional)</legend>
         <div class="options" id="outcomeOptions"></div>
       </fieldset>
       <fieldset class="hidden" id="evidenceWrap">
-        <legend>One fact from your use</legend>
+        <legend>One fact from your use (optional)</legend>
         <p class="field-help" id="notePrompt"></p>
         <div class="options evidence-options" id="evidenceOptions"></div>
         <div class="note-wrap hidden" id="noteEntry">
-          <label class="text-label" for="itemNote">Add the short fact
+          <label class="text-label" for="itemNote">Add the short fact (optional)
             <span class="counter" id="noteCounter">0/140</span>
             <input class="note-input" id="itemNote" maxlength="140" autocomplete="off" />
           </label>
@@ -340,7 +340,7 @@
       <div class="instrument-status" id="instrumentStatus" role="status" aria-live="polite"></div>
       <div class="instrument-nav">
         <button class="button secondary" id="btnBack" type="button">← Back</button>
-        <button class="button" id="btnSaveNext" type="button" disabled>Save &amp; next →</button>
+        <button class="button" id="btnSaveNext" type="button">Save or skip &amp; next →</button>
       </div>
     </article>
   </section>
@@ -348,7 +348,7 @@
     <header class="stage-head">
       <div class="stage-kicker">Section 2 · Peer review</div>
       <h1 class="stage-title" id="reviewTitle" tabindex="-1">Check your answers</h1>
-      <p class="stage-copy">This is your last clean look. The practice notes are still hidden.</p>
+      <p class="stage-copy">This is your last clean look. Skipped fields stay marked as skipped. The practice notes are still hidden.</p>
     </header>
     <div class="review-list" id="reviewList"></div>
     <div class="lock-note"><strong>Why the dramatic lock?</strong> After you finish, the page teaches the practices. Your answers then lock so the lesson cannot rewrite the check-in.</div>
@@ -412,7 +412,8 @@ const LEARNING_OPTIONS = [
   { id: "already", label: "Already knew it", report: "Already knew it" },
   { id: "unclear", label: "Still not clear", report: "Still not clear" },
   { id: "missed", label: "Missed this", report: "Missed this" },
-  { id: "private", label: "Keep private", report: "Keep private" }
+  { id: "private", label: "Keep private", report: "Keep private" },
+  { id: "skip", label: "Skip", report: "Skipped" }
 ];
 const USE_OPTIONS = [
   { id: "started", label: "Started since the event", report: "Started since the event" },
@@ -422,18 +423,21 @@ const USE_OPTIONS = [
   { id: "no", label: "Not using it", report: "Not using it" },
   { id: "unsure", label: "Not sure yet", report: "Not sure yet" },
   { id: "irrelevant", label: "Not for my role", report: "Not for my role" },
-  { id: "private", label: "Keep private", report: "Keep private" }
+  { id: "private", label: "Keep private", report: "Keep private" },
+  { id: "skip", label: "Skip", report: "Skipped" }
 ];
 const OUTCOME_OPTIONS = [
   { id: "worked", label: "Worked safely", report: "Worked safely" },
   { id: "unsure", label: "Not sure yet", report: "Not sure yet" },
   { id: "problems", label: "Caused problems", report: "Caused problems" },
-  { id: "private", label: "Keep result private", report: "Keep result private" }
+  { id: "private", label: "Keep result private", report: "Keep result private" },
+  { id: "skip", label: "Skip", report: "Skipped" }
 ];
 const EVIDENCE_OPTIONS = [
   { id: "fact", label: "Add one fact", report: "Add one fact" },
   { id: "unknown", label: "I do not know", report: "I do not know" },
-  { id: "private", label: "Keep details private", report: "Keep details private" }
+  { id: "private", label: "Keep details private", report: "Keep details private" },
+  { id: "skip", label: "Skip", report: "Skipped" }
 ];
 const ITEMS = [
   {
@@ -534,16 +538,21 @@ const state = {
 function optionById(options, id) {
   return options.find((option) => option.id === id);
 }
+function optionLabel(options, id, field = "label") {
+  const option = optionById(options, id);
+  return option ? option[field] : "Skipped";
+}
+function displayName() {
+  return state.name || "Name not shared";
+}
 function usesPractice(answer) {
   return ACTIVE_USE.includes(answer.use);
 }
-function canSave(answer) {
-  if (!answer.learning || !answer.use) return false;
-  if (!usesPractice(answer)) return true;
-  if (!answer.outcome) return false;
-  if (answer.outcome === "private") return true;
-  if (!answer.evidence) return false;
-  return answer.evidence !== "fact" || Boolean(answer.note.trim());
+function isSkipped(value) {
+  return !value || value === "skip";
+}
+function hasDisclosedUse(answer) {
+  return Boolean(answer.use) && !["skip", "irrelevant", "private"].includes(answer.use);
 }
 function showStage(stage) {
   ["Start", "Checkin", "Review", "Results"].forEach((name) => {
@@ -576,7 +585,6 @@ function updateDraft(groupName, value) {
   answer[groupName] = value;
   answer.saved = false;
   renderConditionalFields(groupName);
-  $("btnSaveNext").disabled = !canSave(answer);
   $("instrumentStatus").textContent = "Answer changed. Save this topic again.";
   renderMap();
 }
@@ -586,7 +594,7 @@ function renderConditionalFields(changedGroup = "") {
   const active = usesPractice(answer);
   $("outcomeWrap").classList.toggle("hidden", !active);
   if (active && changedGroup !== "outcome") renderOptionGroup("outcomeOptions", "outcome", OUTCOME_OPTIONS, answer.outcome);
-  const asksEvidence = active && answer.outcome && answer.outcome !== "private";
+  const asksEvidence = active && answer.outcome && !["private", "skip"].includes(answer.outcome);
   $("evidenceWrap").classList.toggle("hidden", !asksEvidence);
   if (asksEvidence && changedGroup !== "evidence") renderOptionGroup("evidenceOptions", "evidence", EVIDENCE_OPTIONS, answer.evidence);
   $("notePrompt").textContent = item.note;
@@ -602,7 +610,7 @@ function renderMap() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `topic-jump${state.answers[index].saved ? " done" : ""}${index === state.position ? " current" : ""}`;
-    button.setAttribute("aria-label", `${index + 1}. ${item.short}${state.answers[index].saved ? ", saved" : ", not saved"}`);
+    button.setAttribute("aria-label", `${index + 1}. ${item.short}${state.answers[index].saved ? ", done" : ", not done"}`);
     if (index === state.position) button.setAttribute("aria-current", "step");
     const number = document.createElement("strong");
     number.textContent = `${state.answers[index].saved ? "✓" : String(index + 1).padStart(2, "0")} ·`;
@@ -611,24 +619,22 @@ function renderMap() {
     host.appendChild(button);
   });
   const saved = state.answers.filter((answer) => answer.saved).length;
-  $("progressText").textContent = `${saved} of ${ITEMS.length} saved`;
+  $("progressText").textContent = `${saved} of ${ITEMS.length} done`;
   $("progressTrack").setAttribute("aria-valuenow", String(saved));
   $("progressFill").style.width = `${saved / ITEMS.length * 100}%`;
-  $("btnMapReview").classList.toggle("hidden", saved !== ITEMS.length);
 }
 function renderItem(notice = "") {
   const item = ITEMS[state.position];
   const answer = state.answers[state.position];
-  $("itemMeta").textContent = `${item.id} · Topic ${state.position + 1} of ${ITEMS.length}${answer.saved ? " · saved" : ""}`;
+  $("itemMeta").textContent = `${item.id} · Topic ${state.position + 1} of ${ITEMS.length}${answer.saved ? " · done" : ""}`;
   $("itemTitle").textContent = item.title;
   $("itemPrompt").textContent = item.prompt;
   renderOptionGroup("learningOptions", "learning", LEARNING_OPTIONS, answer.learning);
   renderOptionGroup("useOptions", "use", USE_OPTIONS, answer.use);
   renderConditionalFields();
   $("btnBack").disabled = state.position === 0;
-  $("btnSaveNext").disabled = !canSave(answer);
-  $("btnSaveNext").textContent = state.position === ITEMS.length - 1 ? "Save & review →" : "Save & next →";
-  $("instrumentStatus").textContent = notice || (answer.saved ? "Saved. You can change it, then save again." : "");
+  $("btnSaveNext").textContent = state.position === ITEMS.length - 1 ? "Save or skip & review →" : "Save or skip & next →";
+  $("instrumentStatus").textContent = notice || (answer.saved ? "Done. You can change it, then save again." : "");
   renderMap();
 }
 function goToItem(index, notice = "") {
@@ -638,19 +644,24 @@ function goToItem(index, notice = "") {
   $("itemTitle").focus({ preventScroll: true });
   window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
-function saveCurrent() {
-  const answer = state.answers[state.position];
-  if (!canSave(answer)) return;
+function normalizeAnswer(answer) {
   if (!usesPractice(answer)) {
     answer.outcome = "";
+    answer.evidence = "";
+    answer.note = "";
+  } else if (!answer.outcome || answer.outcome === "skip") {
     answer.evidence = "";
     answer.note = "";
   } else if (answer.outcome === "private") {
     answer.evidence = "private";
     answer.note = "";
-  } else if (answer.evidence === "private") {
+  } else if (!answer.evidence || ["private", "skip"].includes(answer.evidence)) {
     answer.note = "";
   }
+}
+function saveCurrent() {
+  const answer = state.answers[state.position];
+  normalizeAnswer(answer);
   answer.saved = true;
   renderMap();
   const firstUnsavedAfter = state.answers.findIndex((candidate, index) => index > state.position && !candidate.saved);
@@ -659,7 +670,7 @@ function saveCurrent() {
     showReview();
     return;
   }
-  goToItem(firstUnsavedAfter >= 0 ? firstUnsavedAfter : anyUnsaved, "Previous topic saved.");
+  goToItem(firstUnsavedAfter >= 0 ? firstUnsavedAfter : anyUnsaved, "Previous topic done.");
 }
 function renderReview() {
   const host = $("reviewList");
@@ -672,17 +683,17 @@ function renderReview() {
     const title = document.createElement("h2");
     title.textContent = `${index + 1}. ${item.short}`;
     const status = document.createElement("p");
-    const parts = [`Event: ${optionById(LEARNING_OPTIONS, answer.learning).label}`, `Use: ${optionById(USE_OPTIONS, answer.use).label}`];
-    if (usesPractice(answer)) parts.push(`Result: ${optionById(OUTCOME_OPTIONS, answer.outcome).label}`);
+    const parts = [`Event: ${optionLabel(LEARNING_OPTIONS, answer.learning)}`, `Use: ${optionLabel(USE_OPTIONS, answer.use)}`];
+    if (usesPractice(answer)) parts.push(`Result: ${optionLabel(OUTCOME_OPTIONS, answer.outcome)}`);
     status.textContent = parts.join(" · ");
     copy.append(title, status);
-    if (answer.note) {
+    if (answer.note.trim()) {
       const note = document.createElement("p");
-      note.textContent = `Fact: ${answer.note}`;
+      note.textContent = `Fact: ${answer.note.trim()}`;
       copy.appendChild(note);
-    } else if (usesPractice(answer) && answer.outcome !== "private") {
+    } else if (usesPractice(answer) && !["private", "skip"].includes(answer.outcome)) {
       const detail = document.createElement("p");
-      detail.textContent = optionById(EVIDENCE_OPTIONS, answer.evidence).label;
+      detail.textContent = answer.evidence === "fact" ? "Fact: Skipped" : `Details: ${optionLabel(EVIDENCE_OPTIONS, answer.evidence)}`;
       copy.appendChild(detail);
     }
     const edit = document.createElement("button");
@@ -695,7 +706,11 @@ function renderReview() {
     host.appendChild(row);
   });
 }
-function showReview() {
+function showReview(saveRemaining = false) {
+  if (saveRemaining) state.answers.forEach((answer) => {
+    normalizeAnswer(answer);
+    answer.saved = true;
+  });
   if (state.answers.some((answer) => !answer.saved)) return;
   showStage("review");
   renderReview();
@@ -703,6 +718,10 @@ function showReview() {
   window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
 function metrics() {
+  const topicsAnswered = state.answers.filter((answer) => {
+    const selected = [answer.learning, answer.use, answer.outcome, answer.evidence].some((value) => value && value !== "skip");
+    return selected || Boolean(answer.note.trim());
+  }).length;
   const learned = state.answers.filter((answer) => ["learned", "clearer"].includes(answer.learning)).length;
   const learningAssessed = state.answers.filter((answer) => ["learned", "clearer", "already", "unclear"].includes(answer.learning)).length;
   const startedWorking = state.answers.filter((answer) => answer.use === "started" && answer.outcome === "worked").length;
@@ -712,14 +731,21 @@ function metrics() {
   const learningPrivate = state.answers.filter((answer) => answer.learning === "private").length;
   const usePrivate = state.answers.filter((answer) => answer.use === "private").length;
   const detailPrivate = state.answers.filter((answer) => usesPractice(answer) && (answer.outcome === "private" || answer.evidence === "private")).length;
+  const learningSkipped = state.answers.filter((answer) => isSkipped(answer.learning)).length;
+  const useSkipped = state.answers.filter((answer) => isSkipped(answer.use)).length;
+  const outcomeSkipped = state.answers.filter((answer) => usesPractice(answer) && isSkipped(answer.outcome)).length;
+  const detailSkipped = state.answers.filter((answer) => {
+    if (!usesPractice(answer) || isSkipped(answer.outcome) || answer.outcome === "private") return false;
+    return isSkipped(answer.evidence) || (answer.evidence === "fact" && !answer.note.trim());
+  }).length;
   const needsFollowup = state.answers.filter(topicNeedsFollowup).length;
-  return { learned, learningAssessed, startedWorking, usingWorking, useAssessed, useUnknown, learningPrivate, usePrivate, detailPrivate, needsFollowup };
+  return { topicsAnswered, learned, learningAssessed, startedWorking, usingWorking, useAssessed, useUnknown, learningPrivate, usePrivate, detailPrivate, learningSkipped, useSkipped, outcomeSkipped, detailSkipped, needsFollowup };
 }
 function topicNeedsFollowup(answer) {
   if (["problems", "unsure"].includes(answer.outcome)) return true;
   if (["tried", "stopped", "no", "unsure"].includes(answer.use)) return true;
   if (answer.evidence === "unknown") return true;
-  return ["unclear", "missed"].includes(answer.learning) && !["irrelevant", "private"].includes(answer.use);
+  return ["unclear", "missed"].includes(answer.learning) && hasDisclosedUse(answer);
 }
 function recommendedNextStep() {
   let index = state.answers.findIndex((answer) => answer.outcome === "problems");
@@ -734,7 +760,7 @@ function recommendedNextStep() {
   if (index >= 0) return { item: ITEMS[index], text: ITEMS[index].tryNext };
   index = state.answers.findIndex((answer) => answer.use === "unsure");
   if (index >= 0) return { item: ITEMS[index], text: `Check one recent job and decide whether ${ITEMS[index].short.toLowerCase()} was actually used.` };
-  index = state.answers.findIndex((answer) => ["unclear", "missed"].includes(answer.learning) && !["irrelevant", "private"].includes(answer.use));
+  index = state.answers.findIndex((answer) => ["unclear", "missed"].includes(answer.learning) && hasDisclosedUse(answer));
   if (index >= 0) return { item: ITEMS[index], text: `Read the ${ITEMS[index].short.toLowerCase()} note below, then decide if one safe test would help.` };
   return { item: null, text: "No automatic next step was chosen. Pick one only if it would help your work." };
 }
@@ -746,21 +772,25 @@ function taskReport() {
   const next = recommendedNextStep();
   const lines = [
     "## Agentic Squirrel Symposium I — week-one check-in", "",
-    `**Name:** ${markdownSafe(state.name)}`, `**Completed:** ${state.completionDate}`, "", "### Summary", "",
+    `**Name:** ${markdownSafe(displayName())}`, `**Completed:** ${state.completionDate}`, "", "### Summary", "",
+    `- Topics with any answer: **${result.topicsAnswered}/${ITEMS.length}**`,
     `- Event added knowledge: **${result.learned}/${result.learningAssessed || 0} topics disclosed and judged**`,
     `- Reported started since event and working safely: **${result.startedWorking}**`,
     `- Reported using now and working safely: **${result.usingWorking}/${result.useAssessed || 0} clear, work-relevant use answers**`,
     `- Use not known yet: **${result.useUnknown}**`,
     `- May need follow-up: **${result.needsFollowup}**`,
+    `- Skipped: **learning ${result.learningSkipped}; use ${result.useSkipped}; result ${result.outcomeSkipped}; details ${result.detailSkipped}**`,
     `- Kept private: **learning ${result.learningPrivate}; use ${result.usePrivate}; details ${result.detailPrivate}**`, "", "### Answers", ""
   ];
   ITEMS.forEach((item, index) => {
     const answer = state.answers[index];
-    let line = `${index + 1}. **${item.short}** — Event: ${optionById(LEARNING_OPTIONS, answer.learning).report}; use: ${optionById(USE_OPTIONS, answer.use).report}.`;
-    if (usesPractice(answer)) line += ` Result: ${optionById(OUTCOME_OPTIONS, answer.outcome).report}.`;
+    let line = `${index + 1}. **${item.short}** — Event: ${optionLabel(LEARNING_OPTIONS, answer.learning, "report")}; use: ${optionLabel(USE_OPTIONS, answer.use, "report")}.`;
+    if (usesPractice(answer)) line += ` Result: ${optionLabel(OUTCOME_OPTIONS, answer.outcome, "report")}.`;
     lines.push(line);
-    if (answer.note) lines.push(`   - Fact: ${markdownSafe(answer.note)}`);
-    else if (usesPractice(answer) && answer.outcome !== "private") lines.push(`   - Details: ${optionById(EVIDENCE_OPTIONS, answer.evidence).report}`);
+    if (answer.note.trim()) lines.push(`   - Fact: ${markdownSafe(answer.note.trim())}`);
+    else if (usesPractice(answer) && !["private", "skip"].includes(answer.outcome)) {
+      lines.push(answer.evidence === "fact" ? "   - Fact: Skipped" : `   - Details: ${optionLabel(EVIDENCE_OPTIONS, answer.evidence, "report")}`);
+    }
   });
   lines.push("", "### One next step", "", next.item ? `**${next.item.short}:** ${next.text}` : next.text);
   return lines.join("\n");
@@ -773,8 +803,8 @@ function sourceLabel(id) {
 function renderResults() {
   const result = metrics();
   const cards = [
+    [`${result.topicsAnswered}/${ITEMS.length}`, "Topics answered"],
     [`${result.learned}/${result.learningAssessed || 0}`, "Event added knowledge"],
-    [String(result.startedWorking), "Started since event & working"],
     [`${result.usingWorking}/${result.useAssessed || 0}`, "Using now & working · clear answers"],
     [String(result.needsFollowup), "May need follow-up"]
   ];
@@ -789,7 +819,7 @@ function renderResults() {
     card.append(strong, span);
     $("summaryGrid").appendChild(card);
   });
-  $("respondentLine").textContent = `${state.name} · ${state.completionDate} · answers locked before guidance`;
+  $("respondentLine").textContent = `${displayName()} · ${state.completionDate} · answers locked before guidance`;
   $("taskOutput").value = taskReport();
   const next = recommendedNextStep();
   $("nextStep").replaceChildren();
@@ -863,20 +893,18 @@ function selectReport() {
 $("startDate").textContent = `Today · ${state.startedDate}`;
 $("respondentName").addEventListener("input", () => {
   state.name = $("respondentName").value.trim();
-  $("btnStart").disabled = !state.name;
-  $("startHint").textContent = state.name ? "Ready. Nothing is sent from this page." : "Add a name or handle. Your answers stay in this tab until you copy them.";
+  $("startHint").textContent = "Your answers stay in this tab until you copy them.";
 });
 $("respondentName").addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && state.name) $("btnStart").click();
+  if (event.key === "Enter") $("btnStart").click();
 });
 $("btnStart").addEventListener("click", () => {
-  if (!state.name) return;
-  $("progressName").textContent = state.name;
+  $("progressName").textContent = displayName();
   goToItem(0);
 });
 $("btnBack").addEventListener("click", () => goToItem(state.position - 1));
 $("btnSaveNext").addEventListener("click", saveCurrent);
-$("btnMapReview").addEventListener("click", showReview);
+$("btnMapReview").addEventListener("click", () => showReview(true));
 $("btnFinish").addEventListener("click", finishCheckin);
 $("btnCopy").addEventListener("click", copyReport);
 $("btnSelect").addEventListener("click", selectReport);
@@ -886,7 +914,6 @@ $("itemNote").addEventListener("input", () => {
   answer.note = $("itemNote").value;
   answer.saved = false;
   $("noteCounter").textContent = `${answer.note.length}/140`;
-  $("btnSaveNext").disabled = !canSave(answer);
   $("instrumentStatus").textContent = "Note changed. Save this topic again.";
   renderMap();
 });
