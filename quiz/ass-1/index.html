@@ -3,1095 +3,849 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>A.S.S. Academy — Agentic Squirrel Symposium I</title>
-<meta name="description" content="The one-week Agentic Squirrel Symposium I practice check: 14 talks, 18 scenarios, zero passive learning." />
-<meta name="theme-color" content="#020803" />
+<title>A.S.S. I — Week-One Knowledge Transfer Check-In</title>
+<meta name="description" content="A faux-academic, agenda-independent self-report on knowledge gained and practices changed after Agentic Squirrel Symposium I." />
+<meta name="theme-color" content="#eee8da" />
 <meta name="robots" content="noindex,nofollow" />
 <style>
   :root {
-    --grn: #39ff14; --cyn: #00f0ff; --mag: #ff44d4; --ylw: #ffd23f;
-    --bg: #020803; --panel: #041108; --red: #ff3b3b;
+    --desk: #b9b2a3; --paper: #f7f1e4; --paper-deep: #eee5d2; --ink: #171713;
+    --muted: #625e54; --rule: #2e2c27; --red: #7d1f22; --red-soft: #ead8d3;
+    --blue: #1f465c; --blue-soft: #dbe5e8; --green: #31543c; --shadow: rgba(35,29,20,.24);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--grn); font-family: "Courier New", monospace; }
-  body { min-height: 100vh; overflow-x: hidden; }
-  #rain { position: fixed; inset: 0; z-index: 0; opacity: .28; }
-  .scanlines { position: fixed; inset: 0; z-index: 2; pointer-events: none;
-    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.28) 2px 4px); }
-  .vignette { position: fixed; inset: 0; z-index: 2; pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.75) 100%); }
-  .crt { animation: flick 6s infinite; }
-  @keyframes flick { 0%,100% {opacity:1} 92% {opacity:1} 93% {opacity:.86} 94% {opacity:1} 97% {opacity:.93} 98% {opacity:1} }
-
-  .wrap { position: relative; z-index: 3; max-width: 680px; margin: 0 auto; padding: 0 14px 68px; }
-
-  /* marquees */
-  .marq { overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--grn); background: rgba(0,0,0,.82); }
-  .marq span { display: inline-block; padding: 4px 0; font-size: 12px; animation: slide 16s linear infinite; }
-  .marq.rev { border-bottom: 0; border-top: 1px solid var(--mag); color: var(--mag); }
-  .marq.rev span { animation-direction: reverse; animation-duration: 20s; }
-  .bottom-marq { position: relative; z-index: 5; background: rgba(0,0,0,.94); }
-  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  .blink { animation: blink .9s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  h1.glitch { font-family: Impact, "Arial Black", sans-serif; font-size: clamp(30px, 9vw, 46px);
-    letter-spacing: 2px; color: #fff; position: relative; text-align: center; margin: 46px 0 4px;
-    text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); animation: gl 2.4s infinite; }
-  @keyframes gl { 0%,88%,100% { transform: none; text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); }
-    90% { transform: skewX(-8deg); text-shadow: -4px 0 var(--mag), 4px 0 var(--cyn); }
-    92% { transform: skewX(4deg) translateX(2px); }
-    94% { transform: none; text-shadow: 3px 2px var(--ylw), -3px -2px var(--cyn); } }
-
-  .kao { text-align: center; font-size: 15px; color: var(--mag); margin: 2px 0 10px; }
-
-  .panel { background: rgba(4,17,8,.92); border: 1px solid var(--grn); box-shadow: 0 0 12px rgba(57,255,20,.25), inset 0 0 24px rgba(57,255,20,.05);
-    padding: 14px; margin: 12px 0; }
-  .panel.mag { border-color: var(--mag); box-shadow: 0 0 12px rgba(255,68,212,.3); }
-  .panel.cyn { border-color: var(--cyn); box-shadow: 0 0 12px rgba(0,240,255,.25); }
-
-  .term { font-size: 13px; line-height: 1.55; min-height: 132px; }
-  .term .ok { color: var(--cyn); }
-  .term .warn { color: var(--ylw); }
-  .cursor::after { content: "█"; animation: blink .7s step-end infinite; }
-
-  .debrief { border: 1px dashed var(--cyn); background: rgba(0,240,255,.045); margin: 12px 0; }
-  .debrief > summary { color: var(--cyn); cursor: pointer; list-style: none; padding: 12px 14px;
-    font-weight: 700; font-size: 13px; line-height: 1.4; text-transform: uppercase; }
-  .debrief > summary::-webkit-details-marker { display: none; }
-  .debrief > summary::before { content: "> "; color: var(--mag); }
-  .debrief[open] > summary { border-bottom: 1px dashed rgba(0,240,255,.45); }
-  .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 10px; }
-  .talk { border: 1px solid rgba(57,255,20,.35); padding: 9px; background: rgba(2,8,3,.75);
-    color: #d8ffd8; font-size: 11.5px; line-height: 1.45; }
-  .talk h3 { display: block; color: var(--grn); font-size: inherit; margin-bottom: 2px; }
-  .talk .who { color: var(--mag); font-size: 10px; text-transform: uppercase; }
-  .pulse h2 { color: var(--ylw); font-size: 14px; margin-bottom: 5px; }
-  .pulse > p { color: #d8ffd8; font-size: 12px; line-height: 1.45; margin-bottom: 9px; }
-  .pulse-grid { display: grid; gap: 7px; }
-  .pulse-item { display: flex; gap: 9px; align-items: flex-start; color: #bdf6ff; font-size: 11.5px;
-    line-height: 1.4; border: 1px solid rgba(0,240,255,.26); padding: 8px; cursor: pointer; }
-  .pulse-item:hover { border-color: var(--cyn); background: rgba(0,240,255,.06); }
-  .pulse-item input { appearance: none; flex: 0 0 17px; width: 17px; height: 17px; margin-top: 1px;
-    border: 1px solid var(--cyn); background: #000; }
-  .pulse-item input:checked { background: var(--grn); box-shadow: inset 0 0 0 3px #000, 0 0 9px rgba(57,255,20,.65); }
-  .fine { color: #4e9760 !important; font-size: 10px !important; margin: 8px 0 0 !important; }
-  .receipt-label { display: block; color: var(--mag); font-size: 11px; font-weight: 700; margin: 10px 0 5px; }
-  .receipt { width: 100%; min-height: 42px; border: 1px solid rgba(255,68,212,.65); background: #000;
-    color: #d8ffd8; font: 12px/1.4 "Courier New", monospace; padding: 9px; }
-  .receipt::placeholder { color: #4e9760; }
-  .receipt-share { margin-top: 7px; }
-  .result-pulse { text-align: center; font-size: 12px; line-height: 1.5; margin-top: 7px; overflow-wrap: anywhere; word-break: break-word; }
-  #finalPulse { color: var(--cyn); }
-  #finalReceipt { color: var(--mag); }
-  #finalNext { color: var(--ylw); }
-
-  button { font-family: inherit; cursor: pointer; }
-  button:focus-visible, summary:focus-visible, input:focus-visible, [tabindex="-1"]:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-  .btn { display: block; width: 100%; background: var(--grn); color: #000; border: 0; font-weight: 700;
-    font-size: 15px; padding: 13px; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
-    box-shadow: 0 0 14px rgba(57,255,20,.5); }
-  .btn:hover { background: var(--cyn); box-shadow: 0 0 18px rgba(0,240,255,.6); }
-  .btn.ghost { background: transparent; color: var(--grn); border: 1px solid var(--grn); box-shadow: none; }
-  .btn.ghost:hover { color: var(--cyn); border-color: var(--cyn); }
-
-  /* HUD */
-  .hud { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px; flex-wrap: wrap; }
-  .hud .pts { position: relative; border: 1px solid var(--ylw); color: var(--ylw); padding: 2px 8px; }
-  .pop { position: absolute; right: 0; top: -18px; color: var(--grn); font-weight: 700; animation: pop .9s ease-out forwards; pointer-events: none; }
-  @keyframes pop { 0% { opacity: 0; transform: translateY(6px) scale(.4);} 40% { opacity: 1; transform: translateY(-2px) scale(1.3);} 100% { opacity: 0; transform: translateY(-14px) scale(1);} }
-  .combo { border: 1px solid var(--mag); color: var(--mag); padding: 2px 8px; animation: pulse 1s infinite; }
-  @keyframes pulse { 50% { box-shadow: 0 0 12px rgba(255,68,212,.8); } }
-
-  .lvl { display: inline-block; font-size: 11px; padding: 2px 8px; border: 1px solid; margin-bottom: 8px; text-transform: uppercase; }
-  .lvl.easy { color: var(--grn); border-color: var(--grn); }
-  .lvl.mid { color: var(--ylw); border-color: var(--ylw); }
-  .lvl.hard { color: var(--red); border-color: var(--red); animation: pulse 1.2s infinite; }
-
-  .prompt-line { color: var(--cyn); font-size: 11px; margin-bottom: 6px; word-break: break-all; }
-  .q-text { color: #d8ffd8; font-size: 14px; line-height: 1.5; }
-
-  .opt { display: block; width: 100%; text-align: left; background: transparent; color: var(--grn);
-    border: 1px solid rgba(57,255,20,.55); padding: 11px 12px; margin-top: 8px; font-size: 13px; line-height: 1.45;
-    overflow-wrap: anywhere; word-break: break-word; }
-  .opt:hover:not(:disabled) { background: rgba(57,255,20,.14); border-color: var(--cyn); color: var(--cyn); }
-  .opt:disabled { cursor: default; opacity: .45; }
-  .opt.correct { opacity: 1; background: rgba(57,255,20,.18); border-color: var(--grn); color: #d8ffd8;
-    box-shadow: 0 0 14px rgba(57,255,20,.5); font-weight: 700; }
-  .opt.wrongpick { opacity: 1; background: rgba(255,59,59,.15); border-color: var(--red); color: #ffc9c9; }
-
-  .verdict { font-family: Impact, sans-serif; font-size: 16px; letter-spacing: 1px; margin-top: 12px; text-align: center; line-height: 1.4; }
-  .verdict.ok { color: var(--grn); text-shadow: 0 0 10px rgba(57,255,20,.8); }
-  .verdict.no { color: var(--red); text-shadow: 0 0 10px rgba(255,59,59,.8); }
-
-  .intel { border-left: 3px solid var(--cyn); padding: 8px 10px; margin-top: 10px; font-size: 12.5px; line-height: 1.55; color: #bdf6ff; background: rgba(0,240,255,.06); }
-  .quip { color: var(--mag); font-size: 12px; margin-top: 6px; }
-
-  .shake { animation: shake .45s; }
-  @keyframes shake { 0%,100%{transform:none} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
-  .flash-red { animation: fred .45s; }
-  @keyframes fred { 0% { box-shadow: inset 0 0 60px rgba(255,59,59,.7); } 100% { box-shadow: none; } }
-
-  .lvlup { position: fixed; inset-inline: 0; top: 34%; z-index: 20; text-align: center; pointer-events: none; animation: lup 1.8s ease-in-out forwards; }
-  .lvlup span { display: inline-block; font-family: Impact, sans-serif; font-size: 26px; color: #000; background: var(--ylw);
-    padding: 8px 18px; border: 2px solid var(--mag); box-shadow: 0 0 30px var(--mag); }
-  @keyframes lup { 0% { opacity: 0; transform: scale(.3) rotate(-6deg);} 15% { opacity: 1; transform: scale(1.05);} 80% { opacity: 1; transform: scale(1);} 100% { opacity: 0; transform: scale(1.5);} }
-
-  .mascot { display: block; margin: 8px auto 0; background: transparent; border: 0; color: var(--grn);
-    font-size: 26px; text-shadow: 0 0 12px rgba(57,255,20,.6); }
-  .mascot small { display: block; font-size: 10px; color: var(--cyn); margin-top: 2px; }
-
-  .rank { font-family: Impact, sans-serif; font-size: 30px; text-align: center; color: #fff;
-    text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); margin: 8px 0 2px; }
-  .score-big { font-size: 44px; text-align: center; color: var(--grn); font-weight: 700; text-shadow: 0 0 16px rgba(57,255,20,.7); }
-
-  .stickers { position: absolute; z-index: 4; pointer-events: none; font-size: 10px; }
-  .stk { display: inline-block; border: 1px solid var(--mag); color: var(--mag); background: rgba(0,0,0,.8);
-    padding: 2px 6px; animation: wig 1.8s ease-in-out infinite; }
-  @keyframes wig { 0%,100% { transform: rotate(-3deg);} 50% { transform: rotate(3deg);} }
-
-  .footer { text-align: center; font-size: 11.5px; color: var(--grn); margin-top: 22px; line-height: 2; }
-  .footer a { color: var(--cyn); }
-  .counter { color: #000; background: var(--grn); padding: 0 5px; font-weight: 700; }
-  .trail-glyph { position: fixed; z-index: 50; pointer-events: none; font-size: 13px; color: var(--grn);
-    text-shadow: 0 0 8px rgba(57,255,20,.9); animation: fall .7s ease-out forwards; transform: translate(-50%,-50%); }
-  @keyframes fall { to { opacity: 0; transform: translate(-50%, 10px) scale(.4); } }
-  .nutfall { position: fixed; z-index: 49; pointer-events: none; font-size: 22px; animation: nfall 1.6s ease-in forwards; }
-  @keyframes nfall { from { transform: translateY(-40px) rotate(0); opacity: 1; } to { transform: translateY(105vh) rotate(360deg); opacity: .9; } }
+  * { box-sizing: border-box; }
+  html { background: var(--desk); color: var(--ink); font-family: "Times New Roman", "Nimbus Roman No9 L", Georgia, serif; }
+  body {
+    margin: 0; min-height: 100vh; overflow-x: hidden;
+    background:
+      linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.12)),
+      repeating-linear-gradient(0deg, transparent 0 31px, rgba(58,48,36,.035) 31px 32px),
+      repeating-linear-gradient(90deg, transparent 0 47px, rgba(58,48,36,.025) 47px 48px),
+      var(--desk);
+  }
+  button, input, textarea { font: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex="-1"]:focus-visible {
+    outline: 3px solid var(--blue); outline-offset: 3px;
+  }
   .hidden { display: none !important; }
-  .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
-    margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
-  @media (max-width: 560px) { .talk-grid { grid-template-columns: 1fr; } }
+  .sr-only {
+    position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
+    margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important; border: 0 !important;
+  }
+  .formulae {
+    position: fixed; inset: 0; pointer-events: none; overflow: hidden; color: rgba(53,46,37,.11);
+    font-family: "Cambria Math", "Times New Roman", serif; font-style: italic; z-index: 0;
+  }
+  .formulae span { position: absolute; white-space: nowrap; }
+  .formulae span:nth-child(1) { left: 2vw; top: 9vh; transform: rotate(-7deg); font-size: 22px; }
+  .formulae span:nth-child(2) { right: 1vw; top: 25vh; transform: rotate(8deg); font-size: 18px; }
+  .formulae span:nth-child(3) { left: 3vw; bottom: 12vh; transform: rotate(5deg); font-size: 20px; }
+  .formulae span:nth-child(4) { right: 2vw; bottom: 6vh; transform: rotate(-9deg); font-size: 24px; }
+  .paper {
+    position: relative; z-index: 1; width: min(940px, calc(100% - 28px)); min-height: 100vh;
+    margin: 26px auto; padding: 34px clamp(22px, 6vw, 72px) 58px;
+    background:
+      radial-gradient(circle at 15% 12%, rgba(126,92,38,.04), transparent 26%),
+      radial-gradient(circle at 87% 72%, rgba(126,92,38,.035), transparent 22%), var(--paper);
+    border: 1px solid #8f8878; box-shadow: 0 16px 42px var(--shadow), 0 2px 4px rgba(35,29,20,.22);
+  }
+  .paper::before {
+    content: "PREPRINT · WEEK-ONE REVISION"; position: absolute; top: 250px; right: -93px;
+    padding: 7px 78px; border-block: 2px solid rgba(125,31,34,.45); color: rgba(125,31,34,.48);
+    font: 700 11px/1 Georgia, serif; letter-spacing: 2px; transform: rotate(90deg); pointer-events: none;
+  }
+  body[data-stage="checkin"] .title-block,
+  body[data-stage="done"] .title-block { display: none; }
+  .running-head {
+    display: flex; justify-content: space-between; gap: 14px; padding-bottom: 7px;
+    border-bottom: 1px solid var(--rule); color: var(--muted); font-size: 11px;
+    font-variant: small-caps; letter-spacing: .8px;
+  }
+  .running-head span:last-child { text-align: right; }
+  .title-block { text-align: center; padding: 44px 0 24px; }
+  .title-block .journal { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; }
+  h1 {
+    max-width: 760px; margin: 15px auto 9px; font-size: clamp(34px, 6.7vw, 58px);
+    line-height: .98; font-weight: 400; letter-spacing: -.035em;
+  }
+  .subtitle { max-width: 690px; margin: 0 auto; font-size: 19px; line-height: 1.35; font-style: italic; }
+  .authors { margin: 25px 0 5px; font-size: 16px; font-variant: small-caps; letter-spacing: 1px; }
+  .affiliation { color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .metadata { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px 18px; margin-top: 16px; color: var(--muted); font-size: 10.5px; }
+  .abstract {
+    margin: 18px auto 12px; padding: 17px 22px; border-block: 3px double var(--rule);
+    font-size: 14px; line-height: 1.55; text-align: justify;
+  }
+  .abstract strong { font-variant: small-caps; letter-spacing: .5px; }
+  .keywords { margin: 12px 0 0; font-size: 12px; }
+  .equation {
+    margin: 24px auto; text-align: center; font-family: "Cambria Math", "Times New Roman", serif;
+    font-size: clamp(18px, 4vw, 28px); font-style: italic; overflow-wrap: anywhere;
+  }
+  .equation .number { float: right; font: 13px "Times New Roman", serif; font-style: normal; }
+  .theorem {
+    position: relative; margin: 22px 0; padding: 16px 18px 15px; border: 1px solid var(--rule);
+    background: rgba(255,255,255,.28); box-shadow: 4px 4px 0 var(--paper-deep);
+    font-size: 14px; line-height: 1.5;
+  }
+  .theorem strong { font-variant: small-caps; letter-spacing: .5px; }
+  .proof-end { float: right; font-size: 17px; }
+  h2.section-title { margin: 34px 0 12px; font-size: 22px; line-height: 1.2; font-weight: 400; }
+  h2.section-title .sec { padding-right: 8px; font-weight: 700; }
+  .lede { margin: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .small-note { color: var(--muted); font-size: 11px; line-height: 1.45; }
+  details.appendix { margin: 24px 0; border-block: 1px solid var(--rule); background: rgba(255,255,255,.19); }
+  details.appendix > summary {
+    list-style: none; padding: 13px 4px; font-size: 14px; font-weight: 700;
+    font-variant: small-caps; letter-spacing: .55px; cursor: pointer;
+  }
+  details.appendix > summary::-webkit-details-marker { display: none; }
+  details.appendix > summary::before { content: "▸ "; color: var(--red); }
+  details.appendix[open] > summary::before { content: "▾ "; }
+  .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 24px; padding: 5px 4px 20px; }
+  .talk { padding: 11px 0; border-bottom: 1px dotted #999184; font-size: 12px; line-height: 1.45; min-width: 0; }
+  .talk h3 { margin: 0 0 3px; font-size: 13px; line-height: 1.25; overflow-wrap: anywhere; }
+  .talk .who { color: var(--red); font-size: 10px; font-variant: small-caps; letter-spacing: .7px; }
+  .talk p { margin: 4px 0 0; }
+  .response-key { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; margin: 18px 0; }
+  .key-chip { padding: 9px; border: 1px solid #a79f8f; background: rgba(255,255,255,.25); font-size: 11px; line-height: 1.35; }
+  .key-chip strong { display: block; margin-bottom: 2px; color: var(--red); }
+  .button {
+    min-height: 47px; padding: 11px 18px; border: 1px solid var(--ink); background: var(--ink);
+    color: var(--paper); font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+    box-shadow: 3px 3px 0 #9d9587;
+  }
+  .button:hover:not(:disabled) { background: var(--red); border-color: var(--red); }
+  .button.secondary { background: transparent; color: var(--ink); box-shadow: none; }
+  .button.secondary:hover:not(:disabled) { color: var(--paper); }
+  .button:disabled { cursor: not-allowed; opacity: .38; }
+  .button.full { width: 100%; }
+  .start-button { margin-top: 22px; font-size: 15px; }
+  .progress-head { margin-top: 31px; }
+  .progress-copy { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; font-variant: small-caps; letter-spacing: .7px; }
+  .progress-track { height: 5px; margin-top: 6px; border: 1px solid var(--ink); background: transparent; }
+  .progress-fill { height: 100%; width: 0; background: var(--red); transition: width .2s ease; }
+  .instrument {
+    position: relative; margin-top: 20px; padding: clamp(18px, 4vw, 34px);
+    border: 3px double var(--rule); background: rgba(255,255,255,.22);
+  }
+  .item-meta { color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; }
+  .item-title { margin: 10px 0 16px; font-size: clamp(23px, 4.8vw, 34px); line-height: 1.1; font-weight: 400; }
+  .proposition { margin: 16px 0; padding: 13px 15px; border-left: 4px solid var(--red); background: var(--red-soft); font-size: 14px; line-height: 1.5; }
+  .proposition strong { font-variant: small-caps; letter-spacing: .5px; }
+  .why { margin: 12px 0 19px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .why strong { color: var(--ink); }
+  fieldset { margin: 0; padding: 0; border: 0; }
+  legend { width: 100%; margin: 0 0 9px; padding: 0; font-size: 14px; font-weight: 700; line-height: 1.4; }
+  .options { display: grid; gap: 7px; counter-reset: response; }
+  .response {
+    counter-increment: response; display: grid; grid-template-columns: 36px 1fr; gap: 10px;
+    align-items: start; min-width: 0; padding: 10px 11px; border: 1px solid #aaa292;
+    background: rgba(247,241,228,.75); cursor: pointer;
+    transition: border-color .12s, background .12s, transform .12s;
+  }
+  .response:hover { border-color: var(--red); transform: translateX(2px); }
+  .response.selected { border: 2px solid var(--red); padding: 9px 10px; background: #fffaf0; }
+  .response input {
+    appearance: none; width: 25px; height: 25px; margin: 0; border: 1px solid var(--ink);
+    border-radius: 50%; background: transparent; display: grid; place-content: center;
+  }
+  .response input::before { content: ""; width: 13px; height: 13px; border-radius: 50%; transform: scale(0); background: var(--red); }
+  .response input:checked::before { transform: scale(1); }
+  .response-copy { min-width: 0; overflow-wrap: anywhere; }
+  .response-copy strong { display: block; font-size: 13px; line-height: 1.25; }
+  .response-copy strong::before { content: "(" counter(response, lower-alpha) ") "; color: var(--red); }
+  .response-copy span { display: block; margin-top: 2px; color: var(--muted); font-size: 11.5px; line-height: 1.35; }
+  .source-note { margin-top: 15px; color: var(--muted); font-size: 10.5px; line-height: 1.4; }
+  .source-note summary { cursor: pointer; font-style: italic; }
+  .instrument-nav { display: grid; grid-template-columns: 1fr 1.65fr; gap: 9px; margin-top: 19px; }
+  .answer-status { min-height: 18px; margin-top: 8px; color: var(--green); font-size: 11px; }
+  .compile-log {
+    padding: 15px 17px; border: 1px solid var(--rule); background: #e9e1d1; color: #37332c;
+    font: 12px/1.55 "Courier New", monospace; overflow-wrap: anywhere; white-space: pre-line;
+  }
+  .result-title { margin: 26px 0 4px; text-align: center; font-size: clamp(28px, 6vw, 46px); font-weight: 400; line-height: 1.05; }
+  .result-subtitle { margin: 0 0 24px; text-align: center; color: var(--muted); font-style: italic; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+  .metric { min-width: 0; padding: 12px 9px; border: 1px solid #9f9787; text-align: center; background: rgba(255,255,255,.26); }
+  .metric strong { display: block; color: var(--red); font-size: 27px; line-height: 1; }
+  .metric span { display: block; margin-top: 5px; font-size: 10px; line-height: 1.25; text-transform: uppercase; letter-spacing: .55px; overflow-wrap: anywhere; }
+  .interpretation { margin: 18px 0; padding: 15px 17px; border-block: 3px double var(--rule); font-size: 14px; line-height: 1.55; }
+  .interpretation strong { font-variant: small-caps; }
+  .next-study { margin: 15px 0 25px; padding: 14px 16px; border-left: 4px solid var(--blue); background: var(--blue-soft); font-size: 13px; line-height: 1.5; }
+  .results-list { list-style: none; margin: 16px 0 28px; padding: 0; counter-reset: result; }
+  .result-item { counter-increment: result; padding: 12px 0; border-bottom: 1px dotted #999184; }
+  .result-item h3 { margin: 0 0 4px; font-size: 14px; line-height: 1.3; }
+  .result-item h3::before { content: counter(result) ". "; color: var(--red); }
+  .result-answer { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 700; }
+  .result-practice { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .receipt-label { display: block; margin: 12px 0 5px; font-weight: 700; font-size: 13px; }
+  .receipt {
+    width: 100%; min-height: 47px; padding: 10px 12px; border: 1px solid var(--rule);
+    background: #fffaf0; color: var(--ink); border-radius: 0;
+  }
+  .receipt::placeholder { color: #898274; }
+  .export-box { margin-top: 24px; padding: 18px; border: 3px double var(--red); background: rgba(255,255,255,.25); }
+  .export-box h2 { margin: 0 0 8px; font-size: 20px; font-weight: 400; }
+  .task-output {
+    width: 100%; min-height: 320px; margin-top: 12px; padding: 12px; border: 1px solid #857d6f;
+    background: #eee7da; color: #292721; font: 11px/1.45 "Courier New", monospace;
+    resize: vertical; overflow-wrap: anywhere;
+  }
+  .export-actions { display: grid; grid-template-columns: 1.55fr 1fr; gap: 9px; margin-top: 9px; }
+  .result-status { min-height: 20px; margin-top: 8px; color: var(--green); font-size: 12px; font-weight: 700; }
+  .secondary-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+  .bibliography { margin-top: 36px; padding-top: 15px; border-top: 1px solid var(--rule); font-size: 10px; line-height: 1.45; color: var(--muted); }
+  .bibliography h2 { margin: 0 0 8px; color: var(--ink); font-size: 14px; font-variant: small-caps; }
+  .page-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; color: var(--muted); font-size: 9px; font-variant: small-caps; letter-spacing: .5px; }
+  @media (max-width: 650px) {
+    .paper { width: calc(100% - 14px); margin: 7px auto; padding: 21px 16px 42px; }
+    .paper::before, .formulae { display: none; }
+    .running-head { font-size: 9px; }
+    .title-block { padding-top: 31px; }
+    .talk-grid, .response-key { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .instrument { padding: 17px 13px; }
+    .instrument-nav, .export-actions, .secondary-actions { grid-template-columns: 1fr; }
+    .button.secondary { order: 2; }
+  }
+  @media (max-width: 360px) {
+    .paper { width: 100%; margin: 0; border-inline: 0; padding-inline: 12px; }
+    .response { grid-template-columns: 30px 1fr; padding-inline: 8px; }
+    .response.selected { padding-inline: 7px; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
-    #rain, .scanlines { display: none; }
+    *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  }
+  @media print {
+    body { background: #fff; }
+    .paper { width: 100%; margin: 0; border: 0; box-shadow: none; }
+    .formulae, .button, .instrument-nav { display: none !important; }
   }
 </style>
 </head>
-<body class="crt">
-<canvas id="rain" aria-hidden="true"></canvas>
-<div class="scanlines" aria-hidden="true"></div>
-<div class="vignette" aria-hidden="true"></div>
-
-<div class="stickers" style="top:32px;left:6px;" aria-hidden="true"><span class="stk">☆ 14 T4LKS ☆</span></div>
-<div class="stickers" style="top:32px;right:6px;" aria-hidden="true"><span class="stk blink">⚠ W33K-1 PULSE ⚠</span></div>
-
-<div class="marq" aria-hidden="true"><span>
-  ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
-  ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
-</span></div>
-
-<main class="wrap">
-  <h1 class="glitch" id="pageTitle">A.S.S. ACADEMY</h1>
-  <div class="kao" aria-hidden="true">☆*: .｡. o(≧▽≦)o .｡.:*☆ &nbsp;the retention protocol&nbsp; (❁´◡`❁)</div>
-
-  <button class="mascot" id="mascot" type="button" aria-label="squad mascot">
-    <span id="mascotFace">(⌐■_■)🐿️</span>
-    <small id="mascotSub">// cl1ck m3</small>
-  </button>
-
-  <!-- START -->
-  <section id="stStart" aria-labelledby="pageTitle">
-    <div class="panel">
-      <div class="term" id="bootTerm"></div>
+<body data-stage="start">
+<div class="formulae" aria-hidden="true">
+  <span>ΔK = K<sub>after</sub> − K<sub>before</sub></span>
+  <span>∀ agent ∃ boundary : blast-radius(agent) ≤ ε</span>
+  <span>merged ≠ deployed ∎</span>
+  <span>∫ context · d🐿 = evidence</span>
+</div>
+<main class="paper">
+  <div class="running-head" aria-hidden="true">
+    <span>Proceedings of the Agentic Squirrel Society · Vol. I</span>
+    <span>A.S.S. Collective · Week-One Revision</span>
+  </div>
+  <header class="title-block">
+    <div class="journal">A.S.S. Academy Working Paper No. 01</div>
+    <h1 id="pageTitle">Did Any of This Enter Long-Term Memory?</h1>
+    <p class="subtitle">A Week-One, Self-Reported Study of Knowledge Transfer and Practice Change After Agentic Squirrel Symposium I</p>
+    <p class="authors">The A.S.S. Academy Research Collective<sup>*</sup></p>
+    <p class="affiliation">Department of Applied Acornics, Squirrel Labs<br />Correspondence: Reviewer No. 2, probably hiding in the task body</p>
+    <div class="metadata">
+      <span>Received: one week ago</span><span>Accepted: pending evidence</span><span>Faux DOI: 10.1337/ASS.I.RETENTION</span>
     </div>
-    <details class="debrief">
-      <summary>14 talks in 14 lines — emergency memory reload</summary>
+  </header>
+  <section id="stStart" aria-labelledby="pageTitle">
+    <div class="abstract">
+      <strong>Abstract.</strong> This instrument asks what changed in your own understanding and work after the symposium. It is not agenda trivia, a performance grade, or team-adoption telemetry. Fourteen concrete operating practices are stated in full, so no knowledge of talk order or titles is required. Choose the one response that most honestly describes your change on each topic; all responses are valid data.
+      <p class="keywords"><strong>Keywords:</strong> agentic work; verification; context governance; squirrel epistemology; Reviewer No. 2.</p>
+    </div>
+    <div class="equation" aria-label="Knowledge gain is not equal to attendance, and self-report is not equal to adoption telemetry">
+      ΔK ≠ attendance &nbsp;&nbsp;∧&nbsp;&nbsp; self-report ≠ adoption telemetry <span class="number">(1)</span>
+    </div>
+    <div class="theorem">
+      <strong>Definition 1 (an honest check-in).</strong> “Already established” is not worse than “new understanding,” and “not assessed” is better than invented certainty. A behavior-change claim should be selected only when the symposium actually caused a changed action or artifact. No points, ranks, streaks, or remedial clown options are computed. <span class="proof-end" aria-hidden="true">□</span>
+    </div>
+    <h2 class="section-title"><span class="sec">1.</span>Response taxonomy</h2>
+    <p class="lede">Each item uses the same six categories. The categories distinguish knowledge gained from prior knowledge, application judgment, and behavior change.</p>
+    <div class="response-key" id="responseKey"></div>
+    <details class="appendix">
+      <summary>Optional Appendix A — the 14 source talks in 14 lines</summary>
       <div class="talk-grid" id="talkGrid"></div>
     </details>
-    <div class="panel cyn pulse" id="pulsePanel">
-      <h2>PRIVATE WEEK-1 SELF-REPORT</h2>
-      <p>During the first seven days after the symposium, tick only what you personally did. This is a reflection baseline, not team adoption telemetry.</p>
-      <div class="pulse-grid">
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="visual-decisions" /><span>Used a GenUI picker or HTML report for a materially important decision.</span></label>
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="verify-first" /><span>Verified an inbound claim against a primary source before passing it on.</span></label>
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="durable-context" /><span>Turned a repeated lesson into shared context, a test, a gate, or a self-check.</span></label>
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="parallel-boundaries" /><span>Used separate worktrees for files and explicitly owned every shared port, server, process, and branch ref touched.</span></label>
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="observable-autonomy" /><span>Ran long work with a heartbeat, durable status, or an end-of-day handoff.</span></label>
+    <p class="small-note"><sup>*</sup> N = you. Expected completion time: 6–8 minutes. Responses stay only in this browser tab; closing or reloading erases them. Copy or download is the only way they leave the page.</p>
+    <button class="button full start-button" id="btnStart" type="button">Administer the instrument (.tex → truth)</button>
+  </section>
+  <section id="stCheckin" class="hidden" aria-labelledby="itemTitle">
+    <div class="progress-head">
+      <div class="progress-copy"><span id="progressText"></span><span id="progressSection"></span></div>
+      <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <article class="instrument">
+      <div class="item-meta" id="itemMeta"></div>
+      <h1 class="item-title" id="itemTitle" tabindex="-1"></h1>
+      <div class="proposition" id="practiceText"></div>
+      <p class="why" id="whyText"></p>
+      <fieldset>
+        <legend>Which statement is most accurate for you one week later?</legend>
+        <div class="options" id="responseOptions"></div>
+      </fieldset>
+      <details class="source-note">
+        <summary>Source basis (optional; the question stands alone)</summary>
+        <div id="sourceText"></div>
+      </details>
+      <div class="answer-status" id="answerStatus" role="status" aria-live="polite"></div>
+      <div class="instrument-nav">
+        <button class="button secondary" id="btnBack" type="button">← Previous item</button>
+        <button class="button" id="btnNext" type="button" disabled>Record and continue →</button>
       </div>
-      <label class="receipt-label" for="receipt">ONE RECEIPT (OPTIONAL) — public-safe artifact name or concrete behavior</label>
-      <input class="receipt" id="receipt" maxlength="96" autocomplete="off" aria-describedby="receiptSafety" placeholder="e.g. release picker, invariant, monitor run, handoff…" />
-      <label class="pulse-item receipt-share"><input type="checkbox" id="includeReceipt" /><span>Include this receipt on exported cards. Public-safe text only—never secrets, customer data, or private URLs.</span></label>
-      <p class="fine" id="receiptSafety">// stored only in this page run; nothing is sent. the receipt is exported only if you opt in above.</p>
-    </div>
-    <button class="btn hidden" id="btnStart" aria-label="Start Symposium practice assessment" onclick="beginRun(null)">&gt;&gt; 3NT3R TH3 A.S.S.3SSM3NT &lt;&lt;</button>
+    </article>
   </section>
-
-  <!-- PLAY -->
-  <section id="stPlay" class="hidden" aria-labelledby="qText">
-    <div class="hud">
-      <span id="prog"></span>
-      <span class="pts">PTS <b id="pts">0</b><span id="popHost"></span></span>
-      <span class="combo hidden" id="combo"></span>
-    </div>
-    <div class="panel" id="qPanel">
-      <span class="lvl" id="lvlChip"></span>
-      <div class="prompt-line" id="promptLine"></div>
-      <h2 class="q-text" id="qText" tabindex="-1"></h2>
-      <div id="opts" role="group" aria-labelledby="qText"></div>
-      <div id="verdict" role="status" aria-live="polite"></div>
-      <div id="intel" aria-live="polite"></div>
-      <button class="btn hidden" id="btnNext" aria-label="Next scenario" onclick="next()"></button>
-    </div>
-  </section>
-
-  <!-- DONE -->
-  <section id="stDone" class="hidden" aria-labelledby="finalRank">
-    <div class="panel mag">
-      <div class="term" id="evalTerm" role="group" tabindex="-1" aria-label="Compiling final result"></div>
-      <div id="resultBlock" class="hidden">
-        <div class="score-big" id="finalScore"></div>
-        <h2 class="rank" id="finalRank" tabindex="-1"></h2>
-        <div class="kao" id="finalKao"></div>
-        <div style="text-align:center;font-size:13px;color:var(--ylw)" id="finalPts"></div>
-        <div style="text-align:center;font-size:12px;color:var(--cyn);margin-top:4px" id="finalStreak"></div>
-        <div class="result-pulse" id="finalPulse"></div>
-        <div class="result-pulse" id="finalReceipt"></div>
-        <div class="result-pulse" id="finalNext"></div>
-        <div class="sr-only" id="resultStatus" role="status" aria-live="polite"></div>
+  <section id="stDone" class="hidden" aria-labelledby="resultTitle">
+    <div class="compile-log" id="compileLog" role="status" aria-live="polite"></div>
+    <div id="resultContent" class="hidden">
+      <h1 class="result-title" id="resultTitle" tabindex="-1">Findings</h1>
+      <p class="result-subtitle">Self-reported, locally computed, and gloriously underpowered.</p>
+      <div class="summary-grid" id="summaryGrid"></div>
+      <div class="interpretation" id="interpretation"></div>
+      <div class="next-study" id="nextStudy"></div>
+      <h2 class="section-title"><span class="sec">4.</span>Response schedule</h2>
+      <p class="lede">Every selected answer is reproduced below. Nothing has been converted into a right/wrong score.</p>
+      <ol class="results-list" id="resultsList"></ol>
+      <div class="theorem">
+        <strong>Validity note.</strong> This check-in measures perceived knowledge transfer and symposium-attributed change. Evidence of team adoption requires a named owner plus observable artifacts or behavior over time. <span class="proof-end" aria-hidden="true">□</span>
+      </div>
+      <label class="receipt-label" for="receipt">Optional evidence receipt</label>
+      <input class="receipt" id="receipt" maxlength="120" autocomplete="off" aria-describedby="receiptHelp" placeholder="e.g. release picker, invariant check, decision feed, durable handoff…" />
+      <p class="small-note" id="receiptHelp">Public-safe artifact name or behavior only—never secrets, customer data, or private URLs. It appears in the paste-ready record and leaves the page only when you copy or download it. Nothing is sent automatically.</p>
+      <section class="export-box" aria-labelledby="exportTitle">
+        <h2 id="exportTitle">Appendix B. Paste-ready task-body record</h2>
+        <p class="lede">Required final step: copy this complete record and paste it into the symposium follow-up task body so the team can see every answer. This page does not send anything automatically.</p>
+        <textarea class="task-output" id="taskOutput" readonly aria-label="Markdown results ready to paste into the task body"></textarea>
+        <div class="export-actions">
+          <button class="button" id="btnCopyTask" type="button">Copy all responses for task body</button>
+          <button class="button secondary" id="btnDownloadText" type="button">Download .md</button>
+        </div>
+        <div class="result-status" id="resultStatus" role="status" aria-live="polite"></div>
+      </section>
+      <div class="secondary-actions">
+        <button class="button secondary" id="btnReview" type="button">Review / edit responses</button>
+        <button class="button secondary" id="btnCopyCard" type="button">Copy findings card</button>
+        <button class="button secondary" id="btnDownloadCard" type="button">Download findings card</button>
       </div>
     </div>
-    <div id="doneBtns" class="hidden">
-      <button class="btn" onclick="shareCard('copy')" id="btnCopy" aria-label="Copy share card">📋 C0PY SH4R3 C4RD</button>
-      <button class="btn ghost" onclick="shareCard('download')" id="btnDl" aria-label="Download share card">💾 D0WNL04D C4RD</button>
-      <button class="btn ghost hidden" id="btnRetry" aria-label="Retry missed scenarios" onclick="beginRun(missed)"></button>
-      <button class="btn ghost" aria-label="Replay full quiz" onclick="beginRun(null)">↻ R3PL4Y FR0M Z3R0</button>
-    </div>
   </section>
-
-  <div class="footer">
-    <div>☆ﾟ certified symposium survivor <span class="counter" id="visitors">0x……</span> ﾟ☆</div>
-    <div class="blink" style="color:var(--ylw)">~*~ c0ngR4tZ 0n r3t41n1nG 4 th1nG ~*~ (￣▽￣)ノ</div>
-    <div>[ <a href="/">← squirrellabs.dev</a> ] [ A.S.S. ALUMNI W3BR1NG ] [ 14 talks · 18 scenarios · 0 trackers ]</div>
-    <div style="color:#4e9760">best viewed in Netscape Navigator inside a Faraday cage · W3C V4L1D4T3D (this is a lie)</div>
-  </div>
+  <section class="bibliography" aria-labelledby="referencesTitle">
+    <h2 id="referencesTitle">References and methodological embarrassment</h2>
+    <p>[1] Agentic Squirrel Symposium I submissions and transcript. [2] Fourteen operating-practice propositions derived from the source talks and identified team gaps. [3] No inferential statistics were harmed in the preparation of this check-in.</p>
+  </section>
+  <footer class="page-foot"><span>squirrellabs.dev/quiz/ass-1</span><span>Page <span id="pageNumber">1</span> of ∞</span></footer>
 </main>
-
-<div class="marq rev bottom-marq" aria-hidden="true"><span>
-  (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
-  (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
-</span></div>
-
 <script>
-/* ═══════════════ TALKS + QUESTIONS — grounded in Symposium I submissions/transcript ═══════════════ */
-const LEVEL_POINTS = { easy: 100, mid: 200, hard: 300 };
-const STREAK_BONUS = 50;
-const LEVEL_ORDER = ['easy', 'mid', 'hard'];
-const LEVEL_LABEL = { easy: 'lvl 1 — recap goblin', mid: 'lvl 2 — workflow wrangler', hard: 'lvl 3 — context necromancer' };
-
 const TALKS = [
-  {
-    "id": "T01",
-    "speaker": "Aleks",
-    "title": "Chip abuse",
-    "summary": "Ask Chip to capture tasks the instant they appear; removing task-entry friction made organization stick."
-  },
-  {
-    "id": "T02",
-    "speaker": "Konrad",
-    "title": "Konrad's Brain Tricks",
-    "summary": "Attention, not compute, is scarce: bundle work by shared proof and heartbeat long runs before they wander."
-  },
-  {
-    "id": "T03",
-    "speaker": "Hugo",
-    "title": "Voice input and Playwright MCP",
-    "summary": "Voice delivers rich context cheaply; browser agents handle tedious UIs after a human clears login and risky steps."
-  },
-  {
-    "id": "T04",
-    "speaker": "Konrad",
-    "title": "GenUI in Two Minutes",
-    "summary": "Use visual pickers for a few consequential decisions—not 13 microchoices or accidental forever-specs."
-  },
-  {
-    "id": "T05",
-    "speaker": "Hugo",
-    "title": "HTML reports",
-    "summary": "When terminal prose hides relationships, change the medium to a visual HTML report that makes the whole system inspectable."
-  },
-  {
-    "id": "T06",
-    "speaker": "Kushagra",
-    "title": "multinut, six viewports at once, and why it does not replace our screenshot pipeline",
-    "summary": "Six synced viewports diagnose what moved; ordinary screenshots still prove the fix, and mirrored actions stay local-only."
-  },
-  {
-    "id": "T07",
-    "speaker": "Hugo",
-    "title": "TMUX and long running agents",
-    "summary": "An always-on local machine or VPS, plus tmux and cron, keeps agent work running beyond a laptop session."
-  },
-  {
-    "id": "T08",
-    "speaker": "Konrad",
-    "title": "Disposable VM Manifesto",
-    "summary": "Assume the agent machine gets nuked: isolate it, minimize credentials, and keep snapshots for rollback."
-  },
-  {
-    "id": "T09",
-    "speaker": "Hugo",
-    "title": "Parallelization, Workspaces, and Split panes",
-    "summary": "Parallel panes improved attention management, but two-hour end-of-day closeout and next-day resumability remained unresolved."
-  },
-  {
-    "id": "T10",
-    "speaker": "Kushagra",
-    "title": "the real bottleneck was not knowing when an agent needed me",
-    "summary": "A unified decision feed beats polling, but worktrees still share ports, servers, and moving branches."
-  },
-  {
-    "id": "T11",
-    "speaker": "Aleks",
-    "title": "support triage",
-    "summary": "A manager agent buckets work, delegates bounded cases, and returns explicit human-only actions instead of forwarding a queue."
-  },
-  {
-    "id": "T12",
-    "speaker": "Konrad",
-    "title": "Vana",
-    "summary": "Open-world agents need narrow identities, replaceable surfaces, and approval gates; safety boundaries dominate the work."
-  },
-  {
-    "id": "T13",
-    "speaker": "Jota",
-    "title": "I fixed the same bug four times. The fifth fix was a paragraph.",
-    "summary": "Repeated defects need an agent-readable invariant with why and a greppable check; merged still does not mean deployed."
-  },
-  {
-    "id": "T14",
-    "speaker": "Jota",
-    "title": "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.",
-    "summary": "Treat incoming claims as verification jobs: return proof or refutation within a pre-written safety boundary."
-  }
+  { id: "T01", speaker: "Aleks", title: "Chip abuse", summary: "Capture tasks the instant they appear; removing task-entry friction helps organization survive contact with real work." },
+  { id: "T02", speaker: "Konrad", title: "Konrad's Brain Tricks", summary: "Attention, not compute, is scarce: bundle work by shared proof and heartbeat long runs before they wander." },
+  { id: "T03", speaker: "Hugo", title: "Voice input and Playwright MCP", summary: "Use voice for rich briefs; let browser agents handle scoped UI work after a human clears login and risky steps." },
+  { id: "T04", speaker: "Konrad", title: "GenUI in Two Minutes", summary: "Use visual pickers for a few consequential decisions—not trivial microchoices or accidental forever-specs." },
+  { id: "T05", speaker: "Hugo", title: "HTML reports", summary: "When prose hides relationships, change the medium to a visual HTML report that makes the system inspectable." },
+  { id: "T06", speaker: "Kushagra", title: "multinut, six viewports at once, and why it does not replace our screenshot pipeline", summary: "Synced viewports diagnose what moved; ordinary screenshots still prove the fix, and mirrored actions stay local-only." },
+  { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "An always-on local machine or VPS, plus tmux and scheduling, keeps agent work running beyond a laptop session." },
+  { id: "T08", speaker: "Konrad", title: "Disposable VM Manifesto", summary: "Assume an agent machine may be lost: isolate it, minimize credentials, and keep snapshots for rollback." },
+  { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "Parallel panes helped attention, while expensive closeout and next-day resumability remained unresolved." },
+  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "A unified decision feed beats polling, while worktrees still share ports, servers, and moving branches." },
+  { id: "T11", speaker: "Aleks", title: "support triage", summary: "A manager agent buckets work, delegates bounded cases, and returns explicit human-only actions instead of forwarding a queue." },
+  { id: "T12", speaker: "Konrad", title: "Vana", summary: "Open-world agents need narrow identities, replaceable surfaces, minimal data, and approval gates." },
+  { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "Repeated defects need an agent-readable invariant, its rationale, and a greppable check; merged still does not mean deployed." },
+  { id: "T14", speaker: "Jota", title: "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.", summary: "Treat incoming claims as bounded verification jobs: return proof or refutation, mechanism, and impact." }
 ];
-
 const SOURCE_GAPS = [
-  { "id": "GAP_RESUMABILITY", "label": "two-hour closeout and next-day resumability" },
-  { "id": "GAP_CONTEXT_GOVERNANCE", "label": "shared-context ownership, review, and pruning" },
-  { "id": "GAP_ADOPTION_EVIDENCE", "label": "owner-and-artifact adoption evidence" }
+  { id: "GAP_RESUMABILITY", label: "durable closeout and next-session resumability" },
+  { id: "GAP_CONTEXT_GOVERNANCE", label: "shared-context ownership, review, and pruning" },
+  { id: "GAP_ADOPTION_EVIDENCE", label: "owner-and-artifact adoption evidence" }
 ];
-
-const QUESTIONS = [
+const RESPONSES = [
+  { id: "unclear", label: "Still unclear", detail: "I could not yet explain when or how to use this confidently." },
+  { id: "already", label: "Already established", detail: "I could already explain or apply this before; the symposium caused no material knowledge change." },
+  { id: "understand", label: "New understanding", detail: "Because of the symposium, I can now explain the principle and its failure mode." },
+  { id: "apply", label: "New application judgment", detail: "Because of the symposium, I can now recognize when and how to apply it." },
+  { id: "used", label: "Changed my work", detail: "Because of the symposium, I used it or created a concrete artifact afterward." },
+  { id: "na", label: "Not assessed", detail: "I have not had enough relevance or opportunity, or I prefer not to assess this." }
+];
+const ITEMS = [
   {
-    "level": "easy",
-    "source": ["T01"],
-    "prompt": "A useful follow-up pops into your head while you are deep in another task. What best applies the symposium's opening story?",
-    "options": [
-      "Hold it in memory and finish the current task before recording it",
-      "Ask Chip to capture it now with the context needed to resume later",
-      "Open another session and start it before the idea loses energy",
-      "Put it in a weekly note and reconstruct the missing context on Friday"
-    ],
-    "correctIndex": 1,
-    "joke": "Whisper it into a peanut and bury it near the router",
-    "explanation": "Aleks's point was to remove capture friction: record the follow-up immediately with enough context to resume, without hijacking the current task.",
-    "wrongQuip": "Your skull is RAM, not durable storage."
+    id: "P01", section: "§ 2.1 · Individual attention", construct: "Frictionless task capture",
+    prompt: "Can you now keep an incidental task from hijacking active work without losing it?",
+    practice: "Capture the follow-up immediately in the task system with enough context to resume it, then return to the work already in progress.",
+    why: "Lowering capture friction preserves the idea without paying for an avoidable context switch.",
+    source: ["T01"],
+    experiment: "On the next incidental follow-up, capture the task plus one sentence of resumption context without switching into execution."
   },
   {
-    "level": "easy",
-    "source": ["T02"],
-    "prompt": "Before launching eight parallel agents, what protects the truly scarce resource?",
-    "options": [
-      "Group agents by topic so each review batch looks internally consistent",
-      "Fill every slot; idle compute is the bottleneck to eliminate",
-      "Bundle work by shared proof criteria and check a high-level heartbeat",
-      "Ask each agent to report every step so no activity goes unseen"
-    ],
-    "correctIndex": 2,
-    "joke": "Hire a ninth agent to emotionally support the other eight",
-    "explanation": "Konrad framed attention as scarce. Shared proof criteria reduce review switching; a heartbeat surfaces drift without step-level notification spam.",
-    "wrongQuip": "More squirrels do not manufacture more attention."
+    id: "P02", section: "§ 2.1 · Individual attention", construct: "Proof-shaped parallel work",
+    prompt: "Can you now structure parallel work around how its outcomes will be judged?",
+    practice: "Bundle work that shares verification criteria, and inspect a high-level heartbeat instead of continuously watching every thread.",
+    why: "Attention is the bottleneck; proof-shaped bundles reduce supervision cost without removing accountability.",
+    source: ["T02"],
+    experiment: "Before the next parallel run, write the shared proof criteria and a single heartbeat check."
   },
   {
-    "level": "easy",
-    "source": ["T03"],
-    "prompt": "You need to update a tedious MFA-protected dashboard. What is the voice + browser-agent pattern?",
-    "options": [
-      "Give a rich voice brief, clear login/MFA yourself, then delegate the scoped clicks",
-      "Paste credentials into the task so the agent can finish without interruption",
-      "Record a voice brief, then keep every browser action manual after authentication",
-      "Let the agent browse first and infer the intended update from the dashboard"
-    ],
-    "correctIndex": 0,
-    "joke": "Fax the dashboard a 14-minute voice note in whale song",
-    "explanation": "Hugo's pattern makes context cheap through voice, while the human retains login/MFA and the agent handles scoped routine UI work.",
-    "wrongQuip": "Rich context, narrow authority."
+    id: "P03", section: "§ 2.2 · Decision media", construct: "Consequential decisions in GenUI",
+    prompt: "Can you now tell when a visual decision surface earns its cost?",
+    practice: "Use a GenUI picker or visual HTML report for a small set of consequential, coupled decisions or relationship-heavy evidence; keep trivial preferences in prose.",
+    why: "A visual surface is valuable when seeing trade-offs changes the decision, not merely because a decision exists.",
+    source: ["T04", "T05"],
+    experiment: "Turn one material, coupled decision into a disposable visual picker before planning."
   },
   {
-    "level": "easy",
-    "source": ["T04"],
-    "prompt": "Which task most deserves a GenUI decision picker?",
-    "options": [
-      "Expose every spacing, naming, and copy choice so the team can vote",
-      "Render one polished layout and treat its defaults as the permanent product spec",
-      "Ask whether to fix an obvious typo before the next deploy",
-      "Lock four coupled, consequential choices before writing the plan"
-    ],
-    "correctIndex": 3,
-    "joke": "A 96-toggle picker for deciding whether the picker needs more toggles",
-    "explanation": "GenUI earns its keep on a few consequential, coupled choices. Micro-config and accidental forever-specs create more work than they remove.",
-    "wrongQuip": "Important choices only. The border radius can survive democracy."
+    id: "P04", section: "§ 2.2 · Decision media", construct: "Human boundary for browser automation",
+    prompt: "Can you now divide a browser workflow between rich briefing, automation, and human approval?",
+    practice: "Use voice to supply rich context; let browser automation handle scoped UI work only after a human clears login or MFA and retains consequential approvals.",
+    why: "Automation should remove UI toil without quietly inheriting authentication or high-impact authority.",
+    source: ["T03", "T12"],
+    experiment: "Write the human-only auth and approval steps before the next browser-agent run."
   },
   {
-    "level": "easy",
-    "source": ["T13"],
-    "prompt": "The same bug class returns for a second time in new code. What is the durable next move?",
-    "options": [
-      "Patch the newest call site and add the incident to a private note",
-      "Encode an agent-readable invariant with why plus a greppable or automated check",
-      "Add one narrow regression test around the newest call site only",
-      "Schedule a retrospective and leave the agent instructions unchanged"
-    ],
-    "correctIndex": 1,
-    "joke": "Rename the bug so technically it has never happened before",
-    "explanation": "Jota showed that recurring defects need an agent-readable invariant: the rule, why it exists, and a greppable or automated check future sessions can run.",
-    "wrongQuip": "A patch repairs code. A rule with a check repairs future sessions."
+    id: "P05", section: "§ 2.2 · Decision media", construct: "Diagnosis is not evidence",
+    prompt: "Can you now separate responsive diagnosis from reviewable proof?",
+    practice: "Use synchronized local viewports to diagnose responsive behavior, then capture ordinary screenshots as proof; never mirror destructive actions into production.",
+    why: "Fast diagnosis and durable evidence are different jobs, and synchronized clicks enlarge the blast radius.",
+    source: ["T06"],
+    experiment: "For the next responsive bug, label the multi-view diagnostic step separately from the screenshot evidence step."
   },
   {
-    "level": "easy",
-    "source": ["T14"],
-    "prompt": "A teammate forwards an alarming user claim. What should land in the human queue?",
-    "options": [
-      "Forward the report with an urgent label and assign a human investigator",
-      "Reproduce it on a real user account so the result cannot be disputed",
-      "Return proof or refutation, mechanism and impact, inside a prewritten safety boundary",
-      "Wait for corroborating reports before investigating, to avoid spending time on a possible false alarm"
-    ],
-    "correctIndex": 2,
-    "joke": "A red siren GIF and the words “big if true”",
-    "explanation": "Jota treated an inbound claim as a verification job. Useful escalation carries proof or refutation, mechanism, impact, and a boundary set before the incident.",
-    "wrongQuip": "Forwarding a mystery only moves the work."
+    id: "P06", section: "§ 2.3 · Runtime boundaries", construct: "Persistent, observable agents",
+    prompt: "Can you now make long-running agent work persistent without making it invisible?",
+    practice: "Run long work on an always-on local host or VPS in a named session, with scheduling, a durable heartbeat, a context-linked decision feed, and bounded escalation.",
+    why: "Persistence without observability creates orphaned work; observability without decision context creates notification noise.",
+    source: ["T02", "T07", "T10", "T11", "T12"],
+    experiment: "Add one durable status heartbeat and one explicit escalation boundary to a long-running workflow."
   },
   {
-    "level": "mid",
-    "source": ["T05"],
-    "prompt": "A complex user journey has dozens of states, CTAs, and drop-offs. Terminal prose makes your eyes glaze over. What now?",
-    "options": [
-      "Build an HTML report that exposes the states and their relationships",
-      "Write a longer terminal narrative with headings for every state and transition",
-      "Choose a representative final screenshot and annotate the most visible defect",
-      "Collapse the journey into one KPI so the review has a simple, comparable source of truth"
-    ],
-    "correctIndex": 0,
-    "joke": "Print the logs in Comic Sans so the relationships feel friendlier",
-    "explanation": "Hugo used HTML when terminal prose hid system relationships. The artifact should make structure inspectable, not merely decorate the same text.",
-    "wrongQuip": "If prose hides the system, change the medium."
+    id: "P07", section: "§ 2.3 · Runtime boundaries", construct: "Worktree resource ownership",
+    prompt: "Can you now state what a worktree isolates—and what it does not?",
+    practice: "Use worktrees to isolate files, while explicitly assigning owners for shared ports, processes, servers, and moving branch references.",
+    why: "Filesystem separation does not prevent runtime collisions or one session moving state beneath another.",
+    source: ["T09", "T10"],
+    experiment: "Before the next parallel run, write down the owner of every shared port, process, server, and moving ref."
   },
   {
-    "level": "mid",
-    "source": ["T06"],
-    "prompt": "A button looks wrong on a small phone. What is the correct multinut + screenshot workflow?",
-    "options": [
-      "Mirror the interaction across six production panes, then save the cleanest result",
-      "Use synced local viewports to diagnose, then ordinary screenshots to prove the fix",
-      "Treat the six-pane view as final evidence because it shows every breakpoint",
-      "Tune the smallest viewport until one mobile screenshot looks correct"
-    ],
-    "correctIndex": 1,
-    "joke": "Open it on six phones and ask them to vote by vibration",
-    "explanation": "Multinut diagnoses across local viewports; normal screenshots remain the proof. Mirrored actions stay away from production because one click can become six requests.",
-    "wrongQuip": "Diagnosis and evidence are different jobs."
+    id: "P08", section: "§ 2.3 · Runtime boundaries", construct: "Disposable, least-privilege environments",
+    prompt: "Can you now bound the blast radius of a risky agent experiment?",
+    practice: "Use a disposable isolated machine with least-privilege credentials and tested snapshot or rollback paths; design as if the environment may be lost.",
+    why: "Recoverability and limited authority turn a compromise or bad action into a bounded incident.",
+    source: ["T08", "T12"],
+    experiment: "Remove one unnecessary credential and test one rollback path before the next risky run."
   },
   {
-    "level": "mid",
-    "source": ["T02", "T07", "T11", "T12"],
-    "prompt": "You want a deploy monitor to run for days without babysitting. Which setup stays useful rather than merely persistent?",
-    "options": [
-      "Keep a laptop tab open and rely on the agent to announce any important change",
-      "Run a silent cron; no message means the monitor is healthy and still scheduled",
-      "Use a shared high-permission host with every teammate credential so anyone can repair it quickly",
-      "Use an always-on local host or VPS, plus tmux, a schedule, heartbeats, and bounded escalation"
-    ],
-    "correctIndex": 3,
-    "joke": "Balance the laptop on a bag of frozen peas and declare it infrastructure",
-    "explanation": "Hugo's always-on host + tmux + scheduling pattern provides persistence. Across the symposium, heartbeats and bounded escalation make that persistence observable and safe.",
-    "wrongQuip": "A process you cannot distinguish from dead is not autonomous. It is missing."
+    id: "P09", section: "§ 2.4 · Delegation and verification", construct: "Bounded delegation",
+    prompt: "Can you now delegate operational work without delegating accountability?",
+    practice: "Bucket and delegate bounded cases, narrow identity and data access, and return explicit human-only actions or approvals for consequential steps.",
+    why: "Useful autonomy comes from clear authority and escalation boundaries, not from forwarding an unbounded queue.",
+    source: ["T11", "T12"],
+    experiment: "Mark one delegated workflow with allowed actions, human-only actions, and an escalation condition."
   },
   {
-    "level": "mid",
-    "source": ["T08"],
-    "prompt": "An agent needs broad tooling for an experiment. Which security posture matches the VM talk?",
-    "options": [
-      "Use a disposable VM, least privilege, and restorable snapshots",
-      "Run Docker on the everyday host and mount credentials for convenience",
-      "Create a second OS user and assume the host's other keys remain unreachable",
-      "Grant broad access for the experiment, then review the blast radius afterward"
-    ],
-    "correctIndex": 0,
-    "joke": "Put a tiny ‘please do not hack’ sticker over the webcam",
-    "explanation": "Konrad's disposable-VM argument assumes compromise: isolate the machine, narrow credentials, and keep rollback cheap.",
-    "wrongQuip": "Assume nuke. Design blast radius first."
+    id: "P10", section: "§ 2.4 · Delegation and verification", construct: "Recurring-bug invariants",
+    prompt: "Can you now make a fix survive the next agent and the next release hop?",
+    practice: "Place the invariant, its rationale, and a greppable or automated check in canonical agent-readable context; then verify the risky path at the real user or browser boundary because merged does not mean deployed.",
+    why: "A narrow patch fixes today; a discoverable rule, self-check, and live verification prevent recurrence and false completion.",
+    source: ["T13", "T14"],
+    experiment: "Turn one recurring defect into an invariant plus why, a self-check, and a post-deploy verification step."
   },
   {
-    "level": "mid",
-    "source": ["T09", "T10"],
-    "prompt": "Two agents have separate worktrees. Which statement is still true?",
-    "options": [
-      "Separate worktrees isolate files, ports, servers, processes, and remote refs",
-      "A broad kill command is safe because every process belongs to one worktree",
-      "Files are isolated; ports, processes, servers, and moving refs still need owners",
-      "Share one feature branch so both agents converge automatically and no integration handoff is needed"
-    ],
-    "correctIndex": 2,
-    "joke": "Worktrees emit a diplomatic force field recognized by all localhost ports",
-    "explanation": "Kushagra showed that worktrees isolate files, not localhost or moving refs. Ports, processes, servers, and cleanup still need explicit owners.",
-    "wrongQuip": "Separate folders do not create separate universes."
+    id: "P11", section: "§ 2.4 · Delegation and verification", construct: "Bounded claim verification",
+    prompt: "Can you now turn an alarming inbound report into a bounded verification job?",
+    practice: "Seek proof or refutation from primary sources, explain mechanism and impact, and operate within a prewritten safety or stop boundary.",
+    why: "Verification beats forwarding a claim, while a preset boundary prevents the investigation from creating a second incident.",
+    source: ["T14"],
+    experiment: "For the next inbound claim, write the proof standard and stop boundary before investigating."
   },
   {
-    "level": "mid",
-    "source": ["T11"],
-    "prompt": "What makes the support-triage manager pattern useful instead of merely parallel?",
-    "options": [
-      "Assign one specialist per ticket and escalate every disagreement to the human queue",
-      "Bucket cases, delegate bounded work, resolve low-risk items, and return human-only actions",
-      "Classify each ticket and forward the labeled queue to a human operator",
-      "Let specialists make irreversible money decisions whenever the overnight queue gets busy"
-    ],
-    "correctIndex": 1,
-    "joke": "The manager agent wears a tiny tie, therefore governance is solved",
-    "explanation": "Aleks's manager pattern compresses work: specialists handle bounded cases, while consequential or irreversible decisions return as explicit human actions.",
-    "wrongQuip": "Parallel routing is not the same as removing work."
+    id: "P12", section: "§ 2.5 · Organizational memory", construct: "Durable resumability",
+    prompt: "Can you now hand a live agent session to another operator without a two-hour archaeological dig?",
+    practice: "Leave a durable handoff containing the objective, current state, artifacts, evidence, owners, and exact next actions.",
+    why: "Panes help one person see work now; a structured handoff lets another person or session resume it later.",
+    source: ["T09", "GAP_RESUMABILITY"],
+    experiment: "End one parallel run with a six-field handoff: objective, state, artifacts, evidence, owners, next actions."
   },
   {
-    "level": "hard",
-    "source": ["T12"],
-    "prompt": "An open-world assistant has email, calendar, and web access. What is the safest useful design?",
-    "options": [
-      "Use the owner's identity and full inbox so counterparties see one seamless operator across every surface",
-      "Start with full permissions, then narrow access after the workflow proves useful",
-      "Give it a narrow identity, replaceable surfaces, minimal data, and approval gates",
-      "Remove approvals because a human checkpoint would defeat the point of autonomy"
-    ],
-    "correctIndex": 2,
-    "joke": "Give it power of attorney and a tasteful squirrel headshot",
-    "explanation": "Vana showed that identity, permissions, and boundaries dominate open-world agent work. Narrow, replaceable surfaces keep mistakes from becoming owner-level incidents.",
-    "wrongQuip": "Open world, closed blast radius."
+    id: "P13", section: "§ 2.5 · Organizational memory", construct: "Governed shared context",
+    prompt: "Can you now stop one operating rule from multiplying into conflicting context files?",
+    practice: "Give each durable rule one canonical home, a named owner and review cadence, and replace or prune duplicates; add a check when the rule protects an invariant.",
+    why: "More context is not better context when nobody owns freshness and agents can find contradictory instructions.",
+    source: ["T13", "GAP_CONTEXT_GOVERNANCE"],
+    experiment: "Choose one duplicated rule, name its canonical home and owner, then delete or redirect the stale copies."
   },
   {
-    "level": "hard",
-    "source": ["T09", "GAP_RESUMABILITY"],
-    "prompt": "It is 18:00 and five parallel sessions are mid-flight. Hugo's talk exposed a two-hour closeout problem but did not solve it. What is the best resumability target?",
-    "options": [
-      "Create one durable handoff with objective, state, artifacts, evidence, owners, and next actions",
-      "Save screenshots of every pane plus a note that each agent was still running",
-      "Export every transcript because more context makes resumption more reliable",
-      "Keep all sessions open overnight and resume from terminal scrollback when the same person returns in the morning"
-    ],
-    "correctIndex": 0,
-    "joke": "Yell ‘remember this!’ at the context window before it closes",
-    "explanation": "Hugo's split-pane talk exposed the two-hour EOD closeout as an unresolved resumability problem. This is the target workflow, not a claim that the talk already solved it.",
-    "wrongQuip": "A transcript is history. A checkpoint is a handoff."
-  },
-  {
-    "level": "hard",
-    "source": ["T10"],
-    "prompt": "Six agents finish at different times; two need decisions. You keep polling panes and miss a blocker. What should the coordination layer produce?",
-    "options": [
-      "Produce one feed that separates completions from decision requests and links each item to context",
-      "Send a notification for every agent step, tool call, and retry so the human can reconstruct all progress continuously",
-      "Wait for one end-of-day digest, including blockers, so daytime focus is never interrupted",
-      "Keep every terminal pane visible and infer which agents need a decision"
-    ],
-    "correctIndex": 0,
-    "joke": "Train a carrier pigeon to peck the pane that needs approval",
-    "explanation": "Kushagra's bottleneck was discovering when an agent was done or needed a decision. A unified, context-linked feed preserves attention without pane polling or step spam.",
-    "wrongQuip": "A wall of panes is not a decision queue."
-  },
-  {
-    "level": "hard",
-    "source": ["T13", "T14"],
-    "prompt": "Tests pass, the PR merged, but the new delivery hop has never fired and nobody opened the exact user URL. Status?",
-    "options": [
-      "Done—the green suite is the boundary the team promised to verify",
-      "Live—the merge started the deploy, so the exact user surface follows from healthy checks",
-      "Verified—an independent reviewer agreed with the implementation",
-      "Implemented, unverified—exercise the risky hop through the exact user/browser boundary"
-    ],
-    "correctIndex": 3,
-    "joke": "Quantum shipped: live and not live until a customer observes it",
-    "explanation": "Jota's lesson: merged is not deployed, and a passing check is not the exact user surface. Keep status “unverified” until the risky hop works through the user/browser boundary.",
-    "wrongQuip": "The riskiest hop does not become real through optimism."
-  },
-  {
-    "level": "hard",
-    "source": ["T13", "GAP_CONTEXT_GOVERNANCE"],
-    "prompt": "Three shared docs teach different versions of one operating rule, and context keeps growing. What is the durable fix?",
-    "options": [
-      "Choose one canonical home, assign an owner and review date, then replace or prune duplicates",
-      "Keep every version; more context gives future agents more evidence to synthesize",
-      "Copy the newest wording into all three files and link them, so search returns the same answer everywhere",
-      "Move the rule into private memory to avoid editing shared instructions"
-    ],
-    "correctIndex": 0,
-    "joke": "Create CONTEXT_FINAL_v7_ACTUALLY_CANONICAL.md and trust the filename",
-    "explanation": "Shared context stays useful when each rule has one canonical home, an owner, and a review point. Replacing or pruning duplicates prevents stale versions from becoming agent evidence.",
-    "wrongQuip": "Three sources of truth produce four truths by Friday."
-  },
-  {
-    "level": "hard",
-    "source": ["GAP_ADOPTION_EVIDENCE"],
-    "prompt": "It is one week after 14 talks. Your private self-report is 4/5 and quiz scores are high. What would demonstrate team-level adoption?",
-    "options": [
-      "Use the private self-report pulse as the team metric; 4/5 is enough to declare adoption",
-      "Ask whether people remember the presenters and the order of the talks",
-      "Assign a named owner per target practice and inspect an observable artifact or behavior over time",
-      "Count attendance, quiz completions, and reported intent because all three are objective enough for a team metric"
-    ],
-    "correctIndex": 2,
-    "joke": "The acronym landed, therefore organizational transformation is complete",
-    "explanation": "The pulse is a private individual baseline, not team telemetry. Team-level adoption needs a named owner and an observable artifact or behavior checked over time.",
-    "wrongQuip": "Attendance is an input. Changed behavior is the outcome."
+    id: "P14", section: "§ 2.5 · Organizational memory", construct: "Evidence of adoption",
+    prompt: "Can you now distinguish a learning signal from evidence that a team practice actually changed?",
+    practice: "Use self-report to learn what people believe they gained; demonstrate team adoption with a named owner plus observable artifacts or behavior measured over time.",
+    why: "A positive check-in can guide follow-up, but it cannot prove sustained team behavior on its own.",
+    source: ["GAP_ADOPTION_EVIDENCE"],
+    experiment: "Pick one desired practice, name its owner and observable artifact, and check it again after a defined interval."
   }
 ];
-
-const RANKS = [
-  {
-    "min": 1,
-    "rank": "A.S.S. V4L3D1CT0R14N 👑",
-    "kao": "☆*:.｡. o(≧▽≦)o .｡.:*☆",
-    "sub": "Perfect recall. Now prove it in the workflow."
-  },
-  {
-    "min": 0.83,
-    "rank": "PR4CT1C3 > V1B3S",
-    "kao": "(⌐■_■)🐿️",
-    "sub": "Sharp. Your next miss should become a default."
-  },
-  {
-    "min": 0.61,
-    "rank": "C0NT3XT J4N1T0R",
-    "kao": "(❁´◡`❁)",
-    "sub": "Useful instincts, several loose acorns."
-  },
-  {
-    "min": 0.39,
-    "rank": "P4SS1V3 L34RN1NG SURV1V0R",
-    "kao": "(￣ω￣;)",
-    "sub": "The explanations are the intervention."
-  },
-  {
-    "min": 0,
-    "rank": "SYMP0S1UM 4MN3S14C",
-    "kao": "(╥﹏╥)",
-    "sub": "Open the 14-line reload. Retry without shame."
-  }
-];
-
-const RETRY_RANK = {
-  rank: 'R3C0V3RY L00P',
-  kao: '(ง •̀_•́)ง🐿️',
-  sub: 'Remediation run—clearly labelled, never passed off as a fresh perfect score.'
-};
-
-/* ═══════════════ matrix rain ═══════════════ */
-const rain = document.getElementById('rain');
-const rctx = rain.getContext('2d');
-const GLYPHS = Array.from('ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ01¥$🥜');
-const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let cols = [], fs = 14;
-function sizeRain() {
-  rain.width = innerWidth; rain.height = innerHeight;
-  cols = Array(Math.ceil(innerWidth / fs)).fill(0).map(() => Math.random() * -50);
-}
-sizeRain(); addEventListener('resize', sizeRain);
-if (!REDUCED_MOTION) {
-  setInterval(() => {
-    rctx.fillStyle = 'rgba(2,8,3,0.12)'; rctx.fillRect(0, 0, rain.width, rain.height);
-    rctx.font = fs + 'px monospace';
-    cols.forEach((y, i) => {
-      const ch = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-      rctx.fillStyle = Math.random() < .08 ? '#baffb0' : '#39ff14';
-      rctx.fillText(ch, i * fs, y * fs);
-      cols[i] = y * fs > rain.height && Math.random() > .975 ? 0 : y + 1;
-    });
-  }, 60);
-}
-
-/* ═══════════════ helpers ═══════════════ */
 const $ = (id) => document.getElementById(id);
-const shuffle = (a) => { const o = [...a]; for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
-function typeLines(el, lines, done) {
-  if (REDUCED_MOTION) {
-    el.innerHTML = '';
-    lines.forEach(([cls, line]) => {
-      const div = document.createElement('div');
-      if (cls) div.className = cls;
-      div.textContent = line; el.appendChild(div);
-    });
-    done && done(); return;
-  }
-  el.innerHTML = ''; let li = 0;
-  (function nextLine() {
-    if (li >= lines.length) { done && done(); return; }
-    const [cls, text] = lines[li];
-    const div = document.createElement('div');
-    if (cls) div.className = cls;
-    div.classList.add('cursor');
-    el.appendChild(div);
-    let ci = 0;
-    const t = setInterval(() => {
-      div.textContent = text.slice(0, ++ci);
-      if (ci >= text.length) { clearInterval(t); div.classList.remove('cursor'); li++; setTimeout(nextLine, 130); }
-    }, 12);
-  })();
+const stages = { start: $("stStart"), checkin: $("stCheckin"), done: $("stDone") };
+const answers = Array(ITEMS.length).fill(null);
+let position = 0;
+function showStage(name) {
+  Object.entries(stages).forEach(([key, element]) => element.classList.toggle("hidden", key !== name));
+  document.body.dataset.stage = name;
+  $("pageNumber").textContent = name === "start" ? "1" : name === "checkin" ? "2" : "3";
+  window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
-function nutRain(n) {
-  for (let i = 0; i < n; i++) {
-    const s = document.createElement('span');
-    s.className = 'nutfall'; s.textContent = Math.random() < .8 ? '🥜' : '🐿️';
-    s.style.left = Math.random() * 100 + 'vw';
-    s.style.animationDelay = (Math.random() * .5) + 's';
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 2400);
-  }
+function responseById(id) { return RESPONSES.find((response) => response.id === id); }
+function sourceLabel(id) {
+  const talk = TALKS.find((entry) => entry.id === id);
+  if (talk) return `${talk.title} — ${talk.speaker}`;
+  const gap = SOURCE_GAPS.find((entry) => entry.id === id);
+  return gap ? `Identified team gap: ${gap.label}` : id;
 }
-
-function renderTalks() {
-  const grid = $('talkGrid');
+function renderStaticContent() {
+  RESPONSES.forEach((response) => {
+    const chip = document.createElement("div");
+    chip.className = "key-chip";
+    const strong = document.createElement("strong");
+    strong.textContent = response.label;
+    const span = document.createElement("span");
+    span.textContent = response.detail;
+    chip.append(strong, span);
+    $("responseKey").appendChild(chip);
+  });
   TALKS.forEach((talk) => {
-    const card = document.createElement('article'); card.className = 'talk';
-    const title = document.createElement('h3'); title.id = `talk-${talk.id}-title`; title.textContent = `${talk.id} · ${talk.title}`;
-    card.setAttribute('aria-labelledby', title.id);
-    const who = document.createElement('div'); who.className = 'who'; who.textContent = `// ${talk.speaker}`;
-    const summary = document.createElement('div'); summary.textContent = talk.summary;
-    card.append(title, who, summary); grid.appendChild(card);
+    const article = document.createElement("article");
+    article.className = "talk";
+    const heading = document.createElement("h3");
+    heading.id = `talk-${talk.id}`;
+    heading.textContent = talk.title;
+    article.setAttribute("aria-labelledby", heading.id);
+    const who = document.createElement("div");
+    who.className = "who";
+    who.textContent = `${talk.id} · ${talk.speaker}`;
+    const summary = document.createElement("p");
+    summary.textContent = talk.summary;
+    article.append(heading, who, summary);
+    $("talkGrid").appendChild(article);
   });
 }
-renderTalks();
-
-/* ═══════════════ quiz state ═══════════════ */
-let order = [], optionOrders = {}, pos = 0, chosen = null;
-let correctCount = 0, missed = [], streak = 0, bestStreak = 0, points = 0, mascotClicks = 0;
-let adoptedValues = [], nextPractice = '', evidenceReceipt = '';
-let includeReceiptOnCard = false;
-let runMode = 'full', initialResult = null;
-
-const PRACTICES = [
-  { value: 'visual-decisions', label: 'visual decisions', next: 'Use a GenUI picker or HTML report for one consequential decision.' },
-  { value: 'verify-first', label: 'verify first', next: 'Turn the next inbound claim into a proof or refutation before routing it.' },
-  { value: 'durable-context', label: 'durable context', next: 'Move one repeated lesson into shared context with a self-check.' },
-  { value: 'parallel-boundaries', label: 'parallel boundaries', next: 'Use a separate worktree and assign every shared port, server, process, and moving ref.' },
-  { value: 'observable-autonomy', label: 'observable autonomy', next: 'Add a durable heartbeat and handoff to one long-running workflow.' },
-];
-
-const stages = { start: $('stStart'), play: $('stPlay'), done: $('stDone') };
-function show(name) { Object.entries(stages).forEach(([k, el]) => el.classList.toggle('hidden', k !== name)); }
-
-function beginRun(subset) {
-  adoptedValues = [...document.querySelectorAll('input[name="adopted"]:checked')].map((el) => el.value);
-  evidenceReceipt = $('receipt').value.trim();
-  includeReceiptOnCard = $('includeReceipt').checked;
-  const firstGap = PRACTICES.find((practice) => !adoptedValues.includes(practice.value));
-  nextPractice = firstGap ? firstGap.next : 'Teach one practice to another squirrel and make it a team default.';
-  runMode = subset && subset.length ? 'retry' : 'full';
-  if (runMode === 'full') initialResult = null;
-  const idxs = runMode === 'retry' ? subset : QUESTIONS.map((_, i) => i);
-  order = LEVEL_ORDER.flatMap((lvl) => shuffle(idxs.filter((i) => QUESTIONS[i].level === lvl)));
-  optionOrders = {};
-  order.forEach((qi) => (optionOrders[qi] = shuffle(QUESTIONS[qi].options.map((_, i) => i))));
-  pos = 0; chosen = null; correctCount = 0; missed = []; streak = 0; bestStreak = 0; points = 0;
-  show('play'); renderQ();
-  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
+function beginCheckin() {
+  position = answers.findIndex((answer) => answer === null);
+  if (position < 0) position = 0;
+  showStage("checkin");
+  renderItem();
 }
-
-function setMascot(face, sub) { $('mascotFace').textContent = face; $('mascotSub').textContent = sub; }
-
-function renderQ(prevLevel) {
-  const qi = order[pos], q = QUESTIONS[qi];
-  chosen = null;
-  $('prog').textContent = `Q ${pos + 1}/${order.length}`;
-  $('pts').textContent = points;
-  $('combo').classList.toggle('hidden', streak < 3);
-  if (streak >= 3) $('combo').textContent = `C0MB0 x${streak}` + (streak >= 5 ? ' — UNSH3LL3D' : '');
-  const chip = $('lvlChip'); chip.textContent = LEVEL_LABEL[q.level] + `  ·  +${LEVEL_POINTS[q.level]}`; chip.className = 'lvl ' + q.level;
-  $('promptLine').textContent = `alumni@ass-academy:~$ ./scenario --level=${q.level} --q=${pos + 1}`;
-  $('qText').textContent = q.prompt;
-  $('verdict').innerHTML = ''; $('intel').innerHTML = '';
-  $('btnNext').classList.add('hidden');
-  const opts = $('opts'); opts.innerHTML = ''; opts.classList.remove('shake');
-  optionOrders[qi].forEach((oi, displayIndex) => {
-    const b = document.createElement('button');
-    b.className = 'opt'; b.textContent = `${displayIndex + 1}. ${q.options[oi]}`;
-    b.onclick = () => answer(oi, b);
-    opts.appendChild(b);
+function renderItem() {
+  const item = ITEMS[position];
+  $("progressText").textContent = `Item ${position + 1} of ${ITEMS.length}`;
+  $("progressSection").textContent = item.section;
+  $("progressFill").style.width = `${((position + 1) / ITEMS.length) * 100}%`;
+  $("itemMeta").textContent = `${item.id} · ${item.construct}`;
+  $("itemTitle").textContent = item.prompt;
+  $("practiceText").replaceChildren();
+  const propositionLabel = document.createElement("strong");
+  propositionLabel.textContent = "Operating proposition. ";
+  $("practiceText").append(propositionLabel, document.createTextNode(item.practice));
+  $("whyText").replaceChildren();
+  const whyLabel = document.createElement("strong");
+  whyLabel.textContent = "Why it matters. ";
+  $("whyText").append(whyLabel, document.createTextNode(item.why));
+  $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
+  $("answerStatus").textContent = "";
+  const host = $("responseOptions");
+  host.replaceChildren();
+  RESPONSES.forEach((response) => {
+    const label = document.createElement("label");
+    label.className = `response${answers[position] === response.id ? " selected" : ""}`;
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = `response-${item.id}`;
+    input.value = response.id;
+    input.checked = answers[position] === response.id;
+    input.setAttribute("aria-label", `${response.label}: ${response.detail}`);
+    input.addEventListener("change", () => selectResponse(response.id));
+    const copy = document.createElement("span");
+    copy.className = "response-copy";
+    copy.setAttribute("aria-hidden", "true");
+    const strong = document.createElement("strong");
+    strong.textContent = response.label;
+    const detail = document.createElement("span");
+    detail.textContent = response.detail;
+    copy.append(strong, detail);
+    label.append(input, copy);
+    host.appendChild(label);
   });
-  if (q.joke) {
-    // the clown option: always rendered LAST, never correct, always tempting
-    const b = document.createElement('button');
-    b.className = 'opt'; b.textContent = `${q.options.length + 1}. ${q.joke}`;
-    b.onclick = () => answer(-1, b);
-    opts.appendChild(b);
+  $("btnBack").disabled = position === 0;
+  $("btnNext").disabled = answers[position] === null;
+  $("btnNext").textContent = position === ITEMS.length - 1 ? "Typeset findings →" : "Record and continue →";
+  $("itemTitle").focus({ preventScroll: true });
+}
+function selectResponse(id) {
+  answers[position] = id;
+  [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
+    label.classList.toggle("selected", label.querySelector("input").value === id);
+  });
+  $("btnNext").disabled = false;
+  $("answerStatus").textContent = `Recorded: ${responseById(id).label}. You may change it before continuing.`;
+}
+function previousItem() {
+  if (position === 0) return;
+  position -= 1;
+  renderItem();
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+function nextItem() {
+  if (!answers[position]) return;
+  if (position === ITEMS.length - 1) { finishCheckin(); return; }
+  position += 1;
+  renderItem();
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+function metrics() {
+  const counts = Object.fromEntries(RESPONSES.map((response) => [response.id, 0]));
+  answers.forEach((answer) => { if (answer) counts[answer] += 1; });
+  return {
+    counts,
+    attributedChange: counts.understand + counts.apply + counts.used,
+    applied: counts.used,
+    already: counts.already,
+    unclear: counts.unclear,
+    unassessed: counts.na,
+    assessed: ITEMS.length - counts.na
+  };
+}
+function recommendedFollowup() {
+  if (answers.every((answer) => answer === "na")) {
+    return { item: null, text: "No practice is prioritized; revisit the check-in only when a relevant opportunity exists." };
   }
-  setMascot('(¬‿¬)🐿️', '// th1nk1ng...');
-  $('qText').focus({ preventScroll: true });
-  if (prevLevel && prevLevel !== q.level) {
-    const l = document.createElement('div');
-    l.className = 'lvlup'; l.innerHTML = `<span>⬆ L3V3L UP: ${LEVEL_LABEL[q.level]} (ノ◕ヮ◕)ノ*:･ﾟ✧</span>`;
-    document.body.appendChild(l); setTimeout(() => l.remove(), 1900);
+  const priorityCodes = ["unclear", "understand", "apply", "na", "already", "used"];
+  for (const code of priorityCodes) {
+    const index = answers.findIndex((answer) => answer === code);
+    if (index >= 0) return { item: ITEMS[index], response: responseById(code), text: `${ITEMS[index].construct}: ${ITEMS[index].experiment}` };
   }
-  if (prevLevel) requestAnimationFrame(() => $('qPanel').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' }));
+  return { item: null, text: "No practice is prioritized." };
 }
-
-function sourceSummary(ids) {
-  return ids.map((id) => {
-    const talk = TALKS.find((item) => item.id === id);
-    if (talk) return `${id} ${talk.speaker}`;
-    const gap = SOURCE_GAPS.find((item) => item.id === id);
-    return gap ? `TEAM GAP: ${gap.label}` : id;
-  }).join(' · ');
+function profileText(result) {
+  if (result.assessed === 0) {
+    return `You did not assess any of the ${ITEMS.length} practices, so no knowledge or behavior-change inference is reported. This is a valid check-in outcome.`;
+  }
+  return `You reported symposium-attributed understanding, application judgment, or work change on ${result.attributedChange} of ${result.assessed} assessed practices, including ${result.applied} concrete behavior change${result.applied === 1 ? "" : "s"}. ${result.already} practice${result.already === 1 ? " was" : "s were"} already established, ${result.unclear} remain unclear, and ${result.unassessed} were not assessed.`;
 }
-
-function setAnswerVerdict(className, visibleText, spokenText) {
-  const host = $('verdict');
-  host.innerHTML = '';
-  const visible = document.createElement('div'); visible.className = `verdict ${className}`; visible.setAttribute('aria-hidden', 'true'); visible.textContent = visibleText;
-  const spoken = document.createElement('span'); spoken.className = 'sr-only'; spoken.textContent = spokenText;
-  host.append(visible, spoken);
+function renderResults() {
+  const result = metrics();
+  const cards = [
+    [result.attributedChange, "Symposium-attributed change"], [result.applied, "Changed work"],
+    [result.already, "Already established"], [result.unclear, "Still unclear"],
+    [result.unassessed, "Not assessed"], [ITEMS.length, "Total practice items"]
+  ];
+  $("summaryGrid").replaceChildren();
+  cards.forEach(([value, label]) => {
+    const card = document.createElement("div");
+    card.className = "metric";
+    const strong = document.createElement("strong");
+    strong.textContent = value;
+    const span = document.createElement("span");
+    span.textContent = label;
+    card.append(strong, span);
+    $("summaryGrid").appendChild(card);
+  });
+  $("interpretation").replaceChildren();
+  const interpretationLabel = document.createElement("strong");
+  interpretationLabel.textContent = "Interpretation. ";
+  $("interpretation").append(interpretationLabel, document.createTextNode(profileText(result)));
+  const followup = recommendedFollowup();
+  $("nextStudy").replaceChildren();
+  const followupLabel = document.createElement("strong");
+  followupLabel.textContent = "Recommended next observation. ";
+  $("nextStudy").append(followupLabel, document.createTextNode(followup.text));
+  $("resultsList").replaceChildren();
+  ITEMS.forEach((item, index) => {
+    const response = responseById(answers[index]);
+    const entry = document.createElement("li");
+    entry.className = "result-item";
+    const heading = document.createElement("h3");
+    heading.textContent = item.construct;
+    const selected = document.createElement("p");
+    selected.className = "result-answer";
+    selected.textContent = `${response.label} — ${response.detail}`;
+    const practice = document.createElement("p");
+    practice.className = "result-practice";
+    practice.textContent = `Practice: ${item.practice}`;
+    entry.append(heading, selected, practice);
+    $("resultsList").appendChild(entry);
+  });
+  updateTaskOutput();
 }
-
-function answer(oi, btn) {
-  if (chosen !== null) return;
-  const qi = order[pos], q = QUESTIONS[qi];
-  chosen = oi;
-  const ok = oi === q.correctIndex;
-  [...$('opts').children].forEach((b, k) => {
-    b.disabled = true;
-    const orig = optionOrders[qi][k];
-    if (orig === q.correctIndex) {
-      b.classList.add('correct');
-      b.setAttribute('aria-label', `${b === btn ? 'Your answer, correct' : 'Correct answer'}: ${q.options[orig]}`);
-    } else if (b === btn) {
-      b.classList.add('wrongpick');
-      b.setAttribute('aria-label', `Your answer, incorrect: ${oi === -1 ? q.joke : q.options[orig]}`);
+function finishCheckin() {
+  if (answers.some((answer) => answer === null)) {
+    position = answers.findIndex((answer) => answer === null);
+    renderItem();
+    return;
+  }
+  showStage("done");
+  $("resultContent").classList.add("hidden");
+  $("compileLog").textContent = "pdflatex knowledge-transfer.tex\n[1/14] validating honest response categories…\n[14/14] refusing to manufacture an adoption score…\nOutput written on findings.pdf (N = you).";
+  const reveal = () => {
+    renderResults();
+    $("resultContent").classList.remove("hidden");
+    $("resultTitle").focus({ preventScroll: true });
+  };
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) reveal();
+  else setTimeout(reveal, 480);
+}
+function markdownSafeInline(value) {
+  return String(value)
+    .replace(/\r?\n|\r/g, " ")
+    .replace(/\\/g, "\\\\")
+    .replace(/([`*_{}\[\]<>#])/g, "\\$1");
+}
+function markdownResults() {
+  const result = metrics();
+  const followup = recommendedFollowup();
+  const receipt = $("receipt") ? $("receipt").value.trim() : "";
+  const lines = [
+    "## Agentic Squirrel Symposium I — week-one knowledge check-in", "",
+    "> Self-report only: this records perceived knowledge transfer and symposium-attributed change, not team adoption telemetry.", "",
+    "### Summary", "",
+    `- Symposium-attributed understanding, judgment, or work change: **${result.assessed === 0 ? "No practices assessed" : `${result.attributedChange}/${result.assessed} assessed practices`}**`,
+    `- Concrete work changed because of the symposium: **${result.applied}**`,
+    `- Already established before the symposium: **${result.already}**`,
+    `- Still unclear: **${result.unclear}**`,
+    `- Not assessed / prefer not to answer: **${result.unassessed}**`,
+    `- Optional evidence receipt: **${markdownSafeInline(receipt || "None supplied")}**`, "",
+    `**Suggested next observation:** ${followup.text}`, "",
+    "### Responses", ""
+  ];
+  ITEMS.forEach((item, index) => {
+    const response = responseById(answers[index]);
+    lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${response.label} (\`${response.id}\`)`);
+    lines.push(`   - Question: ${item.prompt}`);
+    lines.push(`   - Answer: ${response.detail}`);
+    lines.push(`   - Best practice: ${item.practice}`);
+    lines.push(`   - Source basis: ${item.source.map(sourceLabel).join(" · ")}`);
+  });
+  lines.push("", "### Adoption follow-up", "",
+    "To demonstrate team adoption, assign a named owner and inspect an observable artifact or behavior again after a defined interval.");
+  return lines.join("\n");
+}
+function updateTaskOutput() {
+  if ($("taskOutput")) $("taskOutput").value = markdownResults();
+}
+async function copyTaskBody() {
+  const text = markdownResults();
+  $("taskOutput").value = text;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    $("taskOutput").focus();
+    $("taskOutput").select();
+    const copied = document.execCommand("copy");
+    if (!copied) {
+      $("resultStatus").textContent = "Clipboard access was blocked. Select the text above and copy it manually.";
+      return;
     }
-  });
-  if (ok) {
-    correctCount++; streak++; bestStreak = Math.max(bestStreak, streak);
-    const gain = LEVEL_POINTS[q.level] + (streak >= 3 ? STREAK_BONUS : 0);
-    points += gain; $('pts').textContent = points;
-    $('popHost').innerHTML = `<span class="pop">+${gain}</span>`;
-    setAnswerVerdict('ok', '4CC3SS GR4NT3D ✔ o(≧▽≦)o', `Correct. ${q.options[q.correctIndex]}`);
-    setMascot(streak >= 3 ? '(⌐■_■)🐿️🔥' : '\\(^ヮ^)/🐿️', streak >= 3 ? '// t00 c00l' : '// gg');
-    if (streak === 5) nutRain(24); else nutRain(4);
-    if (streak >= 3) { $('combo').classList.remove('hidden'); $('combo').textContent = `C0MB0 x${streak}` + (streak >= 5 ? ' — UNSH3LL3D' : ''); }
-  } else if (oi === -1) {
-    missed.push(qi); streak = 0; $('combo').classList.add('hidden');
-    $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
-    setAnswerVerdict('no', 'C0M3D14N D3T3CT3D 🤡 -0 PTS F0R TH3 B1T', `Incorrect. You chose the joke answer. Correct answer: ${q.options[q.correctIndex]}`);
-    setMascot('(ಠ_ಠ)🐿️', '// n0t m4d, just d1s4pp01nt3d');
-    nutRain(2);
-  } else {
-    missed.push(qi); streak = 0; $('combo').classList.add('hidden');
-    $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
-    setAnswerVerdict('no', '4CC3SS D3N13D ✖ (╯°□°）╯︵ ┻━┻', `Incorrect. You chose: ${q.options[oi]}. Correct answer: ${q.options[q.correctIndex]}`);
-    setMascot('(T_T)🐿️', '// 0uch');
   }
-  let intel = '';
-  if (oi === -1) intel += `<div class="quip">🐿️ w3 kn0w. 1t w4s r1ght th3r3. u h4d t0. (respect.)</div>`;
-  else if (!ok && q.wrongQuip) intel += `<div class="quip">🐿️ ${q.wrongQuip}</div>`;
-  intel += `<div class="intel">// 1NT3L: ${q.explanation}</div>`;
-  intel += `<div class="fine">// SOURCE: ${sourceSummary(q.source)}</div>`;
-  $('intel').innerHTML = intel;
-  const nb = $('btnNext'); nb.classList.remove('hidden');
-  const isFinalQuestion = pos + 1 >= order.length;
-  nb.textContent = isFinalQuestion ? '>> C0MP1L3 F1N4L R4NK <<' : '>> N3XT QU3RY <<';
-  nb.setAttribute('aria-label', isFinalQuestion ? 'Compile final rank' : 'Next scenario');
+  $("resultStatus").textContent = "All responses copied. Paste them into the symposium follow-up task body to submit.";
+  $("btnCopyTask").textContent = "Copied — now paste into task body ✓";
+  setTimeout(() => { $("btnCopyTask").textContent = "Copy all responses for task body"; }, 2200);
 }
-
-function next() {
-  if (chosen === null) return;
-  if (pos + 1 >= order.length) { finish(); return; }
-  const prevLevel = QUESTIONS[order[pos]].level;
-  pos++; renderQ(prevLevel);
+function downloadText() {
+  const blob = new Blob([markdownResults()], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "ass-i-week-one-checkin.md";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $("resultStatus").textContent = "Markdown record downloaded.";
 }
-
-function finish() {
-  show('done');
-  $('evalTerm').focus({ preventScroll: true });
-  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
-  $('resultBlock').classList.add('hidden'); $('doneBtns').classList.add('hidden');
-  const frac = correctCount / order.length;
-  const r = runMode === 'retry' ? RETRY_RANK : (RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1]);
-  if (runMode === 'full') initialResult = { correctCount, total: order.length, points, bestStreak };
-  typeLines($('evalTerm'), [
-    [null, runMode === 'retry' ? '> compiling labelled remediation run ...' : '> uploading answers to the symposium alumni mainframe ...'],
-    ['ok', '> tracing practice knowledge ... ' + Math.round(frac * 100) + '%'],
-    ['warn', '> retention scan: ' + (missed.length === 0 ? 'FL4WL3SS. all acorns found.' : missed.length + ' practice(s) leaked context'),],
-    ['ok', '> R4NK C0MP1L3D:'],
-  ], () => {
-    $('resultBlock').classList.remove('hidden'); $('doneBtns').classList.remove('hidden');
-    $('finalScore').textContent = runMode === 'retry' ? `RETRY ${correctCount}/${order.length}` : `${correctCount}/${order.length}`;
-    $('finalRank').textContent = r.rank;
-    const originalLabel = runMode === 'retry' && initialResult ? ` Original run: ${initialResult.correctCount}/${initialResult.total}.` : '';
-    $('finalKao').textContent = r.kao + '  ' + r.sub + originalLabel;
-    $('finalPts').textContent = `⭐ ${points} PTS`;
-    $('finalStreak').textContent = bestStreak >= 3 ? `best c0mb0: x${bestStreak} 🔥` : '';
-    $('finalPulse').textContent = `PRIVATE SELF-REPORT: ${adoptedValues.length}/${PRACTICES.length} practices used`;
-    $('finalReceipt').textContent = `ONE RECEIPT: ${evidenceReceipt || 'none supplied — add an artifact next time'}`;
-    $('finalNext').textContent = `NEXT PROTOCOL: ${nextPractice}`;
-    $('resultStatus').textContent = `${runMode === 'retry' ? 'Retry result' : 'Final result'}: ${correctCount} of ${order.length}. Rank: ${r.rank}. Private self-report: ${adoptedValues.length} of ${PRACTICES.length}. ${originalLabel} Next protocol: ${nextPractice}`;
-    const btnRetry = $('btnRetry');
-    btnRetry.classList.toggle('hidden', missed.length === 0);
-    btnRetry.textContent = `⟳ R3TRY TH3 ${missed.length} 1 M1SS3D`;
-    setMascot(frac >= 0.8 ? '☆*:.o(≧▽≦)o.:*☆🐿️' : frac >= 0.5 ? '(￣ω￣)🐿️' : '(╥﹏╥)🐿️', '// r4nk l0gg3d');
-    if (missed.length === 0) nutRain(40);
-    $('finalRank').focus({ preventScroll: true });
-  });
-}
-
-addEventListener('keydown', (event) => {
-  if (stages.play.classList.contains('hidden') || ['INPUT', 'BUTTON', 'SUMMARY'].includes(event.target.tagName)) return;
-  if (chosen === null && /^[1-5]$/.test(event.key)) {
-    const option = $('opts').children[Number(event.key) - 1];
-    if (option) { event.preventDefault(); option.click(); }
-  } else if (chosen !== null && event.key === 'Enter') {
-    event.preventDefault(); $('btnNext').click();
-  }
-});
-
-/* ═══════════════ share card ═══════════════ */
-function fitCanvasText(context, text, xPos, yPos, maxWidth, maxSize, minSize, weight, family) {
-  let size = maxSize;
-  do {
-    context.font = `${weight} ${size}px ${family}`;
-    size -= 2;
-  } while (context.measureText(text).width > maxWidth && size >= minSize);
-  context.fillText(text, xPos, yPos);
-}
-
-function drawWrappedCanvasText(context, text, xPos, centerY, maxWidth, lineHeight, maxLines) {
+function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
+  const words = text.split(/\s+/);
   const lines = [];
-  let line = '';
-  for (const char of Array.from(text)) {
-    if (!line || context.measureText(line + char).width <= maxWidth) {
-      line += char;
-      continue;
-    }
-    lines.push(line);
-    line = char;
+  let line = "";
+  for (const word of words) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (!line || context.measureText(candidate).width <= maxWidth) line = candidate;
+    else { lines.push(line); line = word; }
   }
   if (line) lines.push(line);
   if (lines.length > maxLines) {
     lines.length = maxLines;
-    let last = lines[maxLines - 1] + '…';
-    while (context.measureText(last).width > maxWidth && last.length > 1) last = last.slice(0, -2) + '…';
-    lines[maxLines - 1] = last;
+    let last = lines[maxLines - 1];
+    while (context.measureText(`${last}…`).width > maxWidth && last.length > 1) last = last.slice(0, -1);
+    lines[maxLines - 1] = `${last}…`;
   }
-  const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
-  lines.forEach((value, index) => context.fillText(value, xPos, startY + index * lineHeight));
-  return lines;
+  lines.forEach((value, index) => context.fillText(value, x, y + index * lineHeight));
 }
-
+async function findingsCardBlob() {
+  const result = metrics();
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080; canvas.height = 1080;
+  const context = canvas.getContext("2d");
+  context.fillStyle = "#f7f1e4"; context.fillRect(0, 0, 1080, 1080);
+  context.strokeStyle = "#171713"; context.lineWidth = 5; context.strokeRect(34, 34, 1012, 1012);
+  context.strokeStyle = "#7d1f22"; context.lineWidth = 2; context.strokeRect(48, 48, 984, 984);
+  context.textAlign = "center";
+  context.fillStyle = "#7d1f22"; context.font = "700 24px Georgia, serif";
+  context.fillText("PROCEEDINGS OF THE AGENTIC SQUIRREL SOCIETY · VOL. I", 540, 115);
+  context.fillStyle = "#171713"; context.font = "400 64px Georgia, serif";
+  wrapCanvasText(context, "Did Any of This Enter Long-Term Memory?", 540, 205, 880, 70, 2);
+  context.fillStyle = "#625e54"; context.font = "italic 28px Georgia, serif";
+  context.fillText("Week-One Self-Reported Findings · N = you", 540, 360);
+  context.strokeStyle = "#171713"; context.lineWidth = 2;
+  context.beginPath(); context.moveTo(130, 400); context.lineTo(950, 400); context.stroke();
+  context.fillStyle = "#171713"; context.font = "italic 36px Georgia, serif";
+  wrapCanvasText(context, "reported change = understanding ∪ judgment ∪ changed work", 540, 450, 850, 44, 2);
+  context.fillStyle = "#7d1f22"; context.font = "700 122px Georgia, serif";
+  context.fillText(String(result.attributedChange), 300, 650); context.fillText(String(result.applied), 780, 650);
+  context.fillStyle = "#171713"; context.font = "700 22px Georgia, serif";
+  wrapCanvasText(context, "PRACTICES WITH ATTRIBUTED CHANGE", 300, 695, 400, 27, 2);
+  wrapCanvasText(context, "PRACTICES THAT CHANGED", 780, 695, 400, 27, 2);
+  context.fillStyle = "#625e54"; context.font = "24px Georgia, serif";
+  context.fillText(`Already established: ${result.already} · Still unclear: ${result.unclear} · Unassessed: ${result.unassessed}`, 540, 790);
+  context.fillStyle = "#171713"; context.font = "italic 27px Georgia, serif";
+  wrapCanvasText(context, "Self-report is a learning signal; owner + observable evidence over time is adoption.", 540, 855, 850, 34, 2);
+  context.fillStyle = "#7d1f22"; context.font = "700 20px Georgia, serif";
+  context.fillText("FAUX DOI 10.1337/ASS.I.RETENTION · SQUIRRELLABS.DEV/QUIZ/ASS-1", 540, 985);
+  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Card rendering failed")), "image/png"));
+}
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url; link.download = filename; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 async function shareCard(mode) {
-  const c = document.createElement('canvas'); c.width = 1080; c.height = 1080;
-  const x = c.getContext('2d');
-  x.fillStyle = '#020803'; x.fillRect(0, 0, 1080, 1080);
-  // rain streaks
-  x.font = '26px monospace';
-  for (let i = 0; i < 220; i++) {
-    x.fillStyle = `rgba(57,255,20,${0.05 + Math.random() * 0.3})`;
-    x.fillText(GLYPHS[Math.floor(Math.random() * GLYPHS.length)], Math.random() * 1080, Math.random() * 1080);
-  }
-  x.strokeStyle = '#39ff14'; x.lineWidth = 6; x.strokeRect(30, 30, 1020, 1020);
-  x.strokeStyle = '#ff44d4'; x.lineWidth = 2; x.strokeRect(46, 46, 988, 988);
-  x.textAlign = 'center';
-  x.fillStyle = '#ffffff'; x.font = '900 64px Impact, sans-serif';
-  x.shadowColor = '#ff44d4'; x.shadowBlur = 18;
-  x.fillText('A.S.S. ACADEMY', 540, 170);
-  x.shadowBlur = 0; x.fillStyle = '#00f0ff'; x.font = '30px monospace';
-  x.fillText('Agentic Squirrel Symposium I · one week later', 540, 225);
-  x.fillStyle = '#39ff14';
-  x.shadowColor = '#39ff14'; x.shadowBlur = 26;
-  const frac = correctCount / (order.length || 1);
-  const scoreLabel = runMode === 'retry' ? `RETRY ${correctCount}/${order.length}` : `${correctCount}/${order.length}`;
-  fitCanvasText(x, scoreLabel, 540, 450, 930, 170, 94, '900', 'monospace');
-  x.shadowBlur = 0;
-  const r = runMode === 'retry' ? RETRY_RANK : (RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1]);
-  x.fillStyle = '#ffd23f';
-  fitCanvasText(x, r.rank, 540, 560, 930, 54, 32, '900', 'Impact, sans-serif');
-  x.fillStyle = '#ff44d4'; x.font = '40px monospace';
-  x.fillText(r.kao, 540, 630);
-  x.fillStyle = '#39ff14'; x.font = '700 42px monospace';
-  x.fillText(`⭐ ${points} PTS` + (bestStreak >= 3 ? `  ·  c0mb0 x${bestStreak}` : ''), 540, 720);
-  x.fillStyle = '#00f0ff'; x.font = '700 34px monospace';
-  x.fillText(`PRIVATE SELF-REPORT: ${adoptedValues.length}/${PRACTICES.length}`, 540, 805);
-  x.fillStyle = '#ffd23f'; x.font = '27px monospace';
-  const contextLine = runMode === 'retry' && initialResult
-    ? `labelled retry · original ${initialResult.correctCount}/${initialResult.total}`
-    : 'attention is scarce · proof beats claims · merged ≠ live';
-  x.fillText(contextLine, 540, 865);
-  const exportedReceipt = includeReceiptOnCard && evidenceReceipt ? evidenceReceipt : 'not included';
-  x.fillStyle = '#ff44d4'; x.font = '700 24px monospace';
-  drawWrappedCanvasText(x, `RECEIPT: ${exportedReceipt}`, 540, 925, 900, 30, 2);
-  x.fillStyle = '#4e9760'; x.font = '26px monospace';
-  x.fillText('squirrellabs.dev/quiz/ass-1 — c4n u r3t41n m3?', 540, 990);
-  const blob = await new Promise((res) => c.toBlob(res, 'image/png'));
-  if (!blob) throw new Error('Share card rendering failed');
-  try {
-    if (mode === 'copy' && navigator.clipboard && window.ClipboardItem) {
-      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      $('btnCopy').textContent = '📋 C0P13D ✔';
-      $('btnCopy').setAttribute('aria-label', 'Share card copied');
-      $('resultStatus').textContent = 'Share card copied to the clipboard.';
-      setTimeout(() => {
-        $('btnCopy').textContent = '📋 C0PY SH4R3 C4RD';
-        $('btnCopy').setAttribute('aria-label', 'Copy share card');
-      }, 1600);
+  const blob = await findingsCardBlob();
+  if (mode === "copy") {
+    try {
+      if (!navigator.clipboard || !window.ClipboardItem) throw new Error("Image clipboard unavailable");
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      $("resultStatus").textContent = "Findings card copied.";
+      return;
+    } catch {
+      downloadBlob(blob, "ass-i-week-one-findings.png");
+      $("resultStatus").textContent = "Image clipboard unavailable; findings card downloaded instead.";
       return;
     }
-    throw new Error('fallback');
-  } catch {
-    const a = document.createElement('a');
-    const objectUrl = URL.createObjectURL(blob);
-    a.href = objectUrl;
-    a.download = `ass-academy-${runMode === 'retry' ? 'retry-' : ''}${correctCount}-${order.length}.png`;
-    a.click(); setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    const fallbackBtn = mode === 'copy' ? $('btnCopy') : $('btnDl');
-    const outcome = mode === 'copy' ? 'Clipboard unavailable; share card downloaded' : 'Share card downloaded';
-    fallbackBtn.textContent = '💾 S4V3D ✔';
-    fallbackBtn.setAttribute('aria-label', outcome);
-    $('resultStatus').textContent = `${outcome}.`;
-    setTimeout(() => {
-      fallbackBtn.textContent = mode === 'copy' ? '📋 C0PY SH4R3 C4RD' : '💾 D0WNL04D C4RD';
-      fallbackBtn.setAttribute('aria-label', mode === 'copy' ? 'Copy share card' : 'Download share card');
-    }, 1600);
   }
+  downloadBlob(blob, "ass-i-week-one-findings.png");
+  $("resultStatus").textContent = "Findings card downloaded.";
 }
-
-/* ═══════════════ chrome: mascot, trail, counter, boot ═══════════════ */
-$('mascot').onclick = () => {
-  mascotClicks++;
-  const faces = ['(⌐■_■)🐿️', '(ノ◕ヮ◕)ノ*:･ﾟ✧🐿️', '(❁´◡`❁)🐿️', 'ᕕ( ᐛ )ᕗ🐿️', '(￣▽￣)ノ🐿️'];
-  setMascot(faces[mascotClicks % faces.length], '// n1c3 cl1ck');
-  nutRain(mascotClicks % 5 === 0 ? 18 : 2);
-};
-let lastTrail = 0;
-addEventListener('pointermove', (e) => {
-  const now = performance.now();
-  if (now - lastTrail < 60) return; lastTrail = now;
-  const s = document.createElement('span');
-  s.className = 'trail-glyph';
-  s.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-  s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
-  document.body.appendChild(s); setTimeout(() => s.remove(), 700);
+function reviewResponses() {
+  position = 0; showStage("checkin"); renderItem();
+}
+$("btnStart").addEventListener("click", beginCheckin);
+$("btnBack").addEventListener("click", previousItem);
+$("btnNext").addEventListener("click", nextItem);
+$("btnCopyTask").addEventListener("click", copyTaskBody);
+$("btnDownloadText").addEventListener("click", downloadText);
+$("btnReview").addEventListener("click", reviewResponses);
+$("btnCopyCard").addEventListener("click", () => shareCard("copy"));
+$("btnDownloadCard").addEventListener("click", () => shareCard("download"));
+$("receipt").addEventListener("input", updateTaskOutput);
+addEventListener("keydown", (event) => {
+  if (stages.checkin.classList.contains("hidden")) return;
+  if (/^[1-6]$/.test(event.key) && !["INPUT", "TEXTAREA", "BUTTON"].includes(event.target.tagName)) {
+    const radio = $("responseOptions").querySelectorAll("input")[Number(event.key) - 1];
+    if (radio) { event.preventDefault(); radio.click(); radio.focus(); }
+  }
 });
-(function counter() {
-  const target = 0x1337 * 1000 + Math.floor(Math.random() * 999);
-  let cur = target - 420;
-  const t = setInterval(() => {
-    cur += 21; if (cur >= target) { cur = target; clearInterval(t); }
-    $('visitors').textContent = '0x' + cur.toString(16).toUpperCase();
-  }, 40);
-})();
-typeLines($('bootTerm'), [
-  [null, '> init ass_protocol v1.0 ................. OK'],
-  [null, '> loading 14_talks + transcript .......... OK'],
-  ['warn', '> scanning for passive learning .......... FOUND: PROBABLY'],
-  [null, '> 18 scenarios · lvl 1→3 · pts + c0mb0s · no timer'],
-  ['ok', '> 4CC3SS: ALUMNI RETENTION PROTOCOL // ADOPTION > ATTENDANCE'],
-], () => $('btnStart').classList.remove('hidden'));
+renderStaticContent();
 </script>
 </body>
 </html>
