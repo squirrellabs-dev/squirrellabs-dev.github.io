@@ -232,7 +232,7 @@
     .summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .instrument { padding: 17px 13px; }
     .instrument-nav, .export-actions, .secondary-actions { grid-template-columns: 1fr; }
-    .item-map { grid-template-columns: repeat(7, minmax(38px, 1fr)); }
+    .item-map { grid-template-columns: repeat(7, minmax(0, 1fr)); }
   }
   @media (max-width: 360px) {
     .paper { width: 100%; margin: 0; border-inline: 0; padding-inline: 12px; }
@@ -281,7 +281,7 @@
       showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ doing <span class="number">(1)</span>
     </div>
     <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> Pick the honest answer. It is fine if you knew it already. It is fine if you cannot tell yet. Only pick “I changed my work” if the event made you do something differently. There is no score. <span class="proof-end" aria-hidden="true">□</span>
+      <strong>Definition 1 (an honest check-in).</strong> Pick the honest answer. It is fine if you knew it already. It is fine to skip a topic. If the event changed your work, pick “I changed my work” even if you knew the idea before. There is no score. <span class="proof-end" aria-hidden="true">□</span>
     </div>
     <h2 class="section-title"><span class="sec">1.</span>How to answer</h2>
     <p class="lede">Use the same six answers on every page. They show what was new, what you knew before, and what you used.</p>
@@ -379,7 +379,7 @@ const TALKS = [
   { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "Tmux keeps a terminal job open. A VPS is a computer that stays online. Together they let long jobs keep running when your laptop closes." },
   { id: "T08", speaker: "Konrad", title: "Disposable VM Manifesto", summary: "A virtual machine is a computer made with software. Use one to keep risky work away from your main system. Give it only the access it needs. Test how to reset it." },
   { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "A Git worktree is a separate project folder. Split panes let you watch several jobs. Leave a clear handoff when another person takes over." },
-  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "Put every choice that needs a person in one list. Add the facts needed to decide. Separate work folders still share ports, servers, and branches." },
+  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "Put every choice that needs a person in one list. Add the facts needed to decide. Separate work folders still share web addresses, running servers, and Git branches." },
   { id: "T11", speaker: "Aleks", title: "support triage", summary: "An agent can sort common support cases with low risk. A named person must handle unclear cases and big choices." },
   { id: "T12", speaker: "Konrad", title: "Vana", summary: "Vana tested an agent that could act in many situations. Give an agent one clear role. Limit the data and actions it can use. Keep important choices with a person." },
   { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "When a bug comes back, write the rule that would stop it. Add a check for the rule. Then test the real steps a user takes in the live product." },
@@ -391,17 +391,17 @@ const SOURCE_GAPS = [
   { id: "GAP_ADOPTION_EVIDENCE", label: "proof that the team changed how it works" }
 ];
 const RESPONSES = [
-  { id: "unclear", label: "Still fuzzy", detail: "I am not sure what to do yet." },
-  { id: "already", label: "Knew it already", detail: "I understood this and knew when to use it before the event." },
-  { id: "understand", label: "I get it now", detail: "The event helped me understand why this matters. I am not ready to use it on my own yet." },
-  { id: "apply", label: "I know when to use it", detail: "The event helped me spot a good use. I have not changed my work yet." },
-  { id: "used", label: "I changed my work", detail: "Because of the event, I changed how I work or made something new." },
-  { id: "na", label: "Can’t tell yet", detail: "I have not had a fair chance to judge this, or I do not want to answer." }
+  { id: "unclear", label: "Still fuzzy", detail: "I cannot explain why this helps or what I should do." },
+  { id: "already", label: "Knew it already", detail: "I knew why and when to use this before the event. The event did not change my work." },
+  { id: "understand", label: "I get it now", detail: "The event helped me explain why this helps. I still cannot choose or use it safely by myself." },
+  { id: "apply", label: "I know when to use it", detail: "The event helped me choose when and how to use this safely. I have not changed my work yet." },
+  { id: "used", label: "I changed my work", detail: "The event made me use this practice or make a new work item. Pick this even if you knew the idea before." },
+  { id: "na", label: "Skip for now", detail: "I have not had a fair chance to judge this, or I choose not to answer." }
 ];
 const ITEMS = [
   {
     id: "P01", section: "§ 2.1 · Focus", construct: "Save the side task",
-    prompt: "A new task pops up while you are busy. Can you save it without losing your place?",
+    prompt: "A new task pops up while you are busy. What would you save before going back to your main task?",
     practice: "Write it down right away. Add why it matters and the next step. Then go back to your main task.",
     why: "A note like ‘check this’ will not help tomorrow. One useful sentence lets you restart fast.",
     source: ["T01"],
@@ -409,7 +409,7 @@ const ITEMS = [
   },
   {
     id: "P02", section: "§ 2.1 · Focus", construct: "Make review easier",
-    prompt: "Eight agents finish at once. Can you review their work without getting stuck?",
+    prompt: "Eight agents finish at once. How would you review them without getting stuck?",
     practice: "Group jobs only when they use the same pass/fail checks. Read one short update at a set time. Open the details when a check fails or a choice needs you.",
     why: "Without shared checks, every result needs its own review. The human becomes the new traffic jam.",
     source: ["T02"],
@@ -417,15 +417,15 @@ const ITEMS = [
   },
   {
     id: "P03", section: "§ 2.2 · Tools and choices", construct: "Use a visual for a hard choice",
-    prompt: "Three choices affect each other. Would you know when a picture is better than more text?",
-    practice: "GenUI is a short-lived visual tool made for one choice. Use a picker or small web report when choices affect each other or facts are hard to scan. Keep simple choices in plain text.",
-    why: "A visual helps when seeing the links changes your choice. A picker for ‘blue or green?’ only adds work.",
+    prompt: "Three choices affect each other. What would help you compare them?",
+    practice: "GenUI is a short-lived visual tool made for one choice. A table, picker, or small web report can show how the answers affect each other. Keep simple choices in plain text.",
+    why: "A visual helps when seeing the links changes your choice. A special tool for ‘blue or green?’ only adds work.",
     source: ["T04", "T05"],
-    experiment: "Turn one real choice with linked parts into a small visual picker. Then make the plan."
+    experiment: "Put one choice whose answers affect each other into a simple table or picker. Pick an option. Then write the next steps."
   },
   {
     id: "P04", section: "§ 2.2 · Tools and choices", construct: "Keep risky steps human",
-    prompt: "A browser agent reaches sign-in or a risky button. Do you know when a person must take over?",
+    prompt: "A browser agent reaches sign-in or a risky button. Which steps must a person take?",
     practice: "Give the agent a clear brief. A person must sign in and complete MFA, the extra login check. A person must also approve money moves, posts, deleted data, and other risky actions.",
     why: "An agent stuck at MFA wastes time. An agent that can approve risky actions can cause real harm. Mark the handoff before the run.",
     source: ["T03", "T12"],
@@ -433,7 +433,7 @@ const ITEMS = [
   },
   {
     id: "P05", section: "§ 2.2 · Tools and choices", construct: "Find with many screens; prove with one",
-    prompt: "Your layout breaks on a phone. Can you find the bug fast and leave proof for someone else?",
+    prompt: "Your layout breaks on a phone. How would you find the bug and leave proof?",
     practice: "Multinut shows the same page at many screen sizes. Use it on your own computer to find layout bugs. Then save normal screenshots as proof. Never repeat a dangerous click across many views on a live system.",
     why: "The many-screen view helps you find the bug. A normal screenshot lets someone check the exact result later.",
     source: ["T06"],
@@ -441,23 +441,23 @@ const ITEMS = [
   },
   {
     id: "P06", section: "§ 2.3 · Long jobs and safe tests", construct: "Keep long jobs easy to check",
-    prompt: "You close your laptop, but the job needs hours. Will you know if it finished, got stuck, or needs help?",
-    practice: "Run the job on a computer or server that stays online. Give the job a name. Save short updates where they will not vanish. Send a clear alert when a named person must decide.",
+    prompt: "You close your laptop, but the job needs hours. How will you know if it finishes, gets stuck, or needs help?",
+    practice: "Run the job in a named session that stays open after you disconnect. Put that session on a computer or server that stays online. Save short updates where they will not vanish. Send a clear alert when a named person must decide.",
     why: "A job can stay alive and still fail in silence. An alert like ‘agent needs you’ is also too vague to help.",
     source: ["T02", "T07", "T10", "T11", "T12"],
-    experiment: "Give one long job a name, a saved update, and a rule for when to alert a person."
+    experiment: "Give one long job a named session that stays open, a saved update, and a rule for when to alert a person."
   },
   {
-    id: "P07", section: "§ 2.3 · Long jobs and safe tests", construct: "Name what worktrees still share",
-    prompt: "Two copies of an app run at once. Can you stop one job from stealing the other job’s port or branch?",
-    practice: "Git worktrees are separate folders for separate jobs in one code project. They keep file changes apart. They still share ports, running services, test servers, and branch pointers. Give each shared thing an owner.",
-    why: "Separate folders do not separate running programs. One job can still take a port or move a branch while another job uses it.",
+    id: "P07", section: "§ 2.3 · Long jobs and safe tests", construct: "Name what separate folders still share",
+    prompt: "Two copies of an app run at once. How would you stop one job from taking the other job’s web address or branch?",
+    practice: "Git worktrees are separate folders for separate jobs in one code project. They keep file changes apart. Both jobs can still use the same web address, running server, and Git branch. Give each shared thing an owner.",
+    why: "Separate folders do not separate running programs. One job can still take the web address or move the branch while another job uses it.",
     source: ["T09", "T10"],
-    experiment: "Before the next multi-job run, name the owner of every port, service, test server, and branch."
+    experiment: "Before the next multi-job run, name the owner of every shared web address, running server, and branch."
   },
   {
     id: "P08", section: "§ 2.3 · Long jobs and safe tests", construct: "Make risky work easy to reset",
-    prompt: "A test could cause damage. Can you keep the damage small and start over safely?",
+    prompt: "A test could cause damage. How would you keep the damage small and start over safely?",
     practice: "Run risky work on a separate computer you can replace. Give it only the passwords and data it needs. Test how to reset the computer or undo its changes.",
     why: "If a password leaks, limited access keeps the damage smaller. If the computer breaks, a tested reset gets work moving again.",
     source: ["T08", "T12"],
@@ -465,7 +465,7 @@ const ITEMS = [
   },
   {
     id: "P09", section: "§ 2.4 · Agents and checks", construct: "Give agents clear limits",
-    prompt: "You want an agent to handle a list of cases. Can you say what it may decide and what a person must decide?",
+    prompt: "An agent will handle a list of cases. Which choices can it make? Which choices need a person?",
     practice: "Give the agent common cases with low risk. Write what it may do and what data it may see. Send unclear cases and big choices to a named person.",
     why: "‘Handle support’ sets no clear limits. ‘Sort these case types, draft replies, and send refunds to a person’ gives the agent a clear job.",
     source: ["T11", "T12"],
@@ -473,15 +473,15 @@ const ITEMS = [
   },
   {
     id: "P10", section: "§ 2.4 · Agents and checks", construct: "Fix the rule behind a repeat bug",
-    prompt: "The same bug is back for the fifth time. Can you stop it and prove users see the fix?",
-    practice: "Write the rule and its reason in the shared file agents use. Add a check that is easy to find or runs by itself. Then test the real steps a user takes in the live product.",
-    why: "A code change can be accepted while users still see the old bug. The rule helps the next agent. The live test catches a change that did not reach users.",
+    prompt: "The same bug is back for the fifth time. What would stop it and prove a safe test user sees the fix?",
+    practice: "Write the rule and its reason in the shared file agents use. Add a check that is easy to find or runs by itself. Test the live product with a safe test account. Do not use customer data. Stop before money moves, data is deleted, or a post goes live unless a person approved it.",
+    why: "A code change can be accepted while users still see the old bug. The rule helps the next agent. A safe live test catches a change that did not reach users.",
     source: ["T13", "T14"],
-    experiment: "For one repeat bug, write the rule and reason. Add a check. Test the affected steps after the change goes live."
+    experiment: "For one repeat bug, write the rule and reason. Add a check. Test the live steps with a safe test account. Stop before any lasting effect."
   },
   {
     id: "P11", section: "§ 2.4 · Agents and checks", construct: "Check an urgent claim",
-    prompt: "Someone reports a serious live problem. Can you check it without spreading fear or causing another problem?",
+    prompt: "Someone reports a serious live problem. What would you check before you act?",
     practice: "First, write what would prove or disprove the report. List the actions you will not take and the warning signs that will make you stop. Check direct evidence. Explain how the problem happens and who it affects.",
     why: "Sharing an unproven alarm creates noise. Testing with no stop rules can cause a second failure.",
     source: ["T14"],
@@ -489,7 +489,7 @@ const ITEMS = [
   },
   {
     id: "P12", section: "§ 2.5 · Work someone else can continue", construct: "Leave a useful handoff",
-    prompt: "The day ends, and five agent jobs are still running. Can someone else continue tomorrow without digging through old messages?",
+    prompt: "The day ends, and five agent jobs are still running. What would you save so someone else can continue tomorrow?",
     practice: "Leave a saved handoff. Include the goal, current state, work produced, proof, owners, and exact next steps.",
     why: "Open windows only show what exists now. They do not say what worked, what is still risky, or what to do first.",
     source: ["T09", "GAP_RESUMABILITY"],
@@ -497,7 +497,7 @@ const ITEMS = [
   },
   {
     id: "P13", section: "§ 2.5 · Work someone else can continue", construct: "Keep each rule in one place",
-    prompt: "One rule is in three files, and the copies disagree. Can you choose one copy everyone can trust?",
+    prompt: "One rule is in three files, and the copies disagree. Which copy should everyone trust, and who keeps it up to date?",
     practice: "Choose one file as the official home of the rule. Name one owner and set a review date. Remove extra copies or link them to the official file. Use an automatic check for rules that prevent serious harm.",
     why: "An agent may follow an old copy exactly. One official file shows which rule is current. One owner knows to update it.",
     source: ["T13", "GAP_CONTEXT_GOVERNANCE"],
@@ -505,7 +505,7 @@ const ITEMS = [
   },
   {
     id: "P14", section: "§ 2.5 · Work someone else can continue", construct: "Check whether the team changed",
-    prompt: "People say a new practice helped. Can you tell whether they changed how they work?",
+    prompt: "People say a new practice helped. What proof would show that their work changed?",
     practice: "Ask what people think they learned. That does not prove the team uses the practice. To show change, name an owner and choose a result or action you can see. Check it again later.",
     why: "People may enjoy a talk and still return to old habits. A checklist, handoff, decision note, or repeated action shows if the new practice became part of the work.",
     source: ["GAP_ADOPTION_EVIDENCE"],
@@ -703,16 +703,16 @@ function recommendedFollowup() {
 }
 function profileText(result) {
   if (result.assessed === 0) {
-    return `You picked “Can’t tell yet” for all ${ITEMS.length} topics. That is fine. This report does not guess what you learned or changed.`;
+    return `You skipped all ${ITEMS.length} topics. That is fine. This report does not guess what you learned or changed.`;
   }
-  return `You said the event helped you learn or change ${result.attributedChange} of ${result.assessed} topics you could judge. ${result.applied} led to a real change at work. You already knew ${result.already}. ${result.unclear} are still fuzzy. You could not judge ${result.unassessed}.`;
+  return `You said the event helped you learn or change ${result.attributedChange} of ${result.assessed} topics you judged. Work changed: ${result.applied}. Knew already: ${result.already}. Still fuzzy: ${result.unclear}. Skipped: ${result.unassessed}.`;
 }
 function renderResults() {
   const result = metrics();
   const cards = [
     [result.attributedChange, "Learned or changed"], [result.applied, "Changed my work"],
     [result.already, "Knew already"], [result.unclear, "Still fuzzy"],
-    [result.unassessed, "Can’t tell yet"], [ITEMS.length, "Topics"]
+    [result.unassessed, "Skipped"], [ITEMS.length, "Topics"]
   ];
   $("summaryGrid").replaceChildren();
   cards.forEach(([value, label]) => {
@@ -805,11 +805,11 @@ function markdownResults() {
     "## Agentic Squirrel Symposium I — one-week check-in", "",
     "> This is what I think I learned or changed. It does not prove that the team changed.", "",
     "### Summary", "",
-    `- Learned or changed because of the event: **${result.assessed === 0 ? "No topics judged" : `${result.attributedChange}/${result.assessed} topics I could judge`}**`,
+    `- Learned or changed because of the event: **${result.assessed === 0 ? "All topics skipped" : `${result.attributedChange}/${result.assessed} topics I judged`}**`,
     `- Changed my work because of the event: **${result.applied}**`,
     `- Knew it before the event: **${result.already}**`,
     `- Still fuzzy: **${result.unclear}**`,
-    `- Can’t tell yet: **${result.unassessed}**`,
+    `- Skipped: **${result.unassessed}**`,
     `- Optional proof: **${markdownSafeInline(receipt || "None added")}**`, "",
     `**Next small step (${followup.basis.toLowerCase()}):** ${followup.text}`, "",
     "### My answers", ""
@@ -901,7 +901,7 @@ async function findingsCardBlob() {
   wrapCanvasText(context, "TOPICS I LEARNED OR CHANGED", 300, 695, 400, 27, 3);
   wrapCanvasText(context, "TOPICS THAT CHANGED MY WORK", 780, 695, 400, 27, 3);
   context.fillStyle = "#625e54"; context.font = "24px Georgia, serif";
-  context.fillText(`Knew already: ${result.already} · Still fuzzy: ${result.unclear} · Can’t tell yet: ${result.unassessed}`, 540, 790);
+  context.fillText(`Knew already: ${result.already} · Still fuzzy: ${result.unclear} · Skipped: ${result.unassessed}`, 540, 790);
   context.fillStyle = "#171713"; context.font = "italic 27px Georgia, serif";
   wrapCanvasText(context, "This report does not prove the team changed. Pick an owner and check for a real sign later.", 540, 855, 850, 34, 2);
   context.fillStyle = "#7d1f22"; context.font = "700 20px Georgia, serif";
