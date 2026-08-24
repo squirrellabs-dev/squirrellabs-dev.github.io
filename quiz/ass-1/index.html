@@ -199,7 +199,7 @@
   .instrument-nav { display: grid; grid-template-columns: auto 1fr; gap: 9px; margin-top: 15px; }
   .review-list { display: grid; gap: 9px; margin: 18px 0; }
   .review-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 13px; border: 1px solid #8c8579; background: rgba(255,255,255,.28); }
-  .review-row h3 { margin: 0 0 4px; font-size: 17px; }
+  .review-row h2 { margin: 0 0 4px; font-size: 17px; }
   .review-row p { margin: 2px 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
   .review-row .button { min-width: 72px; }
   .lock-note { margin: 14px 0; padding: 12px 14px; border-left: 4px solid var(--red); background: var(--red-soft); font-size: 14px; line-height: 1.4; }
@@ -615,7 +615,7 @@ function renderReview() {
     const row = document.createElement("article");
     row.className = "review-row";
     const copy = document.createElement("div");
-    const title = document.createElement("h3");
+    const title = document.createElement("h2");
     title.textContent = `${index + 1}. ${item.short}`;
     const status = document.createElement("p");
     status.textContent = `Event: ${optionById(LEARNING_OPTIONS, answer.learning).label} · Now: ${optionById(USE_OPTIONS, answer.use).label}`;
