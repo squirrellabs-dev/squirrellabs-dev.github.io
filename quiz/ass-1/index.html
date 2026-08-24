@@ -131,7 +131,7 @@
   .item-browser-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 11px; line-height: 1.35; }
   .item-browser-head strong { font-variant: small-caps; letter-spacing: .55px; }
   .item-browser-head span { color: var(--muted); text-align: right; }
-  .item-map { display: grid; grid-template-columns: repeat(14, minmax(36px, 1fr)); gap: 5px; }
+  .item-map { display: grid; grid-template-columns: repeat(10, minmax(36px, 1fr)); gap: 5px; }
   .item-jump {
     position: relative; min-width: 0; min-height: 39px; padding: 5px 2px; border: 1px solid #9f9787;
     background: var(--paper); color: var(--ink); font-size: 12px; font-weight: 700; line-height: 1;
@@ -157,6 +157,14 @@
   .proposition strong { font-variant: small-caps; letter-spacing: .5px; }
   .why { margin: 12px 0 19px; color: var(--muted); font-size: 12px; line-height: 1.5; }
   .why strong { color: var(--ink); }
+  .experiment { margin: 12px 0; padding: 11px 13px; border-left: 4px solid var(--blue); background: var(--blue-soft); font-size: 12px; line-height: 1.5; }
+  .experiment strong { color: var(--ink); }
+  .item-evidence-label { display: block; margin: 15px 0 5px; font-size: 12px; font-weight: 700; }
+  .item-evidence {
+    width: 100%; min-height: 45px; padding: 9px 11px; border: 1px solid var(--rule);
+    background: #fffaf0; color: var(--ink); border-radius: 0;
+  }
+  .item-evidence::placeholder { color: #898274; }
   fieldset { margin: 0; padding: 0; border: 0; }
   legend { width: 100%; margin: 0 0 9px; padding: 0; font-size: 14px; font-weight: 700; line-height: 1.4; }
   .options { display: grid; gap: 7px; counter-reset: response; }
@@ -201,15 +209,10 @@
   .result-item h3 { margin: 0 0 4px; font-size: 14px; line-height: 1.3; }
   .result-item h3::before { content: counter(result) ". "; color: var(--red); }
   .result-answer { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 700; }
-  .result-practice { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .result-practice, .result-evidence { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .result-evidence { margin-top: 4px; color: var(--ink); }
   .result-edit { margin-top: 8px; padding: 5px 8px; border: 1px solid #8d8577; background: transparent; color: var(--blue); font-size: 10px; font-weight: 700; }
   .result-edit:hover { border-color: var(--blue); background: var(--blue-soft); }
-  .receipt-label { display: block; margin: 12px 0 5px; font-weight: 700; font-size: 13px; }
-  .receipt {
-    width: 100%; min-height: 47px; padding: 10px 12px; border: 1px solid var(--rule);
-    background: #fffaf0; color: var(--ink); border-radius: 0;
-  }
-  .receipt::placeholder { color: #898274; }
   .export-box { margin-top: 24px; padding: 18px; border: 3px double var(--red); background: rgba(255,255,255,.25); }
   .export-box h2 { margin: 0 0 8px; font-size: 20px; font-weight: 400; }
   .task-output {
@@ -232,7 +235,7 @@
     .summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .instrument { padding: 17px 13px; }
     .instrument-nav, .export-actions, .secondary-actions { grid-template-columns: 1fr; }
-    .item-map { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .item-map { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   }
   @media (max-width: 360px) {
     .paper { width: 100%; margin: 0; border-inline: 0; padding-inline: 12px; }
@@ -253,9 +256,9 @@
 <body data-stage="start">
 <div class="formulae" aria-hidden="true">
   <span>ΔK = after − before</span>
-  <span>∀ agent ∃ human : risky click → stop</span>
+  <span>Σ tokens ≠ quality</span>
   <span>merged ≠ live ∎</span>
-  <span>∫ notes · d🐿 = proof</span>
+  <span>∥ agents + one coordinator = fewer naps</span>
 </div>
 <main class="paper">
   <div class="running-head" aria-hidden="true">
@@ -274,14 +277,14 @@
   </header>
   <section id="stStart" aria-labelledby="pageTitle">
     <div class="abstract">
-      <strong>Abstract.</strong> You heard 14 talks last week. This check-in asks what you learned and what you changed. You do not need to remember the agenda. Each page explains one good work habit. Pick the answer that fits you. At the end, copy your report into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link.
+      <strong>Abstract.</strong> You heard 14 talks last week. This check-in asks about the 10 work habits that could matter most. You do not need to remember the agenda. Each page names one habit. Answer first; the best-practice note opens after. At the end, copy your report into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link.
       <p class="keywords"><strong>Keywords:</strong> better work; honest answers; proof; very serious squirrels.</p>
     </div>
     <div class="equation" aria-label="Showing up is not the same as learning, and saying is not the same as doing">
       showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ doing <span class="number">(1)</span>
     </div>
     <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> Pick the honest answer. It is fine if you knew it already. It is fine to skip a topic. If the event changed your work, pick “I changed my work” even if you knew the idea before. There is no score. <span class="proof-end" aria-hidden="true">□</span>
+      <strong>Definition 1 (an honest check-in).</strong> Answer before the guidance opens. If the event led to a real action or workflow change, pick “I changed my work” even if you knew the idea before. “Knew it already” means the event taught you nothing new and changed nothing. It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
     </div>
     <h2 class="section-title"><span class="sec">1.</span>How to answer</h2>
     <p class="lede">Use the same six answers on every page. They show what was new, what you knew before, and what you used.</p>
@@ -290,13 +293,13 @@
       <summary>Optional Appendix A — 14 talks in 14 short notes</summary>
       <div class="talk-grid" id="talkGrid"></div>
     </details>
-    <p class="small-note"><sup>*</sup> N = you. This takes about 6–8 minutes. Your answers stay in this tab. If you close or reload it, they are gone. The page does not send anything.</p>
+    <p class="small-note"><sup>*</sup> N = you. This takes about 5–7 minutes. Your answers stay in this tab. If you close or reload it, they are gone. The page does not send anything.</p>
     <button class="button full start-button" id="btnStart" type="button">Start the very serious study</button>
   </section>
   <section id="stCheckin" class="hidden" aria-labelledby="itemTitle">
     <div class="progress-head">
       <div class="progress-copy"><span id="progressText"></span><span id="progressSection"></span></div>
-      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics done" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Topics done" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
     </div>
     <nav class="item-browser" aria-labelledby="itemBrowserTitle">
       <div class="item-browser-head"><strong id="itemBrowserTitle">Jump to any topic</strong><span id="answeredCount" aria-live="polite"></span></div>
@@ -304,22 +307,28 @@
       <div class="item-map-legend" aria-hidden="true">
         <span class="legend-mark current">here now</span><span class="legend-mark answered">done</span><span class="legend-mark">not done</span>
       </div>
-      <button class="button full map-finish hidden" id="btnFinishMap" type="button">All 14 done — see my report →</button>
+      <button class="button full map-finish hidden" id="btnFinishMap" type="button">All 10 done — see my report →</button>
       <button class="button secondary map-return hidden" id="btnReturnResults" type="button">← Back to my report</button>
     </nav>
     <article class="instrument">
       <div class="item-meta" id="itemMeta"></div>
       <h1 class="item-title" id="itemTitle" tabindex="-1" aria-describedby="itemMeta navProgress"></h1>
-      <div class="proposition" id="practiceText"></div>
-      <p class="why" id="whyText"></p>
       <fieldset>
-        <legend>What did this event change for you?</legend>
+        <legend>Because of Symposium I, which statement fits you today?</legend>
         <div class="options" id="responseOptions"></div>
       </fieldset>
-      <details class="source-note">
-        <summary>Where this came from (optional)</summary>
-        <div id="sourceText"></div>
-      </details>
+      <div class="hidden" id="postAnswer">
+        <div class="proposition" id="practiceText"></div>
+        <p class="why" id="whyText"></p>
+        <p class="experiment" id="experimentText"></p>
+        <details class="source-note">
+          <summary>Where this came from (optional)</summary>
+          <div id="sourceText"></div>
+        </details>
+        <label class="item-evidence-label" id="itemEvidenceLabel" for="itemEvidence"></label>
+        <input class="item-evidence" id="itemEvidence" maxlength="160" autocomplete="off" aria-describedby="itemEvidenceHelp" />
+        <p class="small-note" id="itemEvidenceHelp">Optional. Add a short fact or proof. Do not paste a private link, secret, or customer data.</p>
+      </div>
       <div class="answer-status" id="answerStatus" role="status" aria-live="polite"></div>
       <div class="instrument-nav">
         <div class="nav-progress" id="navProgress"></div>
@@ -342,9 +351,6 @@
       <div class="theorem">
         <strong>Reality check.</strong> These answers show what you think you learned. They do not prove the team changed. To check that, pick an owner and look for a real sign later. A sign could be a checklist, a note, a log, a handoff, or the same good action happening again. <span class="proof-end" aria-hidden="true">□</span>
       </div>
-      <label class="receipt-label" for="receipt">Optional proof</label>
-      <input class="receipt" id="receipt" maxlength="120" autocomplete="off" aria-describedby="receiptHelp" placeholder="e.g. mobile checklist, decision note, work log, handoff…" />
-      <p class="small-note" id="receiptHelp">Name a file, note, or action. Do not paste a private link, secret, or customer data. Nothing is sent by itself.</p>
       <section class="export-box" aria-labelledby="exportTitle">
         <h2 id="exportTitle">Appendix B. Copy this into the task</h2>
         <p class="lede">Copy the full note. Paste it into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link. This page cannot post for you. A downloaded file is only a backup.</p>
@@ -364,7 +370,7 @@
   </section>
   <section class="bibliography" aria-labelledby="referencesTitle">
     <h2 id="referencesTitle">Sources and one small methods problem</h2>
-    <p>[1] Talk notes and transcript from Agentic Squirrel Symposium I. [2] Fourteen good work habits from the talks and known team gaps. [3] This check-in is a self-report, not a scientific study.</p>
+    <p>[1] Talk notes and transcript from Agentic Squirrel Symposium I. [2] Ten good work habits from the talks and known team gaps. [3] This check-in is a self-report, not a scientific study.</p>
   </section>
   <footer class="page-foot"><span>squirrellabs.dev/quiz/ass-1</span><span>Page <span id="pageNumber">1</span> of ∞</span></footer>
 </main>
@@ -387,134 +393,114 @@ const TALKS = [
 ];
 const SOURCE_GAPS = [
   { id: "GAP_RESUMABILITY", label: "a handoff that lets another person continue the job" },
-  { id: "GAP_CONTEXT_GOVERNANCE", label: "one current home and one owner for each team rule" },
-  { id: "GAP_ADOPTION_EVIDENCE", label: "proof that the team changed how it works" }
+  { id: "GAP_COORDINATOR", label: "one coordinator that can start, track, and join subagent work" },
+  { id: "GAP_ADVERSARIAL_REVIEW", label: "an independent review that tries to prove findings wrong" },
+  { id: "GAP_TOKEN_BUDGET", label: "enough tokens for hard work, proof, and a handoff" }
 ];
 const RESPONSES = [
-  { id: "unclear", label: "Still fuzzy", detail: "I cannot explain why this helps or what I should do." },
-  { id: "already", label: "Knew it already", detail: "The event did not teach me anything new or change my work." },
-  { id: "understand", label: "I get it now", detail: "The event helped me explain why this helps. I still cannot choose or use it safely by myself." },
-  { id: "apply", label: "I know when to use it", detail: "The event helped me choose when and how to use this safely. I have not changed my work yet." },
-  { id: "used", label: "I changed my work", detail: "The event made me use this practice or make a new work item. Pick this even if you knew the idea before." },
-  { id: "na", label: "Skip for now", detail: "I have not had a fair chance to judge this, or I choose not to answer." }
+  { id: "unclear", label: "Still fuzzy", detail: "I still cannot explain why this helps or what I should do." },
+  { id: "already", label: "Knew it already", detail: "I could explain and use this before the event, and I still can. The event taught me nothing new and changed nothing." },
+  { id: "understand", label: "I get it now", detail: "Because of the event, I can explain why this helps. I still need help to choose or use it safely." },
+  { id: "apply", label: "I know when to use it", detail: "Because of the event, I can choose and use this safely. I have not used it in real work yet." },
+  { id: "used", label: "I changed my work", detail: "Because of the event, I used this in real work or changed a real workflow." },
+  { id: "na", label: "Skip for now", detail: "This did not apply to me, I had no fair chance, or I prefer not to answer." }
 ];
 const ITEMS = [
   {
-    id: "P01", section: "§ 2.1 · Focus", construct: "Save the side task",
-    prompt: "A new task pops up while you are busy. What would you save before going back to your main task?",
-    practice: "Write it down right away. Add why it matters and the next step. Then go back to your main task.",
-    why: "A note like ‘check this’ will not help tomorrow. One useful sentence lets you restart fast.",
-    source: ["T01"],
-    experiment: "Next time, save the reason and next step. Do not start the new task yet."
+    id: "P01", section: "§ 2.1 · Parallel work", construct: "Run independent jobs at once",
+    prompt: "A project has jobs that may be able to run at the same time.",
+    practice: "Run jobs at the same time only when they do not need each other’s answers. Give each job a clear result and pass/fail checks. Name who will join the results.",
+    why: "AI can be slow and thorough. Parallel work saves time when the jobs are separate. Hidden links cause repeats, conflicts, and extra review.",
+    source: ["T02", "T09"],
+    experiment: "Split one real task into independent and dependent parts. Run two independent parts together. Record the time saved and any rework.",
+    evidence: "Most agents or processes you ran at once, plus the task"
   },
   {
-    id: "P02", section: "§ 2.1 · Focus", construct: "Make review easier",
-    prompt: "Eight agents finish at once. How would you review them without getting stuck?",
-    practice: "Group jobs only when they use the same pass/fail checks. Read one short update at a set time. Open the details when a check fails or a choice needs you.",
-    why: "Without shared checks, every result needs its own review. The human becomes the new traffic jam.",
-    source: ["T02"],
-    experiment: "Before several agents run, write the shared checks and the one update you want."
-  },
-  {
-    id: "P03", section: "§ 2.2 · Tools and choices", construct: "Use a visual for a hard choice",
-    prompt: "Three choices affect each other. What would help you compare them?",
-    practice: "GenUI is a short-lived visual tool made for one choice. A table, picker, or small web report can show how the answers affect each other. Keep simple choices in plain text.",
-    why: "A visual helps when seeing the links changes your choice. A special tool for ‘blue or green?’ only adds work.",
-    source: ["T04", "T05"],
-    experiment: "Put one choice whose answers affect each other into a simple table or picker. Pick an option. Then write the next steps."
-  },
-  {
-    id: "P04", section: "§ 2.2 · Tools and choices", construct: "Keep risky steps human",
-    prompt: "A browser agent reaches sign-in or a risky button. Which steps must a person take?",
-    practice: "Give the agent a clear brief. A person must sign in and complete MFA, the extra login check. A person must also approve money moves, posts, deleted data, and other risky actions.",
-    why: "An agent stuck at MFA wastes time. An agent that can approve risky actions can cause real harm. Mark the handoff before the run.",
-    source: ["T03", "T12"],
-    experiment: "Before the next browser run, list the sign-in and approval steps that only a person may do."
-  },
-  {
-    id: "P05", section: "§ 2.2 · Tools and choices", construct: "Find with many screens; prove with one",
-    prompt: "Your layout breaks on a phone. How would you find the bug and leave proof?",
-    practice: "Multinut shows the same page at many screen sizes. Use it on your own computer to find layout bugs. Then save normal screenshots as proof. Never repeat a dangerous click across many views on a live system.",
-    why: "The many-screen view helps you find the bug. A normal screenshot lets someone check the exact result later.",
-    source: ["T06"],
-    experiment: "For the next layout bug, use Multinut to find it. Save a separate screenshot to prove the fix."
-  },
-  {
-    id: "P06", section: "§ 2.3 · Long jobs and safe tests", construct: "Keep long jobs easy to check",
-    prompt: "You close your laptop, but the job needs hours. How will you know if it finishes, gets stuck, or needs help?",
-    practice: "Run the job in a named session that stays open after you disconnect. Put that session on a computer or server that stays online. Save short updates where they will not vanish. Send a clear alert when a named person must decide.",
-    why: "A job can stay alive and still fail in silence. An alert like ‘agent needs you’ is also too vague to help.",
-    source: ["T02", "T07", "T10", "T11", "T12"],
-    experiment: "Give one long job a named session that stays open, a saved update, and a rule for when to alert a person."
-  },
-  {
-    id: "P07", section: "§ 2.3 · Long jobs and safe tests", construct: "Name what separate folders still share",
-    prompt: "Two copies of an app run at once. How would you stop one job from taking the other job’s web address or branch?",
-    practice: "Git worktrees are separate folders for separate jobs in one code project. They keep file changes apart. Both jobs can still use the same web address, running server, and Git branch. Give each shared thing an owner.",
-    why: "Separate folders do not separate running programs. One job can still take the web address or move the branch while another job uses it.",
+    id: "P02", section: "§ 2.1 · Parallel work", construct: "Keep parallel jobs from colliding",
+    prompt: "Several agent jobs need separate files, branches, web addresses, and sessions.",
+    practice: "Give each writing job its own folder, branch, named session, and web address. Name an owner for every shared server, account, or branch. Check for collisions before starting.",
+    why: "Separate folders protect files. They do not separate running apps, accounts, or Git branches.",
     source: ["T09", "T10"],
-    experiment: "Before the next multi-job run, name the owner of every shared web address, running server, and branch."
+    experiment: "Run two safe jobs with a short isolation checklist. Add any new conflict to the checklist.",
+    evidence: "A collision you stopped or found"
   },
   {
-    id: "P08", section: "§ 2.3 · Long jobs and safe tests", construct: "Make risky work easy to reset",
-    prompt: "A test could cause damage. How would you keep the damage small and start over safely?",
-    practice: "Run risky work on a separate computer you can replace. Give it only the passwords and data it needs. Test how to reset the computer or undo its changes.",
-    why: "If a password leaks, limited access keeps the damage smaller. If the computer breaks, a tested reset gets work moving again.",
-    source: ["T08", "T12"],
-    experiment: "Before the next risky test, remove one password or set of data it does not need. Then test one way to recover."
+    id: "P03", section: "§ 2.1 · Parallel work", construct: "Use one coordinator",
+    prompt: "One coordinator agent may plan a large job and start smaller subagents.",
+    practice: "For a large job, use one strong coordinator agent, such as Fable. It sets one goal, gives each subagent one clear job, checks progress, asks for proof, and joins the results. It should spawn agents only when separate work will help.",
+    why: "More agents can make more output without making one good result. A coordinator keeps the parts aimed at the same goal.",
+    source: ["T02", "T10", "T11", "T12", "GAP_COORDINATOR"],
+    experiment: "Give a coordinator one job with two separate parts. Save the subagent briefs, proof, and final joined result.",
+    evidence: "Coordinator name, number of subagents, and task"
   },
   {
-    id: "P09", section: "§ 2.4 · Agents and checks", construct: "Give agents clear limits",
-    prompt: "An agent will handle a list of cases. Which choices can it make? Which choices need a person?",
-    practice: "Give the agent common cases with low risk. Write what it may do and what data it may see. Send unclear cases and big choices to a named person.",
-    why: "‘Handle support’ sets no clear limits. ‘Sort these case types, draft replies, and send refunds to a person’ gives the agent a clear job.",
-    source: ["T11", "T12"],
-    experiment: "For one work process, list the cases, data, and actions the agent may use. Add one reason to send a case to a person."
+    id: "P04", section: "§ 2.2 · Long jobs", construct: "Keep long runs useful",
+    prompt: "An agent job may keep running for hours after you close your laptop.",
+    practice: "Run the job in a named session on a computer that stays online. Set a review or stop time. Save checkpoints and a handoff. Alert a named person only when a choice needs them. Extend the run only when it still makes useful progress.",
+    why: "A job can stay alive for hours while doing nothing useful. Checkpoints and stop rules make long work safe and easy to judge.",
+    source: ["T01", "T07", "T09", "T10", "GAP_RESUMABILITY"],
+    experiment: "For one long job, record its planned limit, real run time, result, and why it stopped or kept going.",
+    evidence: "Your longest run since the event, what it did, and how it ended"
   },
   {
-    id: "P10", section: "§ 2.4 · Agents and checks", construct: "Fix the rule behind a repeat bug",
-    prompt: "The same bug is back for the fifth time. What would stop it and prove a safe test user sees the fix?",
-    practice: "Write the rule and its reason in the shared file agents use. Add a check that is easy to find or runs by itself. Test the live product with a safe test account. Do not use customer data. Stop before money moves, data is deleted, or a post goes live unless a person approved it.",
-    why: "A code change can be accepted while users still see the old bug. The rule helps the next agent. A safe live test catches a change that did not reach users.",
-    source: ["T13", "T14"],
-    experiment: "For one repeat bug, write the rule and reason. Add a check. Test the live steps with a safe test account. Stop before any lasting effect."
+    id: "P05", section: "§ 2.2 · Long jobs", construct: "Give hard jobs enough tokens",
+    prompt: "A hard job needs enough tokens—the text an agent can read and write—to inspect, test, and finish.",
+    practice: "Match the token budget to the job’s size, difficulty, and risk. Leave room for proof and a handoff. If the budget is tight, narrow or split the job. Do not treat more tokens as proof of better work.",
+    why: "Too few tokens can cut off useful work. Too many can waste time or hide a weak brief. The right amount depends on the job.",
+    source: ["T02", "GAP_TOKEN_BUDGET"],
+    experiment: "Run one hard task with a planned budget and clear checks. Record whether it finished, ran out, or needed a smaller scope.",
+    evidence: "Token budget, result, and whether any check was cut short"
   },
   {
-    id: "P11", section: "§ 2.4 · Agents and checks", construct: "Check an urgent claim",
-    prompt: "Someone reports a serious live problem. What would you check before you act?",
-    practice: "First, write what would prove or disprove the report. List the actions you will not take and the warning signs that will make you stop. Check direct evidence. Explain how the problem happens and who it affects.",
-    why: "Sharing an unproven alarm creates noise. Testing with no stop rules can cause a second failure.",
-    source: ["T14"],
-    experiment: "For the next urgent report, write what counts as proof and what will make you stop before you test it."
+    id: "P06", section: "§ 2.3 · Visual work", construct: "Use a visual for a hard choice",
+    prompt: "AI can turn a hard choice into a table, flow, picker, or small web report.",
+    practice: "First name the link or trade-off people need to see. Make a visual only when it makes that link or choice clearer than short text. Use plain text for a simple choice.",
+    why: "A useful visual can make trade-offs clear. A new visual made only for novelty adds work and can distract from the choice.",
+    source: ["T04", "T05"],
+    experiment: "Turn one real, connected choice into a useful visual. Ask another person if it improved the choice or next step.",
+    evidence: "Visual you tried and the choice it helped"
   },
   {
-    id: "P12", section: "§ 2.5 · Work someone else can continue", construct: "Leave a useful handoff",
-    prompt: "The day ends, and five agent jobs are still running. What would you save so someone else can continue tomorrow?",
-    practice: "Leave a saved handoff. Include the goal, current state, work produced, proof, owners, and exact next steps.",
-    why: "Open windows only show what exists now. They do not say what worked, what is still risky, or what to do first.",
-    source: ["T09", "GAP_RESUMABILITY"],
-    experiment: "End one run with six things: goal, state, work produced, proof, owners, and next steps."
+    id: "P07", section: "§ 2.3 · Visual work", construct: "Check an AI-made visual",
+    prompt: "An AI-made visual may look clear even when a fact, label, or link is wrong.",
+    practice: "Check every fact, label, number, and line against the source. Add a clear title, readable labels, and a short text summary. Do not use color as the only signal. Ask another person to inspect it.",
+    why: "A polished picture can make wrong information feel true. Source checks and clear labels make it safer and easier to use.",
+    source: ["T05", "T06"],
+    experiment: "Make one AI visual. Check its sources and labels. Ask someone to find one wrong or unclear part, then fix it.",
+    evidence: "A visual check that found or fixed a problem"
   },
   {
-    id: "P13", section: "§ 2.5 · Work someone else can continue", construct: "Keep each rule in one place",
-    prompt: "One rule is in three files, and the copies disagree. Which copy should everyone trust, and who keeps it up to date?",
-    practice: "Choose one file as the official home of the rule. Name one owner and set a review date. Remove extra copies or link them to the official file. Use an automatic check for rules that prevent serious harm.",
-    why: "An agent may follow an old copy exactly. One official file shows which rule is current. One owner knows to update it.",
-    source: ["T13", "GAP_CONTEXT_GOVERNANCE"],
-    experiment: "Find one rule with many copies. Name its official file and owner. Remove or link each old copy."
+    id: "P08", section: "§ 2.4 · Browser work", construct: "Delegate safe browser work",
+    prompt: "A browser agent can navigate, read, type, and click for you.",
+    practice: "Give it a clear list of allowed sites, data, and actions. Keep passwords, MFA, money, posts, and deletion with a person unless an approved system was built for that exact job. Stop when the site or action falls outside the brief.",
+    why: "A narrow browser job can save repeated clicking. Clear limits stop a changed page or surprise action from causing harm.",
+    source: ["T03", "T08", "T12"],
+    experiment: "Choose one safe browser job. Write its allowed actions and stop points. Let the agent do the routine steps and note where it stopped.",
+    evidence: "Browser task, steps delegated, and handoff point"
   },
   {
-    id: "P14", section: "§ 2.5 · Work someone else can continue", construct: "Check whether the team changed",
-    prompt: "People say a new practice helped. What proof would show that their work changed?",
-    practice: "Ask what people think they learned. That does not prove the team uses the practice. To show change, name an owner and choose a result or action you can see. Check it again later.",
-    why: "People may enjoy a talk and still return to old habits. A checklist, handoff, decision note, or repeated action shows if the new practice became part of the work.",
-    source: ["GAP_ADOPTION_EVIDENCE"],
-    experiment: "Choose one practice, its owner, and the proof you will inspect. Check it again in one week."
+    id: "P09", section: "§ 2.4 · Browser work", construct: "Try to prove findings wrong",
+    prompt: "A separate reviewer can try to prove another agent’s findings wrong.",
+    practice: "Let one reviewer find possible problems. Give each bare claim to a separate verifier. The verifier checks the current source, tries to disprove the claim, and repeats the exact steps. A person repeats serious failures before action.",
+    why: "A reviewer can sound sure and still be wrong. Trying to disprove claims removes false alarms and makes real problems easier to trust.",
+    source: ["T13", "T14", "GAP_ADVERSARIAL_REVIEW"],
+    experiment: "Give one claim to a fresh verifier. Ask it to disprove the claim and show the exact steps and evidence.",
+    evidence: "A claim the verifier confirmed or refuted"
+  },
+  {
+    id: "P10", section: "§ 2.4 · Browser work", construct: "Click through the app like a user",
+    prompt: "An agent can click through the app from start to finish like a user.",
+    practice: "Use the real browser screen to navigate, click, type, and check what appears. Use a test site or safe test account. Follow one normal user path and save screenshots or a short log. Stop before any lasting action unless a person approved it.",
+    why: "Code checks can pass while buttons, screens, or the live path are broken. A full click-through checks what a user can really do.",
+    source: ["T03", "T06", "T13", "T14"],
+    experiment: "Replay one important user path with a safe account. Save the steps and result. Compare what it found with the code checks.",
+    evidence: "App path tested and issue found or ruled out"
   }
 ];
 const $ = (id) => document.getElementById(id);
 const stages = { start: $("stStart"), checkin: $("stCheckin"), done: $("stDone") };
 const answers = Array(ITEMS.length).fill(null);
+const evidenceNotes = Array(ITEMS.length).fill("");
 let position = 0;
 let reviewingResults = false;
 let lastExportSignature = null;
@@ -533,6 +519,8 @@ function sourceLabel(id) {
   return gap ? `Team gap: ${gap.label}` : id;
 }
 function renderStaticContent() {
+  $("progressTrack").setAttribute("aria-valuemax", String(ITEMS.length));
+  $("btnFinishMap").textContent = `All ${ITEMS.length} done — see my report →`;
   RESPONSES.forEach((response) => {
     const chip = document.createElement("div");
     chip.className = "key-chip";
@@ -607,6 +595,16 @@ function goToItem(index, notice = "") {
   renderItem(notice);
   window.scrollTo({ top: 0, behavior: "auto" });
 }
+function renderEvidencePrompt() {
+  const item = ITEMS[position];
+  if (answers[position] === "na") {
+    $("itemEvidenceLabel").textContent = "Optional skip reason: not relevant, no fair chance, or prefer not to say.";
+    $("itemEvidence").placeholder = "Short reason (optional)";
+    return;
+  }
+  $("itemEvidenceLabel").textContent = `Optional fact or proof: ${item.evidence}.`;
+  $("itemEvidence").placeholder = "Short note (optional)";
+}
 function renderItem(notice = "") {
   const item = ITEMS[position];
   $("itemMeta").textContent = `${item.id} · ${item.construct}`;
@@ -619,7 +617,14 @@ function renderItem(notice = "") {
   const whyLabel = document.createElement("strong");
   whyLabel.textContent = "Why this helps. ";
   $("whyText").append(whyLabel, document.createTextNode(item.why));
+  $("experimentText").replaceChildren();
+  const experimentLabel = document.createElement("strong");
+  experimentLabel.textContent = "Try it. ";
+  $("experimentText").append(experimentLabel, document.createTextNode(item.experiment));
   $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
+  renderEvidencePrompt();
+  $("itemEvidence").value = evidenceNotes[position];
+  $("postAnswer").classList.toggle("hidden", answers[position] === null);
   $("answerStatus").textContent = notice;
   const host = $("responseOptions");
   host.replaceChildren();
@@ -654,6 +659,8 @@ function selectResponse(id) {
   [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
     label.classList.toggle("selected", label.querySelector("input").value === id);
   });
+  $("postAnswer").classList.remove("hidden");
+  renderEvidencePrompt();
   updateNextButton();
   renderProgress();
   if (answers.every((answer) => answer !== null)) updateTaskOutput();
@@ -747,13 +754,18 @@ function renderResults() {
     const practice = document.createElement("p");
     practice.className = "result-practice";
     practice.textContent = `Best practice: ${item.practice}`;
+    const evidence = document.createElement("p");
+    evidence.className = "result-evidence";
+    evidence.textContent = evidenceNotes[index].trim()
+      ? `Your proof or useful number: ${evidenceNotes[index].trim()}`
+      : "No proof or useful number added.";
     const edit = document.createElement("button");
     edit.type = "button";
     edit.className = "result-edit";
     edit.textContent = `Edit answer ${index + 1}`;
     edit.setAttribute("aria-label", `Edit answer ${index + 1}: ${item.construct}`);
     edit.addEventListener("click", (event) => { if (event.detail <= 1) reviewResponse(index); });
-    entry.append(heading, selected, practice, edit);
+    entry.append(heading, selected, practice, evidence, edit);
     $("resultsList").appendChild(entry);
   });
   updateTaskOutput();
@@ -767,7 +779,7 @@ function finishCheckin() {
   reviewingResults = false;
   showStage("done");
   $("resultContent").classList.add("hidden");
-  $("compileLog").textContent = "pdflatex very-serious-checkin.tex\n[1/14] checking for honest answers…\n[14/14] refusing to make up a team score…\nYour report is ready below (N = you).";
+  $("compileLog").textContent = `pdflatex very-serious-checkin.tex\n[1/${ITEMS.length}] checking for honest answers…\n[${ITEMS.length}/${ITEMS.length}] refusing to make up a team score…\nYour report is ready below (N = you).`;
   const reveal = () => {
     renderResults();
     $("resultContent").classList.remove("hidden");
@@ -783,8 +795,7 @@ function markdownSafeInline(value) {
     .replace(/([`*_{}\[\]<>#])/g, "\\$1");
 }
 function resultsSignature() {
-  const receipt = $("receipt") ? $("receipt").value.trim() : "";
-  return JSON.stringify({ answers, receipt });
+  return JSON.stringify({ answers, evidenceNotes });
 }
 function recordExportSuccess(message) {
   lastExportSignature = resultsSignature();
@@ -800,7 +811,7 @@ function invalidateExportState() {
 function markdownResults() {
   const result = metrics();
   const followup = recommendedFollowup();
-  const receipt = $("receipt") ? $("receipt").value.trim() : "";
+  const evidenceCount = evidenceNotes.filter((note) => note.trim()).length;
   const lines = [
     "## Agentic Squirrel Symposium I — one-week check-in", "",
     "> This is what I think I learned or changed. It does not prove that the team changed.", "",
@@ -810,16 +821,17 @@ function markdownResults() {
     `- Knew it before the event: **${result.already}**`,
     `- Still fuzzy: **${result.unclear}**`,
     `- Skipped: **${result.unassessed}**`,
-    `- Optional proof: **${markdownSafeInline(receipt || "None added")}**`, "",
+    `- Topics with proof or a useful number: **${evidenceCount}**`, "",
     `**Next small step (${followup.basis.toLowerCase()}):** ${followup.text}`, "",
     "### My answers", ""
   ];
   ITEMS.forEach((item, index) => {
     const response = responseById(answers[index]);
     lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${response.label}`);
-    lines.push(`   - Situation: ${item.prompt}`);
+    lines.push(`   - Topic: ${item.prompt}`);
     lines.push(`   - My answer: ${response.detail}`);
     lines.push(`   - Best practice: ${item.practice}`);
+    lines.push(`   - Proof or useful number: ${markdownSafeInline(evidenceNotes[index].trim() || "None added")}`);
     lines.push(`   - Source: ${item.source.map(sourceLabel).join(" · ")}`);
   });
   lines.push("", "### Check for team change", "",
@@ -957,7 +969,11 @@ $("btnDownloadText").addEventListener("click", downloadText);
 $("btnReview").addEventListener("click", reviewResponses);
 $("btnCopyCard").addEventListener("click", () => shareCard("copy"));
 $("btnDownloadCard").addEventListener("click", () => shareCard("download"));
-$("receipt").addEventListener("input", () => { updateTaskOutput(); invalidateExportState(); });
+$("itemEvidence").addEventListener("input", () => {
+  evidenceNotes[position] = $("itemEvidence").value;
+  if (answers.every((answer) => answer !== null)) updateTaskOutput();
+  invalidateExportState();
+});
 renderStaticContent();
 </script>
 </body>
