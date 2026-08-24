@@ -65,7 +65,7 @@
   .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 10px; }
   .talk { border: 1px solid rgba(57,255,20,.35); padding: 9px; background: rgba(2,8,3,.75);
     color: #d8ffd8; font-size: 11.5px; line-height: 1.45; }
-  .talk b { display: block; color: var(--grn); margin-bottom: 2px; }
+  .talk h3 { display: block; color: var(--grn); font-size: inherit; margin-bottom: 2px; }
   .talk .who { color: var(--mag); font-size: 10px; text-transform: uppercase; }
   .pulse h2 { color: var(--ylw); font-size: 14px; margin-bottom: 5px; }
   .pulse > p { color: #d8ffd8; font-size: 12px; line-height: 1.45; margin-bottom: 9px; }
@@ -81,7 +81,8 @@
   .receipt { width: 100%; min-height: 42px; border: 1px solid rgba(255,68,212,.65); background: #000;
     color: #d8ffd8; font: 12px/1.4 "Courier New", monospace; padding: 9px; }
   .receipt::placeholder { color: #4e9760; }
-  .result-pulse { text-align: center; font-size: 12px; line-height: 1.5; margin-top: 7px; }
+  .receipt-share { margin-top: 7px; }
+  .result-pulse { text-align: center; font-size: 12px; line-height: 1.5; margin-top: 7px; overflow-wrap: anywhere; word-break: break-word; }
   #finalPulse { color: var(--cyn); }
   #finalReceipt { color: var(--mag); }
   #finalNext { color: var(--ylw); }
@@ -200,7 +201,7 @@
     </details>
     <div class="panel cyn pulse" id="pulsePanel">
       <h2>PRIVATE WEEK-1 SELF-REPORT</h2>
-      <p>Since 19 Aug, tick only what you personally did. This is a reflection baseline, not team adoption telemetry.</p>
+      <p>During the first seven days after the symposium, tick only what you personally did. This is a reflection baseline, not team adoption telemetry.</p>
       <div class="pulse-grid">
         <label class="pulse-item"><input type="checkbox" name="adopted" value="visual-decisions" /><span>Used a GenUI picker or HTML report for a materially important decision.</span></label>
         <label class="pulse-item"><input type="checkbox" name="adopted" value="verify-first" /><span>Verified an inbound claim against a primary source before passing it on.</span></label>
@@ -208,9 +209,10 @@
         <label class="pulse-item"><input type="checkbox" name="adopted" value="parallel-boundaries" /><span>Used separate worktrees for files and explicitly owned every shared port, server, process, and branch ref touched.</span></label>
         <label class="pulse-item"><input type="checkbox" name="adopted" value="observable-autonomy" /><span>Ran long work with a heartbeat, durable status, or an end-of-day handoff.</span></label>
       </div>
-      <label class="receipt-label" for="receipt">ONE RECEIPT (OPTIONAL) — artifact, link, or concrete behavior</label>
-      <input class="receipt" id="receipt" maxlength="96" autocomplete="off" placeholder="e.g. release picker, invariant, monitor run, handoff…" />
-      <p class="fine">// stored only in this page run; nothing is sent. your total and receipt appear only on a card you choose to export.</p>
+      <label class="receipt-label" for="receipt">ONE RECEIPT (OPTIONAL) — public-safe artifact name or concrete behavior</label>
+      <input class="receipt" id="receipt" maxlength="96" autocomplete="off" aria-describedby="receiptSafety" placeholder="e.g. release picker, invariant, monitor run, handoff…" />
+      <label class="pulse-item receipt-share"><input type="checkbox" id="includeReceipt" /><span>Include this receipt on exported cards. Public-safe text only—never secrets, customer data, or private URLs.</span></label>
+      <p class="fine" id="receiptSafety">// stored only in this page run; nothing is sent. the receipt is exported only if you opt in above.</p>
     </div>
     <button class="btn hidden" id="btnStart" aria-label="Start Symposium practice assessment" onclick="beginRun(null)">&gt;&gt; 3NT3R TH3 A.S.S.3SSM3NT &lt;&lt;</button>
   </section>
@@ -236,7 +238,7 @@
   <!-- DONE -->
   <section id="stDone" class="hidden" aria-labelledby="finalRank">
     <div class="panel mag">
-      <div class="term" id="evalTerm" tabindex="-1" aria-label="Compiling final result"></div>
+      <div class="term" id="evalTerm" role="group" tabindex="-1" aria-label="Compiling final result"></div>
       <div id="resultBlock" class="hidden">
         <div class="score-big" id="finalScore"></div>
         <h2 class="rank" id="finalRank" tabindex="-1"></h2>
@@ -306,7 +308,7 @@ const TALKS = [
     "id": "T05",
     "speaker": "Hugo",
     "title": "HTML reports",
-    "summary": "When terminal prose hides relationships, ask for a self-contained visual report that makes the whole system inspectable."
+    "summary": "When terminal prose hides relationships, change the medium to a visual HTML report that makes the whole system inspectable."
   },
   {
     "id": "T06",
@@ -318,7 +320,7 @@ const TALKS = [
     "id": "T07",
     "speaker": "Hugo",
     "title": "TMUX and long running agents",
-    "summary": "VPS + tmux + cron makes persistent supervisors; observability and escalation boundaries keep autonomy useful."
+    "summary": "An always-on local machine or VPS, plus tmux and cron, keeps agent work running beyond a laptop session."
   },
   {
     "id": "T08",
@@ -437,13 +439,13 @@ const QUESTIONS = [
     "prompt": "The same bug class returns for a second time in new code. What is the durable next move?",
     "options": [
       "Patch the newest call site and add the incident to a private note",
-      "Write an agent-readable invariant with the why and a greppable self-check",
-      "Add a regression test without explaining the rule future agents need",
+      "Encode an agent-readable invariant with why plus a greppable or automated check",
+      "Add one narrow regression test around the newest call site only",
       "Schedule a retrospective and leave the agent instructions unchanged"
     ],
     "correctIndex": 1,
     "joke": "Rename the bug so technically it has never happened before",
-    "explanation": "Jota showed that recurring defects need an agent-readable invariant: the rule, why it exists, and a self-check future sessions can run.",
+    "explanation": "Jota showed that recurring defects need an agent-readable invariant: the rule, why it exists, and a greppable or automated check future sessions can run.",
     "wrongQuip": "A patch repairs code. A rule with a check repairs future sessions."
   },
   {
@@ -466,7 +468,7 @@ const QUESTIONS = [
     "source": ["T05"],
     "prompt": "A complex user journey has dozens of states, CTAs, and drop-offs. Terminal prose makes your eyes glaze over. What now?",
     "options": [
-      "Build a self-contained HTML report that exposes the states and their relationships",
+      "Build an HTML report that exposes the states and their relationships",
       "Write a longer terminal narrative with headings for every state and transition",
       "Choose a representative final screenshot and annotate the most visible defect",
       "Collapse the journey into one KPI so the review has a simple, comparable source of truth"
@@ -493,17 +495,17 @@ const QUESTIONS = [
   },
   {
     "level": "mid",
-    "source": ["T07"],
-    "prompt": "You want a deploy monitor to run for days without babysitting. Which setup is actually agentic?",
+    "source": ["T02", "T07", "T11", "T12"],
+    "prompt": "You want a deploy monitor to run for days without babysitting. Which setup stays useful rather than merely persistent?",
     "options": [
       "Keep a laptop tab open and rely on the agent to announce any important change",
       "Run a silent cron; no message means the monitor is healthy and still scheduled",
       "Use a shared high-permission host with every teammate credential so anyone can repair it quickly",
-      "Run it on VPS + tmux + a schedule, with durable heartbeats and bounded escalation"
+      "Use an always-on local host or VPS, plus tmux, a schedule, heartbeats, and bounded escalation"
     ],
     "correctIndex": 3,
     "joke": "Balance the laptop on a bag of frozen peas and declare it infrastructure",
-    "explanation": "VPS + tmux + scheduling provides persistence; heartbeats and bounded escalation make that persistence observable and safe.",
+    "explanation": "Hugo's always-on host + tmux + scheduling pattern provides persistence. Across the symposium, heartbeats and bounded escalation make that persistence observable and safe.",
     "wrongQuip": "A process you cannot distinguish from dead is not autonomous. It is missing."
   },
   {
@@ -685,7 +687,7 @@ const RETRY_RANK = {
 /* ═══════════════ matrix rain ═══════════════ */
 const rain = document.getElementById('rain');
 const rctx = rain.getContext('2d');
-const GLYPHS = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ01¥$🥜'.split('');
+const GLYPHS = Array.from('ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ01¥$🥜');
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let cols = [], fs = 14;
 function sizeRain() {
@@ -749,7 +751,8 @@ function renderTalks() {
   const grid = $('talkGrid');
   TALKS.forEach((talk) => {
     const card = document.createElement('article'); card.className = 'talk';
-    const title = document.createElement('b'); title.textContent = `${talk.id} · ${talk.title}`;
+    const title = document.createElement('h3'); title.id = `talk-${talk.id}-title`; title.textContent = `${talk.id} · ${talk.title}`;
+    card.setAttribute('aria-labelledby', title.id);
     const who = document.createElement('div'); who.className = 'who'; who.textContent = `// ${talk.speaker}`;
     const summary = document.createElement('div'); summary.textContent = talk.summary;
     card.append(title, who, summary); grid.appendChild(card);
@@ -761,6 +764,7 @@ renderTalks();
 let order = [], optionOrders = {}, pos = 0, chosen = null;
 let correctCount = 0, missed = [], streak = 0, bestStreak = 0, points = 0, mascotClicks = 0;
 let adoptedValues = [], nextPractice = '', evidenceReceipt = '';
+let includeReceiptOnCard = false;
 let runMode = 'full', initialResult = null;
 
 const PRACTICES = [
@@ -777,6 +781,7 @@ function show(name) { Object.entries(stages).forEach(([k, el]) => el.classList.t
 function beginRun(subset) {
   adoptedValues = [...document.querySelectorAll('input[name="adopted"]:checked')].map((el) => el.value);
   evidenceReceipt = $('receipt').value.trim();
+  includeReceiptOnCard = $('includeReceipt').checked;
   const firstGap = PRACTICES.find((practice) => !adoptedValues.includes(practice.value));
   nextPractice = firstGap ? firstGap.next : 'Teach one practice to another squirrel and make it a team default.';
   runMode = subset && subset.length ? 'retry' : 'full';
@@ -840,7 +845,7 @@ function sourceSummary(ids) {
 function setAnswerVerdict(className, visibleText, spokenText) {
   const host = $('verdict');
   host.innerHTML = '';
-  const visible = document.createElement('div'); visible.className = `verdict ${className}`; visible.textContent = visibleText;
+  const visible = document.createElement('div'); visible.className = `verdict ${className}`; visible.setAttribute('aria-hidden', 'true'); visible.textContent = visibleText;
   const spoken = document.createElement('span'); spoken.className = 'sr-only'; spoken.textContent = spokenText;
   host.append(visible, spoken);
 }
@@ -889,7 +894,9 @@ function answer(oi, btn) {
   intel += `<div class="fine">// SOURCE: ${sourceSummary(q.source)}</div>`;
   $('intel').innerHTML = intel;
   const nb = $('btnNext'); nb.classList.remove('hidden');
-  nb.textContent = pos + 1 >= order.length ? '>> C0MP1L3 F1N4L R4NK <<' : '>> N3XT QU3RY <<';
+  const isFinalQuestion = pos + 1 >= order.length;
+  nb.textContent = isFinalQuestion ? '>> C0MP1L3 F1N4L R4NK <<' : '>> N3XT QU3RY <<';
+  nb.setAttribute('aria-label', isFinalQuestion ? 'Compile final rank' : 'Next scenario');
 }
 
 function next() {
@@ -901,10 +908,8 @@ function next() {
 
 function finish() {
   show('done');
-  requestAnimationFrame(() => {
-    scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
-    $('evalTerm').focus({ preventScroll: true });
-  });
+  $('evalTerm').focus({ preventScroll: true });
+  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
   $('resultBlock').classList.add('hidden'); $('doneBtns').classList.add('hidden');
   const frac = correctCount / order.length;
   const r = runMode === 'retry' ? RETRY_RANK : (RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1]);
@@ -955,6 +960,29 @@ function fitCanvasText(context, text, xPos, yPos, maxWidth, maxSize, minSize, we
   context.fillText(text, xPos, yPos);
 }
 
+function drawWrappedCanvasText(context, text, xPos, centerY, maxWidth, lineHeight, maxLines) {
+  const lines = [];
+  let line = '';
+  for (const char of Array.from(text)) {
+    if (!line || context.measureText(line + char).width <= maxWidth) {
+      line += char;
+      continue;
+    }
+    lines.push(line);
+    line = char;
+  }
+  if (line) lines.push(line);
+  if (lines.length > maxLines) {
+    lines.length = maxLines;
+    let last = lines[maxLines - 1] + '…';
+    while (context.measureText(last).width > maxWidth && last.length > 1) last = last.slice(0, -2) + '…';
+    lines[maxLines - 1] = last;
+  }
+  const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
+  lines.forEach((value, index) => context.fillText(value, xPos, startY + index * lineHeight));
+  return lines;
+}
+
 async function shareCard(mode) {
   const c = document.createElement('canvas'); c.width = 1080; c.height = 1080;
   const x = c.getContext('2d');
@@ -993,8 +1021,9 @@ async function shareCard(mode) {
     ? `labelled retry · original ${initialResult.correctCount}/${initialResult.total}`
     : 'attention is scarce · proof beats claims · merged ≠ live';
   x.fillText(contextLine, 540, 865);
-  x.fillStyle = '#ff44d4';
-  fitCanvasText(x, `RECEIPT: ${evidenceReceipt || 'none supplied'}`, 540, 925, 900, 27, 18, '700', 'monospace');
+  const exportedReceipt = includeReceiptOnCard && evidenceReceipt ? evidenceReceipt : 'not included';
+  x.fillStyle = '#ff44d4'; x.font = '700 24px monospace';
+  drawWrappedCanvasText(x, `RECEIPT: ${exportedReceipt}`, 540, 925, 900, 30, 2);
   x.fillStyle = '#4e9760'; x.font = '26px monospace';
   x.fillText('squirrellabs.dev/quiz/ass-1 — c4n u r3t41n m3?', 540, 990);
   const blob = await new Promise((res) => c.toBlob(res, 'image/png'));
@@ -1002,7 +1031,13 @@ async function shareCard(mode) {
   try {
     if (mode === 'copy' && navigator.clipboard && window.ClipboardItem) {
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      $('btnCopy').textContent = '📋 C0P13D ✔'; setTimeout(() => ($('btnCopy').textContent = '📋 C0PY SH4R3 C4RD'), 1600);
+      $('btnCopy').textContent = '📋 C0P13D ✔';
+      $('btnCopy').setAttribute('aria-label', 'Share card copied');
+      $('resultStatus').textContent = 'Share card copied to the clipboard.';
+      setTimeout(() => {
+        $('btnCopy').textContent = '📋 C0PY SH4R3 C4RD';
+        $('btnCopy').setAttribute('aria-label', 'Copy share card');
+      }, 1600);
       return;
     }
     throw new Error('fallback');
@@ -1013,8 +1048,14 @@ async function shareCard(mode) {
     a.download = `ass-academy-${runMode === 'retry' ? 'retry-' : ''}${correctCount}-${order.length}.png`;
     a.click(); setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     const fallbackBtn = mode === 'copy' ? $('btnCopy') : $('btnDl');
+    const outcome = mode === 'copy' ? 'Clipboard unavailable; share card downloaded' : 'Share card downloaded';
     fallbackBtn.textContent = '💾 S4V3D ✔';
-    setTimeout(() => (fallbackBtn.textContent = mode === 'copy' ? '📋 C0PY SH4R3 C4RD' : '💾 D0WNL04D C4RD'), 1600);
+    fallbackBtn.setAttribute('aria-label', outcome);
+    $('resultStatus').textContent = `${outcome}.`;
+    setTimeout(() => {
+      fallbackBtn.textContent = mode === 'copy' ? '📋 C0PY SH4R3 C4RD' : '💾 D0WNL04D C4RD';
+      fallbackBtn.setAttribute('aria-label', mode === 'copy' ? 'Copy share card' : 'Download share card');
+    }, 1600);
   }
 }
 
