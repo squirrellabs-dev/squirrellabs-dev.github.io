@@ -77,12 +77,17 @@
     border: 1px solid var(--cyn); background: #000; }
   .pulse-item input:checked { background: var(--grn); box-shadow: inset 0 0 0 3px #000, 0 0 9px rgba(57,255,20,.65); }
   .fine { color: #4e9760 !important; font-size: 10px !important; margin: 8px 0 0 !important; }
+  .receipt-label { display: block; color: var(--mag); font-size: 11px; font-weight: 700; margin: 10px 0 5px; }
+  .receipt { width: 100%; min-height: 42px; border: 1px solid rgba(255,68,212,.65); background: #000;
+    color: #d8ffd8; font: 12px/1.4 "Courier New", monospace; padding: 9px; }
+  .receipt::placeholder { color: #4e9760; }
   .result-pulse { text-align: center; font-size: 12px; line-height: 1.5; margin-top: 7px; }
   #finalPulse { color: var(--cyn); }
+  #finalReceipt { color: var(--mag); }
   #finalNext { color: var(--ylw); }
 
   button { font-family: inherit; cursor: pointer; }
-  button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  button:focus-visible, summary:focus-visible, input:focus-visible, [tabindex="-1"]:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .btn { display: block; width: 100%; background: var(--grn); color: #000; border: 0; font-weight: 700;
     font-size: 15px; padding: 13px; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
     box-shadow: 0 0 14px rgba(57,255,20,.5); }
@@ -153,6 +158,8 @@
   .nutfall { position: fixed; z-index: 49; pointer-events: none; font-size: 22px; animation: nfall 1.6s ease-in forwards; }
   @keyframes nfall { from { transform: translateY(-40px) rotate(0); opacity: 1; } to { transform: translateY(105vh) rotate(360deg); opacity: .9; } }
   .hidden { display: none !important; }
+  .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important;
+    margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
   @media (max-width: 560px) { .talk-grid { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
@@ -161,21 +168,21 @@
 </style>
 </head>
 <body class="crt">
-<canvas id="rain"></canvas>
-<div class="scanlines"></div>
-<div class="vignette"></div>
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
 
-<div class="stickers" style="top:32px;left:6px;"><span class="stk">☆ 14 T4LKS ☆</span></div>
-<div class="stickers" style="top:32px;right:6px;"><span class="stk blink">⚠ W33K-1 PULSE ⚠</span></div>
+<div class="stickers" style="top:32px;left:6px;" aria-hidden="true"><span class="stk">☆ 14 T4LKS ☆</span></div>
+<div class="stickers" style="top:32px;right:6px;" aria-hidden="true"><span class="stk blink">⚠ W33K-1 PULSE ⚠</span></div>
 
-<div class="marq"><span>
+<div class="marq" aria-hidden="true"><span>
   ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
   ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
 </span></div>
 
-<div class="wrap">
-  <h1 class="glitch">A.S.S. ACADEMY</h1>
-  <div class="kao">☆*: .｡. o(≧▽≦)o .｡.:*☆ &nbsp;the retention protocol&nbsp; (❁´◡`❁)</div>
+<main class="wrap">
+  <h1 class="glitch" id="pageTitle">A.S.S. ACADEMY</h1>
+  <div class="kao" aria-hidden="true">☆*: .｡. o(≧▽≦)o .｡.:*☆ &nbsp;the retention protocol&nbsp; (❁´◡`❁)</div>
 
   <button class="mascot" id="mascot" type="button" aria-label="squad mascot">
     <span id="mascotFace">(⌐■_■)🐿️</span>
@@ -183,7 +190,7 @@
   </button>
 
   <!-- START -->
-  <section id="stStart">
+  <section id="stStart" aria-labelledby="pageTitle">
     <div class="panel">
       <div class="term" id="bootTerm"></div>
     </div>
@@ -192,22 +199,24 @@
       <div class="talk-grid" id="talkGrid"></div>
     </details>
     <div class="panel cyn pulse" id="pulsePanel">
-      <h2>WEEK-1 PRACTICE PULSE</h2>
-      <p>Since 19 Aug, tick only what you actually did. Intentions are not an event type.</p>
+      <h2>PRIVATE WEEK-1 SELF-REPORT</h2>
+      <p>Since 19 Aug, tick only what you personally did. This is a reflection baseline, not team adoption telemetry.</p>
       <div class="pulse-grid">
         <label class="pulse-item"><input type="checkbox" name="adopted" value="visual-decisions" /><span>Used a GenUI picker or HTML report for a materially important decision.</span></label>
         <label class="pulse-item"><input type="checkbox" name="adopted" value="verify-first" /><span>Verified an inbound claim against a primary source before passing it on.</span></label>
         <label class="pulse-item"><input type="checkbox" name="adopted" value="durable-context" /><span>Turned a repeated lesson into shared context, a test, a gate, or a self-check.</span></label>
-        <label class="pulse-item"><input type="checkbox" name="adopted" value="parallel-boundaries" /><span>Isolated parallel agents and explicitly owned their ports, processes, or worktrees.</span></label>
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="parallel-boundaries" /><span>Used separate worktrees for files and explicitly owned every shared port, server, process, and branch ref touched.</span></label>
         <label class="pulse-item"><input type="checkbox" name="adopted" value="observable-autonomy" /><span>Ran long work with a heartbeat, durable status, or an end-of-day handoff.</span></label>
       </div>
-      <p class="fine">// private by default: nothing is sent anywhere. your total appears only on the result card you choose to share.</p>
+      <label class="receipt-label" for="receipt">ONE RECEIPT (OPTIONAL) — artifact, link, or concrete behavior</label>
+      <input class="receipt" id="receipt" maxlength="96" autocomplete="off" placeholder="e.g. release picker, invariant, monitor run, handoff…" />
+      <p class="fine">// stored only in this page run; nothing is sent. your total and receipt appear only on a card you choose to export.</p>
     </div>
-    <button class="btn hidden" id="btnStart" onclick="beginRun(null)">&gt;&gt; 3NT3R TH3 A.S.S.3SSM3NT &lt;&lt;</button>
+    <button class="btn hidden" id="btnStart" aria-label="Start Symposium practice assessment" onclick="beginRun(null)">&gt;&gt; 3NT3R TH3 A.S.S.3SSM3NT &lt;&lt;</button>
   </section>
 
   <!-- PLAY -->
-  <section id="stPlay" class="hidden">
+  <section id="stPlay" class="hidden" aria-labelledby="qText">
     <div class="hud">
       <span id="prog"></span>
       <span class="pts">PTS <b id="pts">0</b><span id="popHost"></span></span>
@@ -216,8 +225,8 @@
     <div class="panel" id="qPanel">
       <span class="lvl" id="lvlChip"></span>
       <div class="prompt-line" id="promptLine"></div>
-      <div class="q-text" id="qText"></div>
-      <div id="opts"></div>
+      <h2 class="q-text" id="qText" tabindex="-1"></h2>
+      <div id="opts" role="group" aria-labelledby="qText"></div>
       <div id="verdict" role="status" aria-live="polite"></div>
       <div id="intel" aria-live="polite"></div>
       <button class="btn hidden" id="btnNext" aria-label="Next scenario" onclick="next()"></button>
@@ -225,24 +234,26 @@
   </section>
 
   <!-- DONE -->
-  <section id="stDone" class="hidden">
+  <section id="stDone" class="hidden" aria-labelledby="finalRank">
     <div class="panel mag">
-      <div class="term" id="evalTerm"></div>
+      <div class="term" id="evalTerm" tabindex="-1" aria-label="Compiling final result"></div>
       <div id="resultBlock" class="hidden">
         <div class="score-big" id="finalScore"></div>
-        <div class="rank" id="finalRank"></div>
+        <h2 class="rank" id="finalRank" tabindex="-1"></h2>
         <div class="kao" id="finalKao"></div>
         <div style="text-align:center;font-size:13px;color:var(--ylw)" id="finalPts"></div>
         <div style="text-align:center;font-size:12px;color:var(--cyn);margin-top:4px" id="finalStreak"></div>
         <div class="result-pulse" id="finalPulse"></div>
+        <div class="result-pulse" id="finalReceipt"></div>
         <div class="result-pulse" id="finalNext"></div>
+        <div class="sr-only" id="resultStatus" role="status" aria-live="polite"></div>
       </div>
     </div>
     <div id="doneBtns" class="hidden">
-      <button class="btn" onclick="shareCard('copy')" id="btnCopy">📋 C0PY SH4R3 C4RD</button>
-      <button class="btn ghost" onclick="shareCard('download')" id="btnDl">💾 D0WNL04D C4RD</button>
+      <button class="btn" onclick="shareCard('copy')" id="btnCopy" aria-label="Copy share card">📋 C0PY SH4R3 C4RD</button>
+      <button class="btn ghost" onclick="shareCard('download')" id="btnDl" aria-label="Download share card">💾 D0WNL04D C4RD</button>
       <button class="btn ghost hidden" id="btnRetry" aria-label="Retry missed scenarios" onclick="beginRun(missed)"></button>
-      <button class="btn ghost" onclick="beginRun(null)">↻ R3PL4Y FR0M Z3R0</button>
+      <button class="btn ghost" aria-label="Replay full quiz" onclick="beginRun(null)">↻ R3PL4Y FR0M Z3R0</button>
     </div>
   </section>
 
@@ -250,11 +261,11 @@
     <div>☆ﾟ certified symposium survivor <span class="counter" id="visitors">0x……</span> ﾟ☆</div>
     <div class="blink" style="color:var(--ylw)">~*~ c0ngR4tZ 0n r3t41n1nG 4 th1nG ~*~ (￣▽￣)ノ</div>
     <div>[ <a href="/">← squirrellabs.dev</a> ] [ A.S.S. ALUMNI W3BR1NG ] [ 14 talks · 18 scenarios · 0 trackers ]</div>
-    <div style="color:#1c7a2e">best viewed in Netscape Navigator inside a Faraday cage · W3C V4L1D4T3D (this is a lie)</div>
+    <div style="color:#4e9760">best viewed in Netscape Navigator inside a Faraday cage · W3C V4L1D4T3D (this is a lie)</div>
   </div>
-</div>
+</main>
 
-<div class="marq rev bottom-marq"><span>
+<div class="marq rev bottom-marq" aria-hidden="true"><span>
   (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
   (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
 </span></div>
@@ -268,328 +279,366 @@ const LEVEL_LABEL = { easy: 'lvl 1 — recap goblin', mid: 'lvl 2 — workflow w
 
 const TALKS = [
   {
+    "id": "T01",
     "speaker": "Aleks",
     "title": "Chip abuse",
     "summary": "Ask Chip to capture tasks the instant they appear; removing task-entry friction made organization stick."
   },
   {
+    "id": "T02",
     "speaker": "Konrad",
     "title": "Konrad's Brain Tricks",
     "summary": "Attention, not compute, is scarce: bundle work by shared proof and heartbeat long runs before they wander."
   },
   {
+    "id": "T03",
     "speaker": "Hugo",
     "title": "Voice input and Playwright MCP",
     "summary": "Voice delivers rich context cheaply; browser agents handle tedious UIs after a human clears login and risky steps."
   },
   {
+    "id": "T04",
     "speaker": "Konrad",
     "title": "GenUI in Two Minutes",
     "summary": "Use visual pickers for a few consequential decisions—not 13 microchoices or accidental forever-specs."
   },
   {
+    "id": "T05",
     "speaker": "Hugo",
     "title": "HTML reports",
     "summary": "When terminal prose hides relationships, ask for a self-contained visual report that makes the whole system inspectable."
   },
   {
+    "id": "T06",
     "speaker": "Kushagra",
     "title": "multinut, six viewports at once, and why it does not replace our screenshot pipeline",
     "summary": "Six synced viewports diagnose what moved; ordinary screenshots still prove the fix, and mirrored actions stay local-only."
   },
   {
+    "id": "T07",
     "speaker": "Hugo",
     "title": "TMUX and long running agents",
     "summary": "VPS + tmux + cron makes persistent supervisors; observability and escalation boundaries keep autonomy useful."
   },
   {
+    "id": "T08",
     "speaker": "Konrad",
-    "title": "Schizo VM Manifesto",
+    "title": "Disposable VM Manifesto",
     "summary": "Assume the agent machine gets nuked: isolate it, minimize credentials, and keep snapshots for rollback."
   },
   {
+    "id": "T09",
     "speaker": "Hugo",
     "title": "Parallelization, Workspaces, and Split panes",
-    "summary": "Arrange sessions by project and attention demand, then end with a durable handoff instead of two-hour archaeology."
+    "summary": "Parallel panes improved attention management, but two-hour end-of-day closeout and next-day resumability remained unresolved."
   },
   {
+    "id": "T10",
     "speaker": "Kushagra",
     "title": "the real bottleneck was not knowing when an agent needed me",
     "summary": "A unified decision feed beats polling, but worktrees still share ports, servers, and moving branches."
   },
   {
+    "id": "T11",
     "speaker": "Aleks",
     "title": "support triage",
     "summary": "A manager agent buckets work, delegates bounded cases, and returns explicit human-only actions instead of forwarding a queue."
   },
   {
+    "id": "T12",
     "speaker": "Konrad",
     "title": "Vana",
     "summary": "Open-world agents need narrow identities, replaceable surfaces, and approval gates; safety boundaries dominate the work."
   },
   {
+    "id": "T13",
     "speaker": "Jota",
     "title": "I fixed the same bug four times. The fifth fix was a paragraph.",
     "summary": "Repeated defects need an agent-readable invariant with why and a greppable check; merged still does not mean deployed."
   },
   {
+    "id": "T14",
     "speaker": "Jota",
     "title": "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.",
     "summary": "Treat incoming claims as verification jobs: return proof or refutation within a pre-written safety boundary."
   }
 ];
 
+const SOURCE_GAPS = [
+  { "id": "GAP_RESUMABILITY", "label": "two-hour closeout and next-day resumability" },
+  { "id": "GAP_CONTEXT_GOVERNANCE", "label": "shared-context ownership, review, and pruning" },
+  { "id": "GAP_ADOPTION_EVIDENCE", "label": "owner-and-artifact adoption evidence" }
+];
+
 const QUESTIONS = [
   {
     "level": "easy",
+    "source": ["T01"],
     "prompt": "A useful follow-up pops into your head while you are deep in another task. What best applies the symposium's opening story?",
     "options": [
-      "Keep it in working memory; task systems are for important things",
-      "Ask Chip to create the task immediately, with enough context to resume it later",
-      "Open a second session and start the follow-up before the idea cools",
-      "Wait until Friday and reconstruct the week from browser history"
+      "Hold it in memory and finish the current task before recording it",
+      "Ask Chip to capture it now with the context needed to resume later",
+      "Open another session and start it before the idea loses energy",
+      "Put it in a weekly note and reconstruct the missing context on Friday"
     ],
     "correctIndex": 1,
     "joke": "Whisper it into a peanut and bury it near the router",
-    "explanation": "Aleks's “Chip abuse” story was about removing task-capture friction. If capture is cheap and immediate, the follow-up leaves your head without hijacking the work in front of you.",
+    "explanation": "Aleks's point was to remove capture friction: record the follow-up immediately with enough context to resume, without hijacking the current task.",
     "wrongQuip": "Your skull is RAM, not durable storage."
   },
   {
     "level": "easy",
+    "source": ["T02"],
     "prompt": "Before launching eight parallel agents, what protects the truly scarce resource?",
     "options": [
-      "Group them by topic so all the code-looking work sits together",
-      "Max out every concurrency slot; idle compute is the enemy",
-      "Bundle work by shared verification criteria and set a high-level heartbeat",
-      "Ask every agent to notify you after each micro-step"
+      "Group agents by topic so each review batch looks internally consistent",
+      "Fill every slot; idle compute is the bottleneck to eliminate",
+      "Bundle work by shared proof criteria and check a high-level heartbeat",
+      "Ask each agent to report every step so no activity goes unseen"
     ],
     "correctIndex": 2,
     "joke": "Hire a ninth agent to emotionally support the other eight",
-    "explanation": "“Konrad's Brain Tricks” framed human attention—not compute—as the bottleneck. Shared proof criteria reduce review switching, while a heartbeat catches drift without turning the human into a notification router.",
+    "explanation": "Konrad framed attention as scarce. Shared proof criteria reduce review switching; a heartbeat surfaces drift without step-level notification spam.",
     "wrongQuip": "More squirrels do not manufacture more attention."
   },
   {
     "level": "easy",
+    "source": ["T03"],
     "prompt": "You need to update a tedious MFA-protected dashboard. What is the voice + browser-agent pattern?",
     "options": [
-      "Give a rich voice brief, clear login/MFA yourself, then let the agent perform the scoped routine work",
-      "Paste every credential into the prompt so the agent never interrupts",
-      "Do the whole dashboard manually because browser agents cannot cross authentication",
-      "Let the agent explore freely first, then decide what the task was"
+      "Give a rich voice brief, clear login/MFA yourself, then delegate the scoped clicks",
+      "Paste credentials into the task so the agent can finish without interruption",
+      "Record a voice brief, then keep every browser action manual after authentication",
+      "Let the agent browse first and infer the intended update from the dashboard"
     ],
     "correctIndex": 0,
     "joke": "Fax the dashboard a 14-minute voice note in whale song",
-    "explanation": "Hugo paired voice input with Playwright: voice makes detailed context cheap, and the agent handles repetitive UI work. The human stays at the authentication and risk boundary instead of surrendering credentials or doing every click.",
+    "explanation": "Hugo's pattern makes context cheap through voice, while the human retains login/MFA and the agent handles scoped routine UI work.",
     "wrongQuip": "Rich context, narrow authority."
   },
   {
     "level": "easy",
+    "source": ["T04"],
     "prompt": "Which task most deserves a GenUI decision picker?",
     "options": [
-      "Choosing 13 tiny spacing and naming defaults the agent can decide safely",
-      "Showing a polished layout once and silently treating it as permanent product truth",
-      "Confirming whether one obvious typo should be fixed",
-      "Locking four consequential, coupled choices before a plan is written"
+      "Expose every spacing, naming, and copy choice so the team can vote",
+      "Render one polished layout and treat its defaults as the permanent product spec",
+      "Ask whether to fix an obvious typo before the next deploy",
+      "Lock four coupled, consequential choices before writing the plan"
     ],
     "correctIndex": 3,
     "joke": "A 96-toggle picker for deciding whether the picker needs more toggles",
-    "explanation": "GenUI compresses important choices into a visual surface. It becomes fake work when it exposes micro-config, and it becomes dangerous when a throwaway visual choice quietly hardens into a forever-spec.",
+    "explanation": "GenUI earns its keep on a few consequential, coupled choices. Micro-config and accidental forever-specs create more work than they remove.",
     "wrongQuip": "Important choices only. The border radius can survive democracy."
   },
   {
     "level": "easy",
+    "source": ["T13"],
     "prompt": "The same bug class returns for a second time in new code. What is the durable next move?",
     "options": [
-      "Ship another narrow patch and hope the fifth session remembers",
-      "Write an imperative invariant where agents read it, including why it matters and a greppable self-check",
-      "Add the incident to private memory so at least one person remembers",
-      "Schedule a retrospective without changing the agent's working context"
+      "Patch the newest call site and add the incident to a private note",
+      "Write an agent-readable invariant with the why and a greppable self-check",
+      "Add a regression test without explaining the rule future agents need",
+      "Schedule a retrospective and leave the agent instructions unchanged"
     ],
     "correctIndex": 1,
     "joke": "Rename the bug so technically it has never happened before",
-    "explanation": "Fresh agent sessions are competent developers with amnesia. Jota's recurring-bug story showed that an invariant with a reason and a self-check can outperform repeated code fixes because it reaches future code before the bug is written.",
+    "explanation": "Jota showed that recurring defects need an agent-readable invariant: the rule, why it exists, and a self-check future sessions can run.",
     "wrongQuip": "A patch repairs code. A rule with a check repairs future sessions."
   },
   {
     "level": "easy",
+    "source": ["T14"],
     "prompt": "A teammate forwards an alarming user claim. What should land in the human queue?",
     "options": [
-      "The original link, marked urgent so somebody else can investigate",
-      "A reproduction against a real user account to remove all uncertainty",
-      "A proof or refutation from primary sources, with mechanism, impact, and a pre-set safety boundary",
-      "Nothing until three more users report the same issue"
+      "Forward the report with an urgent label and assign a human investigator",
+      "Reproduce it on a real user account so the result cannot be disputed",
+      "Return proof or refutation, mechanism and impact, inside a prewritten safety boundary",
+      "Wait for corroborating reports before investigating, to avoid spending time on a possible false alarm"
     ],
     "correctIndex": 2,
     "joke": "A red siren GIF and the words “big if true”",
-    "explanation": "Jota's incident story treated the inbound claim as a verification job, not a routing job. The useful escalation is proof that removes re-derivation work, produced inside a boundary written before the incident.",
+    "explanation": "Jota treated an inbound claim as a verification job. Useful escalation carries proof or refutation, mechanism, impact, and a boundary set before the incident.",
     "wrongQuip": "Forwarding a mystery only moves the work."
   },
   {
     "level": "mid",
+    "source": ["T05"],
     "prompt": "A complex user journey has dozens of states, CTAs, and drop-offs. Terminal prose makes your eyes glaze over. What now?",
     "options": [
-      "Ask for a self-contained interactive HTML report that exposes the relationships",
-      "Request a longer terminal summary with more headings",
-      "Take one screenshot of the final state",
-      "Force the whole system into a single KPI"
+      "Build a self-contained HTML report that exposes the states and their relationships",
+      "Write a longer terminal narrative with headings for every state and transition",
+      "Choose a representative final screenshot and annotate the most visible defect",
+      "Collapse the journey into one KPI so the review has a simple, comparable source of truth"
     ],
     "correctIndex": 0,
     "joke": "Print the logs in Comic Sans so the relationships feel friendlier",
-    "explanation": "Hugo's HTML-report story used a visual artifact when a numeric dashboard and terminal text could not carry the structure. The goal is not decoration; it is making a complex system inspectable at human-attention speed.",
+    "explanation": "Hugo used HTML when terminal prose hid system relationships. The artifact should make structure inspectable, not merely decorate the same text.",
     "wrongQuip": "If prose hides the system, change the medium."
   },
   {
     "level": "mid",
+    "source": ["T06"],
     "prompt": "A button looks wrong on a small phone. What is the correct multinut + screenshot workflow?",
     "options": [
-      "Replay clicks across six production panes, then keep the prettiest result",
-      "Use synced local viewports to diagnose what changed, then capture normal screenshots as proof of the fix",
-      "Replace screenshots entirely; six panes are six times more evidentiary",
-      "Edit the button until one mobile screenshot looks right"
+      "Mirror the interaction across six production panes, then save the cleanest result",
+      "Use synced local viewports to diagnose, then ordinary screenshots to prove the fix",
+      "Treat the six-pane view as final evidence because it shows every breakpoint",
+      "Tune the smallest viewport until one mobile screenshot looks correct"
     ],
     "correctIndex": 1,
     "joke": "Open it on six phones and ask them to vote by vibration",
-    "explanation": "Multinut diagnoses whether the component or the surrounding viewport moved; the screenshot pipeline proves the final change. Mirrored panes must stay local and away from committing actions because one click can become six requests.",
+    "explanation": "Multinut diagnoses across local viewports; normal screenshots remain the proof. Mirrored actions stay away from production because one click can become six requests.",
     "wrongQuip": "Diagnosis and evidence are different jobs."
   },
   {
     "level": "mid",
+    "source": ["T07"],
     "prompt": "You want a deploy monitor to run for days without babysitting. Which setup is actually agentic?",
     "options": [
-      "A laptop tab left open with notifications muted",
-      "A cron that stays silent forever when healthy or dead",
-      "A shared high-permission server with every teammate's credentials",
-      "A VPS + tmux + scheduled worker, with durable heartbeats, transition alerts, and low-risk autonomy"
+      "Keep a laptop tab open and rely on the agent to announce any important change",
+      "Run a silent cron; no message means the monitor is healthy and still scheduled",
+      "Use a shared high-permission host with every teammate credential so anyone can repair it quickly",
+      "Run it on VPS + tmux + a schedule, with durable heartbeats and bounded escalation"
     ],
     "correctIndex": 3,
     "joke": "Balance the laptop on a bag of frozen peas and declare it infrastructure",
-    "explanation": "Hugo's tmux pattern moves persistent work off the laptop, but persistence alone is not reliability. A long-running worker needs observable health and explicit boundaries between safe automatic action and human escalation.",
+    "explanation": "VPS + tmux + scheduling provides persistence; heartbeats and bounded escalation make that persistence observable and safe.",
     "wrongQuip": "A process you cannot distinguish from dead is not autonomous. It is missing."
   },
   {
     "level": "mid",
+    "source": ["T08"],
     "prompt": "An agent needs broad tooling for an experiment. Which security posture matches the VM talk?",
     "options": [
-      "Use a disposable VM/VPS, grant only understood permissions, and keep snapshots for rollback",
-      "Use Docker on the everyday host and mount all credentials for convenience",
-      "Create a second OS user; admin keys elsewhere on the host do not matter",
-      "Give full host access now and review the blast radius if something happens"
+      "Use a disposable VM, least privilege, and restorable snapshots",
+      "Run Docker on the everyday host and mount credentials for convenience",
+      "Create a second OS user and assume the host's other keys remain unreachable",
+      "Grant broad access for the experiment, then review the blast radius afterward"
     ],
     "correctIndex": 0,
     "joke": "Put a tiny ‘please do not hack’ sticker over the webcam",
-    "explanation": "The disposable-VM argument assumes compromise and limits what compromise can reach. Snapshots make rollback cheap; narrow credentials make the blast radius legible. A container or second user on the same host is not the same isolation boundary.",
+    "explanation": "Konrad's disposable-VM argument assumes compromise: isolate the machine, narrow credentials, and keep rollback cheap.",
     "wrongQuip": "Assume nuke. Design blast radius first."
   },
   {
     "level": "mid",
+    "source": ["T09", "T10"],
     "prompt": "Two agents have separate worktrees. Which statement is still true?",
     "options": [
-      "They are fully isolated, including ports, servers, processes, and remote branch movement",
-      "A broad kill command is safe because each worktree owns its processes",
-      "Files are isolated; ports, servers, processes, and a moving base still need explicit ownership",
-      "They should share one feature branch so their commits converge automatically"
+      "Separate worktrees isolate files, ports, servers, processes, and remote refs",
+      "A broad kill command is safe because every process belongs to one worktree",
+      "Files are isolated; ports, processes, servers, and moving refs still need owners",
+      "Share one feature branch so both agents converge automatically and no integration handoff is needed"
     ],
     "correctIndex": 2,
     "joke": "Worktrees emit a diplomatic force field recognized by all localhost ports",
-    "explanation": "Kushagra's story showed what worktrees do and do not isolate. They stop file collisions, but agents can still kill shared servers, reuse ports, or wake up on a base that moved; each session should stop only what it started.",
+    "explanation": "Kushagra showed that worktrees isolate files, not localhost or moving refs. Ports, processes, servers, and cleanup still need explicit owners.",
     "wrongQuip": "Separate folders do not create separate universes."
   },
   {
     "level": "mid",
+    "source": ["T11"],
     "prompt": "What makes the support-triage manager pattern useful instead of merely parallel?",
     "options": [
-      "Every ticket gets ten agents so nothing can be missed",
-      "It buckets cases, delegates bounded work, resolves low-risk cases, and returns explicit human-only actions",
-      "It forwards every ticket with a category label",
-      "It lets agents make final decisions on in-flight money so humans can sleep"
+      "Assign one specialist per ticket and escalate every disagreement to the human queue",
+      "Bucket cases, delegate bounded work, resolve low-risk items, and return human-only actions",
+      "Classify each ticket and forward the labeled queue to a human operator",
+      "Let specialists make irreversible money decisions whenever the overnight queue gets busy"
     ],
     "correctIndex": 1,
     "joke": "The manager agent wears a tiny tie, therefore governance is solved",
-    "explanation": "Aleks's workflow uses parallelism behind a risk model: specialists handle bounded cases and the manager compresses the remainder into decisions. The human boundary stays around consequential or irreversible outcomes.",
+    "explanation": "Aleks's manager pattern compresses work: specialists handle bounded cases, while consequential or irreversible decisions return as explicit human actions.",
     "wrongQuip": "Parallel routing is not the same as removing work."
   },
   {
     "level": "hard",
+    "source": ["T12"],
     "prompt": "An open-world assistant has email, calendar, and web access. What is the safest useful design?",
     "options": [
-      "Give it the owner's identity and full inbox so counterparties cannot tell the difference",
-      "Start with full permissions; narrow them after the workflow proves valuable",
-      "Use a narrow agent identity, replaceable surfaces, minimal data, and approval for anything consequential",
-      "Avoid approvals because they eliminate the point of autonomy"
+      "Use the owner's identity and full inbox so counterparties see one seamless operator across every surface",
+      "Start with full permissions, then narrow access after the workflow proves useful",
+      "Give it a narrow identity, replaceable surfaces, minimal data, and approval gates",
+      "Remove approvals because a human checkpoint would defeat the point of autonomy"
     ],
     "correctIndex": 2,
     "joke": "Give it power of attorney and a tasteful squirrel headshot",
-    "explanation": "The Vana experiment found that identity, permissions, and boundaries are most of the work—and initially cost more than doing the task manually with AI. Narrow, replaceable surfaces let the experiment learn without turning every mistake into an owner-level incident.",
+    "explanation": "Vana showed that identity, permissions, and boundaries dominate open-world agent work. Narrow, replaceable surfaces keep mistakes from becoming owner-level incidents.",
     "wrongQuip": "Open world, closed blast radius."
   },
   {
     "level": "hard",
-    "prompt": "Your context bar is red while five agents are mid-flight. What is the best first checkpoint?",
+    "source": ["T09", "GAP_RESUMABILITY"],
+    "prompt": "It is 18:00 and five parallel sessions are mid-flight. Hugo's talk exposed a two-hour closeout problem but did not solve it. What is the best resumability target?",
     "options": [
-      "A durable note with the objective, completed work, exact artifacts, evidence, owners, and next action",
-      "A screenshot of every terminal pane",
-      "A request that each agent remember its state for tomorrow",
-      "A compressed transcript with no decision or artifact map"
+      "Create one durable handoff with objective, state, artifacts, evidence, owners, and next actions",
+      "Save screenshots of every pane plus a note that each agent was still running",
+      "Export every transcript because more context makes resumption more reliable",
+      "Keep all sessions open overnight and resume from terminal scrollback when the same person returns in the morning"
     ],
     "correctIndex": 0,
     "joke": "Yell ‘remember this!’ at the context window before it closes",
-    "explanation": "Context is useful only if the next session can resume from it. A durable checkpoint records the state of the work and its evidence, while exact artifacts and next actions prevent a fresh session from re-deriving the whole world.",
+    "explanation": "Hugo's split-pane talk exposed the two-hour EOD closeout as an unresolved resumability problem. This is the target workflow, not a claim that the talk already solved it.",
     "wrongQuip": "A transcript is history. A checkpoint is a handoff."
   },
   {
     "level": "hard",
-    "prompt": "A finder claims a severe bug. How should an independent verifier receive it?",
+    "source": ["T10"],
+    "prompt": "Six agents finish at different times; two need decisions. You keep polling panes and miss a blocker. What should the coordination layer produce?",
     "options": [
-      "The finder's full reasoning and confidence so the verifier knows what answer to seek",
-      "Only the bare claim, pinned source, and exact failure scenario; try to refute it, then hand-reproduce survivors",
-      "A request to confirm it quickly because two agents agreeing is enough",
-      "The same finder should verify its own line numbers to preserve context"
+      "Produce one feed that separates completions from decision requests and links each item to context",
+      "Send a notification for every agent step, tool call, and retry so the human can reconstruct all progress continuously",
+      "Wait for one end-of-day digest, including blockers, so daytime focus is never interrupted",
+      "Keep every terminal pane visible and infer which agents need a decision"
     ],
-    "correctIndex": 1,
-    "joke": "Put both agents in matching robes and wait for adversarial vibes",
-    "explanation": "Independent verification loses value when the verifier inherits the finder's story. Refute-framing, a pinned source, and a concrete failure scenario fight confirmation bias; high-severity survivors still need a human or main-loop reproduction.",
-    "wrongQuip": "Agreement is cheap when both agents share the same narrative."
+    "correctIndex": 0,
+    "joke": "Train a carrier pigeon to peck the pane that needs approval",
+    "explanation": "Kushagra's bottleneck was discovering when an agent was done or needed a decision. A unified, context-linked feed preserves attention without pane polling or step spam.",
+    "wrongQuip": "A wall of panes is not a decision queue."
   },
   {
     "level": "hard",
+    "source": ["T13", "T14"],
     "prompt": "Tests pass, the PR merged, but the new delivery hop has never fired and nobody opened the exact user URL. Status?",
     "options": [
-      "Done—green tests are the contractual boundary",
-      "Live—the merge event is the deployment event",
-      "Verified—a second model reviewed the diff",
-      "Implemented, unverified—exercise the riskiest hop through the actual user/browser boundary"
+      "Done—the green suite is the boundary the team promised to verify",
+      "Live—the merge started the deploy, so the exact user surface follows from healthy checks",
+      "Verified—an independent reviewer agreed with the implementation",
+      "Implemented, unverified—exercise the risky hop through the exact user/browser boundary"
     ],
     "correctIndex": 3,
     "joke": "Quantum shipped: live and not live until a customer observes it",
-    "explanation": "“Merged” is not “deployed,” and a local 200 is not a human-reachable experience. The honest status remains unverified until the previously unexercised hop and the exact user surface succeed.",
+    "explanation": "Jota's lesson: merged is not deployed, and a passing check is not the exact user surface. Keep status “unverified” until the risky hop works through the user/browser boundary.",
     "wrongQuip": "The riskiest hop does not become real through optimism."
   },
   {
     "level": "hard",
-    "prompt": "A healthy recurring worker normally has nothing interesting to report. How do you distinguish calm from dead?",
+    "source": ["T13", "GAP_CONTEXT_GOVERNANCE"],
+    "prompt": "Three shared docs teach different versions of one operating rule, and context keeps growing. What is the durable fix?",
     "options": [
-      "Silence means success unless a customer complains",
-      "Post every internal step to Discord so silence is impossible",
-      "Write a durable run record, emit a periodic heartbeat, alert on state transitions, and verify the schedule is armed",
-      "Restart the worker every morning whether it needs it or not"
+      "Choose one canonical home, assign an owner and review date, then replace or prune duplicates",
+      "Keep every version; more context gives future agents more evidence to synthesize",
+      "Copy the newest wording into all three files and link them, so search returns the same answer everywhere",
+      "Move the rule into private memory to avoid editing shared instructions"
     ],
-    "correctIndex": 2,
-    "joke": "Place a stethoscope against the VPS and listen for cron purring",
-    "explanation": "Observable autonomy needs positive evidence of life, not only error messages. A durable record and heartbeat prove the loop ran; transition alerts reserve human attention for meaningful changes.",
-    "wrongQuip": "No news and no pulse are not the same state."
+    "correctIndex": 0,
+    "joke": "Create CONTEXT_FINAL_v7_ACTUALLY_CANONICAL.md and trust the filename",
+    "explanation": "Shared context stays useful when each rule has one canonical home, an owner, and a review point. Replacing or pruning duplicates prevents stale versions from becoming agent evidence.",
+    "wrongQuip": "Three sources of truth produce four truths by Friday."
   },
   {
     "level": "hard",
-    "prompt": "It is one week after 14 talks. What would actually show that Symposium I worked?",
+    "source": ["GAP_ADOPTION_EVIDENCE"],
+    "prompt": "It is one week after 14 talks. Your private self-report is 4/5 and quiz scores are high. What would demonstrate team-level adoption?",
     "options": [
-      "The calendar event is marked Done and everyone attended",
-      "The team can remember most presenter names",
-      "The average quiz score is high",
-      "Specific practices are being used, with owners and observable evidence; the quiz and pulse reveal what still needs reinforcement"
+      "Use the private self-report pulse as the team metric; 4/5 is enough to declare adoption",
+      "Ask whether people remember the presenters and the order of the talks",
+      "Assign a named owner per target practice and inspect an observable artifact or behavior over time",
+      "Count attendance, quiz completions, and reported intent because all three are objective enough for a team metric"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "joke": "The acronym landed, therefore organizational transformation is complete",
-    "explanation": "Recall is useful, but adoption is behavior. The symposium project itself left adoption measurement open; this quiz teaches the practices, while the pulse and real workflow evidence show whether anyone changed how they work.",
+    "explanation": "The pulse is a private individual baseline, not team telemetry. Team-level adoption needs a named owner and an observable artifact or behavior checked over time.",
     "wrongQuip": "Attendance is an input. Changed behavior is the outcome."
   }
 ];
@@ -626,6 +675,12 @@ const RANKS = [
     "sub": "Open the 14-line reload. Retry without shame."
   }
 ];
+
+const RETRY_RANK = {
+  rank: 'R3C0V3RY L00P',
+  kao: '(ง •̀_•́)ง🐿️',
+  sub: 'Remediation run—clearly labelled, never passed off as a fresh perfect score.'
+};
 
 /* ═══════════════ matrix rain ═══════════════ */
 const rain = document.getElementById('rain');
@@ -692,9 +747,9 @@ function nutRain(n) {
 
 function renderTalks() {
   const grid = $('talkGrid');
-  TALKS.forEach((talk, index) => {
+  TALKS.forEach((talk) => {
     const card = document.createElement('article'); card.className = 'talk';
-    const title = document.createElement('b'); title.textContent = `${index + 1}. ${talk.title}`;
+    const title = document.createElement('b'); title.textContent = `${talk.id} · ${talk.title}`;
     const who = document.createElement('div'); who.className = 'who'; who.textContent = `// ${talk.speaker}`;
     const summary = document.createElement('div'); summary.textContent = talk.summary;
     card.append(title, who, summary); grid.appendChild(card);
@@ -705,13 +760,14 @@ renderTalks();
 /* ═══════════════ quiz state ═══════════════ */
 let order = [], optionOrders = {}, pos = 0, chosen = null;
 let correctCount = 0, missed = [], streak = 0, bestStreak = 0, points = 0, mascotClicks = 0;
-let adoptedValues = [], nextPractice = '';
+let adoptedValues = [], nextPractice = '', evidenceReceipt = '';
+let runMode = 'full', initialResult = null;
 
 const PRACTICES = [
   { value: 'visual-decisions', label: 'visual decisions', next: 'Use a GenUI picker or HTML report for one consequential decision.' },
   { value: 'verify-first', label: 'verify first', next: 'Turn the next inbound claim into a proof or refutation before routing it.' },
   { value: 'durable-context', label: 'durable context', next: 'Move one repeated lesson into shared context with a self-check.' },
-  { value: 'parallel-boundaries', label: 'parallel boundaries', next: 'Give every parallel session explicit ownership of ports and processes.' },
+  { value: 'parallel-boundaries', label: 'parallel boundaries', next: 'Use a separate worktree and assign every shared port, server, process, and moving ref.' },
   { value: 'observable-autonomy', label: 'observable autonomy', next: 'Add a durable heartbeat and handoff to one long-running workflow.' },
 ];
 
@@ -720,9 +776,12 @@ function show(name) { Object.entries(stages).forEach(([k, el]) => el.classList.t
 
 function beginRun(subset) {
   adoptedValues = [...document.querySelectorAll('input[name="adopted"]:checked')].map((el) => el.value);
+  evidenceReceipt = $('receipt').value.trim();
   const firstGap = PRACTICES.find((practice) => !adoptedValues.includes(practice.value));
   nextPractice = firstGap ? firstGap.next : 'Teach one practice to another squirrel and make it a team default.';
-  const idxs = subset && subset.length ? subset : QUESTIONS.map((_, i) => i);
+  runMode = subset && subset.length ? 'retry' : 'full';
+  if (runMode === 'full') initialResult = null;
+  const idxs = runMode === 'retry' ? subset : QUESTIONS.map((_, i) => i);
   order = LEVEL_ORDER.flatMap((lvl) => shuffle(idxs.filter((i) => QUESTIONS[i].level === lvl)));
   optionOrders = {};
   order.forEach((qi) => (optionOrders[qi] = shuffle(QUESTIONS[qi].options.map((_, i) => i))));
@@ -760,12 +819,30 @@ function renderQ(prevLevel) {
     opts.appendChild(b);
   }
   setMascot('(¬‿¬)🐿️', '// th1nk1ng...');
+  $('qText').focus({ preventScroll: true });
   if (prevLevel && prevLevel !== q.level) {
     const l = document.createElement('div');
     l.className = 'lvlup'; l.innerHTML = `<span>⬆ L3V3L UP: ${LEVEL_LABEL[q.level]} (ノ◕ヮ◕)ノ*:･ﾟ✧</span>`;
     document.body.appendChild(l); setTimeout(() => l.remove(), 1900);
   }
   if (prevLevel) requestAnimationFrame(() => $('qPanel').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' }));
+}
+
+function sourceSummary(ids) {
+  return ids.map((id) => {
+    const talk = TALKS.find((item) => item.id === id);
+    if (talk) return `${id} ${talk.speaker}`;
+    const gap = SOURCE_GAPS.find((item) => item.id === id);
+    return gap ? `TEAM GAP: ${gap.label}` : id;
+  }).join(' · ');
+}
+
+function setAnswerVerdict(className, visibleText, spokenText) {
+  const host = $('verdict');
+  host.innerHTML = '';
+  const visible = document.createElement('div'); visible.className = `verdict ${className}`; visible.textContent = visibleText;
+  const spoken = document.createElement('span'); spoken.className = 'sr-only'; spoken.textContent = spokenText;
+  host.append(visible, spoken);
 }
 
 function answer(oi, btn) {
@@ -776,40 +853,47 @@ function answer(oi, btn) {
   [...$('opts').children].forEach((b, k) => {
     b.disabled = true;
     const orig = optionOrders[qi][k];
-    if (orig === q.correctIndex) b.classList.add('correct');
-    else if (b === btn) b.classList.add('wrongpick');
+    if (orig === q.correctIndex) {
+      b.classList.add('correct');
+      b.setAttribute('aria-label', `${b === btn ? 'Your answer, correct' : 'Correct answer'}: ${q.options[orig]}`);
+    } else if (b === btn) {
+      b.classList.add('wrongpick');
+      b.setAttribute('aria-label', `Your answer, incorrect: ${oi === -1 ? q.joke : q.options[orig]}`);
+    }
   });
   if (ok) {
     correctCount++; streak++; bestStreak = Math.max(bestStreak, streak);
     const gain = LEVEL_POINTS[q.level] + (streak >= 3 ? STREAK_BONUS : 0);
     points += gain; $('pts').textContent = points;
     $('popHost').innerHTML = `<span class="pop">+${gain}</span>`;
-    $('verdict').innerHTML = '<div class="verdict ok">4CC3SS GR4NT3D ✔ o(≧▽≦)o</div>';
+    setAnswerVerdict('ok', '4CC3SS GR4NT3D ✔ o(≧▽≦)o', `Correct. ${q.options[q.correctIndex]}`);
     setMascot(streak >= 3 ? '(⌐■_■)🐿️🔥' : '\\(^ヮ^)/🐿️', streak >= 3 ? '// t00 c00l' : '// gg');
     if (streak === 5) nutRain(24); else nutRain(4);
     if (streak >= 3) { $('combo').classList.remove('hidden'); $('combo').textContent = `C0MB0 x${streak}` + (streak >= 5 ? ' — UNSH3LL3D' : ''); }
   } else if (oi === -1) {
     missed.push(qi); streak = 0; $('combo').classList.add('hidden');
     $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
-    $('verdict').innerHTML = '<div class="verdict no">C0M3D14N D3T3CT3D 🤡 -0 PTS F0R TH3 B1T</div>';
+    setAnswerVerdict('no', 'C0M3D14N D3T3CT3D 🤡 -0 PTS F0R TH3 B1T', `Incorrect. You chose the joke answer. Correct answer: ${q.options[q.correctIndex]}`);
     setMascot('(ಠ_ಠ)🐿️', '// n0t m4d, just d1s4pp01nt3d');
     nutRain(2);
   } else {
     missed.push(qi); streak = 0; $('combo').classList.add('hidden');
     $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
-    $('verdict').innerHTML = '<div class="verdict no">4CC3SS D3N13D ✖ (╯°□°）╯︵ ┻━┻</div>';
+    setAnswerVerdict('no', '4CC3SS D3N13D ✖ (╯°□°）╯︵ ┻━┻', `Incorrect. You chose: ${q.options[oi]}. Correct answer: ${q.options[q.correctIndex]}`);
     setMascot('(T_T)🐿️', '// 0uch');
   }
   let intel = '';
   if (oi === -1) intel += `<div class="quip">🐿️ w3 kn0w. 1t w4s r1ght th3r3. u h4d t0. (respect.)</div>`;
   else if (!ok && q.wrongQuip) intel += `<div class="quip">🐿️ ${q.wrongQuip}</div>`;
   intel += `<div class="intel">// 1NT3L: ${q.explanation}</div>`;
+  intel += `<div class="fine">// SOURCE: ${sourceSummary(q.source)}</div>`;
   $('intel').innerHTML = intel;
   const nb = $('btnNext'); nb.classList.remove('hidden');
   nb.textContent = pos + 1 >= order.length ? '>> C0MP1L3 F1N4L R4NK <<' : '>> N3XT QU3RY <<';
 }
 
 function next() {
+  if (chosen === null) return;
   if (pos + 1 >= order.length) { finish(); return; }
   const prevLevel = QUESTIONS[order[pos]].level;
   pos++; renderQ(prevLevel);
@@ -817,29 +901,37 @@ function next() {
 
 function finish() {
   show('done');
-  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
+  requestAnimationFrame(() => {
+    scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+    $('evalTerm').focus({ preventScroll: true });
+  });
   $('resultBlock').classList.add('hidden'); $('doneBtns').classList.add('hidden');
   const frac = correctCount / order.length;
-  const r = RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1];
+  const r = runMode === 'retry' ? RETRY_RANK : (RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1]);
+  if (runMode === 'full') initialResult = { correctCount, total: order.length, points, bestStreak };
   typeLines($('evalTerm'), [
-    [null, '> uploading answers to the symposium alumni mainframe ...'],
+    [null, runMode === 'retry' ? '> compiling labelled remediation run ...' : '> uploading answers to the symposium alumni mainframe ...'],
     ['ok', '> tracing practice knowledge ... ' + Math.round(frac * 100) + '%'],
     ['warn', '> retention scan: ' + (missed.length === 0 ? 'FL4WL3SS. all acorns found.' : missed.length + ' practice(s) leaked context'),],
     ['ok', '> R4NK C0MP1L3D:'],
   ], () => {
     $('resultBlock').classList.remove('hidden'); $('doneBtns').classList.remove('hidden');
-    $('finalScore').textContent = `${correctCount}/${order.length}`;
+    $('finalScore').textContent = runMode === 'retry' ? `RETRY ${correctCount}/${order.length}` : `${correctCount}/${order.length}`;
     $('finalRank').textContent = r.rank;
-    $('finalKao').textContent = r.kao + '  ' + r.sub;
+    const originalLabel = runMode === 'retry' && initialResult ? ` Original run: ${initialResult.correctCount}/${initialResult.total}.` : '';
+    $('finalKao').textContent = r.kao + '  ' + r.sub + originalLabel;
     $('finalPts').textContent = `⭐ ${points} PTS`;
     $('finalStreak').textContent = bestStreak >= 3 ? `best c0mb0: x${bestStreak} 🔥` : '';
-    $('finalPulse').textContent = `WEEK-1 PRACTICE PULSE: ${adoptedValues.length}/${PRACTICES.length} used`;
+    $('finalPulse').textContent = `PRIVATE SELF-REPORT: ${adoptedValues.length}/${PRACTICES.length} practices used`;
+    $('finalReceipt').textContent = `ONE RECEIPT: ${evidenceReceipt || 'none supplied — add an artifact next time'}`;
     $('finalNext').textContent = `NEXT PROTOCOL: ${nextPractice}`;
+    $('resultStatus').textContent = `${runMode === 'retry' ? 'Retry result' : 'Final result'}: ${correctCount} of ${order.length}. Rank: ${r.rank}. Private self-report: ${adoptedValues.length} of ${PRACTICES.length}. ${originalLabel} Next protocol: ${nextPractice}`;
     const btnRetry = $('btnRetry');
     btnRetry.classList.toggle('hidden', missed.length === 0);
     btnRetry.textContent = `⟳ R3TRY TH3 ${missed.length} 1 M1SS3D`;
     setMascot(frac >= 0.8 ? '☆*:.o(≧▽≦)o.:*☆🐿️' : frac >= 0.5 ? '(￣ω￣)🐿️' : '(╥﹏╥)🐿️', '// r4nk l0gg3d');
     if (missed.length === 0) nutRain(40);
+    $('finalRank').focus({ preventScroll: true });
   });
 }
 
@@ -854,6 +946,15 @@ addEventListener('keydown', (event) => {
 });
 
 /* ═══════════════ share card ═══════════════ */
+function fitCanvasText(context, text, xPos, yPos, maxWidth, maxSize, minSize, weight, family) {
+  let size = maxSize;
+  do {
+    context.font = `${weight} ${size}px ${family}`;
+    size -= 2;
+  } while (context.measureText(text).width > maxWidth && size >= minSize);
+  context.fillText(text, xPos, yPos);
+}
+
 async function shareCard(mode) {
   const c = document.createElement('canvas'); c.width = 1080; c.height = 1080;
   const x = c.getContext('2d');
@@ -872,25 +973,32 @@ async function shareCard(mode) {
   x.fillText('A.S.S. ACADEMY', 540, 170);
   x.shadowBlur = 0; x.fillStyle = '#00f0ff'; x.font = '30px monospace';
   x.fillText('Agentic Squirrel Symposium I · one week later', 540, 225);
-  x.fillStyle = '#39ff14'; x.font = '900 170px monospace';
+  x.fillStyle = '#39ff14';
   x.shadowColor = '#39ff14'; x.shadowBlur = 26;
   const frac = correctCount / (order.length || 1);
-  x.fillText(`${correctCount}/${order.length}`, 540, 450);
+  const scoreLabel = runMode === 'retry' ? `RETRY ${correctCount}/${order.length}` : `${correctCount}/${order.length}`;
+  fitCanvasText(x, scoreLabel, 540, 450, 930, 170, 94, '900', 'monospace');
   x.shadowBlur = 0;
-  const r = RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1];
-  x.fillStyle = '#ffd23f'; x.font = '900 54px Impact, sans-serif';
-  x.fillText(r.rank, 540, 560);
+  const r = runMode === 'retry' ? RETRY_RANK : (RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1]);
+  x.fillStyle = '#ffd23f';
+  fitCanvasText(x, r.rank, 540, 560, 930, 54, 32, '900', 'Impact, sans-serif');
   x.fillStyle = '#ff44d4'; x.font = '40px monospace';
   x.fillText(r.kao, 540, 630);
   x.fillStyle = '#39ff14'; x.font = '700 42px monospace';
   x.fillText(`⭐ ${points} PTS` + (bestStreak >= 3 ? `  ·  c0mb0 x${bestStreak}` : ''), 540, 720);
   x.fillStyle = '#00f0ff'; x.font = '700 34px monospace';
-  x.fillText(`WEEK-1 PRACTICE PULSE: ${adoptedValues.length}/${PRACTICES.length}`, 540, 805);
+  x.fillText(`PRIVATE SELF-REPORT: ${adoptedValues.length}/${PRACTICES.length}`, 540, 805);
   x.fillStyle = '#ffd23f'; x.font = '27px monospace';
-  x.fillText('attention is scarce · proof beats claims · merged ≠ live', 540, 865);
-  x.fillStyle = '#1c7a2e'; x.font = '26px monospace';
+  const contextLine = runMode === 'retry' && initialResult
+    ? `labelled retry · original ${initialResult.correctCount}/${initialResult.total}`
+    : 'attention is scarce · proof beats claims · merged ≠ live';
+  x.fillText(contextLine, 540, 865);
+  x.fillStyle = '#ff44d4';
+  fitCanvasText(x, `RECEIPT: ${evidenceReceipt || 'none supplied'}`, 540, 925, 900, 27, 18, '700', 'monospace');
+  x.fillStyle = '#4e9760'; x.font = '26px monospace';
   x.fillText('squirrellabs.dev/quiz/ass-1 — c4n u r3t41n m3?', 540, 990);
   const blob = await new Promise((res) => c.toBlob(res, 'image/png'));
+  if (!blob) throw new Error('Share card rendering failed');
   try {
     if (mode === 'copy' && navigator.clipboard && window.ClipboardItem) {
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
@@ -900,9 +1008,10 @@ async function shareCard(mode) {
     throw new Error('fallback');
   } catch {
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `ass-academy-${correctCount}-${order.length}.png`;
-    a.click(); URL.revokeObjectURL(a.href);
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = `ass-academy-${runMode === 'retry' ? 'retry-' : ''}${correctCount}-${order.length}.png`;
+    a.click(); setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     const fallbackBtn = mode === 'copy' ? $('btnCopy') : $('btnDl');
     fallbackBtn.textContent = '💾 S4V3D ✔';
     setTimeout(() => (fallbackBtn.textContent = mode === 'copy' ? '📋 C0PY SH4R3 C4RD' : '💾 D0WNL04D C4RD'), 1600);
