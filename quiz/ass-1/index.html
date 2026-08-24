@@ -480,7 +480,7 @@ const ITEMS = [
     id: "P06", short: "Browser agents", title: "Do agents use the browser for you?",
     prompt: "An agent navigates, reads, types, or clicks during a browser task with clear limits.",
     note: "Since the event: browser task, sites, allowed actions, safety stop, and result",
-    practice: "Give a browser agent only the sites, data, and actions it needs. A person handles passwords and the extra sign-in check. A test account with fake data may finish only the test actions in the plan. In production, the agent stops before sending, posting, deleting, changing data, or moving money.",
+    practice: "Give a browser agent only the sites, data, and actions it needs. A person handles passwords and the extra sign-in check. In a non-production test place with fake data, the agent may finish only the test actions in the plan. On the live product, the agent stays read-only and a named person owns any lasting step.",
     tryNext: "Delegate one safe browser chore with written sites, actions, stop points, and proof to save.",
     source: ["T03", "T08", "T12"]
   },
@@ -488,7 +488,7 @@ const ITEMS = [
     id: "P07", short: "Browser QA", title: "Do agents test a full browser path?",
     prompt: "An agent clicks through an important app path the way a person would.",
     note: "Since the event: path, safe test place, result, issue seen, proof, and what was not tested",
-    practice: "Let an agent follow one full user path with a test account and fake data. It may finish only the test actions in the plan. Save screenshots or a log. Report passed, failed, issues seen, and what was not tested. One run cannot rule out every bug.",
+    practice: "Let an agent follow one full user path in a non-production test place with fake data. It may finish only the test actions in the plan. On the live product, the agent stays read-only and a named person owns any lasting step. Save screenshots or a log. Report passed, failed, issues seen, and what was not tested. One run cannot rule out every bug.",
     tryNext: "Pick one important test path. Have an agent run it safely and save the result, its limits, and proof.",
     source: ["T03", "T06", "T13", "T14"]
   },
@@ -512,8 +512,8 @@ const ITEMS = [
     id: "P10", short: "Rules and live proof", title: "Do repeat mistakes become rules and checks?",
     prompt: "A repeated bug or mistake becomes a clear rule, a check, and safe proof on the live product.",
     note: "Since the event: repeat issue, rule, automatic or easy-to-find check, live proof, and result",
-    practice: "When a bug returns, write a clear rule and why it matters. Add an automatic or easy-to-find check. After the change ships, use a named safe account or a read-only check on the live product. Write the stop rule first. Record proof, shown wrong, or still unclear.",
-    tryNext: "Take one repeat issue. Write the rule, add a check, and verify the live behavior with a named safe account or read-only check.",
+    practice: "When a bug returns, write a clear rule and why it matters. Add an automatic or easy-to-find check. After the change ships, let an agent make a read-only check on the live product. Write the stop rule first. If proof needs a lasting live step, a named person performs it. Record proof, shown wrong, or still unclear.",
+    tryNext: "Take one repeat issue. Write the rule, add a check, and let an agent make a read-only check on the live product. A named person performs any lasting step.",
     source: ["T13", "T14"]
   }
 ];
@@ -708,11 +708,12 @@ function metrics() {
   const startedWorking = state.answers.filter((answer) => answer.use === "started" && answer.outcome === "worked").length;
   const usingWorking = state.answers.filter((answer) => ["started", "before"].includes(answer.use) && answer.outcome === "worked").length;
   const useAssessed = state.answers.filter((answer) => ["started", "before", "tried", "stopped", "no"].includes(answer.use)).length;
+  const useUnknown = state.answers.filter((answer) => answer.use === "unsure").length;
   const learningPrivate = state.answers.filter((answer) => answer.learning === "private").length;
   const usePrivate = state.answers.filter((answer) => answer.use === "private").length;
   const detailPrivate = state.answers.filter((answer) => usesPractice(answer) && (answer.outcome === "private" || answer.evidence === "private")).length;
   const needsFollowup = state.answers.filter(topicNeedsFollowup).length;
-  return { learned, learningAssessed, startedWorking, usingWorking, useAssessed, learningPrivate, usePrivate, detailPrivate, needsFollowup };
+  return { learned, learningAssessed, startedWorking, usingWorking, useAssessed, useUnknown, learningPrivate, usePrivate, detailPrivate, needsFollowup };
 }
 function topicNeedsFollowup(answer) {
   if (["problems", "unsure"].includes(answer.outcome)) return true;
@@ -748,7 +749,8 @@ function taskReport() {
     `**Name:** ${markdownSafe(state.name)}`, `**Completed:** ${state.completionDate}`, "", "### Summary", "",
     `- Event added knowledge: **${result.learned}/${result.learningAssessed || 0} topics disclosed and judged**`,
     `- Reported started since event and working safely: **${result.startedWorking}**`,
-    `- Reported using now and working safely: **${result.usingWorking}/${result.useAssessed || 0} work-relevant topics disclosed**`,
+    `- Reported using now and working safely: **${result.usingWorking}/${result.useAssessed || 0} clear, work-relevant use answers**`,
+    `- Use not known yet: **${result.useUnknown}**`,
     `- May need follow-up: **${result.needsFollowup}**`,
     `- Kept private: **learning ${result.learningPrivate}; use ${result.usePrivate}; details ${result.detailPrivate}**`, "", "### Answers", ""
   ];
@@ -773,7 +775,7 @@ function renderResults() {
   const cards = [
     [`${result.learned}/${result.learningAssessed || 0}`, "Event added knowledge"],
     [String(result.startedWorking), "Started since event & working"],
-    [`${result.usingWorking}/${result.useAssessed || 0}`, "Using now & working"],
+    [`${result.usingWorking}/${result.useAssessed || 0}`, "Using now & working · clear answers"],
     [String(result.needsFollowup), "May need follow-up"]
   ];
   $("summaryGrid").replaceChildren();
