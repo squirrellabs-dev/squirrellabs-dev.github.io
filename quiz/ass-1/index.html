@@ -186,6 +186,7 @@
   .response-copy strong { display: block; font-size: 13px; line-height: 1.25; }
   .response-copy strong::before { content: "(" counter(response, lower-alpha) ") "; color: var(--red); }
   .response-copy span { display: block; margin-top: 2px; color: var(--muted); font-size: 11.5px; line-height: 1.35; }
+  .answer-confirm { margin-top: 10px; }
   .source-note { margin-top: 15px; color: var(--muted); font-size: 10.5px; line-height: 1.4; }
   .source-note summary { cursor: pointer; font-style: italic; }
   .instrument-nav { display: grid; grid-template-columns: 1fr 1.65fr; gap: 9px; margin-top: 19px; }
@@ -278,14 +279,14 @@
   </header>
   <section id="stStart" aria-labelledby="pageTitle">
     <div class="abstract">
-      <strong>Abstract.</strong> You heard 14 talks last week. This check-in asks about the 10 work habits that could matter most. You do not need to remember the agenda. Each page names one habit. Answer first; the best-practice note opens after. At the end, copy your report into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link.
+      <strong>Abstract.</strong> You heard 14 talks last week. This check-in asks about the 10 work habits that could matter most. You do not need to remember the agenda. Each page names one habit. Pick and save an answer; the best-practice note opens after. At the end, copy your report into the Agentic Squirrel Symposium I follow-up task. If you do not have that task, ask the person who sent this link.
       <p class="keywords"><strong>Keywords:</strong> better work; honest answers; proof; very serious squirrels.</p>
     </div>
     <div class="equation" aria-label="Showing up is not the same as learning, and saying is not the same as doing">
       showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ doing <span class="number">(1)</span>
     </div>
     <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> Your first pick is saved for the event report. The guidance then opens. You can update how you feel after reading it, but your first pick stays clear. If the event led to a real change that is still in use, pick “I changed my work.” It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
+      <strong>Definition 1 (an honest check-in).</strong> Pick an answer, check it, then save it. That saved answer goes in the event report. The guidance then opens. You can update how you feel after reading it, but your saved answer stays clear. If the event led to a real change that is still in use, pick “I changed my work.” It is fine to skip. There is no score. <span class="proof-end" aria-hidden="true">□</span>
     </div>
     <h2 class="section-title"><span class="sec">1.</span>How to answer</h2>
     <p class="lede">Use the same six answers on every page. They show what was new, what you knew before, and what you used.</p>
@@ -311,9 +312,10 @@
       <div class="item-meta" id="itemMeta"></div>
       <h1 class="item-title" id="itemTitle" tabindex="-1" aria-describedby="itemMeta navProgress"></h1>
       <fieldset>
-        <legend>Before this page teaches anything, what did Symposium I change for you?</legend>
+        <legend>Before this page teaches anything, what did Symposium I change for you? Pick one, then save it.</legend>
         <div class="options" id="responseOptions"></div>
       </fieldset>
+      <button class="button full answer-confirm" id="btnConfirmFirst" type="button" disabled>Save first answer &amp; show guidance</button>
       <div class="hidden" id="postAnswer">
         <div class="proposition" id="practiceText"></div>
         <p class="why" id="whyText"></p>
@@ -560,8 +562,8 @@ function beginCheckin() {
 function answeredTotal() { return firstAnswers.filter((answer) => answer !== null).length; }
 function updateNextButton() {
   const allAnswered = answeredTotal() === ITEMS.length;
-  $("btnNext").disabled = answers[position] === null;
-  if (position < ITEMS.length - 1) $("btnNext").textContent = "Save and next →";
+  $("btnNext").disabled = firstAnswers[position] === null;
+  if (position < ITEMS.length - 1) $("btnNext").textContent = "Next topic →";
   else if (allAnswered) $("btnNext").textContent = "See my report →";
   else $("btnNext").textContent = "Find a topic not done →";
 }
@@ -629,6 +631,8 @@ function renderItem(notice = "") {
   $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
   renderEvidencePrompt();
   $("postAnswer").classList.toggle("hidden", firstAnswers[position] === null);
+  $("btnConfirmFirst").classList.toggle("hidden", firstAnswers[position] !== null);
+  $("btnConfirmFirst").disabled = answers[position] === null;
   $("answerStatus").textContent = notice;
   const host = $("responseOptions");
   host.replaceChildren();
@@ -659,21 +663,35 @@ function renderItem(notice = "") {
   $("itemTitle").focus({ preventScroll: true });
 }
 function selectResponse(id) {
-  const isFirstAnswer = firstAnswers[position] === null;
+  const firstAnswerPending = firstAnswers[position] === null;
   answers[position] = id;
-  if (isFirstAnswer) firstAnswers[position] = id;
   [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
     label.classList.toggle("selected", label.querySelector("input").value === id);
   });
+  if (firstAnswerPending) {
+    $("btnConfirmFirst").disabled = false;
+    updateNextButton();
+    $("answerStatus").textContent = `Choice selected: ${responseById(id).label}. You can change it. Save it to open the guidance.`;
+    return;
+  }
+  renderEvidencePrompt();
+  updateNextButton();
+  renderProgress();
+  if (firstAnswers.every((answer) => answer !== null)) updateTaskOutput();
+  invalidateExportState();
+  $("answerStatus").textContent = `Current answer updated: ${responseById(id).label}. Your first answer still powers the event summary.`;
+}
+function confirmFirstResponse() {
+  if (firstAnswers[position] !== null || answers[position] === null) return;
+  firstAnswers[position] = answers[position];
+  $("btnConfirmFirst").classList.add("hidden");
   $("postAnswer").classList.remove("hidden");
   renderEvidencePrompt();
   updateNextButton();
   renderProgress();
-  if (answers.every((answer) => answer !== null)) updateTaskOutput();
+  if (firstAnswers.every((answer) => answer !== null)) updateTaskOutput();
   invalidateExportState();
-  $("answerStatus").textContent = isFirstAnswer
-    ? `First answer saved: ${responseById(id).label}. Guidance opened below.`
-    : `Current answer updated: ${responseById(id).label}. Your first answer still powers the event summary.`;
+  $("answerStatus").textContent = `First answer saved: ${responseById(firstAnswers[position]).label}. Guidance opened below.`;
 }
 function previousItem(event) {
   if (event && event.detail > 1) return;
@@ -682,7 +700,7 @@ function previousItem(event) {
 }
 function nextItem(event) {
   if (event && event.detail > 1) return;
-  if (!answers[position]) return;
+  if (firstAnswers[position] === null) return;
   if (position < ITEMS.length - 1) { goToItem(position + 1); return; }
   const firstOpen = firstAnswers.findIndex((answer) => answer === null);
   if (firstOpen >= 0) {
@@ -706,9 +724,9 @@ function metrics() {
 }
 function recommendedFollowup() {
   const rules = [
-    { code: "unclear", basis: "First topic marked ‘Still fuzzy’" },
-    { code: "understand", basis: "First topic marked ‘I get it now’" },
-    { code: "apply", basis: "First topic marked ‘I learned something useful’" }
+    { code: "unclear", basis: "Current topic marked ‘Still fuzzy’" },
+    { code: "understand", basis: "Current topic marked ‘I get it now’" },
+    { code: "apply", basis: "Current topic marked ‘I learned something useful’" }
   ];
   for (const { code, basis } of rules) {
     const index = answers.findIndex((answer) => answer === code);
@@ -766,16 +784,24 @@ function renderResults() {
     const practice = document.createElement("p");
     practice.className = "result-practice";
     practice.textContent = `Best practice: ${item.practice}`;
-    const evidence = document.createElement("p");
-    evidence.className = "result-evidence";
-    if (answers[index] === "na") {
-      evidence.textContent = skipReasons[index].trim()
-        ? `Skip reason: ${skipReasons[index].trim()}`
-        : "No skip reason added.";
-    } else {
-      evidence.textContent = evidenceNotes[index].trim()
-        ? `Your optional note: ${evidenceNotes[index].trim()}`
-        : "No optional note added.";
+    const notes = [];
+    if (evidenceNotes[index].trim()) {
+      const evidence = document.createElement("p");
+      evidence.className = "result-evidence";
+      evidence.textContent = `Note saved with a non-skip answer: ${evidenceNotes[index].trim()}`;
+      notes.push(evidence);
+    }
+    if (skipReasons[index].trim()) {
+      const reason = document.createElement("p");
+      reason.className = "result-evidence";
+      reason.textContent = `Reason saved with “Skip for now”: ${skipReasons[index].trim()}`;
+      notes.push(reason);
+    }
+    if (notes.length === 0) {
+      const emptyNote = document.createElement("p");
+      emptyNote.className = "result-evidence";
+      emptyNote.textContent = answers[index] === "na" ? "No skip reason added." : "No practice note added.";
+      notes.push(emptyNote);
     }
     const edit = document.createElement("button");
     edit.type = "button";
@@ -785,7 +811,7 @@ function renderResults() {
     edit.addEventListener("click", (event) => { if (event.detail <= 1) reviewResponse(index); });
     const parts = [heading, selected];
     if (currentResponse.id !== firstResponse.id) parts.push(revision);
-    parts.push(practice, evidence, edit);
+    parts.push(practice, ...notes, edit);
     entry.append(...parts);
     $("resultsList").appendChild(entry);
   });
@@ -838,8 +864,8 @@ function invalidateExportState() {
 function markdownResults() {
   const result = metrics();
   const followup = recommendedFollowup();
-  const noteCount = evidenceNotes.filter((note, index) => answers[index] !== "na" && note.trim()).length;
-  const skipReasonCount = skipReasons.filter((note, index) => answers[index] === "na" && note.trim()).length;
+  const noteCount = evidenceNotes.filter((note) => note.trim()).length;
+  const skipReasonCount = skipReasons.filter((note) => note.trim()).length;
   const lines = [
     "## Agentic Squirrel Symposium I — one-week check-in", "",
     "> The event summary uses my first answer on each topic. Later updates are shown separately. This does not prove that the team changed.", "",
@@ -862,8 +888,12 @@ function markdownResults() {
     lines.push(`   - First answer for the event summary: ${firstResponse.detail}`);
     if (currentResponse.id !== firstResponse.id) lines.push(`   - Current answer after guidance: ${currentResponse.detail}`);
     lines.push(`   - Best practice: ${item.practice}`);
-    if (answers[index] === "na") lines.push(`   - Skip reason: ${markdownSafeInline(skipReasons[index].trim() || "None added")}`);
-    else lines.push(`   - Optional note: ${markdownSafeInline(evidenceNotes[index].trim() || "None added")}`);
+    if (evidenceNotes[index].trim()) lines.push(`   - Note saved with a non-skip answer: ${markdownSafeInline(evidenceNotes[index].trim())}`);
+    if (skipReasons[index].trim()) lines.push(`   - Reason saved with “Skip for now”: ${markdownSafeInline(skipReasons[index].trim())}`);
+    if (!evidenceNotes[index].trim() && !skipReasons[index].trim()) {
+      const emptyLabel = answers[index] === "na" ? "Skip reason" : "Practice note";
+      lines.push(`   - ${emptyLabel}: None added`);
+    }
     lines.push(`   - Source: ${item.source.map(sourceLabel).join(" · ")}`);
   });
   lines.push("", "### Check for team change", "",
@@ -997,6 +1027,7 @@ function returnToResults() {
 }
 $("btnStart").addEventListener("click", beginCheckin);
 $("btnBack").addEventListener("click", previousItem);
+$("btnConfirmFirst").addEventListener("click", confirmFirstResponse);
 $("btnNext").addEventListener("click", nextItem);
 $("btnFinishMap").addEventListener("click", finishCheckin);
 $("btnReturnResults").addEventListener("click", returnToResults);
