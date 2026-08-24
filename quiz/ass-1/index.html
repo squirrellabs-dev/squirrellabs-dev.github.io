@@ -127,6 +127,26 @@
   .progress-copy { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; font-variant: small-caps; letter-spacing: .7px; }
   .progress-track { height: 5px; margin-top: 6px; border: 1px solid var(--ink); background: transparent; }
   .progress-fill { height: 100%; width: 0; background: var(--red); transition: width .2s ease; }
+  .item-browser { margin-top: 12px; padding: 11px; border: 1px solid #9f9787; background: rgba(255,255,255,.2); }
+  .item-browser-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 11px; line-height: 1.35; }
+  .item-browser-head strong { font-variant: small-caps; letter-spacing: .55px; }
+  .item-browser-head span { color: var(--muted); text-align: right; }
+  .item-map { display: grid; grid-template-columns: repeat(14, minmax(36px, 1fr)); gap: 5px; }
+  .item-jump {
+    position: relative; min-width: 0; min-height: 39px; padding: 5px 2px; border: 1px solid #9f9787;
+    background: var(--paper); color: var(--ink); font-size: 12px; font-weight: 700; line-height: 1;
+  }
+  .item-jump:hover { border-color: var(--red); color: var(--red); }
+  .item-jump.answered { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); }
+  .item-jump.answered::after { content: "✓"; position: absolute; top: 2px; right: 3px; font-size: 8px; }
+  .item-jump.current { border: 3px double var(--red); padding: 3px 0; background: var(--red); color: var(--paper); }
+  .item-jump.current::after { color: var(--paper); }
+  .item-map-legend { display: flex; flex-wrap: wrap; gap: 6px 15px; margin-top: 8px; color: var(--muted); font-size: 9.5px; }
+  .legend-mark::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 4px; border: 1px solid #9f9787; vertical-align: -1px; background: var(--paper); }
+  .legend-mark.current::before { border: 2px solid var(--red); background: var(--red); }
+  .legend-mark.answered::before { border-color: var(--blue); background: var(--blue-soft); }
+  .map-finish { margin-top: 10px; min-height: 42px; font-size: 11px; }
+  .map-return { width: 100%; margin-top: 9px; min-height: 42px; font-size: 11px; }
   .instrument {
     position: relative; margin-top: 20px; padding: clamp(18px, 4vw, 34px);
     border: 3px double var(--rule); background: rgba(255,255,255,.22);
@@ -161,6 +181,7 @@
   .source-note { margin-top: 15px; color: var(--muted); font-size: 10.5px; line-height: 1.4; }
   .source-note summary { cursor: pointer; font-style: italic; }
   .instrument-nav { display: grid; grid-template-columns: 1fr 1.65fr; gap: 9px; margin-top: 19px; }
+  .nav-progress { grid-column: 1 / -1; color: var(--muted); font-size: 10px; text-align: center; font-variant: small-caps; letter-spacing: .55px; }
   .answer-status { min-height: 18px; margin-top: 8px; color: var(--green); font-size: 11px; }
   .compile-log {
     padding: 15px 17px; border: 1px solid var(--rule); background: #e9e1d1; color: #37332c;
@@ -181,6 +202,8 @@
   .result-item h3::before { content: counter(result) ". "; color: var(--red); }
   .result-answer { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 700; }
   .result-practice { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .result-edit { margin-top: 8px; padding: 5px 8px; border: 1px solid #8d8577; background: transparent; color: var(--blue); font-size: 10px; font-weight: 700; }
+  .result-edit:hover { border-color: var(--blue); background: var(--blue-soft); }
   .receipt-label { display: block; margin: 12px 0 5px; font-weight: 700; font-size: 13px; }
   .receipt {
     width: 100%; min-height: 47px; padding: 10px 12px; border: 1px solid var(--rule);
@@ -209,7 +232,7 @@
     .summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .instrument { padding: 17px 13px; }
     .instrument-nav, .export-actions, .secondary-actions { grid-template-columns: 1fr; }
-    .button.secondary { order: 2; }
+    .item-map { grid-template-columns: repeat(7, minmax(38px, 1fr)); }
   }
   @media (max-width: 360px) {
     .paper { width: 100%; margin: 0; border-inline: 0; padding-inline: 12px; }
@@ -241,47 +264,56 @@
   </div>
   <header class="title-block">
     <div class="journal">A.S.S. Academy Working Paper No. 01</div>
-    <h1 id="pageTitle">Did Any of This Enter Long-Term Memory?</h1>
-    <p class="subtitle">A Week-One, Self-Reported Study of Knowledge Transfer and Practice Change After Agentic Squirrel Symposium I</p>
+    <h1 id="pageTitle">What, If Anything, Survived the Symposium?</h1>
+    <p class="subtitle">An Extremely Serious Week-One Field Study (N = You), One Week After A.S.S. I</p>
     <p class="authors">The A.S.S. Academy Research Collective<sup>*</sup></p>
-    <p class="affiliation">Department of Applied Acornics, Squirrel Labs<br />Correspondence: Reviewer No. 2, probably hiding in the task body</p>
+    <p class="affiliation">Department of Applied Acornics, Squirrel Labs<br />Correspondence: Reviewer No. 2, currently requesting one more screenshot</p>
     <div class="metadata">
       <span>Received: one week ago</span><span>Accepted: pending evidence</span><span>Faux DOI: 10.1337/ASS.I.RETENTION</span>
     </div>
   </header>
   <section id="stStart" aria-labelledby="pageTitle">
     <div class="abstract">
-      <strong>Abstract.</strong> This instrument asks what changed in your own understanding and work after the symposium. It is not agenda trivia, a performance grade, or team-adoption telemetry. Fourteen concrete operating practices are stated in full, so no knowledge of talk order or titles is required. Choose the one response that most honestly describes your change on each topic; all responses are valid data.
-      <p class="keywords"><strong>Keywords:</strong> agentic work; verification; context governance; squirrel epistemology; Reviewer No. 2.</p>
+      <strong>Abstract.</strong> A week ago, the team heard 14 talks about doing agentic work better. This check-in asks what actually stuck: what you already knew, what clicked, what you could now apply, and what changed in real work. Every page explains the practice in plain English, so it still works if you missed a session or forgot the agenda. At the end, you will get one Markdown field note for the Agentic Squirrel Symposium I follow-up task. If you arrived by direct link, ask the sender for that task.
+      <p class="keywords"><strong>Keywords:</strong> better work; honest memory; receipts; suspiciously rigorous squirrels.</p>
     </div>
-    <div class="equation" aria-label="Knowledge gain is not equal to attendance, and self-report is not equal to adoption telemetry">
-      ΔK ≠ attendance &nbsp;&nbsp;∧&nbsp;&nbsp; self-report ≠ adoption telemetry <span class="number">(1)</span>
+    <div class="equation" aria-label="Showing up is not the same as learning, and saying a practice changed is not proof that a team adopted it">
+      showing up ≠ learning &nbsp;&nbsp;∧&nbsp;&nbsp; saying ≠ proving <span class="number">(1)</span>
     </div>
     <div class="theorem">
-      <strong>Definition 1 (an honest check-in).</strong> “Already established” is not worse than “new understanding,” and “not assessed” is better than invented certainty. A behavior-change claim should be selected only when the symposium actually caused a changed action or artifact. No points, ranks, streaks, or remedial clown options are computed. <span class="proof-end" aria-hidden="true">□</span>
+      <strong>Definition 1 (an honest check-in).</strong> Pick the true answer, not the impressive one. “Already in my toolkit” is useful information. “Not assessed” is allowed. Choose “I actually changed something” only if the symposium led to a real action, workflow, or artifact. This is an unscored self-report; every honest response helps. <span class="proof-end" aria-hidden="true">□</span>
     </div>
     <h2 class="section-title"><span class="sec">1.</span>Response taxonomy</h2>
-    <p class="lede">Each item uses the same six categories. The categories distinguish knowledge gained from prior knowledge, application judgment, and behavior change.</p>
+    <p class="lede">Use the same six choices throughout. They separate prior knowledge, new understanding, knowing when to apply something, and actually changing work.</p>
     <div class="response-key" id="responseKey"></div>
     <details class="appendix">
       <summary>Optional Appendix A — the 14 source talks in 14 lines</summary>
       <div class="talk-grid" id="talkGrid"></div>
     </details>
     <p class="small-note"><sup>*</sup> N = you. Expected completion time: 6–8 minutes. Responses stay only in this browser tab; closing or reloading erases them. Copy or download is the only way they leave the page.</p>
-    <button class="button full start-button" id="btnStart" type="button">Administer the instrument (.tex → truth)</button>
+    <button class="button full start-button" id="btnStart" type="button">Begin the 14-item field study (.tex → findings)</button>
   </section>
   <section id="stCheckin" class="hidden" aria-labelledby="itemTitle">
     <div class="progress-head">
       <div class="progress-copy"><span id="progressText"></span><span id="progressSection"></span></div>
-      <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Answered practices" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
     </div>
+    <nav class="item-browser" aria-labelledby="itemBrowserTitle">
+      <div class="item-browser-head"><strong id="itemBrowserTitle">Browse all 14 practices</strong><span id="answeredCount" aria-live="polite"></span></div>
+      <div class="item-map" id="itemMap"></div>
+      <div class="item-map-legend" aria-hidden="true">
+        <span class="legend-mark current">open now</span><span class="legend-mark answered">answered</span><span class="legend-mark">still open</span>
+      </div>
+      <button class="button full map-finish hidden" id="btnFinishMap" type="button">All 14 answered — typeset findings →</button>
+      <button class="button secondary map-return hidden" id="btnReturnResults" type="button">← Return to current findings</button>
+    </nav>
     <article class="instrument">
       <div class="item-meta" id="itemMeta"></div>
-      <h1 class="item-title" id="itemTitle" tabindex="-1"></h1>
+      <h1 class="item-title" id="itemTitle" tabindex="-1" aria-describedby="itemMeta navProgress"></h1>
       <div class="proposition" id="practiceText"></div>
       <p class="why" id="whyText"></p>
       <fieldset>
-        <legend>Which statement is most accurate for you one week later?</legend>
+        <legend>What changed for you because of the symposium?</legend>
         <div class="options" id="responseOptions"></div>
       </fieldset>
       <details class="source-note">
@@ -290,8 +322,9 @@
       </details>
       <div class="answer-status" id="answerStatus" role="status" aria-live="polite"></div>
       <div class="instrument-nav">
+        <div class="nav-progress" id="navProgress"></div>
         <button class="button secondary" id="btnBack" type="button">← Previous item</button>
-        <button class="button" id="btnNext" type="button" disabled>Record and continue →</button>
+        <button class="button" id="btnNext" type="button" disabled>Save and continue →</button>
       </div>
     </article>
   </section>
@@ -299,26 +332,26 @@
     <div class="compile-log" id="compileLog" role="status" aria-live="polite"></div>
     <div id="resultContent" class="hidden">
       <h1 class="result-title" id="resultTitle" tabindex="-1">Findings</h1>
-      <p class="result-subtitle">Self-reported, locally computed, and gloriously underpowered.</p>
+      <p class="result-subtitle">Every answer, exactly as reported. No secret grade hiding underneath.</p>
       <div class="summary-grid" id="summaryGrid"></div>
       <div class="interpretation" id="interpretation"></div>
       <div class="next-study" id="nextStudy"></div>
       <h2 class="section-title"><span class="sec">4.</span>Response schedule</h2>
-      <p class="lede">Every selected answer is reproduced below. Nothing has been converted into a right/wrong score.</p>
+      <p class="lede">Here is the complete field note. “Already in my toolkit” is not a wrong answer, and “not assessed” has not been quietly converted into zero.</p>
       <ol class="results-list" id="resultsList"></ol>
       <div class="theorem">
-        <strong>Validity note.</strong> This check-in measures perceived knowledge transfer and symposium-attributed change. Evidence of team adoption requires a named owner plus observable artifacts or behavior over time. <span class="proof-end" aria-hidden="true">□</span>
+        <strong>Reality check.</strong> These answers tell us what you think you learned or changed. They do not prove the team adopted a practice. That takes a named owner and something observable—such as a checklist, decision record, monitoring log, handoff, or repeated behavior—checked again later. <span class="proof-end" aria-hidden="true">□</span>
       </div>
       <label class="receipt-label" for="receipt">Optional evidence receipt</label>
-      <input class="receipt" id="receipt" maxlength="120" autocomplete="off" aria-describedby="receiptHelp" placeholder="e.g. release picker, invariant check, decision feed, durable handoff…" />
-      <p class="small-note" id="receiptHelp">Public-safe artifact name or behavior only—never secrets, customer data, or private URLs. It appears in the paste-ready record and leaves the page only when you copy or download it. Nothing is sent automatically.</p>
+      <input class="receipt" id="receipt" maxlength="120" autocomplete="off" aria-describedby="receiptHelp" placeholder="e.g. mobile QA checklist, decision document, monitoring log, handoff note…" />
+      <p class="small-note" id="receiptHelp">Name the artifact or behavior without pasting a private link, secret, or customer data. It appears in the field note and leaves this page only when you copy or download it. Nothing is sent automatically.</p>
       <section class="export-box" aria-labelledby="exportTitle">
-        <h2 id="exportTitle">Appendix B. Paste-ready task-body record</h2>
-        <p class="lede">Required final step: copy this complete record and paste it into the symposium follow-up task body so the team can see every answer. This page does not send anything automatically.</p>
+        <h2 id="exportTitle">Appendix B. Field note for the follow-up task</h2>
+        <p class="lede">To submit: copy the complete field note and paste it into the Agentic Squirrel Symposium I follow-up task that sent you here. If you arrived by direct link, ask the sender for that task. This page cannot post for you. Downloading the .md is only a personal backup; it does not submit the result.</p>
         <textarea class="task-output" id="taskOutput" readonly aria-label="Markdown results ready to paste into the task body"></textarea>
         <div class="export-actions">
-          <button class="button" id="btnCopyTask" type="button">Copy all responses for task body</button>
-          <button class="button secondary" id="btnDownloadText" type="button">Download .md</button>
+          <button class="button" id="btnCopyTask" type="button">Copy the whole field note</button>
+          <button class="button secondary" id="btnDownloadText" type="button">Download backup .md</button>
         </div>
         <div class="result-status" id="resultStatus" role="status" aria-live="polite"></div>
       </section>
@@ -337,152 +370,155 @@
 </main>
 <script>
 const TALKS = [
-  { id: "T01", speaker: "Aleks", title: "Chip abuse", summary: "Capture tasks the instant they appear; removing task-entry friction helps organization survive contact with real work." },
-  { id: "T02", speaker: "Konrad", title: "Konrad's Brain Tricks", summary: "Attention, not compute, is scarce: bundle work by shared proof and heartbeat long runs before they wander." },
-  { id: "T03", speaker: "Hugo", title: "Voice input and Playwright MCP", summary: "Use voice for rich briefs; let browser agents handle scoped UI work after a human clears login and risky steps." },
-  { id: "T04", speaker: "Konrad", title: "GenUI in Two Minutes", summary: "Use visual pickers for a few consequential decisions—not trivial microchoices or accidental forever-specs." },
-  { id: "T05", speaker: "Hugo", title: "HTML reports", summary: "When prose hides relationships, change the medium to a visual HTML report that makes the system inspectable." },
-  { id: "T06", speaker: "Kushagra", title: "multinut, six viewports at once, and why it does not replace our screenshot pipeline", summary: "Synced viewports diagnose what moved; ordinary screenshots still prove the fix, and mirrored actions stay local-only." },
-  { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "An always-on local machine or VPS, plus tmux and scheduling, keeps agent work running beyond a laptop session." },
-  { id: "T08", speaker: "Konrad", title: "Disposable VM Manifesto", summary: "Assume an agent machine may be lost: isolate it, minimize credentials, and keep snapshots for rollback." },
-  { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "Parallel panes helped attention, while expensive closeout and next-day resumability remained unresolved." },
-  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "A unified decision feed beats polling, while worktrees still share ports, servers, and moving branches." },
-  { id: "T11", speaker: "Aleks", title: "support triage", summary: "A manager agent buckets work, delegates bounded cases, and returns explicit human-only actions instead of forwarding a queue." },
-  { id: "T12", speaker: "Konrad", title: "Vana", summary: "Open-world agents need narrow identities, replaceable surfaces, minimal data, and approval gates." },
-  { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "Repeated defects need an agent-readable invariant, its rationale, and a greppable check; merged still does not mean deployed." },
-  { id: "T14", speaker: "Jota", title: "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.", summary: "Treat incoming claims as bounded verification jobs: return proof or refutation, mechanism, and impact." }
+  { id: "T01", speaker: "Aleks", title: "Chip abuse", summary: "Chip is the team’s task-capture assistant. Record a side quest with enough context to resume it, then get back to the work in front of you." },
+  { id: "T02", speaker: "Konrad", title: "Konrad's Brain Tricks", summary: "Human review attention is scarcer than agent compute. Group parallel jobs by the same pass/fail checks and use short status updates to spot trouble." },
+  { id: "T03", speaker: "Hugo", title: "Voice input and Playwright MCP", summary: "A detailed spoken brief can be faster than typing. Playwright handles scoped browser work; a human still owns sign-in, MFA, and risky approvals." },
+  { id: "T04", speaker: "Konrad", title: "GenUI in Two Minutes", summary: "GenUI means a generated visual decision tool, such as a comparison picker. Use it when choices affect one another—not for every tiny preference." },
+  { id: "T05", speaker: "Hugo", title: "HTML reports", summary: "When a wall of prose makes relationships hard to see, turn the evidence into a small visual HTML report people can inspect." },
+  { id: "T06", speaker: "Kushagra", title: "multinut, six viewports at once, and why it does not replace our screenshot pipeline", summary: "Multinut shows several browser sizes at once for fast layout diagnosis. Ordinary screenshots remain the reviewable evidence, and synchronized clicks stay away from live systems." },
+  { id: "T07", speaker: "Hugo", title: "TMUX and long running agents", summary: "Tmux keeps a named terminal session alive; an always-online computer or server keeps long agent jobs running after a laptop disconnects." },
+  { id: "T08", speaker: "Konrad", title: "Disposable VM Manifesto", summary: "Treat a virtual machine as replaceable: isolate risky work, provide only necessary credentials, and test the snapshot or reset path." },
+  { id: "T09", speaker: "Hugo", title: "Parallelization, Workspaces, and Split panes", summary: "Git worktrees give parallel jobs separate folders and split panes make them visible. A structured handoff is still needed when the next person takes over." },
+  { id: "T10", speaker: "Kushagra", title: "the real bottleneck was not knowing when an agent needed me", summary: "Put human decisions in one contextual queue instead of making people poll every job. Separate work folders still share ports, servers, and branch pointers." },
+  { id: "T11", speaker: "Aleks", title: "support triage", summary: "A manager agent can sort repeatable, low-risk cases and delegate them. It must return unclear or consequential decisions to a named human." },
+  { id: "T12", speaker: "Konrad", title: "Vana", summary: "Vana was an open-world assistant experiment. Its lesson: narrow the agent’s identity, data, and permissions, and keep important approvals human." },
+  { id: "T13", speaker: "Jota", title: "I fixed the same bug four times. The fifth fix was a paragraph.", summary: "When a bug repeats, write the rule and its reason where agents will read it, add a searchable or automatic check, and verify the deployed user path." },
+  { id: "T14", speaker: "Jota", title: "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.", summary: "Treat an alarming report as a verification job: find primary evidence, explain what is happening and who is affected, then verify the live result." }
 ];
 const SOURCE_GAPS = [
-  { id: "GAP_RESUMABILITY", label: "durable closeout and next-session resumability" },
-  { id: "GAP_CONTEXT_GOVERNANCE", label: "shared-context ownership, review, and pruning" },
-  { id: "GAP_ADOPTION_EVIDENCE", label: "owner-and-artifact adoption evidence" }
+  { id: "GAP_RESUMABILITY", label: "handoffs that another person or session can actually resume" },
+  { id: "GAP_CONTEXT_GOVERNANCE", label: "one owned, current home for each shared rule" },
+  { id: "GAP_ADOPTION_EVIDENCE", label: "evidence that a team practice changed after the event" }
 ];
 const RESPONSES = [
-  { id: "unclear", label: "Still unclear", detail: "I could not yet explain when or how to use this confidently." },
-  { id: "already", label: "Already established", detail: "I could already explain or apply this before; the symposium caused no material knowledge change." },
-  { id: "understand", label: "New understanding", detail: "Because of the symposium, I can now explain the principle and its failure mode." },
-  { id: "apply", label: "New application judgment", detail: "Because of the symposium, I can now recognize when and how to apply it." },
-  { id: "used", label: "Changed my work", detail: "Because of the symposium, I used it or created a concrete artifact afterward." },
-  { id: "na", label: "Not assessed", detail: "I have not had enough relevance or opportunity, or I prefer not to assess this." }
+  { id: "unclear", label: "Still fuzzy", detail: "I still wouldn’t know what to do in a real situation; I’d want another explanation." },
+  { id: "already", label: "Already in my toolkit", detail: "I understood this and knew when to use it before the symposium." },
+  { id: "understand", label: "Aha — I get it now", detail: "The symposium made the idea click; I can explain why it matters, but I’m not ready to apply it alone yet." },
+  { id: "apply", label: "I know when to use it", detail: "The symposium helped me spot a real use case and choose sensible limits; I haven’t changed work yet." },
+  { id: "used", label: "I actually changed something", detail: "Because of the symposium, I changed an action, workflow, or artifact afterward." },
+  { id: "na", label: "Not assessed", detail: "I haven’t had a relevant chance to judge this, or I’d rather not answer." }
 ];
 const ITEMS = [
   {
-    id: "P01", section: "§ 2.1 · Individual attention", construct: "Frictionless task capture",
-    prompt: "Can you now keep an incidental task from hijacking active work without losing it?",
-    practice: "Capture the follow-up immediately in the task system with enough context to resume it, then return to the work already in progress.",
-    why: "Lowering capture friction preserves the idea without paying for an avoidable context switch.",
+    id: "P01", section: "§ 2.1 · Attention under acorn pressure", construct: "Park the side quest",
+    prompt: "A side quest appears mid-task. How confidently could you park it without losing the plot?",
+    practice: "Create a task immediately with why it matters and the next step, then return to the job already in progress.",
+    why: "A title like ‘check this later’ forces tomorrow-you to rebuild the whole thought. One useful sentence makes the task resumable without hijacking today.",
     source: ["T01"],
-    experiment: "On the next incidental follow-up, capture the task plus one sentence of resumption context without switching into execution."
+    experiment: "The next time a side quest appears, capture the reason and next step without starting the side quest."
   },
   {
-    id: "P02", section: "§ 2.1 · Individual attention", construct: "Proof-shaped parallel work",
-    prompt: "Can you now structure parallel work around how its outcomes will be judged?",
-    practice: "Bundle work that shares verification criteria, and inspect a high-level heartbeat instead of continuously watching every thread.",
-    why: "Attention is the bottleneck; proof-shaped bundles reduce supervision cost without removing accountability.",
+    id: "P02", section: "§ 2.1 · Attention under acorn pressure", construct: "Protect review attention",
+    prompt: "Eight agents finish at once. Could you review them without becoming the bottleneck?",
+    practice: "Group parallel jobs only when they share the same pass/fail checks. Read one short scheduled status update, then inspect details when a check fails or a decision is needed.",
+    why: "Without shared checks, every output becomes a bespoke review. That moves the queue from the agents to the human reviewer.",
     source: ["T02"],
-    experiment: "Before the next parallel run, write the shared proof criteria and a single heartbeat check."
+    experiment: "Before the next parallel run, write the shared pass/fail checks and the one status update you want to see."
   },
   {
-    id: "P03", section: "§ 2.2 · Decision media", construct: "Consequential decisions in GenUI",
-    prompt: "Can you now tell when a visual decision surface earns its cost?",
-    practice: "Use a GenUI picker or visual HTML report for a small set of consequential, coupled decisions or relationship-heavy evidence; keep trivial preferences in prose.",
-    why: "A visual surface is valuable when seeing trade-offs changes the decision, not merely because a decision exists.",
+    id: "P03", section: "§ 2.2 · Media, but make it consequential", construct: "Use a visual when prose goes flat",
+    prompt: "Three important choices affect one another. Would you know when a visual picker beats another paragraph?",
+    practice: "Use a temporary generated visual decision tool (GenUI)—such as a comparison picker or HTML report—when choices affect one another or relationships are hard to scan. Keep simple preferences in prose.",
+    why: "A visual earns its keep when seeing the trade-offs changes the decision. Making a picker for ‘blue or green?’ just adds ceremony.",
     source: ["T04", "T05"],
-    experiment: "Turn one material, coupled decision into a disposable visual picker before planning."
+    experiment: "Turn one real decision with interacting choices into a temporary visual picker before planning."
   },
   {
-    id: "P04", section: "§ 2.2 · Decision media", construct: "Human boundary for browser automation",
-    prompt: "Can you now divide a browser workflow between rich briefing, automation, and human approval?",
-    practice: "Use voice to supply rich context; let browser automation handle scoped UI work only after a human clears login or MFA and retains consequential approvals.",
-    why: "Automation should remove UI toil without quietly inheriting authentication or high-impact authority.",
+    id: "P04", section: "§ 2.2 · Media, but make it consequential", construct: "Keep login and risky clicks human",
+    prompt: "A browser agent reaches login or a risky confirmation. Where does the human stay in the loop?",
+    practice: "Give the agent a rich brief, but keep sign-in, MFA, money movement, publishing, deletion, and other high-impact approvals with a human.",
+    why: "An agent blocked at MFA wastes time. An agent allowed to approve a consequential action can cause real damage. Mark the handoff before the run starts.",
     source: ["T03", "T12"],
-    experiment: "Write the human-only auth and approval steps before the next browser-agent run."
+    experiment: "Before the next browser run, list the sign-in and approval steps that only a human may perform."
   },
   {
-    id: "P05", section: "§ 2.2 · Decision media", construct: "Diagnosis is not evidence",
-    prompt: "Can you now separate responsive diagnosis from reviewable proof?",
-    practice: "Use synchronized local viewports to diagnose responsive behavior, then capture ordinary screenshots as proof; never mirror destructive actions into production.",
-    why: "Fast diagnosis and durable evidence are different jobs, and synchronized clicks enlarge the blast radius.",
+    id: "P05", section: "§ 2.2 · Media, but make it consequential", construct: "Diagnose with many views; prove with screenshots",
+    prompt: "The layout breaks on mobile. Could you diagnose it quickly and still leave evidence another person can review?",
+    practice: "Compare several screen sizes locally at once, then capture ordinary screenshots as evidence. Never repeat synchronized destructive clicks against a live system.",
+    why: "The multi-screen view helps you find the bug. A normal screenshot lets a reviewer inspect the exact result later.",
     source: ["T06"],
-    experiment: "For the next responsive bug, label the multi-view diagnostic step separately from the screenshot evidence step."
+    experiment: "For the next layout bug, use the multi-screen view to diagnose it and a separate screenshot to prove the fix."
   },
   {
-    id: "P06", section: "§ 2.3 · Runtime boundaries", construct: "Persistent, observable agents",
-    prompt: "Can you now make long-running agent work persistent without making it invisible?",
-    practice: "Run long work on an always-on local host or VPS in a named session, with scheduling, a durable heartbeat, a context-linked decision feed, and bounded escalation.",
-    why: "Persistence without observability creates orphaned work; observability without decision context creates notification noise.",
+    id: "P06", section: "§ 2.3 · Things that continue after laptop closure", construct: "Keep long jobs alive and observable",
+    prompt: "Your laptop closes at 18:00, but the job has hours left. Would tomorrow-you know whether it ran, stalled, or needs a decision?",
+    practice: "Run long work on an always-online computer or server in a named persistent session. Save periodic status somewhere that survives disconnection, and send a contextual notice when a named human decision is required.",
+    why: "A job that merely stays alive can fail silently. A context-free ‘agent needs you’ alert still makes the human reconstruct the entire situation.",
     source: ["T02", "T07", "T10", "T11", "T12"],
-    experiment: "Add one durable status heartbeat and one explicit escalation boundary to a long-running workflow."
+    experiment: "Give one long-running job a named session, a saved status update, and a rule for when to notify a human."
   },
   {
-    id: "P07", section: "§ 2.3 · Runtime boundaries", construct: "Worktree resource ownership",
-    prompt: "Can you now state what a worktree isolates—and what it does not?",
-    practice: "Use worktrees to isolate files, while explicitly assigning owners for shared ports, processes, servers, and moving branch references.",
-    why: "Filesystem separation does not prevent runtime collisions or one session moving state beneath another.",
+    id: "P07", section: "§ 2.3 · Things that continue after laptop closure", construct: "Own the things worktrees still share",
+    prompt: "Two worktrees run the same app. Could you prevent one from stealing the other’s port or branch?",
+    practice: "Use Git worktrees (separate working directories) to isolate files. Assign named owners to the network ports, running services, test servers, and branch pointers the sessions still share.",
+    why: "Separate folders do not separate running processes. One session can still occupy the port or move a shared branch pointer underneath another.",
     source: ["T09", "T10"],
-    experiment: "Before the next parallel run, write down the owner of every shared port, process, server, and moving ref."
+    experiment: "Before the next parallel run, write down who owns each port, service, test server, and branch pointer."
   },
   {
-    id: "P08", section: "§ 2.3 · Runtime boundaries", construct: "Disposable, least-privilege environments",
-    prompt: "Can you now bound the blast radius of a risky agent experiment?",
-    practice: "Use a disposable isolated machine with least-privilege credentials and tested snapshot or rollback paths; design as if the environment may be lost.",
-    why: "Recoverability and limited authority turn a compromise or bad action into a bounded incident.",
+    id: "P08", section: "§ 2.3 · Things that continue after laptop closure", construct: "Make risky experiments disposable",
+    prompt: "An experiment might go sideways. Could you contain the damage and recover cleanly?",
+    practice: "Run risky work in an isolated, replaceable machine with only the credentials and data it needs. Test the snapshot, reset, or rollback path before relying on it.",
+    why: "If the experiment leaks a credential or corrupts the machine, limited access contains the damage and a tested reset gets work moving again.",
     source: ["T08", "T12"],
-    experiment: "Remove one unnecessary credential and test one rollback path before the next risky run."
+    experiment: "Before the next risky run, remove one unnecessary credential and test one recovery step."
   },
   {
-    id: "P09", section: "§ 2.4 · Delegation and verification", construct: "Bounded delegation",
-    prompt: "Can you now delegate operational work without delegating accountability?",
-    practice: "Bucket and delegate bounded cases, narrow identity and data access, and return explicit human-only actions or approvals for consequential steps.",
-    why: "Useful autonomy comes from clear authority and escalation boundaries, not from forwarding an unbounded queue.",
+    id: "P09", section: "§ 2.4 · Delegation, proof, and other adult supervision", construct: "Delegate the queue, not accountability",
+    prompt: "A queue looks delegable. Could you state what the agent may decide and what still needs a human?",
+    practice: "Delegate named, repeatable, low-risk case types. Write the allowed actions and data access, and return unclear cases or consequential approvals to a named human.",
+    why: "‘Handle support’ grants no useful limit. ‘Classify these three case types, draft replies, and escalate refunds’ gives the agent a job a human can still own.",
     source: ["T11", "T12"],
-    experiment: "Mark one delegated workflow with allowed actions, human-only actions, and an escalation condition."
+    experiment: "Mark one workflow with allowed cases, allowed data, human-only actions, and one escalation trigger."
   },
   {
-    id: "P10", section: "§ 2.4 · Delegation and verification", construct: "Recurring-bug invariants",
-    prompt: "Can you now make a fix survive the next agent and the next release hop?",
-    practice: "Place the invariant, its rationale, and a greppable or automated check in canonical agent-readable context; then verify the risky path at the real user or browser boundary because merged does not mean deployed.",
-    why: "A narrow patch fixes today; a discoverable rule, self-check, and live verification prevent recurrence and false completion.",
+    id: "P10", section: "§ 2.4 · Delegation, proof, and other adult supervision", construct: "Fix the rule, not only the call site",
+    prompt: "The same bug returns for a fifth time. Could you fix the rule and prove the live behavior—not only patch the code?",
+    practice: "Write the rule and its reason in the one shared instruction source agents consult. Add a searchable or automatic check, then test the deployed behavior in the actual user interface.",
+    why: "A code patch can merge while the old behavior remains live. The shared rule helps the next agent avoid the same mistake; the live check catches a failed release.",
     source: ["T13", "T14"],
-    experiment: "Turn one recurring defect into an invariant plus why, a self-check, and a post-deploy verification step."
+    experiment: "For one recurring bug, document the rule and reason, add a check, and verify the live user path after deployment."
   },
   {
-    id: "P11", section: "§ 2.4 · Delegation and verification", construct: "Bounded claim verification",
-    prompt: "Can you now turn an alarming inbound report into a bounded verification job?",
-    practice: "Seek proof or refutation from primary sources, explain mechanism and impact, and operate within a prewritten safety or stop boundary.",
-    why: "Verification beats forwarding a claim, while a preset boundary prevents the investigation from creating a second incident.",
+    id: "P11", section: "§ 2.4 · Delegation, proof, and other adult supervision", construct: "Verify the scary claim",
+    prompt: "An urgent production claim lands. Could you verify it without spreading panic or creating a second incident?",
+    practice: "Write the proof standard first. Check primary sources, explain the mechanism and affected users, and decide in advance which actions or risk signals will stop the investigation.",
+    why: "Forwarding an alarming claim multiplies noise. Investigating without stop conditions can turn a report into a second outage.",
     source: ["T14"],
-    experiment: "For the next inbound claim, write the proof standard and stop boundary before investigating."
+    experiment: "For the next urgent claim, write the proof standard and stop conditions before investigating."
   },
   {
-    id: "P12", section: "§ 2.5 · Organizational memory", construct: "Durable resumability",
-    prompt: "Can you now hand a live agent session to another operator without a two-hour archaeological dig?",
+    id: "P12", section: "§ 2.5 · Tomorrow-you submits a formal complaint", construct: "Leave a handoff tomorrow-you can use",
+    prompt: "It’s 18:00 and five agent sessions are still alive. Could someone else resume them tomorrow without archaeology?",
     practice: "Leave a durable handoff containing the objective, current state, artifacts, evidence, owners, and exact next actions.",
-    why: "Panes help one person see work now; a structured handoff lets another person or session resume it later.",
+    why: "A wall of open terminal panes shows what exists now. It does not tell the next person what succeeded, what remains risky, or what to do first.",
     source: ["T09", "GAP_RESUMABILITY"],
-    experiment: "End one parallel run with a six-field handoff: objective, state, artifacts, evidence, owners, next actions."
+    experiment: "End one parallel run with six fields: objective, state, artifacts, evidence, owners, and next actions."
   },
   {
-    id: "P13", section: "§ 2.5 · Organizational memory", construct: "Governed shared context",
-    prompt: "Can you now stop one operating rule from multiplying into conflicting context files?",
-    practice: "Give each durable rule one canonical home, a named owner and review cadence, and replace or prune duplicates; add a check when the rule protects an invariant.",
-    why: "More context is not better context when nobody owns freshness and agents can find contradictory instructions.",
+    id: "P13", section: "§ 2.5 · Tomorrow-you submits a formal complaint", construct: "Give each rule one home",
+    prompt: "The same rule exists in three files and disagrees with itself. Could you give it one trustworthy home?",
+    practice: "Choose one named source file for the rule, one owner, and a review schedule. Remove or redirect duplicates, and enforce critical rules with an automatic check when possible.",
+    why: "An agent can follow the wrong copy perfectly. A named home and owner make it possible to know which rule is current and who must keep it that way.",
     source: ["T13", "GAP_CONTEXT_GOVERNANCE"],
-    experiment: "Choose one duplicated rule, name its canonical home and owner, then delete or redirect the stale copies."
+    experiment: "Choose one duplicated rule, name its source file and owner, then remove or redirect the stale copies."
   },
   {
-    id: "P14", section: "§ 2.5 · Organizational memory", construct: "Evidence of adoption",
-    prompt: "Can you now distinguish a learning signal from evidence that a team practice actually changed?",
-    practice: "Use self-report to learn what people believe they gained; demonstrate team adoption with a named owner plus observable artifacts or behavior measured over time.",
-    why: "A positive check-in can guide follow-up, but it cannot prove sustained team behavior on its own.",
+    id: "P14", section: "§ 2.5 · Tomorrow-you submits a formal complaint", construct: "Measure adoption with receipts",
+    prompt: "Everyone says the new practice was useful. Could you tell whether work actually changed?",
+    practice: "Use self-report to learn what people believe they gained. To show team adoption, name an owner and inspect a concrete artifact or repeated behavior again after a defined interval.",
+    why: "People can sincerely enjoy a talk and return to the old workflow on Monday. A checklist, handoff, decision record, or repeated action shows whether the practice entered the work.",
     source: ["GAP_ADOPTION_EVIDENCE"],
-    experiment: "Pick one desired practice, name its owner and observable artifact, and check it again after a defined interval."
+    experiment: "Pick one desired practice, name its owner and observable receipt, and check it again in one week."
   }
 ];
 const $ = (id) => document.getElementById(id);
 const stages = { start: $("stStart"), checkin: $("stCheckin"), done: $("stDone") };
 const answers = Array(ITEMS.length).fill(null);
 let position = 0;
+let reviewingResults = false;
+let lastExportSignature = null;
+let copyResetTimer = null;
 function showStage(name) {
   Object.entries(stages).forEach(([key, element]) => element.classList.toggle("hidden", key !== name));
   document.body.dataset.stage = name;
@@ -524,16 +560,55 @@ function renderStaticContent() {
   });
 }
 function beginCheckin() {
+  reviewingResults = false;
   position = answers.findIndex((answer) => answer === null);
   if (position < 0) position = 0;
   showStage("checkin");
   renderItem();
 }
-function renderItem() {
+function answeredTotal() { return answers.filter((answer) => answer !== null).length; }
+function updateNextButton() {
+  const allAnswered = answeredTotal() === ITEMS.length;
+  $("btnNext").disabled = answers[position] === null;
+  if (position < ITEMS.length - 1) $("btnNext").textContent = "Save and go to next →";
+  else if (allAnswered) $("btnNext").textContent = "Typeset findings →";
+  else $("btnNext").textContent = "Find first unanswered →";
+}
+function renderProgress() {
+  const answered = answeredTotal();
+  const percent = (answered / ITEMS.length) * 100;
+  $("progressText").textContent = `${answered} of ${ITEMS.length} answered`;
+  $("progressSection").textContent = `Open: ${position + 1} · ${ITEMS[position].construct}`;
+  $("progressFill").style.width = `${percent}%`;
+  $("progressTrack").setAttribute("aria-valuenow", String(answered));
+  $("answeredCount").textContent = `${answered} complete · viewing ${position + 1}`;
+  $("navProgress").textContent = `Practice ${position + 1} of ${ITEMS.length} · ${answered} answered`;
+  const map = $("itemMap");
+  map.replaceChildren();
+  ITEMS.forEach((item, index) => {
+    const button = document.createElement("button");
+    const response = answers[index] ? responseById(answers[index]) : null;
+    button.type = "button";
+    button.className = `item-jump${response ? " answered" : ""}${index === position ? " current" : ""}`;
+    button.textContent = String(index + 1);
+    const state = response ? `answered: ${response.label}` : "not answered";
+    button.setAttribute("aria-label", `Practice ${index + 1}: ${item.construct}; ${state}`);
+    button.title = `${index + 1}. ${item.construct} — ${state}`;
+    if (index === position) button.setAttribute("aria-current", "step");
+    button.addEventListener("click", (event) => { if (event.detail <= 1) goToItem(index); });
+    map.appendChild(button);
+  });
+  $("btnFinishMap").classList.toggle("hidden", answered !== ITEMS.length);
+  $("btnReturnResults").classList.toggle("hidden", !reviewingResults);
+}
+function goToItem(index, notice = "") {
+  if (index < 0 || index >= ITEMS.length) return;
+  position = index;
+  renderItem(notice);
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+function renderItem(notice = "") {
   const item = ITEMS[position];
-  $("progressText").textContent = `Item ${position + 1} of ${ITEMS.length}`;
-  $("progressSection").textContent = item.section;
-  $("progressFill").style.width = `${((position + 1) / ITEMS.length) * 100}%`;
   $("itemMeta").textContent = `${item.id} · ${item.construct}`;
   $("itemTitle").textContent = item.prompt;
   $("practiceText").replaceChildren();
@@ -545,7 +620,7 @@ function renderItem() {
   whyLabel.textContent = "Why it matters. ";
   $("whyText").append(whyLabel, document.createTextNode(item.why));
   $("sourceText").textContent = item.source.map(sourceLabel).join(" · ");
-  $("answerStatus").textContent = "";
+  $("answerStatus").textContent = notice;
   const host = $("responseOptions");
   host.replaceChildren();
   RESPONSES.forEach((response) => {
@@ -570,8 +645,8 @@ function renderItem() {
     host.appendChild(label);
   });
   $("btnBack").disabled = position === 0;
-  $("btnNext").disabled = answers[position] === null;
-  $("btnNext").textContent = position === ITEMS.length - 1 ? "Typeset findings →" : "Record and continue →";
+  updateNextButton();
+  renderProgress();
   $("itemTitle").focus({ preventScroll: true });
 }
 function selectResponse(id) {
@@ -579,21 +654,27 @@ function selectResponse(id) {
   [...$("responseOptions").querySelectorAll(".response")].forEach((label) => {
     label.classList.toggle("selected", label.querySelector("input").value === id);
   });
-  $("btnNext").disabled = false;
+  updateNextButton();
+  renderProgress();
+  if (answers.every((answer) => answer !== null)) updateTaskOutput();
+  invalidateExportState();
   $("answerStatus").textContent = `Recorded: ${responseById(id).label}. You may change it before continuing.`;
 }
-function previousItem() {
+function previousItem(event) {
+  if (event && event.detail > 1) return;
   if (position === 0) return;
-  position -= 1;
-  renderItem();
-  window.scrollTo({ top: 0, behavior: "auto" });
+  goToItem(position - 1);
 }
-function nextItem() {
+function nextItem(event) {
+  if (event && event.detail > 1) return;
   if (!answers[position]) return;
-  if (position === ITEMS.length - 1) { finishCheckin(); return; }
-  position += 1;
-  renderItem();
-  window.scrollTo({ top: 0, behavior: "auto" });
+  if (position < ITEMS.length - 1) { goToItem(position + 1); return; }
+  const firstOpen = answers.findIndex((answer) => answer === null);
+  if (firstOpen >= 0) {
+    goToItem(firstOpen, `Practice ${firstOpen + 1} is the first one still open.`);
+    return;
+  }
+  finishCheckin();
 }
 function metrics() {
   const counts = Object.fromEntries(RESPONSES.map((response) => [response.id, 0]));
@@ -609,28 +690,29 @@ function metrics() {
   };
 }
 function recommendedFollowup() {
-  if (answers.every((answer) => answer === "na")) {
-    return { item: null, text: "No practice is prioritized; revisit the check-in only when a relevant opportunity exists." };
-  }
-  const priorityCodes = ["unclear", "understand", "apply", "na", "already", "used"];
-  for (const code of priorityCodes) {
+  const rules = [
+    { code: "unclear", basis: "First topic marked ‘Still fuzzy’" },
+    { code: "understand", basis: "First topic marked ‘Aha — I get it now’" },
+    { code: "apply", basis: "First topic marked ‘I know when to use it’" }
+  ];
+  for (const { code, basis } of rules) {
     const index = answers.findIndex((answer) => answer === code);
-    if (index >= 0) return { item: ITEMS[index], response: responseById(code), text: `${ITEMS[index].construct}: ${ITEMS[index].experiment}` };
+    if (index >= 0) return { item: ITEMS[index], basis, text: `${ITEMS[index].construct}: ${ITEMS[index].experiment}` };
   }
-  return { item: null, text: "No practice is prioritized." };
+  return { item: null, basis: "No open learning gap selected", text: "No extra experiment suggested. Keep the receipt if a practice changes in real work later." };
 }
 function profileText(result) {
   if (result.assessed === 0) {
-    return `You did not assess any of the ${ITEMS.length} practices, so no knowledge or behavior-change inference is reported. This is a valid check-in outcome.`;
+    return `You did not assess any of the ${ITEMS.length} practices. That is a valid result, and the page makes no claim about what you learned or changed.`;
   }
-  return `You reported symposium-attributed understanding, application judgment, or work change on ${result.attributedChange} of ${result.assessed} assessed practices, including ${result.applied} concrete behavior change${result.applied === 1 ? "" : "s"}. ${result.already} practice${result.already === 1 ? " was" : "s were"} already established, ${result.unclear} remain unclear, and ${result.unassessed} were not assessed.`;
+  return `You marked ${result.attributedChange} of ${result.assessed} assessed topics as something you learned or changed because of the symposium. That total combines new understanding, knowing when to apply a practice, and changed work; ${result.applied} of those reports describe an actual change in work. ${result.already} were already in your toolkit, ${result.unclear} remain fuzzy, and ${result.unassessed} were not assessed.`;
 }
 function renderResults() {
   const result = metrics();
   const cards = [
-    [result.attributedChange, "Symposium-attributed change"], [result.applied, "Changed work"],
-    [result.already, "Already established"], [result.unclear, "Still unclear"],
-    [result.unassessed, "Not assessed"], [ITEMS.length, "Total practice items"]
+    [result.attributedChange, "Reported learning or work change"], [result.applied, "Reported behavior change"],
+    [result.already, "Already in my toolkit"], [result.unclear, "Still fuzzy"],
+    [result.unassessed, "Not assessed"], [ITEMS.length, "Total topics"]
   ];
   $("summaryGrid").replaceChildren();
   cards.forEach(([value, label]) => {
@@ -645,12 +727,12 @@ function renderResults() {
   });
   $("interpretation").replaceChildren();
   const interpretationLabel = document.createElement("strong");
-  interpretationLabel.textContent = "Interpretation. ";
+  interpretationLabel.textContent = "What this says. ";
   $("interpretation").append(interpretationLabel, document.createTextNode(profileText(result)));
   const followup = recommendedFollowup();
   $("nextStudy").replaceChildren();
   const followupLabel = document.createElement("strong");
-  followupLabel.textContent = "Recommended next observation. ";
+  followupLabel.textContent = `${followup.basis}. `;
   $("nextStudy").append(followupLabel, document.createTextNode(followup.text));
   $("resultsList").replaceChildren();
   ITEMS.forEach((item, index) => {
@@ -665,20 +747,27 @@ function renderResults() {
     const practice = document.createElement("p");
     practice.className = "result-practice";
     practice.textContent = `Practice: ${item.practice}`;
-    entry.append(heading, selected, practice);
+    const edit = document.createElement("button");
+    edit.type = "button";
+    edit.className = "result-edit";
+    edit.textContent = `Edit response ${index + 1}`;
+    edit.setAttribute("aria-label", `Edit response ${index + 1}: ${item.construct}`);
+    edit.addEventListener("click", (event) => { if (event.detail <= 1) reviewResponse(index); });
+    entry.append(heading, selected, practice, edit);
     $("resultsList").appendChild(entry);
   });
   updateTaskOutput();
 }
 function finishCheckin() {
   if (answers.some((answer) => answer === null)) {
-    position = answers.findIndex((answer) => answer === null);
-    renderItem();
+    const firstOpen = answers.findIndex((answer) => answer === null);
+    goToItem(firstOpen, `Practice ${firstOpen + 1} is the first one still open.`);
     return;
   }
+  reviewingResults = false;
   showStage("done");
   $("resultContent").classList.add("hidden");
-  $("compileLog").textContent = "pdflatex knowledge-transfer.tex\n[1/14] validating honest response categories…\n[14/14] refusing to manufacture an adoption score…\nOutput written on findings.pdf (N = you).";
+  $("compileLog").textContent = "pdflatex extremely-serious-field-note.tex\n[1/14] accepting honest answers without academic penalty…\n[14/14] declining to invent a team-adoption score…\nFindings compiled below (N = you).";
   const reveal = () => {
     renderResults();
     $("resultContent").classList.remove("hidden");
@@ -693,33 +782,48 @@ function markdownSafeInline(value) {
     .replace(/\\/g, "\\\\")
     .replace(/([`*_{}\[\]<>#])/g, "\\$1");
 }
+function resultsSignature() {
+  const receipt = $("receipt") ? $("receipt").value.trim() : "";
+  return JSON.stringify({ answers, receipt });
+}
+function recordExportSuccess(message) {
+  lastExportSignature = resultsSignature();
+  $("resultStatus").textContent = message;
+}
+function invalidateExportState() {
+  if (lastExportSignature === null || lastExportSignature === resultsSignature()) return;
+  lastExportSignature = null;
+  if (copyResetTimer) clearTimeout(copyResetTimer);
+  $("btnCopyTask").textContent = "Copy the whole field note";
+  $("resultStatus").textContent = "Results changed — copy or download the field note again before submitting.";
+}
 function markdownResults() {
   const result = metrics();
   const followup = recommendedFollowup();
   const receipt = $("receipt") ? $("receipt").value.trim() : "";
   const lines = [
     "## Agentic Squirrel Symposium I — week-one knowledge check-in", "",
-    "> Self-report only: this records perceived knowledge transfer and symposium-attributed change, not team adoption telemetry.", "",
+    "> Self-report only: this records what I believe I learned or changed. It does not prove that the team adopted these practices.", "",
     "### Summary", "",
-    `- Symposium-attributed understanding, judgment, or work change: **${result.assessed === 0 ? "No practices assessed" : `${result.attributedChange}/${result.assessed} assessed practices`}**`,
-    `- Concrete work changed because of the symposium: **${result.applied}**`,
-    `- Already established before the symposium: **${result.already}**`,
-    `- Still unclear: **${result.unclear}**`,
+    `- Reported learning or work change because of the symposium: **${result.assessed === 0 ? "No topics assessed" : `${result.attributedChange}/${result.assessed} assessed topics`}**`,
+    `- Reported behavior change because of the symposium: **${result.applied}**`,
+    `- Already in my toolkit before the symposium: **${result.already}**`,
+    `- Still fuzzy: **${result.unclear}**`,
     `- Not assessed / prefer not to answer: **${result.unassessed}**`,
     `- Optional evidence receipt: **${markdownSafeInline(receipt || "None supplied")}**`, "",
-    `**Suggested next observation:** ${followup.text}`, "",
+    `**Tiny next experiment (${followup.basis.toLowerCase()}):** ${followup.text}`, "",
     "### Responses", ""
   ];
   ITEMS.forEach((item, index) => {
     const response = responseById(answers[index]);
     lines.push(`${index + 1}. **${item.id} · ${item.construct}** — ${response.label} (\`${response.id}\`)`);
-    lines.push(`   - Question: ${item.prompt}`);
+    lines.push(`   - Situation: ${item.prompt}`);
     lines.push(`   - Answer: ${response.detail}`);
     lines.push(`   - Best practice: ${item.practice}`);
     lines.push(`   - Source basis: ${item.source.map(sourceLabel).join(" · ")}`);
   });
   lines.push("", "### Adoption follow-up", "",
-    "To demonstrate team adoption, assign a named owner and inspect an observable artifact or behavior again after a defined interval.");
+    "To demonstrate team adoption, name an owner and inspect a concrete artifact or repeated behavior again after a defined interval.");
   return lines.join("\n");
 }
 function updateTaskOutput() {
@@ -739,9 +843,10 @@ async function copyTaskBody() {
       return;
     }
   }
-  $("resultStatus").textContent = "All responses copied. Paste them into the symposium follow-up task body to submit.";
-  $("btnCopyTask").textContent = "Copied — now paste into task body ✓";
-  setTimeout(() => { $("btnCopyTask").textContent = "Copy all responses for task body"; }, 2200);
+  recordExportSuccess("Field note copied. Paste it into the Agentic Squirrel Symposium I follow-up task that sent you here.");
+  $("btnCopyTask").textContent = "Copied — now paste into the task ✓";
+  if (copyResetTimer) clearTimeout(copyResetTimer);
+  copyResetTimer = setTimeout(() => { $("btnCopyTask").textContent = "Copy the whole field note"; }, 2200);
 }
 function downloadText() {
   const blob = new Blob([markdownResults()], { type: "text/markdown;charset=utf-8" });
@@ -751,7 +856,7 @@ function downloadText() {
   link.download = "ass-i-week-one-checkin.md";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  $("resultStatus").textContent = "Markdown record downloaded.";
+  recordExportSuccess("Backup Markdown downloaded. Paste a copied field note into the follow-up task to submit.");
 }
 function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
   const words = text.split(/\s+/);
@@ -783,22 +888,22 @@ async function findingsCardBlob() {
   context.fillStyle = "#7d1f22"; context.font = "700 24px Georgia, serif";
   context.fillText("PROCEEDINGS OF THE AGENTIC SQUIRREL SOCIETY · VOL. I", 540, 115);
   context.fillStyle = "#171713"; context.font = "400 64px Georgia, serif";
-  wrapCanvasText(context, "Did Any of This Enter Long-Term Memory?", 540, 205, 880, 70, 2);
+  wrapCanvasText(context, "What, If Anything, Survived the Symposium?", 540, 205, 880, 70, 2);
   context.fillStyle = "#625e54"; context.font = "italic 28px Georgia, serif";
   context.fillText("Week-One Self-Reported Findings · N = you", 540, 360);
   context.strokeStyle = "#171713"; context.lineWidth = 2;
   context.beginPath(); context.moveTo(130, 400); context.lineTo(950, 400); context.stroke();
   context.fillStyle = "#171713"; context.font = "italic 36px Georgia, serif";
-  wrapCanvasText(context, "reported change = understanding ∪ judgment ∪ changed work", 540, 450, 850, 44, 2);
+  wrapCanvasText(context, "reported change = new understanding ∪ know-when ∪ changed work", 540, 450, 850, 44, 2);
   context.fillStyle = "#7d1f22"; context.font = "700 122px Georgia, serif";
   context.fillText(String(result.attributedChange), 300, 650); context.fillText(String(result.applied), 780, 650);
   context.fillStyle = "#171713"; context.font = "700 22px Georgia, serif";
-  wrapCanvasText(context, "PRACTICES WITH ATTRIBUTED CHANGE", 300, 695, 400, 27, 2);
-  wrapCanvasText(context, "PRACTICES THAT CHANGED", 780, 695, 400, 27, 2);
+  wrapCanvasText(context, "TOPICS WITH REPORTED LEARNING OR WORK CHANGE", 300, 695, 400, 27, 3);
+  wrapCanvasText(context, "TOPICS WITH REPORTED BEHAVIOR CHANGE", 780, 695, 400, 27, 3);
   context.fillStyle = "#625e54"; context.font = "24px Georgia, serif";
   context.fillText(`Already established: ${result.already} · Still unclear: ${result.unclear} · Unassessed: ${result.unassessed}`, 540, 790);
   context.fillStyle = "#171713"; context.font = "italic 27px Georgia, serif";
-  wrapCanvasText(context, "Self-report is a learning signal; owner + observable evidence over time is adoption.", 540, 855, 850, 34, 2);
+  wrapCanvasText(context, "This field note does not prove team adoption. Check an owner and an observable receipt again later.", 540, 855, 850, 34, 2);
   context.fillStyle = "#7d1f22"; context.font = "700 20px Georgia, serif";
   context.fillText("FAUX DOI 10.1337/ASS.I.RETENTION · SQUIRRELLABS.DEV/QUIZ/ASS-1", 540, 985);
   return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Card rendering failed")), "image/png"));
@@ -815,36 +920,44 @@ async function shareCard(mode) {
     try {
       if (!navigator.clipboard || !window.ClipboardItem) throw new Error("Image clipboard unavailable");
       await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-      $("resultStatus").textContent = "Findings card copied.";
+      recordExportSuccess("Findings card copied. The complete field note still needs to be pasted into the follow-up task.");
       return;
     } catch {
       downloadBlob(blob, "ass-i-week-one-findings.png");
-      $("resultStatus").textContent = "Image clipboard unavailable; findings card downloaded instead.";
+      recordExportSuccess("Image clipboard unavailable; findings card downloaded instead. This does not submit the field note.");
       return;
     }
   }
   downloadBlob(blob, "ass-i-week-one-findings.png");
-  $("resultStatus").textContent = "Findings card downloaded.";
+  recordExportSuccess("Findings card downloaded. This does not submit the field note.");
+}
+function reviewResponse(index) {
+  reviewingResults = true;
+  showStage("checkin");
+  goToItem(index, "Review mode: change this answer or return to the findings.");
 }
 function reviewResponses() {
-  position = 0; showStage("checkin"); renderItem();
+  reviewResponse(0);
+}
+function returnToResults() {
+  if (answers.some((answer) => answer === null)) return;
+  reviewingResults = false;
+  showStage("done");
+  renderResults();
+  $("resultContent").classList.remove("hidden");
+  $("resultTitle").focus({ preventScroll: true });
 }
 $("btnStart").addEventListener("click", beginCheckin);
 $("btnBack").addEventListener("click", previousItem);
 $("btnNext").addEventListener("click", nextItem);
+$("btnFinishMap").addEventListener("click", finishCheckin);
+$("btnReturnResults").addEventListener("click", returnToResults);
 $("btnCopyTask").addEventListener("click", copyTaskBody);
 $("btnDownloadText").addEventListener("click", downloadText);
 $("btnReview").addEventListener("click", reviewResponses);
 $("btnCopyCard").addEventListener("click", () => shareCard("copy"));
 $("btnDownloadCard").addEventListener("click", () => shareCard("download"));
-$("receipt").addEventListener("input", updateTaskOutput);
-addEventListener("keydown", (event) => {
-  if (stages.checkin.classList.contains("hidden")) return;
-  if (/^[1-6]$/.test(event.key) && !["INPUT", "TEXTAREA", "BUTTON"].includes(event.target.tagName)) {
-    const radio = $("responseOptions").querySelectorAll("input")[Number(event.key) - 1];
-    if (radio) { event.preventDefault(); radio.click(); radio.focus(); }
-  }
-});
+$("receipt").addEventListener("input", () => { updateTaskOutput(); invalidateExportState(); });
 renderStaticContent();
 </script>
 </body>
