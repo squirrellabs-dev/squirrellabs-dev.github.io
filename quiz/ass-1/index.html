@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A.S.S. Academy — Agentic Squirrel Symposium I</title>
+<meta name="description" content="The one-week Agentic Squirrel Symposium I practice check: 14 talks, 18 scenarios, zero passive learning." />
+<meta name="theme-color" content="#020803" />
+<meta name="robots" content="noindex,nofollow" />
+<style>
+  :root {
+    --grn: #39ff14; --cyn: #00f0ff; --mag: #ff44d4; --ylw: #ffd23f;
+    --bg: #020803; --panel: #041108; --red: #ff3b3b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--grn); font-family: "Courier New", monospace; }
+  body { min-height: 100vh; overflow-x: hidden; }
+  #rain { position: fixed; inset: 0; z-index: 0; opacity: .28; }
+  .scanlines { position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.28) 2px 4px); }
+  .vignette { position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.75) 100%); }
+  .crt { animation: flick 6s infinite; }
+  @keyframes flick { 0%,100% {opacity:1} 92% {opacity:1} 93% {opacity:.86} 94% {opacity:1} 97% {opacity:.93} 98% {opacity:1} }
+
+  .wrap { position: relative; z-index: 3; max-width: 680px; margin: 0 auto; padding: 0 14px 68px; }
+
+  /* marquees */
+  .marq { overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--grn); background: rgba(0,0,0,.82); }
+  .marq span { display: inline-block; padding: 4px 0; font-size: 12px; animation: slide 16s linear infinite; }
+  .marq.rev { border-bottom: 0; border-top: 1px solid var(--mag); color: var(--mag); }
+  .marq.rev span { animation-direction: reverse; animation-duration: 20s; }
+  .bottom-marq { position: relative; z-index: 5; background: rgba(0,0,0,.94); }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .blink { animation: blink .9s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1.glitch { font-family: Impact, "Arial Black", sans-serif; font-size: clamp(30px, 9vw, 46px);
+    letter-spacing: 2px; color: #fff; position: relative; text-align: center; margin: 46px 0 4px;
+    text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); animation: gl 2.4s infinite; }
+  @keyframes gl { 0%,88%,100% { transform: none; text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); }
+    90% { transform: skewX(-8deg); text-shadow: -4px 0 var(--mag), 4px 0 var(--cyn); }
+    92% { transform: skewX(4deg) translateX(2px); }
+    94% { transform: none; text-shadow: 3px 2px var(--ylw), -3px -2px var(--cyn); } }
+
+  .kao { text-align: center; font-size: 15px; color: var(--mag); margin: 2px 0 10px; }
+
+  .panel { background: rgba(4,17,8,.92); border: 1px solid var(--grn); box-shadow: 0 0 12px rgba(57,255,20,.25), inset 0 0 24px rgba(57,255,20,.05);
+    padding: 14px; margin: 12px 0; }
+  .panel.mag { border-color: var(--mag); box-shadow: 0 0 12px rgba(255,68,212,.3); }
+  .panel.cyn { border-color: var(--cyn); box-shadow: 0 0 12px rgba(0,240,255,.25); }
+
+  .term { font-size: 13px; line-height: 1.55; min-height: 132px; }
+  .term .ok { color: var(--cyn); }
+  .term .warn { color: var(--ylw); }
+  .cursor::after { content: "█"; animation: blink .7s step-end infinite; }
+
+  .debrief { border: 1px dashed var(--cyn); background: rgba(0,240,255,.045); margin: 12px 0; }
+  .debrief > summary { color: var(--cyn); cursor: pointer; list-style: none; padding: 12px 14px;
+    font-weight: 700; font-size: 13px; line-height: 1.4; text-transform: uppercase; }
+  .debrief > summary::-webkit-details-marker { display: none; }
+  .debrief > summary::before { content: "> "; color: var(--mag); }
+  .debrief[open] > summary { border-bottom: 1px dashed rgba(0,240,255,.45); }
+  .talk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 10px; }
+  .talk { border: 1px solid rgba(57,255,20,.35); padding: 9px; background: rgba(2,8,3,.75);
+    color: #d8ffd8; font-size: 11.5px; line-height: 1.45; }
+  .talk b { display: block; color: var(--grn); margin-bottom: 2px; }
+  .talk .who { color: var(--mag); font-size: 10px; text-transform: uppercase; }
+  .pulse h2 { color: var(--ylw); font-size: 14px; margin-bottom: 5px; }
+  .pulse > p { color: #d8ffd8; font-size: 12px; line-height: 1.45; margin-bottom: 9px; }
+  .pulse-grid { display: grid; gap: 7px; }
+  .pulse-item { display: flex; gap: 9px; align-items: flex-start; color: #bdf6ff; font-size: 11.5px;
+    line-height: 1.4; border: 1px solid rgba(0,240,255,.26); padding: 8px; cursor: pointer; }
+  .pulse-item:hover { border-color: var(--cyn); background: rgba(0,240,255,.06); }
+  .pulse-item input { appearance: none; flex: 0 0 17px; width: 17px; height: 17px; margin-top: 1px;
+    border: 1px solid var(--cyn); background: #000; }
+  .pulse-item input:checked { background: var(--grn); box-shadow: inset 0 0 0 3px #000, 0 0 9px rgba(57,255,20,.65); }
+  .fine { color: #4e9760 !important; font-size: 10px !important; margin: 8px 0 0 !important; }
+  .result-pulse { text-align: center; font-size: 12px; line-height: 1.5; margin-top: 7px; }
+  #finalPulse { color: var(--cyn); }
+  #finalNext { color: var(--ylw); }
+
+  button { font-family: inherit; cursor: pointer; }
+  button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .btn { display: block; width: 100%; background: var(--grn); color: #000; border: 0; font-weight: 700;
+    font-size: 15px; padding: 13px; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 0 14px rgba(57,255,20,.5); }
+  .btn:hover { background: var(--cyn); box-shadow: 0 0 18px rgba(0,240,255,.6); }
+  .btn.ghost { background: transparent; color: var(--grn); border: 1px solid var(--grn); box-shadow: none; }
+  .btn.ghost:hover { color: var(--cyn); border-color: var(--cyn); }
+
+  /* HUD */
+  .hud { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px; flex-wrap: wrap; }
+  .hud .pts { position: relative; border: 1px solid var(--ylw); color: var(--ylw); padding: 2px 8px; }
+  .pop { position: absolute; right: 0; top: -18px; color: var(--grn); font-weight: 700; animation: pop .9s ease-out forwards; pointer-events: none; }
+  @keyframes pop { 0% { opacity: 0; transform: translateY(6px) scale(.4);} 40% { opacity: 1; transform: translateY(-2px) scale(1.3);} 100% { opacity: 0; transform: translateY(-14px) scale(1);} }
+  .combo { border: 1px solid var(--mag); color: var(--mag); padding: 2px 8px; animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 12px rgba(255,68,212,.8); } }
+
+  .lvl { display: inline-block; font-size: 11px; padding: 2px 8px; border: 1px solid; margin-bottom: 8px; text-transform: uppercase; }
+  .lvl.easy { color: var(--grn); border-color: var(--grn); }
+  .lvl.mid { color: var(--ylw); border-color: var(--ylw); }
+  .lvl.hard { color: var(--red); border-color: var(--red); animation: pulse 1.2s infinite; }
+
+  .prompt-line { color: var(--cyn); font-size: 11px; margin-bottom: 6px; word-break: break-all; }
+  .q-text { color: #d8ffd8; font-size: 14px; line-height: 1.5; }
+
+  .opt { display: block; width: 100%; text-align: left; background: transparent; color: var(--grn);
+    border: 1px solid rgba(57,255,20,.55); padding: 11px 12px; margin-top: 8px; font-size: 13px; line-height: 1.45; }
+  .opt:hover:not(:disabled) { background: rgba(57,255,20,.14); border-color: var(--cyn); color: var(--cyn); }
+  .opt:disabled { cursor: default; opacity: .45; }
+  .opt.correct { opacity: 1; background: rgba(57,255,20,.18); border-color: var(--grn); color: #d8ffd8;
+    box-shadow: 0 0 14px rgba(57,255,20,.5); font-weight: 700; }
+  .opt.wrongpick { opacity: 1; background: rgba(255,59,59,.15); border-color: var(--red); color: #ffc9c9; }
+
+  .verdict { font-family: Impact, sans-serif; font-size: 16px; letter-spacing: 1px; margin-top: 12px; text-align: center; line-height: 1.4; }
+  .verdict.ok { color: var(--grn); text-shadow: 0 0 10px rgba(57,255,20,.8); }
+  .verdict.no { color: var(--red); text-shadow: 0 0 10px rgba(255,59,59,.8); }
+
+  .intel { border-left: 3px solid var(--cyn); padding: 8px 10px; margin-top: 10px; font-size: 12.5px; line-height: 1.55; color: #bdf6ff; background: rgba(0,240,255,.06); }
+  .quip { color: var(--mag); font-size: 12px; margin-top: 6px; }
+
+  .shake { animation: shake .45s; }
+  @keyframes shake { 0%,100%{transform:none} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+  .flash-red { animation: fred .45s; }
+  @keyframes fred { 0% { box-shadow: inset 0 0 60px rgba(255,59,59,.7); } 100% { box-shadow: none; } }
+
+  .lvlup { position: fixed; inset-inline: 0; top: 34%; z-index: 20; text-align: center; pointer-events: none; animation: lup 1.8s ease-in-out forwards; }
+  .lvlup span { display: inline-block; font-family: Impact, sans-serif; font-size: 26px; color: #000; background: var(--ylw);
+    padding: 8px 18px; border: 2px solid var(--mag); box-shadow: 0 0 30px var(--mag); }
+  @keyframes lup { 0% { opacity: 0; transform: scale(.3) rotate(-6deg);} 15% { opacity: 1; transform: scale(1.05);} 80% { opacity: 1; transform: scale(1);} 100% { opacity: 0; transform: scale(1.5);} }
+
+  .mascot { display: block; margin: 8px auto 0; background: transparent; border: 0; color: var(--grn);
+    font-size: 26px; text-shadow: 0 0 12px rgba(57,255,20,.6); }
+  .mascot small { display: block; font-size: 10px; color: var(--cyn); margin-top: 2px; }
+
+  .rank { font-family: Impact, sans-serif; font-size: 30px; text-align: center; color: #fff;
+    text-shadow: 2px 0 var(--mag), -2px 0 var(--cyn); margin: 8px 0 2px; }
+  .score-big { font-size: 44px; text-align: center; color: var(--grn); font-weight: 700; text-shadow: 0 0 16px rgba(57,255,20,.7); }
+
+  .stickers { position: absolute; z-index: 4; pointer-events: none; font-size: 10px; }
+  .stk { display: inline-block; border: 1px solid var(--mag); color: var(--mag); background: rgba(0,0,0,.8);
+    padding: 2px 6px; animation: wig 1.8s ease-in-out infinite; }
+  @keyframes wig { 0%,100% { transform: rotate(-3deg);} 50% { transform: rotate(3deg);} }
+
+  .footer { text-align: center; font-size: 11.5px; color: var(--grn); margin-top: 22px; line-height: 2; }
+  .footer a { color: var(--cyn); }
+  .counter { color: #000; background: var(--grn); padding: 0 5px; font-weight: 700; }
+  .trail-glyph { position: fixed; z-index: 50; pointer-events: none; font-size: 13px; color: var(--grn);
+    text-shadow: 0 0 8px rgba(57,255,20,.9); animation: fall .7s ease-out forwards; transform: translate(-50%,-50%); }
+  @keyframes fall { to { opacity: 0; transform: translate(-50%, 10px) scale(.4); } }
+  .nutfall { position: fixed; z-index: 49; pointer-events: none; font-size: 22px; animation: nfall 1.6s ease-in forwards; }
+  @keyframes nfall { from { transform: translateY(-40px) rotate(0); opacity: 1; } to { transform: translateY(105vh) rotate(360deg); opacity: .9; } }
+  .hidden { display: none !important; }
+  @media (max-width: 560px) { .talk-grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    #rain, .scanlines { display: none; }
+  }
+</style>
+</head>
+<body class="crt">
+<canvas id="rain"></canvas>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<div class="stickers" style="top:32px;left:6px;"><span class="stk">☆ 14 T4LKS ☆</span></div>
+<div class="stickers" style="top:32px;right:6px;"><span class="stk blink">⚠ W33K-1 PULSE ⚠</span></div>
+
+<div class="marq"><span>
+  ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
+  ☆*:.｡. o(≧▽≦)o .｡.:*☆ A.S.S. ACADEMY ☆*:.｡. o(≧▽≦)o .｡.:*☆ AGENTIC SQUIRREL SYMPOSIUM I ✧ ONE WEEK LATER ✧ PASSIVE LEARNING INCIDENT DETECTED ✧&nbsp;
+</span></div>
+
+<div class="wrap">
+  <h1 class="glitch">A.S.S. ACADEMY</h1>
+  <div class="kao">☆*: .｡. o(≧▽≦)o .｡.:*☆ &nbsp;the retention protocol&nbsp; (❁´◡`❁)</div>
+
+  <button class="mascot" id="mascot" type="button" aria-label="squad mascot">
+    <span id="mascotFace">(⌐■_■)🐿️</span>
+    <small id="mascotSub">// cl1ck m3</small>
+  </button>
+
+  <!-- START -->
+  <section id="stStart">
+    <div class="panel">
+      <div class="term" id="bootTerm"></div>
+    </div>
+    <details class="debrief">
+      <summary>14 talks in 14 lines — emergency memory reload</summary>
+      <div class="talk-grid" id="talkGrid"></div>
+    </details>
+    <div class="panel cyn pulse" id="pulsePanel">
+      <h2>WEEK-1 PRACTICE PULSE</h2>
+      <p>Since 19 Aug, tick only what you actually did. Intentions are not an event type.</p>
+      <div class="pulse-grid">
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="visual-decisions" /><span>Used a GenUI picker or HTML report for a materially important decision.</span></label>
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="verify-first" /><span>Verified an inbound claim against a primary source before passing it on.</span></label>
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="durable-context" /><span>Turned a repeated lesson into shared context, a test, a gate, or a self-check.</span></label>
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="parallel-boundaries" /><span>Isolated parallel agents and explicitly owned their ports, processes, or worktrees.</span></label>
+        <label class="pulse-item"><input type="checkbox" name="adopted" value="observable-autonomy" /><span>Ran long work with a heartbeat, durable status, or an end-of-day handoff.</span></label>
+      </div>
+      <p class="fine">// private by default: nothing is sent anywhere. your total appears only on the result card you choose to share.</p>
+    </div>
+    <button class="btn hidden" id="btnStart" onclick="beginRun(null)">&gt;&gt; 3NT3R TH3 A.S.S.3SSM3NT &lt;&lt;</button>
+  </section>
+
+  <!-- PLAY -->
+  <section id="stPlay" class="hidden">
+    <div class="hud">
+      <span id="prog"></span>
+      <span class="pts">PTS <b id="pts">0</b><span id="popHost"></span></span>
+      <span class="combo hidden" id="combo"></span>
+    </div>
+    <div class="panel" id="qPanel">
+      <span class="lvl" id="lvlChip"></span>
+      <div class="prompt-line" id="promptLine"></div>
+      <div class="q-text" id="qText"></div>
+      <div id="opts"></div>
+      <div id="verdict" role="status" aria-live="polite"></div>
+      <div id="intel" aria-live="polite"></div>
+      <button class="btn hidden" id="btnNext" aria-label="Next scenario" onclick="next()"></button>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section id="stDone" class="hidden">
+    <div class="panel mag">
+      <div class="term" id="evalTerm"></div>
+      <div id="resultBlock" class="hidden">
+        <div class="score-big" id="finalScore"></div>
+        <div class="rank" id="finalRank"></div>
+        <div class="kao" id="finalKao"></div>
+        <div style="text-align:center;font-size:13px;color:var(--ylw)" id="finalPts"></div>
+        <div style="text-align:center;font-size:12px;color:var(--cyn);margin-top:4px" id="finalStreak"></div>
+        <div class="result-pulse" id="finalPulse"></div>
+        <div class="result-pulse" id="finalNext"></div>
+      </div>
+    </div>
+    <div id="doneBtns" class="hidden">
+      <button class="btn" onclick="shareCard('copy')" id="btnCopy">📋 C0PY SH4R3 C4RD</button>
+      <button class="btn ghost" onclick="shareCard('download')" id="btnDl">💾 D0WNL04D C4RD</button>
+      <button class="btn ghost hidden" id="btnRetry" aria-label="Retry missed scenarios" onclick="beginRun(missed)"></button>
+      <button class="btn ghost" onclick="beginRun(null)">↻ R3PL4Y FR0M Z3R0</button>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div>☆ﾟ certified symposium survivor <span class="counter" id="visitors">0x……</span> ﾟ☆</div>
+    <div class="blink" style="color:var(--ylw)">~*~ c0ngR4tZ 0n r3t41n1nG 4 th1nG ~*~ (￣▽￣)ノ</div>
+    <div>[ <a href="/">← squirrellabs.dev</a> ] [ A.S.S. ALUMNI W3BR1NG ] [ 14 talks · 18 scenarios · 0 trackers ]</div>
+    <div style="color:#1c7a2e">best viewed in Netscape Navigator inside a Faraday cage · W3C V4L1D4T3D (this is a lie)</div>
+  </div>
+</div>
+
+<div class="marq rev bottom-marq"><span>
+  (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
+  (ノ◕ヮ◕)ノ*:･ﾟ✧ ATTENTION IS THE BOTTLENECK ✧ VERIFY CLAIMS ✧ MAKE CONTEXT DURABLE ✧ MERGED ≠ LIVE ✧ OWN THE BLAST RADIUS ✧&nbsp;
+</span></div>
+
+<script>
+/* ═══════════════ TALKS + QUESTIONS — grounded in Symposium I submissions/transcript ═══════════════ */
+const LEVEL_POINTS = { easy: 100, mid: 200, hard: 300 };
+const STREAK_BONUS = 50;
+const LEVEL_ORDER = ['easy', 'mid', 'hard'];
+const LEVEL_LABEL = { easy: 'lvl 1 — recap goblin', mid: 'lvl 2 — workflow wrangler', hard: 'lvl 3 — context necromancer' };
+
+const TALKS = [
+  {
+    "speaker": "Aleks",
+    "title": "Chip abuse",
+    "summary": "Ask Chip to capture tasks the instant they appear; removing task-entry friction made organization stick."
+  },
+  {
+    "speaker": "Konrad",
+    "title": "Konrad's Brain Tricks",
+    "summary": "Attention, not compute, is scarce: bundle work by shared proof and heartbeat long runs before they wander."
+  },
+  {
+    "speaker": "Hugo",
+    "title": "Voice input and Playwright MCP",
+    "summary": "Voice delivers rich context cheaply; browser agents handle tedious UIs after a human clears login and risky steps."
+  },
+  {
+    "speaker": "Konrad",
+    "title": "GenUI in Two Minutes",
+    "summary": "Use visual pickers for a few consequential decisions—not 13 microchoices or accidental forever-specs."
+  },
+  {
+    "speaker": "Hugo",
+    "title": "HTML reports",
+    "summary": "When terminal prose hides relationships, ask for a self-contained visual report that makes the whole system inspectable."
+  },
+  {
+    "speaker": "Kushagra",
+    "title": "multinut, six viewports at once, and why it does not replace our screenshot pipeline",
+    "summary": "Six synced viewports diagnose what moved; ordinary screenshots still prove the fix, and mirrored actions stay local-only."
+  },
+  {
+    "speaker": "Hugo",
+    "title": "TMUX and long running agents",
+    "summary": "VPS + tmux + cron makes persistent supervisors; observability and escalation boundaries keep autonomy useful."
+  },
+  {
+    "speaker": "Konrad",
+    "title": "Schizo VM Manifesto",
+    "summary": "Assume the agent machine gets nuked: isolate it, minimize credentials, and keep snapshots for rollback."
+  },
+  {
+    "speaker": "Hugo",
+    "title": "Parallelization, Workspaces, and Split panes",
+    "summary": "Arrange sessions by project and attention demand, then end with a durable handoff instead of two-hour archaeology."
+  },
+  {
+    "speaker": "Kushagra",
+    "title": "the real bottleneck was not knowing when an agent needed me",
+    "summary": "A unified decision feed beats polling, but worktrees still share ports, servers, and moving branches."
+  },
+  {
+    "speaker": "Aleks",
+    "title": "support triage",
+    "summary": "A manager agent buckets work, delegates bounded cases, and returns explicit human-only actions instead of forwarding a queue."
+  },
+  {
+    "speaker": "Konrad",
+    "title": "Vana",
+    "summary": "Open-world agents need narrow identities, replaceable surfaces, and approval gates; safety boundaries dominate the work."
+  },
+  {
+    "speaker": "Jota",
+    "title": "I fixed the same bug four times. The fifth fix was a paragraph.",
+    "summary": "Repeated defects need an agent-readable invariant with why and a greppable check; merged still does not mean deployed."
+  },
+  {
+    "speaker": "Jota",
+    "title": "A stranger reported a P1 at 07:23. The fix was live-verified at 15:39.",
+    "summary": "Treat incoming claims as verification jobs: return proof or refutation within a pre-written safety boundary."
+  }
+];
+
+const QUESTIONS = [
+  {
+    "level": "easy",
+    "prompt": "A useful follow-up pops into your head while you are deep in another task. What best applies the symposium's opening story?",
+    "options": [
+      "Keep it in working memory; task systems are for important things",
+      "Ask Chip to create the task immediately, with enough context to resume it later",
+      "Open a second session and start the follow-up before the idea cools",
+      "Wait until Friday and reconstruct the week from browser history"
+    ],
+    "correctIndex": 1,
+    "joke": "Whisper it into a peanut and bury it near the router",
+    "explanation": "Aleks's “Chip abuse” story was about removing task-capture friction. If capture is cheap and immediate, the follow-up leaves your head without hijacking the work in front of you.",
+    "wrongQuip": "Your skull is RAM, not durable storage."
+  },
+  {
+    "level": "easy",
+    "prompt": "Before launching eight parallel agents, what protects the truly scarce resource?",
+    "options": [
+      "Group them by topic so all the code-looking work sits together",
+      "Max out every concurrency slot; idle compute is the enemy",
+      "Bundle work by shared verification criteria and set a high-level heartbeat",
+      "Ask every agent to notify you after each micro-step"
+    ],
+    "correctIndex": 2,
+    "joke": "Hire a ninth agent to emotionally support the other eight",
+    "explanation": "“Konrad's Brain Tricks” framed human attention—not compute—as the bottleneck. Shared proof criteria reduce review switching, while a heartbeat catches drift without turning the human into a notification router.",
+    "wrongQuip": "More squirrels do not manufacture more attention."
+  },
+  {
+    "level": "easy",
+    "prompt": "You need to update a tedious MFA-protected dashboard. What is the voice + browser-agent pattern?",
+    "options": [
+      "Give a rich voice brief, clear login/MFA yourself, then let the agent perform the scoped routine work",
+      "Paste every credential into the prompt so the agent never interrupts",
+      "Do the whole dashboard manually because browser agents cannot cross authentication",
+      "Let the agent explore freely first, then decide what the task was"
+    ],
+    "correctIndex": 0,
+    "joke": "Fax the dashboard a 14-minute voice note in whale song",
+    "explanation": "Hugo paired voice input with Playwright: voice makes detailed context cheap, and the agent handles repetitive UI work. The human stays at the authentication and risk boundary instead of surrendering credentials or doing every click.",
+    "wrongQuip": "Rich context, narrow authority."
+  },
+  {
+    "level": "easy",
+    "prompt": "Which task most deserves a GenUI decision picker?",
+    "options": [
+      "Choosing 13 tiny spacing and naming defaults the agent can decide safely",
+      "Showing a polished layout once and silently treating it as permanent product truth",
+      "Confirming whether one obvious typo should be fixed",
+      "Locking four consequential, coupled choices before a plan is written"
+    ],
+    "correctIndex": 3,
+    "joke": "A 96-toggle picker for deciding whether the picker needs more toggles",
+    "explanation": "GenUI compresses important choices into a visual surface. It becomes fake work when it exposes micro-config, and it becomes dangerous when a throwaway visual choice quietly hardens into a forever-spec.",
+    "wrongQuip": "Important choices only. The border radius can survive democracy."
+  },
+  {
+    "level": "easy",
+    "prompt": "The same bug class returns for a second time in new code. What is the durable next move?",
+    "options": [
+      "Ship another narrow patch and hope the fifth session remembers",
+      "Write an imperative invariant where agents read it, including why it matters and a greppable self-check",
+      "Add the incident to private memory so at least one person remembers",
+      "Schedule a retrospective without changing the agent's working context"
+    ],
+    "correctIndex": 1,
+    "joke": "Rename the bug so technically it has never happened before",
+    "explanation": "Fresh agent sessions are competent developers with amnesia. Jota's recurring-bug story showed that an invariant with a reason and a self-check can outperform repeated code fixes because it reaches future code before the bug is written.",
+    "wrongQuip": "A patch repairs code. A rule with a check repairs future sessions."
+  },
+  {
+    "level": "easy",
+    "prompt": "A teammate forwards an alarming user claim. What should land in the human queue?",
+    "options": [
+      "The original link, marked urgent so somebody else can investigate",
+      "A reproduction against a real user account to remove all uncertainty",
+      "A proof or refutation from primary sources, with mechanism, impact, and a pre-set safety boundary",
+      "Nothing until three more users report the same issue"
+    ],
+    "correctIndex": 2,
+    "joke": "A red siren GIF and the words “big if true”",
+    "explanation": "Jota's incident story treated the inbound claim as a verification job, not a routing job. The useful escalation is proof that removes re-derivation work, produced inside a boundary written before the incident.",
+    "wrongQuip": "Forwarding a mystery only moves the work."
+  },
+  {
+    "level": "mid",
+    "prompt": "A complex user journey has dozens of states, CTAs, and drop-offs. Terminal prose makes your eyes glaze over. What now?",
+    "options": [
+      "Ask for a self-contained interactive HTML report that exposes the relationships",
+      "Request a longer terminal summary with more headings",
+      "Take one screenshot of the final state",
+      "Force the whole system into a single KPI"
+    ],
+    "correctIndex": 0,
+    "joke": "Print the logs in Comic Sans so the relationships feel friendlier",
+    "explanation": "Hugo's HTML-report story used a visual artifact when a numeric dashboard and terminal text could not carry the structure. The goal is not decoration; it is making a complex system inspectable at human-attention speed.",
+    "wrongQuip": "If prose hides the system, change the medium."
+  },
+  {
+    "level": "mid",
+    "prompt": "A button looks wrong on a small phone. What is the correct multinut + screenshot workflow?",
+    "options": [
+      "Replay clicks across six production panes, then keep the prettiest result",
+      "Use synced local viewports to diagnose what changed, then capture normal screenshots as proof of the fix",
+      "Replace screenshots entirely; six panes are six times more evidentiary",
+      "Edit the button until one mobile screenshot looks right"
+    ],
+    "correctIndex": 1,
+    "joke": "Open it on six phones and ask them to vote by vibration",
+    "explanation": "Multinut diagnoses whether the component or the surrounding viewport moved; the screenshot pipeline proves the final change. Mirrored panes must stay local and away from committing actions because one click can become six requests.",
+    "wrongQuip": "Diagnosis and evidence are different jobs."
+  },
+  {
+    "level": "mid",
+    "prompt": "You want a deploy monitor to run for days without babysitting. Which setup is actually agentic?",
+    "options": [
+      "A laptop tab left open with notifications muted",
+      "A cron that stays silent forever when healthy or dead",
+      "A shared high-permission server with every teammate's credentials",
+      "A VPS + tmux + scheduled worker, with durable heartbeats, transition alerts, and low-risk autonomy"
+    ],
+    "correctIndex": 3,
+    "joke": "Balance the laptop on a bag of frozen peas and declare it infrastructure",
+    "explanation": "Hugo's tmux pattern moves persistent work off the laptop, but persistence alone is not reliability. A long-running worker needs observable health and explicit boundaries between safe automatic action and human escalation.",
+    "wrongQuip": "A process you cannot distinguish from dead is not autonomous. It is missing."
+  },
+  {
+    "level": "mid",
+    "prompt": "An agent needs broad tooling for an experiment. Which security posture matches the VM talk?",
+    "options": [
+      "Use a disposable VM/VPS, grant only understood permissions, and keep snapshots for rollback",
+      "Use Docker on the everyday host and mount all credentials for convenience",
+      "Create a second OS user; admin keys elsewhere on the host do not matter",
+      "Give full host access now and review the blast radius if something happens"
+    ],
+    "correctIndex": 0,
+    "joke": "Put a tiny ‘please do not hack’ sticker over the webcam",
+    "explanation": "The disposable-VM argument assumes compromise and limits what compromise can reach. Snapshots make rollback cheap; narrow credentials make the blast radius legible. A container or second user on the same host is not the same isolation boundary.",
+    "wrongQuip": "Assume nuke. Design blast radius first."
+  },
+  {
+    "level": "mid",
+    "prompt": "Two agents have separate worktrees. Which statement is still true?",
+    "options": [
+      "They are fully isolated, including ports, servers, processes, and remote branch movement",
+      "A broad kill command is safe because each worktree owns its processes",
+      "Files are isolated; ports, servers, processes, and a moving base still need explicit ownership",
+      "They should share one feature branch so their commits converge automatically"
+    ],
+    "correctIndex": 2,
+    "joke": "Worktrees emit a diplomatic force field recognized by all localhost ports",
+    "explanation": "Kushagra's story showed what worktrees do and do not isolate. They stop file collisions, but agents can still kill shared servers, reuse ports, or wake up on a base that moved; each session should stop only what it started.",
+    "wrongQuip": "Separate folders do not create separate universes."
+  },
+  {
+    "level": "mid",
+    "prompt": "What makes the support-triage manager pattern useful instead of merely parallel?",
+    "options": [
+      "Every ticket gets ten agents so nothing can be missed",
+      "It buckets cases, delegates bounded work, resolves low-risk cases, and returns explicit human-only actions",
+      "It forwards every ticket with a category label",
+      "It lets agents make final decisions on in-flight money so humans can sleep"
+    ],
+    "correctIndex": 1,
+    "joke": "The manager agent wears a tiny tie, therefore governance is solved",
+    "explanation": "Aleks's workflow uses parallelism behind a risk model: specialists handle bounded cases and the manager compresses the remainder into decisions. The human boundary stays around consequential or irreversible outcomes.",
+    "wrongQuip": "Parallel routing is not the same as removing work."
+  },
+  {
+    "level": "hard",
+    "prompt": "An open-world assistant has email, calendar, and web access. What is the safest useful design?",
+    "options": [
+      "Give it the owner's identity and full inbox so counterparties cannot tell the difference",
+      "Start with full permissions; narrow them after the workflow proves valuable",
+      "Use a narrow agent identity, replaceable surfaces, minimal data, and approval for anything consequential",
+      "Avoid approvals because they eliminate the point of autonomy"
+    ],
+    "correctIndex": 2,
+    "joke": "Give it power of attorney and a tasteful squirrel headshot",
+    "explanation": "The Vana experiment found that identity, permissions, and boundaries are most of the work—and initially cost more than doing the task manually with AI. Narrow, replaceable surfaces let the experiment learn without turning every mistake into an owner-level incident.",
+    "wrongQuip": "Open world, closed blast radius."
+  },
+  {
+    "level": "hard",
+    "prompt": "Your context bar is red while five agents are mid-flight. What is the best first checkpoint?",
+    "options": [
+      "A durable note with the objective, completed work, exact artifacts, evidence, owners, and next action",
+      "A screenshot of every terminal pane",
+      "A request that each agent remember its state for tomorrow",
+      "A compressed transcript with no decision or artifact map"
+    ],
+    "correctIndex": 0,
+    "joke": "Yell ‘remember this!’ at the context window before it closes",
+    "explanation": "Context is useful only if the next session can resume from it. A durable checkpoint records the state of the work and its evidence, while exact artifacts and next actions prevent a fresh session from re-deriving the whole world.",
+    "wrongQuip": "A transcript is history. A checkpoint is a handoff."
+  },
+  {
+    "level": "hard",
+    "prompt": "A finder claims a severe bug. How should an independent verifier receive it?",
+    "options": [
+      "The finder's full reasoning and confidence so the verifier knows what answer to seek",
+      "Only the bare claim, pinned source, and exact failure scenario; try to refute it, then hand-reproduce survivors",
+      "A request to confirm it quickly because two agents agreeing is enough",
+      "The same finder should verify its own line numbers to preserve context"
+    ],
+    "correctIndex": 1,
+    "joke": "Put both agents in matching robes and wait for adversarial vibes",
+    "explanation": "Independent verification loses value when the verifier inherits the finder's story. Refute-framing, a pinned source, and a concrete failure scenario fight confirmation bias; high-severity survivors still need a human or main-loop reproduction.",
+    "wrongQuip": "Agreement is cheap when both agents share the same narrative."
+  },
+  {
+    "level": "hard",
+    "prompt": "Tests pass, the PR merged, but the new delivery hop has never fired and nobody opened the exact user URL. Status?",
+    "options": [
+      "Done—green tests are the contractual boundary",
+      "Live—the merge event is the deployment event",
+      "Verified—a second model reviewed the diff",
+      "Implemented, unverified—exercise the riskiest hop through the actual user/browser boundary"
+    ],
+    "correctIndex": 3,
+    "joke": "Quantum shipped: live and not live until a customer observes it",
+    "explanation": "“Merged” is not “deployed,” and a local 200 is not a human-reachable experience. The honest status remains unverified until the previously unexercised hop and the exact user surface succeed.",
+    "wrongQuip": "The riskiest hop does not become real through optimism."
+  },
+  {
+    "level": "hard",
+    "prompt": "A healthy recurring worker normally has nothing interesting to report. How do you distinguish calm from dead?",
+    "options": [
+      "Silence means success unless a customer complains",
+      "Post every internal step to Discord so silence is impossible",
+      "Write a durable run record, emit a periodic heartbeat, alert on state transitions, and verify the schedule is armed",
+      "Restart the worker every morning whether it needs it or not"
+    ],
+    "correctIndex": 2,
+    "joke": "Place a stethoscope against the VPS and listen for cron purring",
+    "explanation": "Observable autonomy needs positive evidence of life, not only error messages. A durable record and heartbeat prove the loop ran; transition alerts reserve human attention for meaningful changes.",
+    "wrongQuip": "No news and no pulse are not the same state."
+  },
+  {
+    "level": "hard",
+    "prompt": "It is one week after 14 talks. What would actually show that Symposium I worked?",
+    "options": [
+      "The calendar event is marked Done and everyone attended",
+      "The team can remember most presenter names",
+      "The average quiz score is high",
+      "Specific practices are being used, with owners and observable evidence; the quiz and pulse reveal what still needs reinforcement"
+    ],
+    "correctIndex": 3,
+    "joke": "The acronym landed, therefore organizational transformation is complete",
+    "explanation": "Recall is useful, but adoption is behavior. The symposium project itself left adoption measurement open; this quiz teaches the practices, while the pulse and real workflow evidence show whether anyone changed how they work.",
+    "wrongQuip": "Attendance is an input. Changed behavior is the outcome."
+  }
+];
+
+const RANKS = [
+  {
+    "min": 1,
+    "rank": "A.S.S. V4L3D1CT0R14N 👑",
+    "kao": "☆*:.｡. o(≧▽≦)o .｡.:*☆",
+    "sub": "Perfect recall. Now prove it in the workflow."
+  },
+  {
+    "min": 0.83,
+    "rank": "PR4CT1C3 > V1B3S",
+    "kao": "(⌐■_■)🐿️",
+    "sub": "Sharp. Your next miss should become a default."
+  },
+  {
+    "min": 0.61,
+    "rank": "C0NT3XT J4N1T0R",
+    "kao": "(❁´◡`❁)",
+    "sub": "Useful instincts, several loose acorns."
+  },
+  {
+    "min": 0.39,
+    "rank": "P4SS1V3 L34RN1NG SURV1V0R",
+    "kao": "(￣ω￣;)",
+    "sub": "The explanations are the intervention."
+  },
+  {
+    "min": 0,
+    "rank": "SYMP0S1UM 4MN3S14C",
+    "kao": "(╥﹏╥)",
+    "sub": "Open the 14-line reload. Retry without shame."
+  }
+];
+
+/* ═══════════════ matrix rain ═══════════════ */
+const rain = document.getElementById('rain');
+const rctx = rain.getContext('2d');
+const GLYPHS = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ01¥$🥜'.split('');
+const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cols = [], fs = 14;
+function sizeRain() {
+  rain.width = innerWidth; rain.height = innerHeight;
+  cols = Array(Math.ceil(innerWidth / fs)).fill(0).map(() => Math.random() * -50);
+}
+sizeRain(); addEventListener('resize', sizeRain);
+if (!REDUCED_MOTION) {
+  setInterval(() => {
+    rctx.fillStyle = 'rgba(2,8,3,0.12)'; rctx.fillRect(0, 0, rain.width, rain.height);
+    rctx.font = fs + 'px monospace';
+    cols.forEach((y, i) => {
+      const ch = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      rctx.fillStyle = Math.random() < .08 ? '#baffb0' : '#39ff14';
+      rctx.fillText(ch, i * fs, y * fs);
+      cols[i] = y * fs > rain.height && Math.random() > .975 ? 0 : y + 1;
+    });
+  }, 60);
+}
+
+/* ═══════════════ helpers ═══════════════ */
+const $ = (id) => document.getElementById(id);
+const shuffle = (a) => { const o = [...a]; for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
+function typeLines(el, lines, done) {
+  if (REDUCED_MOTION) {
+    el.innerHTML = '';
+    lines.forEach(([cls, line]) => {
+      const div = document.createElement('div');
+      if (cls) div.className = cls;
+      div.textContent = line; el.appendChild(div);
+    });
+    done && done(); return;
+  }
+  el.innerHTML = ''; let li = 0;
+  (function nextLine() {
+    if (li >= lines.length) { done && done(); return; }
+    const [cls, text] = lines[li];
+    const div = document.createElement('div');
+    if (cls) div.className = cls;
+    div.classList.add('cursor');
+    el.appendChild(div);
+    let ci = 0;
+    const t = setInterval(() => {
+      div.textContent = text.slice(0, ++ci);
+      if (ci >= text.length) { clearInterval(t); div.classList.remove('cursor'); li++; setTimeout(nextLine, 130); }
+    }, 12);
+  })();
+}
+function nutRain(n) {
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('span');
+    s.className = 'nutfall'; s.textContent = Math.random() < .8 ? '🥜' : '🐿️';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDelay = (Math.random() * .5) + 's';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2400);
+  }
+}
+
+function renderTalks() {
+  const grid = $('talkGrid');
+  TALKS.forEach((talk, index) => {
+    const card = document.createElement('article'); card.className = 'talk';
+    const title = document.createElement('b'); title.textContent = `${index + 1}. ${talk.title}`;
+    const who = document.createElement('div'); who.className = 'who'; who.textContent = `// ${talk.speaker}`;
+    const summary = document.createElement('div'); summary.textContent = talk.summary;
+    card.append(title, who, summary); grid.appendChild(card);
+  });
+}
+renderTalks();
+
+/* ═══════════════ quiz state ═══════════════ */
+let order = [], optionOrders = {}, pos = 0, chosen = null;
+let correctCount = 0, missed = [], streak = 0, bestStreak = 0, points = 0, mascotClicks = 0;
+let adoptedValues = [], nextPractice = '';
+
+const PRACTICES = [
+  { value: 'visual-decisions', label: 'visual decisions', next: 'Use a GenUI picker or HTML report for one consequential decision.' },
+  { value: 'verify-first', label: 'verify first', next: 'Turn the next inbound claim into a proof or refutation before routing it.' },
+  { value: 'durable-context', label: 'durable context', next: 'Move one repeated lesson into shared context with a self-check.' },
+  { value: 'parallel-boundaries', label: 'parallel boundaries', next: 'Give every parallel session explicit ownership of ports and processes.' },
+  { value: 'observable-autonomy', label: 'observable autonomy', next: 'Add a durable heartbeat and handoff to one long-running workflow.' },
+];
+
+const stages = { start: $('stStart'), play: $('stPlay'), done: $('stDone') };
+function show(name) { Object.entries(stages).forEach(([k, el]) => el.classList.toggle('hidden', k !== name)); }
+
+function beginRun(subset) {
+  adoptedValues = [...document.querySelectorAll('input[name="adopted"]:checked')].map((el) => el.value);
+  const firstGap = PRACTICES.find((practice) => !adoptedValues.includes(practice.value));
+  nextPractice = firstGap ? firstGap.next : 'Teach one practice to another squirrel and make it a team default.';
+  const idxs = subset && subset.length ? subset : QUESTIONS.map((_, i) => i);
+  order = LEVEL_ORDER.flatMap((lvl) => shuffle(idxs.filter((i) => QUESTIONS[i].level === lvl)));
+  optionOrders = {};
+  order.forEach((qi) => (optionOrders[qi] = shuffle(QUESTIONS[qi].options.map((_, i) => i))));
+  pos = 0; chosen = null; correctCount = 0; missed = []; streak = 0; bestStreak = 0; points = 0;
+  show('play'); renderQ();
+  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
+}
+
+function setMascot(face, sub) { $('mascotFace').textContent = face; $('mascotSub').textContent = sub; }
+
+function renderQ(prevLevel) {
+  const qi = order[pos], q = QUESTIONS[qi];
+  chosen = null;
+  $('prog').textContent = `Q ${pos + 1}/${order.length}`;
+  $('pts').textContent = points;
+  $('combo').classList.toggle('hidden', streak < 3);
+  if (streak >= 3) $('combo').textContent = `C0MB0 x${streak}` + (streak >= 5 ? ' — UNSH3LL3D' : '');
+  const chip = $('lvlChip'); chip.textContent = LEVEL_LABEL[q.level] + `  ·  +${LEVEL_POINTS[q.level]}`; chip.className = 'lvl ' + q.level;
+  $('promptLine').textContent = `alumni@ass-academy:~$ ./scenario --level=${q.level} --q=${pos + 1}`;
+  $('qText').textContent = q.prompt;
+  $('verdict').innerHTML = ''; $('intel').innerHTML = '';
+  $('btnNext').classList.add('hidden');
+  const opts = $('opts'); opts.innerHTML = ''; opts.classList.remove('shake');
+  optionOrders[qi].forEach((oi, displayIndex) => {
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = `${displayIndex + 1}. ${q.options[oi]}`;
+    b.onclick = () => answer(oi, b);
+    opts.appendChild(b);
+  });
+  if (q.joke) {
+    // the clown option: always rendered LAST, never correct, always tempting
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = `${q.options.length + 1}. ${q.joke}`;
+    b.onclick = () => answer(-1, b);
+    opts.appendChild(b);
+  }
+  setMascot('(¬‿¬)🐿️', '// th1nk1ng...');
+  if (prevLevel && prevLevel !== q.level) {
+    const l = document.createElement('div');
+    l.className = 'lvlup'; l.innerHTML = `<span>⬆ L3V3L UP: ${LEVEL_LABEL[q.level]} (ノ◕ヮ◕)ノ*:･ﾟ✧</span>`;
+    document.body.appendChild(l); setTimeout(() => l.remove(), 1900);
+  }
+  if (prevLevel) requestAnimationFrame(() => $('qPanel').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' }));
+}
+
+function answer(oi, btn) {
+  if (chosen !== null) return;
+  const qi = order[pos], q = QUESTIONS[qi];
+  chosen = oi;
+  const ok = oi === q.correctIndex;
+  [...$('opts').children].forEach((b, k) => {
+    b.disabled = true;
+    const orig = optionOrders[qi][k];
+    if (orig === q.correctIndex) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrongpick');
+  });
+  if (ok) {
+    correctCount++; streak++; bestStreak = Math.max(bestStreak, streak);
+    const gain = LEVEL_POINTS[q.level] + (streak >= 3 ? STREAK_BONUS : 0);
+    points += gain; $('pts').textContent = points;
+    $('popHost').innerHTML = `<span class="pop">+${gain}</span>`;
+    $('verdict').innerHTML = '<div class="verdict ok">4CC3SS GR4NT3D ✔ o(≧▽≦)o</div>';
+    setMascot(streak >= 3 ? '(⌐■_■)🐿️🔥' : '\\(^ヮ^)/🐿️', streak >= 3 ? '// t00 c00l' : '// gg');
+    if (streak === 5) nutRain(24); else nutRain(4);
+    if (streak >= 3) { $('combo').classList.remove('hidden'); $('combo').textContent = `C0MB0 x${streak}` + (streak >= 5 ? ' — UNSH3LL3D' : ''); }
+  } else if (oi === -1) {
+    missed.push(qi); streak = 0; $('combo').classList.add('hidden');
+    $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
+    $('verdict').innerHTML = '<div class="verdict no">C0M3D14N D3T3CT3D 🤡 -0 PTS F0R TH3 B1T</div>';
+    setMascot('(ಠ_ಠ)🐿️', '// n0t m4d, just d1s4pp01nt3d');
+    nutRain(2);
+  } else {
+    missed.push(qi); streak = 0; $('combo').classList.add('hidden');
+    $('opts').classList.add('shake'); $('qPanel').classList.remove('flash-red'); void $('qPanel').offsetWidth; $('qPanel').classList.add('flash-red');
+    $('verdict').innerHTML = '<div class="verdict no">4CC3SS D3N13D ✖ (╯°□°）╯︵ ┻━┻</div>';
+    setMascot('(T_T)🐿️', '// 0uch');
+  }
+  let intel = '';
+  if (oi === -1) intel += `<div class="quip">🐿️ w3 kn0w. 1t w4s r1ght th3r3. u h4d t0. (respect.)</div>`;
+  else if (!ok && q.wrongQuip) intel += `<div class="quip">🐿️ ${q.wrongQuip}</div>`;
+  intel += `<div class="intel">// 1NT3L: ${q.explanation}</div>`;
+  $('intel').innerHTML = intel;
+  const nb = $('btnNext'); nb.classList.remove('hidden');
+  nb.textContent = pos + 1 >= order.length ? '>> C0MP1L3 F1N4L R4NK <<' : '>> N3XT QU3RY <<';
+}
+
+function next() {
+  if (pos + 1 >= order.length) { finish(); return; }
+  const prevLevel = QUESTIONS[order[pos]].level;
+  pos++; renderQ(prevLevel);
+}
+
+function finish() {
+  show('done');
+  requestAnimationFrame(() => scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
+  $('resultBlock').classList.add('hidden'); $('doneBtns').classList.add('hidden');
+  const frac = correctCount / order.length;
+  const r = RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1];
+  typeLines($('evalTerm'), [
+    [null, '> uploading answers to the symposium alumni mainframe ...'],
+    ['ok', '> tracing practice knowledge ... ' + Math.round(frac * 100) + '%'],
+    ['warn', '> retention scan: ' + (missed.length === 0 ? 'FL4WL3SS. all acorns found.' : missed.length + ' practice(s) leaked context'),],
+    ['ok', '> R4NK C0MP1L3D:'],
+  ], () => {
+    $('resultBlock').classList.remove('hidden'); $('doneBtns').classList.remove('hidden');
+    $('finalScore').textContent = `${correctCount}/${order.length}`;
+    $('finalRank').textContent = r.rank;
+    $('finalKao').textContent = r.kao + '  ' + r.sub;
+    $('finalPts').textContent = `⭐ ${points} PTS`;
+    $('finalStreak').textContent = bestStreak >= 3 ? `best c0mb0: x${bestStreak} 🔥` : '';
+    $('finalPulse').textContent = `WEEK-1 PRACTICE PULSE: ${adoptedValues.length}/${PRACTICES.length} used`;
+    $('finalNext').textContent = `NEXT PROTOCOL: ${nextPractice}`;
+    const btnRetry = $('btnRetry');
+    btnRetry.classList.toggle('hidden', missed.length === 0);
+    btnRetry.textContent = `⟳ R3TRY TH3 ${missed.length} 1 M1SS3D`;
+    setMascot(frac >= 0.8 ? '☆*:.o(≧▽≦)o.:*☆🐿️' : frac >= 0.5 ? '(￣ω￣)🐿️' : '(╥﹏╥)🐿️', '// r4nk l0gg3d');
+    if (missed.length === 0) nutRain(40);
+  });
+}
+
+addEventListener('keydown', (event) => {
+  if (stages.play.classList.contains('hidden') || ['INPUT', 'BUTTON', 'SUMMARY'].includes(event.target.tagName)) return;
+  if (chosen === null && /^[1-5]$/.test(event.key)) {
+    const option = $('opts').children[Number(event.key) - 1];
+    if (option) { event.preventDefault(); option.click(); }
+  } else if (chosen !== null && event.key === 'Enter') {
+    event.preventDefault(); $('btnNext').click();
+  }
+});
+
+/* ═══════════════ share card ═══════════════ */
+async function shareCard(mode) {
+  const c = document.createElement('canvas'); c.width = 1080; c.height = 1080;
+  const x = c.getContext('2d');
+  x.fillStyle = '#020803'; x.fillRect(0, 0, 1080, 1080);
+  // rain streaks
+  x.font = '26px monospace';
+  for (let i = 0; i < 220; i++) {
+    x.fillStyle = `rgba(57,255,20,${0.05 + Math.random() * 0.3})`;
+    x.fillText(GLYPHS[Math.floor(Math.random() * GLYPHS.length)], Math.random() * 1080, Math.random() * 1080);
+  }
+  x.strokeStyle = '#39ff14'; x.lineWidth = 6; x.strokeRect(30, 30, 1020, 1020);
+  x.strokeStyle = '#ff44d4'; x.lineWidth = 2; x.strokeRect(46, 46, 988, 988);
+  x.textAlign = 'center';
+  x.fillStyle = '#ffffff'; x.font = '900 64px Impact, sans-serif';
+  x.shadowColor = '#ff44d4'; x.shadowBlur = 18;
+  x.fillText('A.S.S. ACADEMY', 540, 170);
+  x.shadowBlur = 0; x.fillStyle = '#00f0ff'; x.font = '30px monospace';
+  x.fillText('Agentic Squirrel Symposium I · one week later', 540, 225);
+  x.fillStyle = '#39ff14'; x.font = '900 170px monospace';
+  x.shadowColor = '#39ff14'; x.shadowBlur = 26;
+  const frac = correctCount / (order.length || 1);
+  x.fillText(`${correctCount}/${order.length}`, 540, 450);
+  x.shadowBlur = 0;
+  const r = RANKS.find((g) => frac >= g.min) || RANKS[RANKS.length - 1];
+  x.fillStyle = '#ffd23f'; x.font = '900 54px Impact, sans-serif';
+  x.fillText(r.rank, 540, 560);
+  x.fillStyle = '#ff44d4'; x.font = '40px monospace';
+  x.fillText(r.kao, 540, 630);
+  x.fillStyle = '#39ff14'; x.font = '700 42px monospace';
+  x.fillText(`⭐ ${points} PTS` + (bestStreak >= 3 ? `  ·  c0mb0 x${bestStreak}` : ''), 540, 720);
+  x.fillStyle = '#00f0ff'; x.font = '700 34px monospace';
+  x.fillText(`WEEK-1 PRACTICE PULSE: ${adoptedValues.length}/${PRACTICES.length}`, 540, 805);
+  x.fillStyle = '#ffd23f'; x.font = '27px monospace';
+  x.fillText('attention is scarce · proof beats claims · merged ≠ live', 540, 865);
+  x.fillStyle = '#1c7a2e'; x.font = '26px monospace';
+  x.fillText('squirrellabs.dev/quiz/ass-1 — c4n u r3t41n m3?', 540, 990);
+  const blob = await new Promise((res) => c.toBlob(res, 'image/png'));
+  try {
+    if (mode === 'copy' && navigator.clipboard && window.ClipboardItem) {
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      $('btnCopy').textContent = '📋 C0P13D ✔'; setTimeout(() => ($('btnCopy').textContent = '📋 C0PY SH4R3 C4RD'), 1600);
+      return;
+    }
+    throw new Error('fallback');
+  } catch {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `ass-academy-${correctCount}-${order.length}.png`;
+    a.click(); URL.revokeObjectURL(a.href);
+    const fallbackBtn = mode === 'copy' ? $('btnCopy') : $('btnDl');
+    fallbackBtn.textContent = '💾 S4V3D ✔';
+    setTimeout(() => (fallbackBtn.textContent = mode === 'copy' ? '📋 C0PY SH4R3 C4RD' : '💾 D0WNL04D C4RD'), 1600);
+  }
+}
+
+/* ═══════════════ chrome: mascot, trail, counter, boot ═══════════════ */
+$('mascot').onclick = () => {
+  mascotClicks++;
+  const faces = ['(⌐■_■)🐿️', '(ノ◕ヮ◕)ノ*:･ﾟ✧🐿️', '(❁´◡`❁)🐿️', 'ᕕ( ᐛ )ᕗ🐿️', '(￣▽￣)ノ🐿️'];
+  setMascot(faces[mascotClicks % faces.length], '// n1c3 cl1ck');
+  nutRain(mascotClicks % 5 === 0 ? 18 : 2);
+};
+let lastTrail = 0;
+addEventListener('pointermove', (e) => {
+  const now = performance.now();
+  if (now - lastTrail < 60) return; lastTrail = now;
+  const s = document.createElement('span');
+  s.className = 'trail-glyph';
+  s.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+  s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+  document.body.appendChild(s); setTimeout(() => s.remove(), 700);
+});
+(function counter() {
+  const target = 0x1337 * 1000 + Math.floor(Math.random() * 999);
+  let cur = target - 420;
+  const t = setInterval(() => {
+    cur += 21; if (cur >= target) { cur = target; clearInterval(t); }
+    $('visitors').textContent = '0x' + cur.toString(16).toUpperCase();
+  }, 40);
+})();
+typeLines($('bootTerm'), [
+  [null, '> init ass_protocol v1.0 ................. OK'],
+  [null, '> loading 14_talks + transcript .......... OK'],
+  ['warn', '> scanning for passive learning .......... FOUND: PROBABLY'],
+  [null, '> 18 scenarios · lvl 1→3 · pts + c0mb0s · no timer'],
+  ['ok', '> 4CC3SS: ALUMNI RETENTION PROTOCOL // ADOPTION > ATTENDANCE'],
+], () => $('btnStart').classList.remove('hidden'));
+</script>
+</body>
+</html>
