@@ -1,0 +1,7 @@
+bridge-domain-verification=80acd91bcdb34db43a05b5692e43a6fd
+
+Domain: squirrellabs.dev
+Owner: Squirrel Labs Ltd
+Contact: Konrad Urban, Director (konrad@peanut.me)
+Published: 2026-10-30
+Purpose: proof of domain control for Bridge (bridge.xyz) business verification.
