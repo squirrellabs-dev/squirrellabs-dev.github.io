@@ -1,514 +1,653 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Squirrel Labs</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐿️</text></svg>">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Squirrel Labs — software and research for self-custodial money</title>
+<meta name="description" content="Squirrel Labs Ltd is a London software and research lab that builds Peanut, a self-custodial payments app, and open-source payment software.">
+<link rel="canonical" href="https://squirrellabs.dev/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Squirrel Labs">
+<meta property="og:title" content="Squirrel Labs — software and research for self-custodial money">
+<meta property="og:description" content="Squirrel Labs Ltd is a London software and research lab that builds Peanut, a self-custodial payments app, and open-source payment software.">
+<meta property="og:url" content="https://squirrellabs.dev/">
+<meta name="theme-color" content="#f3eee3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3eee3; --card:#faf7f0; --ink:#171614; --red:#d23a22; --blue:#1f4f9c; --yellow:#efb422;
+  --mute:#5e5951;
+  --sans:'Jost',Futura,'Century Gothic',sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --gut:48px; --max:1344px; --b:3px solid var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.on-dark a:focus-visible,.pr a:focus-visible{outline-color:var(--yellow)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:9}
+.skip:focus{left:8px}
 
-  <style>
-    :root {
-      --noise: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W/Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/HfGadZUbfw177G7j/OGbIs8TahLyynl4X4RinF793Oz+BU0saXtUHrVBFT/DnA3ctNPoGbs4hRIjTok8i+algT1lTHi4SxFvONKNrgQFAq2/gFnWMXgwffgYMJpiKYkmW3tTg3ZQ9Jq+f8XN+A5eeUKHWvJWJ2sgJ1Sop+wwhqFVijqWaJhwtD8MNlSBeWNNWTa5Z5kPZw5+LbVT99wqTdx29lMUH4OIG/D86ruKEauBjvH5xy6um/Sfj7ei6UUVk4AIl3MyD4MSSTOFgSwsH/QJWaQ5as7ZcmgBZkzjjU1UrQ74ci1gWBCSGHtuV1H2mhSnO3Wp/3fEV5a+4wz//6qy8JxjZsmxxy5+4w9CDNJY09T072iKG0EnOS0arEYgXqYnXcYHwjTtUNAcMelOd4xpkoqiTYICWFq0JSiPfPDQdnt+4/wuqcXY47QILbgAAAABJRU5ErkJggg==);
-      --h: 100;
-      --d: -80;
-      --firstthird: -20;
-      --secondthird: -140;
-      --splitcomplimentarity1: 190;
-      --splitcomplimentarity2: 270;
-    }
+/* header */
+header{border-bottom:var(--b)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:28px;height:28px;flex:none}
+.brand b{font-weight:600;font-size:19px}
+nav ul{display:flex;gap:26px;list-style:none}
+nav a{text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{color:var(--red)}
 
-    * { box-sizing: border-box; }
+/* hero: poster */
+.poster{border-bottom:var(--b);padding:44px 0 0}
+.poster-top{padding-bottom:36px}
+.poster-sub{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:end;margin-top:32px}
+.eyebrow{display:flex;gap:10px;align-items:center;margin-bottom:22px}
+.eyebrow i{display:inline-block;width:12px;height:12px}
+.eyebrow{flex-wrap:wrap;gap:8px 16px}
+.eyebrow .sw{display:flex;gap:10px}
+.eyebrow .kick{font-weight:600;font-size:22px;letter-spacing:-.005em;line-height:1.2}
+@media (max-width:600px){.eyebrow .kick{font-size:18px;flex-basis:100%}.eyebrow .sw{order:-1}}
+.poster h1{font-weight:500;font-size:80px;line-height:1;letter-spacing:-.025em;max-width:15em}
+.poster h1 span{display:block;color:var(--red)}
+.poster .motto{margin:22px 0 0;font-size:26px;font-weight:500;letter-spacing:-.01em}
+@media (max-width:600px){.poster .motto{font-size:20px;margin-top:14px}}
+.poster .lede{font-size:20px;max-width:34em}
+.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.btn{display:inline-flex;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;border:2px solid var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn:hover{background:var(--yellow);color:var(--ink)}
 
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      overflow-x: hidden;
-    }
+.plates{display:grid;grid-template-columns:repeat(3,1fr);border-top:var(--b)}
+.plate{border-right:var(--b);display:flex;flex-direction:column}
+.plate:last-child{border-right:0}
+.plate svg{display:block;width:100%;height:auto}
+.plate .cap{border-top:var(--b);padding:16px 20px 22px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;background:var(--card);flex:1}
+.plate .cap b{grid-row:span 2;font-weight:600;font-size:40px;line-height:.9;color:var(--ink);min-width:1.4em}
+.plate .cap h2{font-weight:600;font-size:20px;line-height:1.2}
+.plate .cap p{font-size:16px;color:var(--ink)}
 
-    body {
-      background:
-        radial-gradient(circle at 65% 35%,
-          hsla(var(--firstthird), 100%, 10%, 0.5),
-          hsla(var(--secondthird), 200%, 10%, 1)),
-        var(--noise);
-      filter: contrast(200%);
-      color: #fff;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-    }
+/* cover band: every section opens on a report cover */
+section{border-bottom:var(--b)}
+.band{display:grid;grid-template-columns:220px 1fr 220px;border-bottom:var(--b)}
+.band .no{padding:20px 24px;display:flex;flex-direction:column;justify-content:space-between;color:var(--paper);min-height:220px}
+.band .no b{font-weight:600;font-size:88px;line-height:.85;letter-spacing:-.02em}
+.band .t{padding:28px 36px;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;border-left:var(--b);border-right:var(--b)}
+.band h2{font-weight:500;font-size:56px;line-height:1;letter-spacing:-.02em}
+.band .t p{color:var(--mute);max-width:36em;font-size:17px}
+.band .g{display:flex;align-items:center;justify-content:center;background:var(--card)}
+.band .g svg{width:150px;height:150px}
+.inner{padding:56px 0 72px}
 
-    a {
-      color: inherit;
-      text-decoration: underline;
-      transition: color 150ms;
-    }
-    a:hover { color: #9ca3af; }
+/* products as report covers */
+.covers{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.pc{display:flex;flex-direction:column}
+.pc .face{border:var(--b);display:flex;flex-direction:column;color:var(--paper)}
+.pc .face.y{color:var(--ink)}
+.pc .face .row{display:flex;justify-content:space-between;padding:14px 18px;position:relative;z-index:1}
+.pc .face h3{font-weight:600;font-size:52px;line-height:.95;letter-spacing:-.02em;padding:4px 18px 0;position:relative;z-index:1}
+.pc .face svg{display:block;width:100%;height:auto;margin-top:8px}
+.pc .face .foot{margin-top:auto;padding:12px 18px;border-top:var(--b);background:var(--card);color:var(--ink);display:flex;justify-content:space-between;position:relative;z-index:1}
+.pc p{margin-top:20px;font-size:17px}
+.spec{margin-top:16px;border-top:2px solid var(--ink)}
+.spec div{display:grid;grid-template-columns:7.5em 1fr;gap:12px;border-bottom:1px solid var(--ink);padding:8px 0;font-size:14.5px}
+.spec dt{color:var(--mute)}
+.spec dd{font-family:var(--mono);font-size:13px}
 
-    /* Background layers */
-    .dotted-bg {
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(
-        hsla(var(--d), 100%, 70%, 0.5) 1px, transparent 0);
-      background-size: 25px 25px;
-      pointer-events: none;
-      z-index: -1;
-    }
+/* research index */
+.idx{border:var(--b);background:var(--card)}
+.idx .hd,.idx .r{display:grid;grid-template-columns:132px 1fr 260px 76px;align-items:center}
+.idx .hd{background:var(--ink);color:var(--paper)}
+.idx .hd span{padding:10px 16px}
+.idx .r{border-top:1px solid var(--ink);text-decoration:none;min-height:84px}
+.idx .r:hover{background:#fff}
+.idx .r:hover .ti{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.idx .r>span{padding:14px 16px}
+.idx .no{font-weight:600;font-size:26px;line-height:1;white-space:nowrap}
+.idx .ti{font-weight:500;font-size:21px;line-height:1.25}
+.idx .ar{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.idx .gl{display:flex;justify-content:center;align-self:stretch;align-items:center;border-left:1px solid var(--ink)}
+.idx .gl svg{width:40px;height:40px}
+.idx-note{margin-top:14px;color:var(--mute);font-size:15px}
 
-    .ball-container {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: -2;
-    }
-    .ball {
-      width: 120vmin;
-      height: 120vmin;
-      border-radius: 50%;
-      background: radial-gradient(circle at 37% 30%,
-        hsla(var(--firstthird), 100%, 5%, 0.5),
-        hsla(var(--secondthird), 100%, 5%, 0.5));
-      opacity: 0.9;
-    }
+/* principles: poster triptych */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);border:var(--b)}
+.pr{display:flex;flex-direction:column;border-right:var(--b);background:var(--card)}
+.pr:last-child{border-right:0}
+.pr .art{height:260px;overflow:hidden;border-bottom:var(--b)}
+.pr .art svg{display:block;width:100%;height:100%}
+.pr .tx{padding:24px 24px 30px;display:flex;flex-direction:column;gap:10px}
+.pr h3{font-weight:600;font-size:32px;line-height:1}
+.pr p{font-size:17px}
 
-    /* Layout */
-    .container {
-      max-width: 36rem;
-      margin: 0 auto;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
+/* back cover: company */
+.back{background:var(--ink);color:var(--paper);border-bottom:0}
+.back .band{border-bottom:3px solid var(--paper)}
+.back .band .t{border-color:var(--paper)}
+.back .band .t p{color:#c9c2b2}
+.back .band .g{background:var(--ink)}
+.notbank{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;padding-bottom:40px;border-bottom:1px solid #5e5951}
+.notbank h3{font-weight:500;font-size:64px;line-height:1;letter-spacing:-.02em}
+.notbank h3 span{color:var(--yellow)}
+.notbank p{font-size:19px;max-width:30em}
+.cols{display:grid;grid-template-columns:5fr 7fr;gap:56px;padding-top:40px}
+.rec dl div{display:grid;grid-template-columns:10em 1fr;border-bottom:1px solid #5e5951;padding:10px 0}
+.rec dt{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#c9c2b2;padding-top:3px}
+.rec dd{font-size:16px}
+.rec a{color:var(--paper)}
+.stmts{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px}
+.stmts div{border-top:6px solid var(--red);padding-top:12px;font-size:16px}
+.stmts div:nth-child(2){border-color:var(--blue)} .stmts div:nth-child(3){border-color:var(--yellow)} .stmts div:nth-child(4){border-color:var(--paper)}
+.stmts h4{font-weight:600;font-size:18px;margin-bottom:4px}
+.legal{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid var(--paper);margin-top:40px}
+.legal a{padding:14px 16px;text-decoration:none;font-weight:600;font-size:15px;border-right:2px solid var(--paper);display:flex;justify-content:space-between;gap:10px}
+.legal a:last-child{border-right:0;background:var(--yellow);color:var(--ink)}
+.legal a:hover{background:var(--paper);color:var(--ink)}
 
-    /* Brutal window style */
-    .window {
-      border: 1px dashed #fff;
-      padding: 1rem;
-      box-shadow: 0.5rem 0.5rem 0 0 hsl(var(--d), 100%, 20%);
-    }
-    .window--first {
-      background:
-        radial-gradient(circle at -20% 35%,
-          hsla(var(--firstthird), 100%, 30%, 0.5),
-          hsla(var(--h), 200%, 5%, 1)),
-        var(--noise);
-    }
-    .window--second {
-      background:
-        radial-gradient(circle at 120% 35%,
-          hsla(var(--secondthird), 100%, 30%, 0.5),
-          hsla(var(--h), 200%, 5%, 1)),
-        var(--noise);
-      box-shadow: 0.5rem 0.5rem 0 0 hsl(var(--splitcomplimentarity1), 100%, 20%);
-    }
-    .window--split {
-      background:
-        radial-gradient(circle at 65% 35%,
-          hsla(var(--splitcomplimentarity1), 100%, 30%, 0.5),
-          hsla(var(--h), 200%, 5%, 1)),
-        var(--noise);
-      box-shadow: 0.5rem 0.5rem 0 0 hsl(var(--splitcomplimentarity1), 100%, 20%);
-    }
 
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(1.25rem, 5vw, 1.875rem);
-      line-height: 1.4;
-      font-weight: 400;
-    }
-    .hero .subhead {
-      margin: 0.75rem 0 0;
-      font-size: clamp(1.5rem, 5.5vw, 1.875rem);
-      line-height: 1.2;
-    }
+/* open source: repository index */
+.repos{border:var(--b);background:var(--card)}
+.repos .hd,.repos .r{display:grid;grid-template-columns:240px 1fr 250px 150px}
+.repos .hd{background:var(--ink);color:var(--paper)}
+.repos .hd span{padding:10px 16px}
+.repos .r{border-top:1px solid var(--ink);align-items:start}
+.repos .r>*{padding:18px 16px}
+.repos .nm{font-weight:600;font-size:22px;line-height:1.2;display:flex;gap:12px;align-items:center}
+.repos .nm i{width:14px;height:14px;flex:none;display:block}
+.repos .ds{font-size:16.5px}
+.repos .lic{font-family:var(--mono);font-size:13px;line-height:1.6}
+.repos .lk{font-weight:600;font-size:15px;text-align:right}
+.repos .lk a{text-underline-offset:4px}
+.org{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:20px}
+.org p{color:var(--mute);font-size:15px;max-width:40em}
 
-    .qa { font-size: 1rem; line-height: 1.6; }
-    .qa .q { font-weight: 900; font-size: 1.125rem; }
+/* security & disclosure */
+.disc{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start}
+.disc h3{font-weight:500;font-size:60px;line-height:1.02;letter-spacing:-.02em}
+.disc h3 span{color:var(--red)}
+.disc .body{margin-top:24px;font-size:19px;max-width:32em}
+.disc .card{border:var(--b);background:var(--card)}
+.disc .card .art{border-bottom:var(--b)}
+.disc .card .art svg{display:block;width:100%;height:auto}
+.disc .card dl{padding:6px 20px 14px}
+.disc .card dl div{display:grid;grid-template-columns:7.5em 1fr;gap:12px;border-bottom:1px solid var(--ink);padding:10px 0;font-size:15.5px}
+.disc .card dl div:last-child{border-bottom:0}
+.disc .card dt{color:var(--mute)}
 
-    .squirrel-wrap {
-      display: flex;
-      justify-content: center;
-    }
-    .squirrel {
-      margin: 0;
-      white-space: pre;
-      font-size: clamp(0.7rem, 2.4vw, 0.95rem);
-      line-height: 1.2;
-      min-height: 14em;
-      padding: 1rem;
-      max-width: 100%;
-      overflow-x: auto;
-    }
+/* research: three sub-lists in one report */
+.sub{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin:56px 0 16px}
+.inner>.sub:first-child{margin-top:0}
+.sub h3{font-weight:500;font-size:36px;line-height:1.05;letter-spacing:-.02em;margin-top:8px}
+.sub p{color:var(--mute);font-size:16px;margin-top:6px;max-width:44em}
+.sub .sk{display:flex;align-items:center;gap:10px}
+.sub .sk i{width:14px;height:14px;display:block;flex:none}
+.sub .more{text-underline-offset:4px;white-space:nowrap}
+.idx .r .ti{overflow-wrap:anywhere}
 
-    .credits { font-size: 0.95rem; line-height: 1.8; }
+/* pull quote (lab-hero variant only) */
+.quote{background:var(--card)}
+.quote .wrap{display:grid;grid-template-columns:220px 1fr;}
+.quote .mk{border-right:var(--b);display:flex;align-items:center;justify-content:center;padding:28px 0}
+.quote .mk svg{width:150px;height:150px}
+.quote blockquote{padding:56px 48px}
+.quote blockquote p{font-weight:500;font-size:64px;line-height:1.02;letter-spacing:-.02em;max-width:14em}
+.quote blockquote p span{display:block;color:var(--red)}
+.quote cite{display:block;margin-top:22px;font-style:normal;color:var(--mute)}
 
-    /* Typewriter effect */
-    .typewriter {
-      overflow: hidden;
-      border-right: 0.15em solid hsla(var(--h), 100%, 50%, 1);
-      white-space: nowrap;
-      letter-spacing: 0.05em;
-      animation:
-        typing 3.5s steps(40, end),
-        blink-caret 0.75s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to   { width: 90% }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50%      { border-color: hsla(var(--h), 100%, 50%, 1); }
-    }
+footer{background:var(--ink);color:#c9c2b2;padding:0 0 32px}
+footer .fine{border-top:1px solid #5e5951;padding-top:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--paper);text-decoration:underline}
+footer .nos{padding:28px 0 20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;font-size:15px}
+footer .nos h2{font-size:12px;color:#c9c2b2}
+footer .nos a{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
+footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
+.strip{display:grid;grid-template-columns:3fr 1fr 2fr 6fr;height:14px}
 
-    /* Glitch letter switching */
-    .glitch-letters { animation: cray 6s infinite steps(50); }
-    @keyframes cray {
-      2%  { font-weight: 100; text-decoration: none;        text-transform: uppercase;  }
-      4%  { font-weight: 600; font-style: italic;           text-transform: none;       }
-      6%  { font-weight: 300; font-style: italic; text-decoration: underline; }
-      8%  { font-weight: 500; }
-      10% { font-weight: 500; text-decoration: line-through; text-transform: uppercase; }
-      12% { font-weight: 700; text-transform: lowercase; }
-      14% { font-weight: 600; font-style: italic; }
-      16% { font-weight: 500; text-decoration: line-through; }
-      18% { font-weight: 400; text-transform: lowercase; }
-      20% { font-weight: 200; text-transform: uppercase; }
-      22% { font-weight: 400; font-style: italic; }
-      24% { font-weight: 300; text-transform: uppercase; }
-      26% { font-weight: 200; text-transform: capitalize; }
-      28% { font-weight: 400; }
-      30% { font-weight: 700; font-style: italic; }
-      32% { font-weight: 500; }
-      34% { font-weight: 300; text-decoration: underline; }
-      36% { font-weight: 400; font-style: italic; }
-      38% { font-weight: 500; text-decoration: underline; }
-      40% { font-weight: 300; }
-      42% { font-weight: 400; }
-      44% { font-weight: 100; text-transform: lowercase; }
-      46% { font-weight: 100; font-style: italic; }
-      48% { font-weight: 700; text-decoration: underline; }
-      50% { font-weight: 300; font-style: italic; text-transform: capitalize; }
-      52% { font-weight: 400; }
-      54% { font-weight: 200; }
-      56% { font-weight: 100; }
-      58% { font-weight: 200; text-decoration: line-through; }
-      60% { font-weight: 300; }
-      62% { font-weight: 600; font-style: italic; }
-      64% { font-weight: 500; }
-      66% { font-weight: 700; }
-      68% { font-weight: 500; text-transform: lowercase; }
-      70% { font-weight: 300; }
-      72% { font-weight: 300; text-decoration: underline; }
-      74% { font-weight: 200; text-transform: lowercase; }
-      76% { font-weight: 300; }
-      78% { font-weight: 700; }
-      80% { font-weight: 500; }
-      82% { font-weight: 100; }
-      84% { font-weight: 200; font-style: italic; }
-      86% { font-weight: 500; text-decoration: line-through; text-transform: capitalize; }
-      88% { font-weight: 500; font-style: italic; text-decoration: underline; }
-      90% { font-weight: 200; }
-      92% { font-weight: 700; }
-      94% { font-weight: 700; }
-      96% { font-weight: 600; }
-      98% { font-weight: 600; }
-    }
-  </style>
+@media (max-width:1180px){
+  .poster h1{font-size:64px}
+  .poster-sub,.cols,.notbank{grid-template-columns:1fr;gap:28px}
+  .cta{justify-content:flex-start}
+  .band{grid-template-columns:160px 1fr}
+  .band .g{display:none}
+  .band .t{border-right:0}
+  .covers{grid-template-columns:1fr 1fr}
+  .idx .hd,.idx .r{grid-template-columns:120px 1fr 200px 64px}
+  .repos .hd,.repos .r{grid-template-columns:200px 1fr 200px 120px}
+  .disc{grid-template-columns:1fr;gap:32px}
+  .disc .card{max-width:560px}
+  .quote .wrap{grid-template-columns:160px 1fr}
+  .quote .mk svg{width:110px;height:110px}
+  .quote blockquote p{font-size:52px}
+}
+@media (max-width:760px){
+  :root{--gut:16px}
+  body{font-size:17px}
+  header .wrap{flex-direction:column;align-items:flex-start;gap:6px;padding-top:12px;padding-bottom:10px;min-height:0}
+  nav ul{flex-wrap:wrap;gap:4px 18px}
+  nav a{font-size:14px;display:inline-block;padding:4px 0}
+  .poster{padding-top:28px}
+  .poster h1{font-size:44px}
+  .poster .lede{font-size:17.5px}
+  .plates{grid-template-columns:1fr;margin:0 calc(-1 * var(--gut))}
+  .plate{border-right:0;border-bottom:var(--b)}
+  .plate:last-child{border-bottom:0}
+  .plate .dl{display:none}
+  .plate .cap{padding:14px 16px 18px}
+  .plate .cap b{font-size:32px}
+  .band{grid-template-columns:1fr;margin:0 calc(-1 * var(--gut))}
+  .band .no{min-height:0;flex-direction:row;align-items:flex-end;padding:14px 16px}
+  .band .no b{font-size:56px}
+  .band .t{border-left:0;border-top:var(--b);padding:20px 16px}
+  .band h2{font-size:36px}
+  .back .band .t{border-top:3px solid var(--paper)}
+  .inner{padding:36px 0 48px}
+  .covers{grid-template-columns:1fr;gap:40px}
+  .pc .face h3{font-size:44px}
+  .idx .hd{display:none}
+  .idx .r{grid-template-columns:64px 1fr;grid-template-areas:"no gl" "ti ti" "ar ar";min-height:0;padding:12px 0}
+  .idx .r>span{padding:4px 16px}
+  .idx .no{grid-area:no;font-size:22px}
+  .idx .gl{grid-area:gl;border-left:0;justify-content:flex-end}
+  .idx .gl svg{width:30px;height:30px}
+  .idx .ti{grid-area:ti;font-size:19px}
+  .sub{margin-top:40px}
+  .sub h3{font-size:28px}
+  .idx .ar{grid-area:ar}
+  .principles{grid-template-columns:1fr}
+  .pr{border-right:0;border-bottom:var(--b)}
+  .pr:last-child{border-bottom:0}
+  .pr .art{height:170px}
+  .pr .tx{padding:20px 16px 24px}
+  .notbank h3{font-size:42px}
+  .rec dl div{grid-template-columns:1fr}
+  .stmts{grid-template-columns:1fr}
+  .legal{grid-template-columns:1fr 1fr}
+  .legal a:nth-child(2n){border-right:0}
+  .legal a:nth-child(-n+2){border-bottom:2px solid var(--paper)}
+  .repos .hd{display:none}
+  .repos .r{grid-template-columns:1fr;padding:10px 0}
+  .repos .r>*{padding:4px 16px}
+  .repos .lk{text-align:left}
+  .disc h3{font-size:38px}
+  .disc .body{font-size:17.5px}
+  .disc .card dl div{grid-template-columns:1fr;gap:2px}
+  .quote .wrap{grid-template-columns:1fr;padding:0}
+  .quote .mk{border-right:0;border-bottom:var(--b);justify-content:flex-start;padding:16px}
+  .quote .mk svg{width:72px;height:72px}
+  .quote blockquote{border-right:0;padding:28px 16px 32px}
+  .quote blockquote p{font-size:36px}
+}
+</style>
 </head>
-
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Squirrel Labs, home">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" fill="#171614"/><circle cx="12" cy="18" r="8" fill="#d23a22"/><rect x="15" y="4" width="11" height="11" fill="#efb422"/></svg>
+      <b>Squirrel Labs</b>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#build">Products</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#open-source">Open source</a></li>
+        <li><a href="#company">Company &amp; compliance</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <div class="dotted-bg"></div>
-  <section class="ball-container" aria-hidden="true">
-    <div class="ball"></div>
-  </section>
-
-  <main class="container">
-
-    <header class="window window--first hero">
-      <div class="typewriter glitch-letters">
-        <h1>Right to stash.</h1>
+<main id="main">
+<div class="poster" id="top">
+  <div class="wrap">
+    <div class="poster-top">
+      <div>
+        <div class="eyebrow lbl"><i style="background:var(--red)"></i><i style="background:var(--yellow)"></i><i style="background:var(--blue)"></i></div>
+        <h1>Software and research <span>for self-custodial money.</span></h1>
+        <p class="motto">Move money. Hold nothing.</p>
       </div>
-      <p class="subhead">We are Squirrel Labs Ltd</p>
-    </header>
-
-    <section class="window window--first qa">
-      <p>
-        <span class="q">&gt; Who are you?</span><br>
-        <span>&gt;&gt;&gt; We're a software lab run by squirrels.</span><br>
-        <span class="q">&gt; Why does it matter?</span><br>
-        <span>&gt;&gt;&gt; It's your right to be a cyber squirrel!</span>
-      </p>
-    </section>
-
-    <div class="squirrel-wrap">
-      <pre class="window window--second squirrel" aria-hidden="true"></pre>
+      <div class="poster-sub">
+        <p class="lede">We build and publish Peanut, a payments app.</p>
+        <div class="cta"><a class="btn solid" href="#build">What we build</a><a class="btn" href="#research">Research</a></div>
+      </div>
     </div>
 
-    <section class="window window--split credits">
-      &gt;&gt;&gt; <a href="https://hugomontenegro.com/" target="_blank" rel="noopener">hugo</a><br>
-      &gt;&gt;&gt; <a href="https://konradurban.com/" target="_blank" rel="noopener">konrad</a><br>
-      &gt; special thanks to ethberlin and the DoD<br>
-      &gt; we'd love hear from you and see what you build on this<br>
-      &gt; <a href="https://unlicense.org/" target="_blank" rel="noopener">unlicense</a>
-    </section>
+    <div class="plates">
+      <figure class="plate">
+        <svg viewBox="0 0 420 400" role="img" aria-label="Plate one: a key drawn as a ring and a shaft, with construction lines.">
+          <rect width="420" height="400" fill="#d23a22"/>
+          <g stroke="#faf7f0" stroke-width="1.5" fill="none" opacity=".55">
+            <path d="M20 210 H400"/><path d="M140 56 V350"/>
+            <circle cx="140" cy="210" r="118" stroke-dasharray="5 6"/>
+            <path d="M140 92 A118 118 0 0 1 258 210" stroke-width="3" stroke-dasharray="0"/>
+          </g>
+          <circle cx="140" cy="210" r="66" fill="none" stroke="#faf7f0" stroke-width="32"/>
+          <rect x="206" y="194" width="160" height="32" fill="#faf7f0"/>
+          <rect x="310" y="226" width="22" height="44" fill="#faf7f0"/><rect x="344" y="226" width="22" height="30" fill="#faf7f0"/>
+          <g stroke="#171614" stroke-width="2"><path d="M132 210 H148 M140 202 V218"/></g>
+          <g class="dl" fill="none" stroke="#faf7f0" stroke-width="2"><path d="M206 160 H366"/><path d="M206 152 V168 M366 152 V168"/></g>
+          <text class="dl" x="286" y="146" text-anchor="middle" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500">P-256</text>
+          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE I</text>
+          <text class="dl" x="24" y="370" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14">r = 66 · secure enclave</text>
+        </svg>
+        <figcaption class="cap"><b>I</b><h2>The key stays on the device.</h2><p>Created by device biometrics and sealed in the Secure Enclave. It is never exported.</p></figcaption>
+      </figure>
+      <figure class="plate">
+        <svg viewBox="0 0 420 400" role="img" aria-label="Plate two: a signature drawn from three arcs of equal radius, with their construction circles.">
+          <rect width="420" height="400" fill="#1f4f9c"/>
+          <g stroke="#faf7f0" stroke-width="1.5" fill="none" opacity=".55" stroke-dasharray="5 6">
+            <circle cx="110" cy="210" r="50"/><circle cx="210" cy="210" r="50"/><circle cx="310" cy="210" r="50"/>
+          </g>
+          <g stroke="#faf7f0" stroke-width="1.5" opacity=".55"><path d="M20 210 H400"/></g>
+          <path d="M60 210 A50 50 0 0 1 160 210 A50 50 0 0 0 260 210 A50 50 0 0 1 360 210 L384 186" fill="none" stroke="#faf7f0" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="60" cy="210" r="13" fill="#efb422"/>
+          <rect x="60" y="300" width="300" height="12" fill="#efb422"/>
+          <g fill="#faf7f0"><circle cx="110" cy="210" r="4"/><circle cx="210" cy="210" r="4"/><circle cx="310" cy="210" r="4"/></g>
+          <text class="dl" x="60" y="340" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14">WebAuthn assertion over H(op)</text>
+          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE II</text>
+        </svg>
+        <figcaption class="cap"><b>II</b><h2>The signature authorises.</h2><p>Each payment is an ERC-4337 user operation, signed on the device by the passkey.</p></figcaption>
+      </figure>
+      <figure class="plate">
+        <svg viewBox="0 0 420 400" role="img" aria-label="Plate three: a ledger drawn as five stacked blocks, each linked to the one before it; the newest block is red.">
+          <rect width="420" height="400" fill="#efb422"/>
+          <g stroke="#171614" stroke-width="1.5" opacity=".5" stroke-dasharray="5 6"><path d="M70 56 V346"/><path d="M320 56 V346"/></g>
+          <g fill="#171614"><rect x="70" y="78" width="250" height="36"/><rect x="70" y="132" width="250" height="36"/><rect x="70" y="186" width="250" height="36"/><rect x="70" y="240" width="250" height="36"/></g>
+          <rect x="70" y="294" width="250" height="36" fill="#d23a22"/>
+          <g fill="none" stroke="#171614" stroke-width="4"><path d="M320 96 H356 V150 H320 M356 150 V204 H320 M356 204 V258 H320 M356 258 V312 H320"/></g>
+          <g fill="#171614"><rect x="349" y="143" width="14" height="14"/><rect x="349" y="197" width="14" height="14"/><rect x="349" y="251" width="14" height="14"/><rect x="349" y="305" width="14" height="14"/></g>
+          <g class="dl" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14"><text x="84" y="101">n-4</text><text x="84" y="155">n-3</text><text x="84" y="209">n-2</text><text x="84" y="263">n-1</text></g>
+          <text x="84" y="317" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500">n · settled</text>
+          <text x="24" y="40" fill="#171614" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE III</text>
+          <text class="dl" x="24" y="370" fill="#171614" font-family="IBM Plex Mono" font-size="14">Arbitrum · H(n-1) → n</text>
+        </svg>
+        <figcaption class="cap"><b>III</b><h2>The ledger settles.</h2><p>Funds move on Arbitrum into the user's own smart account.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-  </main>
+<section id="build">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--red)"><span class="lbl">Report</span><b>01</b></div>
+      <div class="t"><h2>What we build</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="60" cy="75" r="44" fill="#d23a22"/><rect x="78" y="40" width="56" height="70" fill="#1f4f9c"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="covers">
+        <article class="pc">
+          <div class="face" style="background:var(--red)">
+            <div class="row lbl"><span>Product</span><span>P-1</span></div>
+            <h3>Peanut</h3>
+            <svg viewBox="0 0 400 260" aria-hidden="true">
+              <g stroke="#faf7f0" stroke-width="1.5" opacity=".5" fill="none"><path d="M0 140 H400"/><circle cx="120" cy="140" r="96" stroke-dasharray="5 6"/></g>
+              <circle cx="120" cy="140" r="66" fill="#faf7f0"/>
+              <g fill="none" stroke="#171614" stroke-width="10"><circle cx="100" cy="140" r="18"/><path d="M118 140 H160 M150 140 V156"/></g>
+              <rect x="228" y="70" width="140" height="140" fill="#1f4f9c"/><rect x="228" y="176" width="140" height="14" fill="#efb422"/>
+              <path d="M188 140 H220" stroke="#faf7f0" stroke-width="6"/>
+            </svg>
+            <div class="foot lbl"><span>peanut.me</span><span>iOS · Android</span></div>
+          </div>
+          <p>Stablecoins in, local money out, for example through PIX in Brazil or bank transfer.</p>
+        </article>
+        <article class="pc">
+          <div class="face y" style="background:var(--yellow)">
+            <div class="row lbl"><span>Product · open source</span><span>P-2</span></div>
+            <h3>Peanut Split</h3>
+            <svg viewBox="0 0 400 260" aria-hidden="true">
+              <g stroke="#171614" stroke-width="1.5" opacity=".45" stroke-dasharray="5 6"><path d="M147 40 V250 M253 40 V250"/></g>
+              <rect x="40" y="70" width="320" height="40" fill="#171614"/>
+              <g stroke="#171614" stroke-width="5"><path d="M93 110 V160 M200 110 V160 M307 110 V160"/></g>
+              <rect x="40" y="160" width="104" height="40" fill="#d23a22"/><rect x="148" y="160" width="104" height="40" fill="#1f4f9c"/><rect x="256" y="160" width="104" height="40" fill="#faf7f0" stroke="#171614" stroke-width="4"/>
+            </svg>
+            <div class="foot lbl"><span>peanutsplit.com</span><span>AGPL-3.0</span></div>
+          </div>
+          <p>A shared-expense app.</p>
+        </article>
+        <article class="pc">
+          <div class="face" style="background:var(--blue)">
+            <div class="row lbl"><span>Protocol · open source</span><span>P-3</span></div>
+            <h3>Peanut protocol</h3>
+            <svg viewBox="0 0 400 260" aria-hidden="true">
+              <g stroke="#faf7f0" stroke-width="1.5" opacity=".5"><path d="M0 150 H400"/></g>
+              <circle cx="96" cy="150" r="56" fill="none" stroke="#faf7f0" stroke-width="14"/>
+              <circle cx="304" cy="150" r="56" fill="none" stroke="#faf7f0" stroke-width="14"/>
+              <path d="M152 150 H248" stroke="#faf7f0" stroke-width="6" stroke-dasharray="14 8"/>
+              <rect x="176" y="126" width="48" height="48" fill="#efb422"/>
+              <circle cx="96" cy="150" r="14" fill="#d23a22"/>
+            </svg>
+            <div class="foot lbl"><span>Smart contracts</span><span>Payment links</span></div>
+          </div>
+          <p>Contracts for payment links: claimable links that carry value until the recipient claims them.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    console.log(
-      "%cСлава  %cУкраїні",
-      "font-size: 20px; background-color: yellow; color: blue;",
-      "font-size: 20px; background-color: blue; color: yellow"
-    );
-  </script>
+<section id="research">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--blue)"><span class="lbl">Report</span><b>02</b></div>
+      <div class="t"><h2>Research</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="20" y="30" width="110" height="18" fill="#171614"/><rect x="20" y="58" width="110" height="18" fill="#171614"/><rect x="20" y="86" width="110" height="18" fill="#171614"/><rect x="20" y="114" width="70" height="18" fill="#d23a22"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="sub">
+        <div><span class="lbl sk"><i style="background:var(--yellow)"></i>02.1 · Writing</span><h3>Essays by Konrad Urban</h3><p>Published on kkonrad.substack.com.</p></div>
+        <a class="more lbl" href="https://kkonrad.com/writing/" target="_blank" rel="noopener">More writing <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="idx">
+        <div class="hd lbl"><span>No.</span><span>Title</span><span>Published</span><span></span></div>
+        <a class="r" href="https://kkonrad.substack.com/p/i-modeled-wrench-attacks-privacy" target="_blank" rel="noopener"><span class="no">W-01</span><span class="ti">I modeled wrench attacks. Privacy makes them worse.</span><span class="ar">Feb 2026</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" href="https://kkonrad.substack.com/p/who-wins-what-as-stablecoins-slash" target="_blank" rel="noopener"><span class="no">W-02</span><span class="ti">Who wins what as stablecoins slash cost</span><span class="ar">Aug 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" href="https://kkonrad.substack.com/p/wen-p2p-electronic-cash-system" target="_blank" rel="noopener"><span class="no">W-03</span><span class="ti">Wen p2p electronic cash system?</span><span class="ar">Jan 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" href="https://kkonrad.substack.com/p/what-happens-when-you-buy-coffee" target="_blank" rel="noopener"><span class="no">W-04</span><span class="ti">What happens when you buy coffee? Crypto vs card</span><span class="ar">Dec 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" href="https://kkonrad.substack.com/p/towards-link-based-transfer-abstraction" target="_blank" rel="noopener"><span class="no">W-05</span><span class="ti">Towards Link-Based Transfer Abstraction</span><span class="ar">May 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" href="https://kkonrad.substack.com/p/can-we-sidestep-onchain-identity" target="_blank" rel="noopener"><span class="no">W-06</span><span class="ti">Can we sidestep onchain identity?</span><span class="ar">Jul 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+      </div>
 
-  <script>
-    /**
-     * Ascii Morph - MIT License - @author: Tim Holman (http://tholman.com)
-     */
-    var asciis = [
-      [
-        "             // ---------------\\",
-        "            ||  henlo fren!    |",
-        "             \\               /",
-        "                ____________",
-        "                   ",
-        " ",
-        " ",
-      ],
-      [
-        "             ,     ,",
-        "             |\\__/|  .~    ~. ",
-        "             /  o `./      .'",
-        "            {o__,   \    {",
-        "              / .  . )    \\ ",
-        "              `-` '-' \    }",
-        "             .(   _(   )_.'",
-        "            '---.~_ _ _|",
-      ],
-      [
-        "             /--------------------- \\",
-        "            ||   i'm Kohu,           | ",
-        "            || the cyber squiwwel!   | ",
-        "             \\                    /",
-        "                ￣∨￣￣￣￣￣￣￣￣",
-        "                   ʕ⎯̯͡⎯ʔ༄     ",
-        " ",
-        " ",
-      ],
-      [
-        "              .      .",
-        "              /\\__//  .~    ~. ",
-        "             /~ ~ `./      .'",
-        "            {.__,   \  {",
-        "              / .@. )  \\ ",
-        "              `-` '-' \     }",
-        "             .(   _(   )_  .'",
-        "            '_ _ _.~---|",
-      ],
-      [
-        "  ***************************************",
-        "  *       Welcome to my world   .      *",
-        "  *      Easy payments, decentralisation, *",
-        "  * interoperability . *",
-        "  *****∨********************************  ",
-        "       ..                             ",
-      ],
-      [
-        "  ***************************************",
-        "  *                                     *",
-        "  *    made with <3 by hugo & konrad    *",
-        "  *                                     *",
-        "  ***************************************  ",
-      ],
-    ];
+      <div class="sub">
+        <div><span class="lbl sk"><i style="background:var(--red)"></i>02.2 · Talks</span><h3>Talks by Konrad Urban</h3></div>
+        <a class="more lbl" href="https://kkonrad.com/talks" target="_blank" rel="noopener">All talks <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="idx">
+        <div class="hd lbl"><span>No.</span><span>Title</span><span>Venue</span><span></span></div>
+        <a class="r" href="https://app.devcon.org/schedule/ZFX3ZF" target="_blank" rel="noopener"><span class="no">T-01</span><span class="ti">Wen p2p Electronic Cash System?</span><span class="ar">Devcon 7, Bangkok · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" href="https://www.youtube.com/watch?v=J_VTceUdfgs" target="_blank" rel="noopener"><span class="no">T-02</span><span class="ti">Chain abstraction? But I want to know where my tokens are</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" href="https://web.archive.org/web/20240805094400/https://cfp.walletuncon.org/walletuncon-2023/talk/9QGLLM/" target="_blank" rel="noopener"><span class="no">T-03</span><span class="ti">How can wallets deal with the multichain nightmare?</span><span class="ar">Wallet Unconference · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" href="https://youtu.be/q4NsLmTGNAU?t=9292" target="_blank" rel="noopener"><span class="no">T-04</span><span class="ti">Please stop obsessing about blockchain!</span><span class="ar">ETHDenver · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" href="https://watch.protocol.berlin/65a90bf47932ebe436ba9351/watch?session=6851404d4ac43bf73d22ddb8" target="_blank" rel="noopener"><span class="no">T-05</span><span class="ti">When Help Hurts: Why a Friendly Government is a Threat to Crypto</span><span class="ar">Protocol Berlin</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+      </div>
 
-    var AsciiMorph = (function () {
-      'use strict';
-      var element = null;
-      var canvasDimensions = {};
-      var renderedData = [];
-      var framesToAnimate = [];
-      var myTimeout = null;
+      <div class="sub">
+        <div><span class="lbl sk"><i style="background:var(--blue)"></i>02.3 · Third-party reading · not our work</span><h3>Papers we build on</h3><p>By Offchain Labs, the Arbitrum team (ZeroDev is part of Offchain Labs).</p></div>
+        
+      </div>
+      <div class="idx">
+        <div class="hd lbl"><span>No.</span><span>Title</span><span>Authors · venue</span><span></span></div>
+        <a class="r" href="https://www.usenix.org/conference/usenixsecurity18/presentation/kalodner" target="_blank" rel="noopener"><span class="no">P-01</span><span class="ti">Arbitrum: Scalable, private smart contracts</span><span class="ar">Kalodner, Goldfeder, Chen, Weinberg, Felten · USENIX Security 2018</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+        <a class="r" href="https://arxiv.org/abs/2404.10491" target="_blank" rel="noopener"><span class="no">P-02</span><span class="ti">BoLD: Fast and Cheap Dispute Resolution</span><span class="ar">Offchain Labs (Felten et al.) · AFT 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+        <a class="r" href="https://arxiv.org/abs/2306.02179" target="_blank" rel="noopener"><span class="no">P-03</span><span class="ti">Buying Time: Latency Racing vs. Bidding in Transaction Ordering</span><span class="ar">Mamageishvili, Kelkar, Schlegel, Felten · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+      </div>
+      <p class="idx-note">Areas: account abstraction (ERC-4337), passkey and WebAuthn key custody, stablecoin settlement and local rails, payment-link cryptography, zero-knowledge proofs, smart-contract security.</p>
+    </div>
+  </div>
+</section>
 
-      function extend(target, source) {
-        for (var key in source) if (!(key in target)) target[key] = source[key];
-        return target;
-      }
-      function repeat(pattern, count) {
-        if (count < 1) return '';
-        var result = '';
-        while (count > 1) {
-          if (count & 1) result += pattern;
-          count >>= 1, pattern += pattern;
-        }
-        return result + pattern;
-      }
-      function replaceAt(string, index, character) {
-        return string.substr(0, index) + character + string.substr(index + character.length);
-      }
-      function init(el, canvasSize) {
-        element = el;
-        canvasDimensions = canvasSize;
-      }
-      function squareOutData(data) {
-        var i;
-        var renderDimensions = { x: 0, y: data.length };
-        for (i = 0; i < data.length; i++) {
-          if (data[i].length > renderDimensions.x) renderDimensions.x = data[i].length;
-        }
-        for (i = 0; i < data.length; i++) {
-          if (data[i].length < renderDimensions.x) {
-            data[i] = (data[i] + repeat(' ', renderDimensions.x - data[i].length));
-          }
-        }
-        var paddings = {
-          x: Math.floor((canvasDimensions.x - renderDimensions.x) / 2),
-          y: Math.floor((canvasDimensions.y - renderDimensions.y) / 2)
-        };
-        for (var i = 0; i < data.length; i++) {
-          data[i] = repeat(' ', paddings.x) + data[i] + repeat(' ', paddings.x);
-        }
-        for (var i = 0; i < canvasDimensions.y; i++) {
-          if (i < paddings.y) data.unshift(repeat(' ', canvasDimensions.x));
-          else if (i > (paddings.y + renderDimensions.y)) data.push(repeat(' ', canvasDimensions.x));
-        }
-        return data;
-      }
-      function getMorphedFrame(data) {
-        var firstInLine, lastInLine = null;
-        var found = false;
-        for (var i = 0; i < data.length; i++) {
-          var line = data[i];
-          firstInLine = line.search(/\S/);
-          if (firstInLine === -1) firstInLine = null;
-          for (var j = 0; j < line.length; j++) {
-            if (line[j] != ' ') lastInLine = j;
-          }
-          if (firstInLine !== null && lastInLine !== null) {
-            data = crushLine(data, i, firstInLine, lastInLine);
-            found = true;
-          }
-          firstInLine = null, lastInLine = null;
-        }
-        return found ? data : false;
-      }
-      function crushLine(data, line, start, end) {
-        var centers = {
-          x: Math.floor(canvasDimensions.x / 2),
-          y: Math.floor(canvasDimensions.y / 2)
-        };
-        var crushDirection = 1;
-        if (line > centers.y) crushDirection = -1;
-        data[line] = replaceAt(data[line], start, " ");
-        data[line] = replaceAt(data[line], end, " ");
-        if (!((end - 1) == (start + 1)) && !(start === end) && !((start + 1) === end)) {
-          data[line + crushDirection] = replaceAt(data[line + crushDirection], (start + 1), '+*/\\'.substr(Math.floor(Math.random() * '+*/\\'.length), 1));
-          data[line + crushDirection] = replaceAt(data[line + crushDirection], (end - 1), '+*/\\'.substr(Math.floor(Math.random() * '+*/\\'.length), 1));
-        } else if ((((start === end) || (start + 1) === end)) && ((line + 1) !== centers.y && (line - 1) !== centers.y && line !== centers.y)) {
-          data[line + crushDirection] = replaceAt(data[line + crushDirection], (start), '+*/\\'.substr(Math.floor(Math.random() * '+*/\\'.length), 1));
-          data[line + crushDirection] = replaceAt(data[line + crushDirection], (end), '+*/\\'.substr(Math.floor(Math.random() * '+*/\\'.length), 1));
-        }
-        return data;
-      }
-      function render(data) {
-        renderSquareData(squareOutData(data.slice()));
-      }
-      function renderSquareData(data) {
-        element.innerHTML = '';
-        for (var i = 0; i < data.length; i++) {
-          element.innerHTML = element.innerHTML + data[i] + '\n';
-        }
-        renderedData = data;
-      }
-      function morph(data) {
-        clearTimeout(myTimeout);
-        animateFrames(prepareFrames(data.slice()));
-      }
-      function prepareFrames(data) {
-        var deconstructionFrames = [];
-        var constructionFrames = [];
-        var clonedData = renderedData;
-        for (var i = 0; i < 100; i++) {
-          var newData = getMorphedFrame(clonedData);
-          if (newData === false) break;
-          deconstructionFrames.push(newData.slice(0));
-          clonedData = newData;
-        }
-        var squareData = squareOutData(data);
-        constructionFrames.unshift(squareData.slice(0));
-        for (var i = 0; i < 100; i++) {
-          var newData = getMorphedFrame(squareData);
-          if (newData === false) break;
-          constructionFrames.unshift(newData.slice(0));
-          squareData = newData;
-        }
-        return deconstructionFrames.concat(constructionFrames);
-      }
-      function animateFrames(frameData) {
-        framesToAnimate = frameData;
-        animateFrame();
-      }
-      function animateFrame() {
-        myTimeout = setTimeout(function () {
-          renderSquareData(framesToAnimate[0]);
-          framesToAnimate.shift();
-          if (framesToAnimate.length > 0) animateFrame();
-        }, 20);
-      }
-      function main(element, canvasSize) {
-        if (!element || !canvasSize) {
-          console.log("sorry, I need an element and a canvas size");
-          return;
-        }
-        init(element, canvasSize);
-      }
-      return extend(main, { render: render, morph: morph });
-    })();
+<section id="open-source">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--yellow);color:var(--ink)"><span class="lbl">Report</span><b>03</b></div>
+      <div class="t"><h2>Open source</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="25" y="25" width="100" height="100" fill="none" stroke="#171614" stroke-width="8"/><path d="M25 75 H125 M75 25 V125" stroke="#171614" stroke-width="8"/><rect x="79" y="79" width="42" height="42" fill="#d23a22"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="repos">
+        <div class="hd lbl"><span>Repository</span><span>What it is</span><span>Licence · status</span><span></span></div>
+        <div class="r">
+          <span class="nm"><i style="background:var(--yellow);outline:2px solid var(--ink)"></i>Peanut Split</span>
+          <span class="ds">Squirrel Labs is the sole upstream maintainer and pays the cost of running it.</span>
+          <span class="lic">Code AGPL-3.0-or-later<br>Docs CC-BY-4.0<br>Maintained</span>
+          <span class="lk"><a href="https://github.com/peanutprotocol/peanutsplit" target="_blank" rel="noopener">Repository →</a></span>
+        </div>
+        <div class="r">
+          <span class="nm"><i style="background:var(--blue)"></i>Peanut protocol</span>
+          <span class="ds">The payment-link contracts.</span>
+          <span class="lic">GPL-3.0<br>Maintained</span>
+          <span class="lk"><a href="https://github.com/peanutprotocol/peanut-contracts" target="_blank" rel="noopener">Repository →</a></span>
+        </div>
+        <div class="r">
+          <span class="nm"><i style="background:var(--ink)"></i>squirrel</span>
+          <span class="ds">A zero-knowledge, decentralised payment-links experiment from 2022. The research line the payment-link contracts descend from.</span>
+          <span class="lic">Research<br>Archived, private</span>
+          <span class="lk"></span>
+        </div>
+      </div>
+      <div class="org">
+        <p>Read the code, file issues and send fixes on GitHub.</p>
+        <a class="btn" href="https://github.com/peanutprotocol" target="_blank" rel="noopener">github.com/peanutprotocol <span aria-hidden="true">&nbsp;→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    var squirrelEl = document.querySelector('.squirrel');
-    AsciiMorph(squirrelEl, { x: 20, y: 12 });
-    AsciiMorph.render(asciis[0]);
+<section class="quote" aria-label="Pull quote">
+  <div class="wrap">
+    <div class="mk" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="48" cy="75" r="34" fill="none" stroke="#171614" stroke-width="6" stroke-dasharray="10 7"/><circle cx="104" cy="75" r="34" fill="#d23a22"/></svg></div>
+    <blockquote>
+      <p>Custody is a promise. <span>Self&#8209;custody is a proof.</span></p>
+      <cite class="lbl">Squirrel Labs</cite>
+    </blockquote>
+  </div>
+</section>
 
-    var currentIndex = 2;
-    setTimeout(function () { AsciiMorph.morph(asciis[1]); }, 1000);
-    setInterval(function () {
-      AsciiMorph.morph(asciis[currentIndex]);
-      currentIndex++;
-      currentIndex %= asciis.length;
-    }, 3000);
-  </script>
+<section id="principles">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--ink)"><span class="lbl">Report</span><b>04</b></div>
+      <div class="t"><h2>Principles</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="45" cy="50" r="26" fill="#d23a22"/><rect x="80" y="24" width="52" height="52" fill="#1f4f9c"/><polygon points="75,90 115,140 35,140" fill="#efb422"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="principles">
+        <div class="pr">
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#d23a22"/><circle cx="200" cy="150" r="150" fill="none" stroke="#faf7f0" stroke-width="28"/><circle cx="200" cy="150" r="54" fill="#faf7f0"/></svg></div>
+          <div class="tx"><span class="lbl">Principle I</span><h3>Non-custodial</h3><p>We never hold user funds or user keys.</p></div>
+        </div>
+        <div class="pr">
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#1f4f9c"/><rect x="80" y="30" width="240" height="240" fill="none" stroke="#faf7f0" stroke-width="28"/><path d="M80 150 H320 M200 30 V270" stroke="#faf7f0" stroke-width="28"/></svg></div>
+          <div class="tx"><span class="lbl">Principle II</span><h3>Open source</h3><p>Anyone can read, audit, fork and run the code we publish.</p></div>
+        </div>
+        <div class="pr">
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#171614"/><polygon points="200,40 350,300 50,300" fill="none" stroke="#faf7f0" stroke-width="28"/><rect x="186" y="120" width="28" height="70" fill="#efb422"/><rect x="186" y="204" width="28" height="26" fill="#efb422"/></svg></div>
+          <div class="tx"><span class="lbl">Principle III</span><h3>Security</h3><p>We pay the researchers who report issues to us.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    /* Mouse-driven color shift */
-    var root = document.documentElement;
-    var x0 = 100;
-    function setColors(x) {
-      root.style.setProperty('--h', x);
-      root.style.setProperty('--d', x - 180);
-      root.style.setProperty('--firstthird', x - 120);
-      root.style.setProperty('--secondthird', x - 240);
-      root.style.setProperty('--splitcomplimentarity1', x + 90);
-      root.style.setProperty('--splitcomplimentarity2', x + 170);
-    }
-    setColors(x0);
-    root.addEventListener('mousemove', function (e) {
-      var x = e.clientX / innerWidth;
-      var y = e.clientY / innerWidth;
-      x = Math.floor(Math.sqrt(x) * 230);
-      setColors(x);
-    });
-  </script>
+<section id="security">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--blue)"><span class="lbl">Report</span><b>05</b></div>
+      <div class="t"><h2>Security &amp; disclosure</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><polygon points="75,18 135,128 15,128" fill="none" stroke="#171614" stroke-width="8"/><rect x="69" y="58" width="12" height="38" fill="#d23a22"/><rect x="69" y="104" width="12" height="12" fill="#d23a22"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="disc">
+        <div>
+          <h3>More than <span>$20,000</span> paid to security researchers since Peanut started.</h3>
+          <p class="body">Please give us the chance to fix an issue before you publish it. The figure above is our history of payments to researchers, not a rate card.</p>
+        </div>
+        <div class="card">
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150"><rect width="400" height="150" fill="#1f4f9c"/><g stroke="#faf7f0" stroke-width="1.5" opacity=".55" fill="none"><path d="M0 75 H400"/><circle cx="110" cy="75" r="52" stroke-dasharray="5 6"/></g><circle cx="110" cy="75" r="28" fill="#faf7f0"/><rect x="220" y="47" width="56" height="56" fill="#efb422"/><rect x="292" y="47" width="56" height="56" fill="none" stroke="#faf7f0" stroke-width="8"/></svg></div>
+          <dl>
+            <div><dt>Scope</dt><dd>Peanut app and website, Peanut API, the smart contracts behind Peanut accounts</dd></div>
+            <div><dt>Report to</dt><dd>Peanut support chat. Start at <a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">peanut.me/en/help/security-disclosure</a></dd></div>
+            <div><dt>Include</dt><dd>What you found, where, and how to reproduce it</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section id="company" class="back">
+  <div class="wrap">
+    <div class="band">
+      <div class="no" style="background:var(--yellow);color:var(--ink)"><span class="lbl">Back cover</span><b>06</b></div>
+      <div class="t"><h2>Company &amp; compliance</h2></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="25" y="25" width="100" height="100" fill="none" stroke="#faf7f0" stroke-width="8"/><rect x="25" y="25" width="100" height="26" fill="#efb422"/></svg></div>
+    </div>
+    <div class="inner">
+      <div class="notbank">
+        <h3>Squirrel Labs is <span style="white-space:nowrap">not a bank.</span></h3>
+        <p>We are a software developer. We are not a money transmitter or a licensed financial institution, and we hold no financial licences.</p>
+      </div>
+      <div class="cols">
+        <div class="rec">
+          <span class="lbl" style="color:#c9c2b2">Entity record</span>
+          <dl style="margin-top:8px">
+            <div><dt>Legal name</dt><dd>Squirrel Labs Ltd</dd></div>
+            <div><dt>Registered in</dt><dd>England and Wales</dd></div>
+            <div><dt>Company No.</dt><dd><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">14558823</a></dd></div>
+            <div><dt>Incorporated</dt><dd>28 December 2022</dd></div>
+            <div><dt>Registered office</dt><dd>Office One, 1 Coldbath Square, London, EC1R 5HL, England</dd></div>
+            <div><dt>Activity</dt><dd>SIC 62012, business and domestic software development</dd></div>
+            <div><dt>Trading name</dt><dd>Peanut is a trading name of Squirrel Labs Ltd</dd></div>
+            <div><dt>Founders</dt><dd>Hugo Montenegro, co-founder, tech lead<br>Konrad Urban, co-founder, growth and operations</dd></div>
+            <div><dt>Contact</dt><dd><a href="mailto:support@peanut.me">support@peanut.me</a></dd></div>
+          </dl>
+        </div>
+        <div>
+          <div class="stmts">
+            <div><h4>No custody</h4>We never hold user funds or user keys. Balances sit in each user's own smart account on Arbitrum.</div>
+            <div><h4>Licensed partners</h4>Fiat on-ramps, off-ramps and card issuing are run by licensed partners under their own authorisations.</div>
+          </div>
+          <nav class="legal" aria-label="Legal">
+            <a href="https://peanut.me/terms" target="_blank" rel="noopener">Terms <span aria-hidden="true">→</span></a><a href="https://peanut.me/privacy" target="_blank" rel="noopener">Privacy <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">Security <span aria-hidden="true">→</span></a><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">Company record <span aria-hidden="true">→</span></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="nos">
+      <h2 class="lbl">Nostalgia</h2>
+      <a href="/nostalgia/">The old site (2024–2026)</a>
+      <small>or press S three times</small>
+    </div>
+    <div class="fine">
+      <span>© 2026 Squirrel Labs Ltd</span>
+    </div>
+  </div>
+</footer>
+<div class="strip" aria-hidden="true"><i style="background:#d23a22"></i><i style="background:#efb422"></i><i style="background:#1f4f9c"></i><i style="background:#faf7f0"></i></div>
+<script>
+// Easter egg: S or Space three times within 800 ms opens the old site.
+(function(){var t=[];document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey||(e.shiftKey&&e.key===' '))return;
+  var el=e.target;if(el&&(el.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))return;
+  if(e.key!=='s'&&e.key!=='S'&&e.key!==' '){if(e.key.length===1)t=[];return}
+  var n=Date.now();t=t.filter(function(x){return n-x<800});t.push(n);
+  if(t.length>=3)location.href='/nostalgia/';
+})})();
+</script>
 </body>
-
 </html>
