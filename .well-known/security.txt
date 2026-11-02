@@ -1,0 +1,9 @@
+# Squirrel Labs — security contact
+# Squirrel Labs Ltd builds Peanut. Reports follow Peanut's disclosure policy.
+# https://peanut.me/en/help/security-disclosure
+
+Contact: https://peanut.me/en/help/security-disclosure
+Policy: https://peanut.me/en/help/security-disclosure
+Expires: 2027-07-27T00:00:00.000Z
+Preferred-Languages: en, es, pt
+Canonical: https://squirrellabs.dev/.well-known/security.txt
