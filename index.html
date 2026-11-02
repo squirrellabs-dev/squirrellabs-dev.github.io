@@ -148,7 +148,7 @@ section{border-bottom:var(--b)}
 .stmts div{border-top:6px solid var(--red);padding-top:12px;font-size:16px}
 .stmts div:nth-child(2){border-color:var(--blue)} .stmts div:nth-child(3){border-color:var(--yellow)} .stmts div:nth-child(4){border-color:var(--paper)}
 .stmts h4{font-weight:600;font-size:18px;margin-bottom:4px}
-.legal{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid var(--paper);margin-top:40px}
+.legal{display:grid;grid-template-columns:repeat(2,1fr);border:3px solid var(--paper);margin-top:40px}
 .legal a{padding:14px 16px;text-decoration:none;font-weight:600;font-size:15px;border-right:2px solid var(--paper);display:flex;justify-content:space-between;gap:10px}
 .legal a:last-child{border-right:0;background:var(--yellow);color:var(--ink)}
 .legal a:hover{background:var(--paper);color:var(--ink)}
@@ -211,8 +211,6 @@ footer a:hover{color:var(--paper);text-decoration:underline}
 footer .nos{padding:28px 0 20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;font-size:15px}
 footer .nos p.lbl{font-size:12px;color:#c9c2b2}
 footer .nos a{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
-footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
-@media (hover:none){footer .nos small{display:none}}
 .strip{display:grid;grid-template-columns:3fr 1fr 2fr 6fr;height:14px}
 
 @media (max-width:1180px){
@@ -235,9 +233,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
   .quote blockquote p{font-size:clamp(36px,5.6vw,52px)}
 }
 @media (max-width:1024px){
-  .legal{grid-template-columns:1fr 1fr}
   .legal a:nth-child(2n){border-right:0}
-  .legal a:nth-child(-n+2){border-bottom:2px solid var(--paper)}
   .repos .hd{display:none}
   .repos .r{grid-template-columns:1fr;padding:10px 0}
   .repos .r>*{padding:4px 16px}
@@ -472,9 +468,11 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
       </div>
       <div class="idx">
         <div class="hd lbl"><span>No.</span><span>Title</span><span>Venue</span><span></span></div>
-        <a class="r" aria-label="T-01, Chain abstraction? But I want to know where my tokens are, Devcon 7 · 2024" href="https://www.youtube.com/watch?v=J_VTceUdfgs" target="_blank" rel="noopener"><span class="no">T-01</span><span class="ti">Chain abstraction? But I want to know where my tokens are</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" aria-label="T-02, How can wallets deal with the multichain nightmare?, Wallet Unconference · 2023" href="https://web.archive.org/web/20240805094400/https://cfp.walletuncon.org/walletuncon-2023/talk/9QGLLM/" target="_blank" rel="noopener"><span class="no">T-02</span><span class="ti">How can wallets deal with the multichain nightmare?</span><span class="ar">Wallet Unconference · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" aria-label="T-03, Please stop obsessing about blockchain!, ETHDenver 2023 · The Next Billion Summit" href="https://youtu.be/q4NsLmTGNAU?t=9292" target="_blank" rel="noopener"><span class="no">T-03</span><span class="ti">Please stop obsessing about blockchain!</span><span class="ar">ETHDenver 2023 · The Next Billion Summit</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-01, When Help Hurts: Why a Friendly Government is a Threat to Crypto, Protocol Berg v2 · 2025" href="https://www.youtube.com/watch?v=TFI1lFSs9TE" target="_blank" rel="noopener"><span class="no">T-01</span><span class="ti">When Help Hurts: Why a Friendly Government is a Threat to Crypto</span><span class="ar">Protocol Berg v2 · 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-02, Wen p2p Electronic Cash System?, Devcon 7 · 2024" href="https://www.youtube.com/watch?v=Kw3rxKFUEKc" target="_blank" rel="noopener"><span class="no">T-02</span><span class="ti">Wen p2p Electronic Cash System?</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-03, Chain abstraction? But I want to know where my tokens are, Devcon 7 · 2024" href="https://www.youtube.com/watch?v=J_VTceUdfgs" target="_blank" rel="noopener"><span class="no">T-03</span><span class="ti">Chain abstraction? But I want to know where my tokens are</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-04, How can wallets deal with the multichain nightmare?, Wallet Unconference · 2023" href="https://web.archive.org/web/20240805094400/https://cfp.walletuncon.org/walletuncon-2023/talk/9QGLLM/" target="_blank" rel="noopener"><span class="no">T-04</span><span class="ti">How can wallets deal with the multichain nightmare?</span><span class="ar">Wallet Unconference · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-05, Please stop obsessing about blockchain!, ETHDenver 2023 · The Next Billion Summit" href="https://youtu.be/q4NsLmTGNAU?t=9292" target="_blank" rel="noopener"><span class="no">T-05</span><span class="ti">Please stop obsessing about blockchain!</span><span class="ar">ETHDenver 2023 · The Next Billion Summit</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
       </div>
 
       <div class="sub">
@@ -623,7 +621,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
             <div><h4>Licensed partners</h4>Licensed partners run fiat on-ramps, off-ramps and card issuing.</div>
           </div>
           <nav class="legal" aria-label="Legal">
-            <a href="https://peanut.me/en/terms" target="_blank" rel="noopener">Terms <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/privacy" target="_blank" rel="noopener">Privacy <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">Security <span aria-hidden="true">→</span></a><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">Company record <span aria-hidden="true">→</span></a>
+            <a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">Security <span aria-hidden="true">→</span></a><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">Company record <span aria-hidden="true">→</span></a>
           </nav>
         </div>
       </div>
@@ -637,7 +635,6 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="nos">
       <p class="lbl">Nostalgia</p>
       <a href="/nostalgia/">The old site (2024–2026)</a>
-      <small>or press S three times</small>
     </div>
     <div class="fine">
       <span>© 2026 Squirrel Labs Ltd</span>
