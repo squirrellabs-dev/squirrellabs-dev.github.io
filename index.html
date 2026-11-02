@@ -12,13 +12,14 @@
 <meta property="og:description" content="Squirrel Labs Ltd is a London software and research lab that builds Peanut, a self-custodial payments app, and open-source payment software.">
 <meta property="og:url" content="https://squirrellabs.dev/">
 <meta name="theme-color" content="#f3eee3">
+<meta name="color-scheme" content="only light">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#f3eee3; --card:#faf7f0; --ink:#171614; --red:#d23a22; --blue:#1f4f9c; --yellow:#efb422;
+  --paper:#f3eee3; --card:#faf7f0; --ink:#171614; --red:#c4351e; --blue:#1f4f9c; --yellow:#efb422;
   --mute:#5e5951;
   --sans:'Jost',Futura,'Century Gothic',sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
   --gut:48px; --max:1344px; --b:3px solid var(--ink);
@@ -29,11 +30,12 @@ html{-webkit-text-size-adjust:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;overflow-x:hidden}
 a{color:inherit}
 a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.on-dark a:focus-visible,.pr a:focus-visible{outline-color:var(--yellow)}
+.back a:focus-visible, footer a:focus-visible{outline-color:var(--yellow)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
 .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
 .skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:9}
 .skip:focus{left:8px}
+h1,h2,h3,.quote blockquote p{text-wrap:balance} p{text-wrap:pretty}
 
 /* header */
 header{border-bottom:var(--b)}
@@ -65,13 +67,12 @@ nav a:hover{color:var(--red)}
 .btn.solid{background:var(--ink);color:var(--paper)}
 .btn:hover{background:var(--yellow);color:var(--ink)}
 
-.plates{display:grid;grid-template-columns:repeat(3,1fr);border-top:var(--b)}
-.plate{border-right:var(--b);display:flex;flex-direction:column}
-.plate:last-child{border-right:0}
+.plates{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--ink);border-top:var(--b)}
+.plate{display:flex;flex-direction:column;background:var(--paper)}
 .plate svg{display:block;width:100%;height:auto}
-.plate .cap{border-top:var(--b);padding:16px 20px 22px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;background:var(--card);flex:1}
+.plate .cap{border-top:var(--b);padding:16px 20px 22px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-content:start;background:var(--card);flex:1}
 .plate .cap b{grid-row:span 2;font-weight:600;font-size:40px;line-height:.9;color:var(--ink);min-width:1.4em}
-.plate .cap h2{font-weight:600;font-size:20px;line-height:1.2}
+.plate .cap h3{font-weight:600;font-size:20px;line-height:1.2}
 .plate .cap p{font-size:16px;color:var(--ink)}
 
 /* cover band: every section opens on a report cover */
@@ -94,7 +95,7 @@ section{border-bottom:var(--b)}
 .pc .face .row{display:flex;justify-content:space-between;padding:14px 18px;position:relative;z-index:1}
 .pc .face h3{font-weight:600;font-size:52px;line-height:.95;letter-spacing:-.02em;padding:4px 18px 0;position:relative;z-index:1}
 .pc .face svg{display:block;width:100%;height:auto;margin-top:8px}
-.pc .face .foot{margin-top:auto;padding:12px 18px;border-top:var(--b);background:var(--card);color:var(--ink);display:flex;justify-content:space-between;position:relative;z-index:1}
+.pc .face .foot{margin-top:auto;padding:12px 18px;border-top:var(--b);background:var(--card);color:var(--ink);display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;position:relative;z-index:1}
 .pc p{margin-top:20px;font-size:17px}
 .spec{margin-top:16px;border-top:2px solid var(--ink)}
 .spec div{display:grid;grid-template-columns:7.5em 1fr;gap:12px;border-bottom:1px solid var(--ink);padding:8px 0;font-size:14.5px}
@@ -138,6 +139,7 @@ section{border-bottom:var(--b)}
 .notbank h3 span{color:var(--yellow)}
 .notbank p{font-size:19px;max-width:30em}
 .cols{display:grid;grid-template-columns:5fr 7fr;gap:56px;padding-top:40px}
+.cols>div:last-child{display:flex;flex-direction:column;justify-content:space-between}
 .rec dl div{display:grid;grid-template-columns:10em 1fr;border-bottom:1px solid #5e5951;padding:10px 0}
 .rec dt{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#c9c2b2;padding-top:3px}
 .rec dd{font-size:16px}
@@ -150,6 +152,7 @@ section{border-bottom:var(--b)}
 .legal a{padding:14px 16px;text-decoration:none;font-weight:600;font-size:15px;border-right:2px solid var(--paper);display:flex;justify-content:space-between;gap:10px}
 .legal a:last-child{border-right:0;background:var(--yellow);color:var(--ink)}
 .legal a:hover{background:var(--paper);color:var(--ink)}
+.legal a:focus-visible{outline-offset:-5px;position:relative;z-index:1}
 
 
 /* open source: repository index */
@@ -162,9 +165,9 @@ section{border-bottom:var(--b)}
 .repos .nm{font-weight:600;font-size:22px;line-height:1.2;display:flex;gap:12px;align-items:center}
 .repos .nm i{width:14px;height:14px;flex:none;display:block}
 .repos .ds{font-size:16.5px}
-.repos .lic{font-family:var(--mono);font-size:13px;line-height:1.6}
+.repos .lic{font-family:var(--mono);font-size:13px;line-height:1.6;white-space:nowrap}
 .repos .lk{font-weight:600;font-size:15px;text-align:right}
-.repos .lk a{text-underline-offset:4px}
+.repos .lk a{text-underline-offset:4px;white-space:nowrap}
 .org{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:20px}
 .org p{color:var(--mute);font-size:15px;max-width:40em}
 
@@ -194,9 +197,9 @@ section{border-bottom:var(--b)}
 /* pull quote (lab-hero variant only) */
 .quote{background:var(--card)}
 .quote .wrap{display:grid;grid-template-columns:220px 1fr;}
-.quote .mk{border-right:var(--b);display:flex;align-items:center;justify-content:center;padding:28px 0}
+.quote .mk{display:flex;align-items:center;justify-content:center;padding:28px 0}
 .quote .mk svg{width:150px;height:150px}
-.quote blockquote{padding:56px 48px}
+.quote blockquote{padding:56px 48px;border-left:var(--b)}
 .quote blockquote p{font-weight:500;font-size:64px;line-height:1.02;letter-spacing:-.02em;max-width:14em}
 .quote blockquote p span{display:block;color:var(--red)}
 .quote cite{display:block;margin-top:22px;font-style:normal;color:var(--mute)}
@@ -206,9 +209,10 @@ footer .fine{border-top:1px solid #5e5951;padding-top:16px;display:flex;justify-
 footer a{text-decoration:none}
 footer a:hover{color:var(--paper);text-decoration:underline}
 footer .nos{padding:28px 0 20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;font-size:15px}
-footer .nos h2{font-size:12px;color:#c9c2b2}
+footer .nos p.lbl{font-size:12px;color:#c9c2b2}
 footer .nos a{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
 footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
+@media (hover:none){footer .nos small{display:none}}
 .strip{display:grid;grid-template-columns:3fr 1fr 2fr 6fr;height:14px}
 
 @media (max-width:1180px){
@@ -218,14 +222,29 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
   .band{grid-template-columns:160px 1fr}
   .band .g{display:none}
   .band .t{border-right:0}
-  .covers{grid-template-columns:1fr 1fr}
+  .pc .face h3{font-size:40px}
   .idx .hd,.idx .r{grid-template-columns:120px 1fr 200px 64px}
-  .repos .hd,.repos .r{grid-template-columns:200px 1fr 200px 120px}
+  .repos .hd,.repos .r{grid-template-columns:200px 1fr 220px 140px}
+  .plate .dl{display:none}
+  .plate .cap{grid-template-columns:1fr}
+  .plate .cap b{grid-row:auto;font-size:28px}
   .disc{grid-template-columns:1fr;gap:32px}
   .disc .card{max-width:560px}
   .quote .wrap{grid-template-columns:160px 1fr}
   .quote .mk svg{width:110px;height:110px}
-  .quote blockquote p{font-size:52px}
+  .quote blockquote p{font-size:clamp(36px,5.6vw,52px)}
+}
+@media (max-width:1024px){
+  .legal{grid-template-columns:1fr 1fr}
+  .legal a:nth-child(2n){border-right:0}
+  .legal a:nth-child(-n+2){border-bottom:2px solid var(--paper)}
+  .repos .hd{display:none}
+  .repos .r{grid-template-columns:1fr;padding:10px 0}
+  .repos .r>*{padding:4px 16px}
+  .repos .lk{text-align:left}
+}
+@media (max-width:900px){
+  .covers{grid-template-columns:1fr;max-width:560px}
 }
 @media (max-width:760px){
   :root{--gut:16px}
@@ -234,12 +253,9 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
   nav ul{flex-wrap:wrap;gap:4px 18px}
   nav a{font-size:14px;display:inline-block;padding:4px 0}
   .poster{padding-top:28px}
-  .poster h1{font-size:44px}
+  .poster h1{font-size:clamp(36px,11.5vw,44px)}
   .poster .lede{font-size:17.5px}
   .plates{grid-template-columns:1fr;margin:0 calc(-1 * var(--gut))}
-  .plate{border-right:0;border-bottom:var(--b)}
-  .plate:last-child{border-bottom:0}
-  .plate .dl{display:none}
   .plate .cap{padding:14px 16px 18px}
   .plate .cap b{font-size:32px}
   .band{grid-template-columns:1fr;margin:0 calc(-1 * var(--gut))}
@@ -269,20 +285,13 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
   .notbank h3{font-size:42px}
   .rec dl div{grid-template-columns:1fr}
   .stmts{grid-template-columns:1fr}
-  .legal{grid-template-columns:1fr 1fr}
-  .legal a:nth-child(2n){border-right:0}
-  .legal a:nth-child(-n+2){border-bottom:2px solid var(--paper)}
-  .repos .hd{display:none}
-  .repos .r{grid-template-columns:1fr;padding:10px 0}
-  .repos .r>*{padding:4px 16px}
-  .repos .lk{text-align:left}
   .disc h3{font-size:38px}
   .disc .body{font-size:17.5px}
   .disc .card dl div{grid-template-columns:1fr;gap:2px}
   .quote .wrap{grid-template-columns:1fr;padding:0}
   .quote .mk{border-right:0;border-bottom:var(--b);justify-content:flex-start;padding:16px}
   .quote .mk svg{width:72px;height:72px}
-  .quote blockquote{border-right:0;padding:28px 16px 32px}
+  .quote blockquote{border-left:0;padding:28px 16px 32px}
   .quote blockquote p{font-size:36px}
 }
 </style>
@@ -291,13 +300,13 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
 <a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Squirrel Labs, home">
-      <svg viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" fill="#171614"/><circle cx="12" cy="18" r="8" fill="#d23a22"/><rect x="15" y="4" width="11" height="11" fill="#efb422"/></svg>
+    <a class="brand" href="/" aria-label="Squirrel Labs, home">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" fill="#171614"/><circle cx="12" cy="18" r="8" fill="#c4351e"/><rect x="15" y="4" width="11" height="11" fill="#efb422"/></svg>
       <b>Squirrel Labs</b>
     </a>
     <nav aria-label="Primary">
       <ul>
-        <li><a href="#build">Products</a></li>
+        <li><a href="#build">What we build</a></li>
         <li><a href="#research">Research</a></li>
         <li><a href="#open-source">Open source</a></li>
         <li><a href="#company">Company &amp; compliance</a></li>
@@ -312,7 +321,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="poster-top">
       <div>
         <div class="eyebrow lbl"><i style="background:var(--red)"></i><i style="background:var(--yellow)"></i><i style="background:var(--blue)"></i></div>
-        <h1>Software and research <span>for self-custodial money.</span></h1>
+        <h1>Software and research <span>for self&#8209;custodial money.</span></h1>
         <p class="motto">Move money. Hold nothing.</p>
       </div>
       <div class="poster-sub">
@@ -324,7 +333,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="plates">
       <figure class="plate">
         <svg viewBox="0 0 420 400" role="img" aria-label="Plate one: a key drawn as a ring and a shaft, with construction lines.">
-          <rect width="420" height="400" fill="#d23a22"/>
+          <rect width="420" height="400" fill="#c4351e"/>
           <g stroke="#faf7f0" stroke-width="1.5" fill="none" opacity=".55">
             <path d="M20 210 H400"/><path d="M140 56 V350"/>
             <circle cx="140" cy="210" r="118" stroke-dasharray="5 6"/>
@@ -336,10 +345,10 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
           <g stroke="#171614" stroke-width="2"><path d="M132 210 H148 M140 202 V218"/></g>
           <g class="dl" fill="none" stroke="#faf7f0" stroke-width="2"><path d="M206 160 H366"/><path d="M206 152 V168 M366 152 V168"/></g>
           <text class="dl" x="286" y="146" text-anchor="middle" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500">P-256</text>
-          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE I</text>
-          <text class="dl" x="24" y="370" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14">r = 66 · secure enclave</text>
+          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="18" font-weight="500" letter-spacing="1">PLATE I</text>
+          <text class="dl" x="24" y="370" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14">r = 66 · secure hardware</text>
         </svg>
-        <figcaption class="cap"><b>I</b><h2>The key stays on the device.</h2><p>Created by device biometrics and sealed in the Secure Enclave. It is never exported.</p></figcaption>
+        <figcaption class="cap"><b>I</b><h3>The key stays with the user.</h3><p>Created with device biometrics and held by the phone's secure hardware. Squirrel Labs never receives it.</p></figcaption>
       </figure>
       <figure class="plate">
         <svg viewBox="0 0 420 400" role="img" aria-label="Plate two: a signature drawn from three arcs of equal radius, with their construction circles.">
@@ -353,24 +362,24 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
           <rect x="60" y="300" width="300" height="12" fill="#efb422"/>
           <g fill="#faf7f0"><circle cx="110" cy="210" r="4"/><circle cx="210" cy="210" r="4"/><circle cx="310" cy="210" r="4"/></g>
           <text class="dl" x="60" y="340" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14">WebAuthn assertion over H(op)</text>
-          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE II</text>
+          <text x="24" y="40" fill="#faf7f0" font-family="IBM Plex Mono" font-size="18" font-weight="500" letter-spacing="1">PLATE II</text>
         </svg>
-        <figcaption class="cap"><b>II</b><h2>The signature authorises.</h2><p>Each payment is an ERC-4337 user operation, signed on the device by the passkey.</p></figcaption>
+        <figcaption class="cap"><b>II</b><h3>The signature authorises.</h3><p>Each payment from the wallet is an ERC-4337 user operation, signed on the device by the passkey.</p></figcaption>
       </figure>
       <figure class="plate">
         <svg viewBox="0 0 420 400" role="img" aria-label="Plate three: a ledger drawn as five stacked blocks, each linked to the one before it; the newest block is red.">
           <rect width="420" height="400" fill="#efb422"/>
           <g stroke="#171614" stroke-width="1.5" opacity=".5" stroke-dasharray="5 6"><path d="M70 56 V346"/><path d="M320 56 V346"/></g>
           <g fill="#171614"><rect x="70" y="78" width="250" height="36"/><rect x="70" y="132" width="250" height="36"/><rect x="70" y="186" width="250" height="36"/><rect x="70" y="240" width="250" height="36"/></g>
-          <rect x="70" y="294" width="250" height="36" fill="#d23a22"/>
+          <rect x="70" y="294" width="250" height="36" fill="#c4351e"/>
           <g fill="none" stroke="#171614" stroke-width="4"><path d="M320 96 H356 V150 H320 M356 150 V204 H320 M356 204 V258 H320 M356 258 V312 H320"/></g>
           <g fill="#171614"><rect x="349" y="143" width="14" height="14"/><rect x="349" y="197" width="14" height="14"/><rect x="349" y="251" width="14" height="14"/><rect x="349" y="305" width="14" height="14"/></g>
           <g class="dl" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14"><text x="84" y="101">n-4</text><text x="84" y="155">n-3</text><text x="84" y="209">n-2</text><text x="84" y="263">n-1</text></g>
-          <text x="84" y="317" fill="#faf7f0" font-family="IBM Plex Mono" font-size="14" font-weight="500">n · settled</text>
-          <text x="24" y="40" fill="#171614" font-family="IBM Plex Mono" font-size="14" font-weight="500" letter-spacing="1">PLATE III</text>
+          <text x="84" y="317" fill="#faf7f0" font-family="IBM Plex Mono" font-size="18" font-weight="500">n · settled</text>
+          <text x="24" y="40" fill="#171614" font-family="IBM Plex Mono" font-size="18" font-weight="500" letter-spacing="1">PLATE III</text>
           <text class="dl" x="24" y="370" fill="#171614" font-family="IBM Plex Mono" font-size="14">Arbitrum · H(n-1) → n</text>
         </svg>
-        <figcaption class="cap"><b>III</b><h2>The ledger settles.</h2><p>Funds move on Arbitrum into the user's own smart account.</p></figcaption>
+        <figcaption class="cap"><b>III</b><h3>The ledger settles.</h3><p>Funds move on Arbitrum into the user's own smart account.</p></figcaption>
       </figure>
     </div>
   </div>
@@ -381,7 +390,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="band">
       <div class="no" style="background:var(--red)"><span class="lbl">Report</span><b>01</b></div>
       <div class="t"><h2>What we build</h2></div>
-      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="60" cy="75" r="44" fill="#d23a22"/><rect x="78" y="40" width="56" height="70" fill="#1f4f9c"/></svg></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="60" cy="75" r="44" fill="#c4351e"/><rect x="78" y="40" width="56" height="70" fill="#1f4f9c"/></svg></div>
     </div>
     <div class="inner">
       <div class="covers">
@@ -396,7 +405,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
               <rect x="228" y="70" width="140" height="140" fill="#1f4f9c"/><rect x="228" y="176" width="140" height="14" fill="#efb422"/>
               <path d="M188 140 H220" stroke="#faf7f0" stroke-width="6"/>
             </svg>
-            <div class="foot lbl"><span>peanut.me</span><span>iOS · Android</span></div>
+            <div class="foot lbl"><a href="https://peanut.me" target="_blank" rel="noopener">peanut.me</a><span>iOS · Android</span></div>
           </div>
           <p>Stablecoins in, local money out, for example through PIX in Brazil or bank transfer.</p>
         </article>
@@ -408,9 +417,9 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
               <g stroke="#171614" stroke-width="1.5" opacity=".45" stroke-dasharray="5 6"><path d="M147 40 V250 M253 40 V250"/></g>
               <rect x="40" y="70" width="320" height="40" fill="#171614"/>
               <g stroke="#171614" stroke-width="5"><path d="M93 110 V160 M200 110 V160 M307 110 V160"/></g>
-              <rect x="40" y="160" width="104" height="40" fill="#d23a22"/><rect x="148" y="160" width="104" height="40" fill="#1f4f9c"/><rect x="256" y="160" width="104" height="40" fill="#faf7f0" stroke="#171614" stroke-width="4"/>
+              <rect x="40" y="160" width="104" height="40" fill="#c4351e"/><rect x="148" y="160" width="104" height="40" fill="#1f4f9c"/><rect x="256" y="160" width="104" height="40" fill="#faf7f0" stroke="#171614" stroke-width="4"/>
             </svg>
-            <div class="foot lbl"><span>peanutsplit.com</span><span>AGPL-3.0</span></div>
+            <div class="foot lbl"><a href="https://peanutsplit.com" target="_blank" rel="noopener">peanutsplit.com</a><span>AGPL-3.0-or-later</span></div>
           </div>
           <p>A shared-expense app.</p>
         </article>
@@ -424,7 +433,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
               <circle cx="304" cy="150" r="56" fill="none" stroke="#faf7f0" stroke-width="14"/>
               <path d="M152 150 H248" stroke="#faf7f0" stroke-width="6" stroke-dasharray="14 8"/>
               <rect x="176" y="126" width="48" height="48" fill="#efb422"/>
-              <circle cx="96" cy="150" r="14" fill="#d23a22"/>
+              <circle cx="96" cy="150" r="14" fill="#c4351e"/>
             </svg>
             <div class="foot lbl"><span>Smart contracts</span><span>Payment links</span></div>
           </div>
@@ -439,48 +448,45 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
   <div class="wrap">
     <div class="band">
       <div class="no" style="background:var(--blue)"><span class="lbl">Report</span><b>02</b></div>
-      <div class="t"><h2>Research</h2></div>
-      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="20" y="30" width="110" height="18" fill="#171614"/><rect x="20" y="58" width="110" height="18" fill="#171614"/><rect x="20" y="86" width="110" height="18" fill="#171614"/><rect x="20" y="114" width="70" height="18" fill="#d23a22"/></svg></div>
+      <div class="t"><h2>Research</h2><p>Writing and talks by Konrad Urban, co-founder.</p><p>Areas: account abstraction (ERC-4337), passkey and WebAuthn key custody, stablecoin settlement and local rails, payment-link cryptography, zero-knowledge proofs, smart-contract security.</p></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="20" y="30" width="110" height="18" fill="#171614"/><rect x="20" y="58" width="110" height="18" fill="#171614"/><rect x="20" y="86" width="110" height="18" fill="#171614"/><rect x="20" y="114" width="70" height="18" fill="#c4351e"/></svg></div>
     </div>
     <div class="inner">
       <div class="sub">
-        <div><span class="lbl sk"><i style="background:var(--yellow)"></i>02.1 · Writing</span><h3>Essays by Konrad Urban</h3><p>Published on kkonrad.substack.com.</p></div>
+        <div><span class="lbl sk"><i style="background:var(--yellow)"></i>02.1 · Writing</span><h3>Essays</h3><p>Published on kkonrad.substack.com.</p></div>
         <a class="more lbl" href="https://kkonrad.com/writing/" target="_blank" rel="noopener">More writing <span aria-hidden="true">→</span></a>
       </div>
       <div class="idx">
         <div class="hd lbl"><span>No.</span><span>Title</span><span>Published</span><span></span></div>
-        <a class="r" href="https://kkonrad.substack.com/p/i-modeled-wrench-attacks-privacy" target="_blank" rel="noopener"><span class="no">W-01</span><span class="ti">I modeled wrench attacks. Privacy makes them worse.</span><span class="ar">Feb 2026</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
-        <a class="r" href="https://kkonrad.substack.com/p/who-wins-what-as-stablecoins-slash" target="_blank" rel="noopener"><span class="no">W-02</span><span class="ti">Who wins what as stablecoins slash cost</span><span class="ar">Aug 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
-        <a class="r" href="https://kkonrad.substack.com/p/wen-p2p-electronic-cash-system" target="_blank" rel="noopener"><span class="no">W-03</span><span class="ti">Wen p2p electronic cash system?</span><span class="ar">Jan 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
-        <a class="r" href="https://kkonrad.substack.com/p/what-happens-when-you-buy-coffee" target="_blank" rel="noopener"><span class="no">W-04</span><span class="ti">What happens when you buy coffee? Crypto vs card</span><span class="ar">Dec 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
-        <a class="r" href="https://kkonrad.substack.com/p/towards-link-based-transfer-abstraction" target="_blank" rel="noopener"><span class="no">W-05</span><span class="ti">Towards Link-Based Transfer Abstraction</span><span class="ar">May 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
-        <a class="r" href="https://kkonrad.substack.com/p/can-we-sidestep-onchain-identity" target="_blank" rel="noopener"><span class="no">W-06</span><span class="ti">Can we sidestep onchain identity?</span><span class="ar">Jul 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#d23a22"/></svg></span></a>
+        <a class="r" aria-label="W-01, I modeled wrench attacks. Privacy makes them worse, Feb 2026" href="https://kkonrad.substack.com/p/i-modeled-wrench-attacks-privacy" target="_blank" rel="noopener"><span class="no">W-01</span><span class="ti">I modeled wrench attacks. Privacy makes them worse.</span><span class="ar">Feb 2026</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
+        <a class="r" aria-label="W-02, Who wins what as stablecoins slash cost, Aug 2025" href="https://kkonrad.substack.com/p/who-wins-what-as-stablecoins-slash" target="_blank" rel="noopener"><span class="no">W-02</span><span class="ti">Who wins what as stablecoins slash cost</span><span class="ar">Aug 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
+        <a class="r" aria-label="W-03, Wen p2p electronic cash system?, Jan 2025" href="https://kkonrad.substack.com/p/wen-p2p-electronic-cash-system" target="_blank" rel="noopener"><span class="no">W-03</span><span class="ti">Wen p2p electronic cash system?</span><span class="ar">Jan 2025</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
+        <a class="r" aria-label="W-04, What happens when you buy coffee? Crypto vs card, Dec 2024" href="https://kkonrad.substack.com/p/what-happens-when-you-buy-coffee" target="_blank" rel="noopener"><span class="no">W-04</span><span class="ti">What happens when you buy coffee? Crypto vs card</span><span class="ar">Dec 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
+        <a class="r" aria-label="W-05, Towards Link-Based Transfer Abstraction, May 2024" href="https://kkonrad.substack.com/p/towards-link-based-transfer-abstraction" target="_blank" rel="noopener"><span class="no">W-05</span><span class="ti">Towards Link-Based Transfer Abstraction</span><span class="ar">May 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
+        <a class="r" aria-label="W-06, Can we sidestep onchain identity?, Jul 2023" href="https://kkonrad.substack.com/p/can-we-sidestep-onchain-identity" target="_blank" rel="noopener"><span class="no">W-06</span><span class="ti">Can we sidestep onchain identity?</span><span class="ar">Jul 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="3" width="28" height="34" fill="none" stroke="#171614" stroke-width="4"/><rect x="6" y="3" width="28" height="9" fill="#efb422"/><rect x="12" y="19" width="16" height="4" fill="#171614"/><rect x="12" y="27" width="10" height="4" fill="#c4351e"/></svg></span></a>
       </div>
 
       <div class="sub">
-        <div><span class="lbl sk"><i style="background:var(--red)"></i>02.2 · Talks</span><h3>Talks by Konrad Urban</h3></div>
-        <a class="more lbl" href="https://kkonrad.com/talks" target="_blank" rel="noopener">All talks <span aria-hidden="true">→</span></a>
+        <div><span class="lbl sk"><i style="background:var(--red)"></i>02.2 · Talks</span><h3>Talks</h3></div>
+        <a class="more lbl" href="https://kkonrad.com/talks/" target="_blank" rel="noopener">All talks <span aria-hidden="true">→</span></a>
       </div>
       <div class="idx">
         <div class="hd lbl"><span>No.</span><span>Title</span><span>Venue</span><span></span></div>
-        <a class="r" href="https://app.devcon.org/schedule/ZFX3ZF" target="_blank" rel="noopener"><span class="no">T-01</span><span class="ti">Wen p2p Electronic Cash System?</span><span class="ar">Devcon 7, Bangkok · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" href="https://www.youtube.com/watch?v=J_VTceUdfgs" target="_blank" rel="noopener"><span class="no">T-02</span><span class="ti">Chain abstraction? But I want to know where my tokens are</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" href="https://web.archive.org/web/20240805094400/https://cfp.walletuncon.org/walletuncon-2023/talk/9QGLLM/" target="_blank" rel="noopener"><span class="no">T-03</span><span class="ti">How can wallets deal with the multichain nightmare?</span><span class="ar">Wallet Unconference · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" href="https://youtu.be/q4NsLmTGNAU?t=9292" target="_blank" rel="noopener"><span class="no">T-04</span><span class="ti">Please stop obsessing about blockchain!</span><span class="ar">ETHDenver · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
-        <a class="r" href="https://watch.protocol.berlin/65a90bf47932ebe436ba9351/watch?session=6851404d4ac43bf73d22ddb8" target="_blank" rel="noopener"><span class="no">T-05</span><span class="ti">When Help Hurts: Why a Friendly Government is a Threat to Crypto</span><span class="ar">Protocol Berlin</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#d23a22"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-01, Chain abstraction? But I want to know where my tokens are, Devcon 7 · 2024" href="https://www.youtube.com/watch?v=J_VTceUdfgs" target="_blank" rel="noopener"><span class="no">T-01</span><span class="ti">Chain abstraction? But I want to know where my tokens are</span><span class="ar">Devcon 7 · 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-02, How can wallets deal with the multichain nightmare?, Wallet Unconference · 2023" href="https://web.archive.org/web/20240805094400/https://cfp.walletuncon.org/walletuncon-2023/talk/9QGLLM/" target="_blank" rel="noopener"><span class="no">T-02</span><span class="ti">How can wallets deal with the multichain nightmare?</span><span class="ar">Wallet Unconference · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
+        <a class="r" aria-label="T-03, Please stop obsessing about blockchain!, ETHDenver 2023 · The Next Billion Summit" href="https://youtu.be/q4NsLmTGNAU?t=9292" target="_blank" rel="noopener"><span class="no">T-03</span><span class="ti">Please stop obsessing about blockchain!</span><span class="ar">ETHDenver 2023 · The Next Billion Summit</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="11" fill="#c4351e"/><rect x="18" y="26" width="4" height="8" fill="#171614"/><rect x="10" y="34" width="20" height="4" fill="#171614"/></svg></span></a>
       </div>
 
       <div class="sub">
-        <div><span class="lbl sk"><i style="background:var(--blue)"></i>02.3 · Third-party reading · not our work</span><h3>Papers we build on</h3><p>By Offchain Labs, the Arbitrum team (ZeroDev is part of Offchain Labs).</p></div>
+        <div><span class="lbl sk"><i style="background:var(--blue)"></i>02.3 · Third-party reading · not our work</span><h3>Papers we build on</h3><p>By the researchers behind Arbitrum, now at Offchain Labs.</p></div>
         
       </div>
       <div class="idx">
         <div class="hd lbl"><span>No.</span><span>Title</span><span>Authors · venue</span><span></span></div>
-        <a class="r" href="https://www.usenix.org/conference/usenixsecurity18/presentation/kalodner" target="_blank" rel="noopener"><span class="no">P-01</span><span class="ti">Arbitrum: Scalable, private smart contracts</span><span class="ar">Kalodner, Goldfeder, Chen, Weinberg, Felten · USENIX Security 2018</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
-        <a class="r" href="https://arxiv.org/abs/2404.10491" target="_blank" rel="noopener"><span class="no">P-02</span><span class="ti">BoLD: Fast and Cheap Dispute Resolution</span><span class="ar">Offchain Labs (Felten et al.) · AFT 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
-        <a class="r" href="https://arxiv.org/abs/2306.02179" target="_blank" rel="noopener"><span class="no">P-03</span><span class="ti">Buying Time: Latency Racing vs. Bidding in Transaction Ordering</span><span class="ar">Mamageishvili, Kelkar, Schlegel, Felten · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+        <a class="r" aria-label="P-01, Arbitrum: Scalable, private smart contracts, Kalodner, Goldfeder, Chen, Weinberg, Felten · USENIX Security 2018" href="https://www.usenix.org/conference/usenixsecurity18/presentation/kalodner" target="_blank" rel="noopener"><span class="no">P-01</span><span class="ti">Arbitrum: Scalable, private smart contracts</span><span class="ar">Kalodner, Goldfeder, Chen, Weinberg, Felten · USENIX Security 2018</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+        <a class="r" aria-label="P-02, BoLD: Fast and Cheap Dispute Resolution, Alvarez et al. (Offchain Labs) · AFT 2024" href="https://arxiv.org/abs/2404.10491" target="_blank" rel="noopener"><span class="no">P-02</span><span class="ti">BoLD: Fast and Cheap Dispute Resolution</span><span class="ar">Alvarez et al. (Offchain Labs) · AFT 2024</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
+        <a class="r" aria-label="P-03, Buying Time: Latency Racing vs. Bidding in Transaction Ordering, Mamageishvili, Kelkar, Schlegel, Felten · arXiv · 2023" href="https://arxiv.org/abs/2306.02179" target="_blank" rel="noopener"><span class="no">P-03</span><span class="ti">Buying Time: Latency Racing vs. Bidding in Transaction Ordering</span><span class="ar">Mamageishvili, Kelkar, Schlegel, Felten · arXiv · 2023</span><span class="gl" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="28" fill="none" stroke="#1f4f9c" stroke-width="4"/><circle cx="20" cy="20" r="7" fill="#1f4f9c"/></svg></span></a>
       </div>
-      <p class="idx-note">Areas: account abstraction (ERC-4337), passkey and WebAuthn key custody, stablecoin settlement and local rails, payment-link cryptography, zero-knowledge proofs, smart-contract security.</p>
     </div>
   </div>
 </section>
@@ -490,7 +496,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="band">
       <div class="no" style="background:var(--yellow);color:var(--ink)"><span class="lbl">Report</span><b>03</b></div>
       <div class="t"><h2>Open source</h2></div>
-      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="25" y="25" width="100" height="100" fill="none" stroke="#171614" stroke-width="8"/><path d="M25 75 H125 M75 25 V125" stroke="#171614" stroke-width="8"/><rect x="79" y="79" width="42" height="42" fill="#d23a22"/></svg></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><rect x="25" y="25" width="100" height="100" fill="none" stroke="#171614" stroke-width="8"/><path d="M25 75 H125 M75 25 V125" stroke="#171614" stroke-width="8"/><rect x="79" y="79" width="42" height="42" fill="#c4351e"/></svg></div>
     </div>
     <div class="inner">
       <div class="repos">
@@ -499,23 +505,23 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
           <span class="nm"><i style="background:var(--yellow);outline:2px solid var(--ink)"></i>Peanut Split</span>
           <span class="ds">Squirrel Labs is the sole upstream maintainer and pays the cost of running it.</span>
           <span class="lic">Code AGPL-3.0-or-later<br>Docs CC-BY-4.0<br>Maintained</span>
-          <span class="lk"><a href="https://github.com/peanutprotocol/peanutsplit" target="_blank" rel="noopener">Repository →</a></span>
+          <span class="lk"><a href="https://github.com/peanutprotocol/peanutsplit" target="_blank" rel="noopener" aria-label="Peanut Split repository on GitHub">Repository →</a></span>
         </div>
         <div class="r">
           <span class="nm"><i style="background:var(--blue)"></i>Peanut protocol</span>
           <span class="ds">The payment-link contracts.</span>
           <span class="lic">GPL-3.0<br>Maintained</span>
-          <span class="lk"><a href="https://github.com/peanutprotocol/peanut-contracts" target="_blank" rel="noopener">Repository →</a></span>
+          <span class="lk"><a href="https://github.com/peanutprotocol/peanut-contracts" target="_blank" rel="noopener" aria-label="Peanut protocol repository on GitHub">Repository →</a></span>
         </div>
         <div class="r">
           <span class="nm"><i style="background:var(--ink)"></i>squirrel</span>
-          <span class="ds">A zero-knowledge, decentralised payment-links experiment from 2022. The research line the payment-link contracts descend from.</span>
+          <span class="ds">A zero-knowledge, decentralised payment-link experiment from 2022. The research line behind the payment-link contracts.</span>
           <span class="lic">Research<br>Archived, private</span>
           <span class="lk"></span>
         </div>
       </div>
       <div class="org">
-        <p>Read the code, file issues and send fixes on GitHub.</p>
+        <p>Issues and fixes are welcome on GitHub.</p>
         <a class="btn" href="https://github.com/peanutprotocol" target="_blank" rel="noopener">github.com/peanutprotocol <span aria-hidden="true">&nbsp;→</span></a>
       </div>
     </div>
@@ -524,7 +530,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
 
 <section class="quote" aria-label="Pull quote">
   <div class="wrap">
-    <div class="mk" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="48" cy="75" r="34" fill="none" stroke="#171614" stroke-width="6" stroke-dasharray="10 7"/><circle cx="104" cy="75" r="34" fill="#d23a22"/></svg></div>
+    <div class="mk" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="48" cy="75" r="34" fill="none" stroke="#171614" stroke-width="6" stroke-dasharray="10 7"/><circle cx="104" cy="75" r="34" fill="#c4351e"/></svg></div>
     <blockquote>
       <p>Custody is a promise. <span>Self&#8209;custody is a proof.</span></p>
       <cite class="lbl">Squirrel Labs</cite>
@@ -537,13 +543,13 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="band">
       <div class="no" style="background:var(--ink)"><span class="lbl">Report</span><b>04</b></div>
       <div class="t"><h2>Principles</h2></div>
-      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="45" cy="50" r="26" fill="#d23a22"/><rect x="80" y="24" width="52" height="52" fill="#1f4f9c"/><polygon points="75,90 115,140 35,140" fill="#efb422"/></svg></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><circle cx="45" cy="50" r="26" fill="#c4351e"/><rect x="80" y="24" width="52" height="52" fill="#1f4f9c"/><polygon points="75,90 115,140 35,140" fill="#efb422"/></svg></div>
     </div>
     <div class="inner">
       <div class="principles">
         <div class="pr">
-          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#d23a22"/><circle cx="200" cy="150" r="150" fill="none" stroke="#faf7f0" stroke-width="28"/><circle cx="200" cy="150" r="54" fill="#faf7f0"/></svg></div>
-          <div class="tx"><span class="lbl">Principle I</span><h3>Non-custodial</h3><p>We never hold user funds or user keys.</p></div>
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#c4351e"/><circle cx="200" cy="150" r="150" fill="none" stroke="#faf7f0" stroke-width="28"/><circle cx="200" cy="150" r="54" fill="#faf7f0"/></svg></div>
+          <div class="tx"><span class="lbl">Principle I</span><h3>Non-custodial</h3><p>Keys are made on the user's device. Our software has nothing to hold.</p></div>
         </div>
         <div class="pr">
           <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#1f4f9c"/><rect x="80" y="30" width="240" height="240" fill="none" stroke="#faf7f0" stroke-width="28"/><path d="M80 150 H320 M200 30 V270" stroke="#faf7f0" stroke-width="28"/></svg></div>
@@ -551,7 +557,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
         </div>
         <div class="pr">
           <div class="art" aria-hidden="true"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#171614"/><polygon points="200,40 350,300 50,300" fill="none" stroke="#faf7f0" stroke-width="28"/><rect x="186" y="120" width="28" height="70" fill="#efb422"/><rect x="186" y="204" width="28" height="26" fill="#efb422"/></svg></div>
-          <div class="tx"><span class="lbl">Principle III</span><h3>Security</h3><p>We have paid researchers who reported issues to us.</p></div>
+          <div class="tx"><span class="lbl">Principle III</span><h3>Security</h3><p>Report issues to us privately before publishing them. See 05.</p></div>
         </div>
       </div>
     </div>
@@ -563,13 +569,13 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     <div class="band">
       <div class="no" style="background:var(--blue)"><span class="lbl">Report</span><b>05</b></div>
       <div class="t"><h2>Security &amp; disclosure</h2></div>
-      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><polygon points="75,18 135,128 15,128" fill="none" stroke="#171614" stroke-width="8"/><rect x="69" y="58" width="12" height="38" fill="#d23a22"/><rect x="69" y="104" width="12" height="12" fill="#d23a22"/></svg></div>
+      <div class="g" aria-hidden="true"><svg viewBox="0 0 150 150"><polygon points="75,18 135,128 15,128" fill="none" stroke="#171614" stroke-width="8"/><rect x="69" y="58" width="12" height="38" fill="#c4351e"/><rect x="69" y="104" width="12" height="12" fill="#c4351e"/></svg></div>
     </div>
     <div class="inner">
       <div class="disc">
         <div>
           <h3>More than <span>$20,000</span> paid to security researchers since Peanut started.</h3>
-          <p class="body">Please give us the chance to fix an issue before you publish it. The figure above is our history of payments to researchers, not a rate card.</p>
+          <p class="body">Please give us the chance to fix an issue before you publish it. That figure is history, not a rate card.</p>
         </div>
         <div class="card">
           <div class="art" aria-hidden="true"><svg viewBox="0 0 400 150"><rect width="400" height="150" fill="#1f4f9c"/><g stroke="#faf7f0" stroke-width="1.5" opacity=".55" fill="none"><path d="M0 75 H400"/><circle cx="110" cy="75" r="52" stroke-dasharray="5 6"/></g><circle cx="110" cy="75" r="28" fill="#faf7f0"/><rect x="220" y="47" width="56" height="56" fill="#efb422"/><rect x="292" y="47" width="56" height="56" fill="none" stroke="#faf7f0" stroke-width="8"/></svg></div>
@@ -613,11 +619,11 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
         </div>
         <div>
           <div class="stmts">
-            <div><h4>No custody</h4>We never hold user funds or user keys. Balances sit in each user's own smart account on Arbitrum.</div>
-            <div><h4>Licensed partners</h4>Fiat on-ramps, off-ramps and card issuing are run by licensed partners under their own authorisations.</div>
+            <div><h4>No custody</h4>We never hold user funds or user keys.</div>
+            <div><h4>Licensed partners</h4>Licensed partners run fiat on-ramps, off-ramps and card issuing.</div>
           </div>
           <nav class="legal" aria-label="Legal">
-            <a href="https://peanut.me/terms" target="_blank" rel="noopener">Terms <span aria-hidden="true">→</span></a><a href="https://peanut.me/privacy" target="_blank" rel="noopener">Privacy <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">Security <span aria-hidden="true">→</span></a><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">Company record <span aria-hidden="true">→</span></a>
+            <a href="https://peanut.me/en/terms" target="_blank" rel="noopener">Terms <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/privacy" target="_blank" rel="noopener">Privacy <span aria-hidden="true">→</span></a><a href="https://peanut.me/en/help/security-disclosure" target="_blank" rel="noopener">Security <span aria-hidden="true">→</span></a><a href="https://find-and-update.company-information.service.gov.uk/company/14558823" target="_blank" rel="noopener">Company record <span aria-hidden="true">→</span></a>
           </nav>
         </div>
       </div>
@@ -629,7 +635,7 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
 <footer>
   <div class="wrap">
     <div class="nos">
-      <h2 class="lbl">Nostalgia</h2>
+      <p class="lbl">Nostalgia</p>
       <a href="/nostalgia/">The old site (2024–2026)</a>
       <small>or press S three times</small>
     </div>
@@ -638,14 +644,16 @@ footer .nos small{font-family:var(--mono);font-size:12px;color:#8f887b}
     </div>
   </div>
 </footer>
-<div class="strip" aria-hidden="true"><i style="background:#d23a22"></i><i style="background:#efb422"></i><i style="background:#1f4f9c"></i><i style="background:#faf7f0"></i></div>
+<div class="strip" aria-hidden="true"><i style="background:#c4351e"></i><i style="background:#efb422"></i><i style="background:#1f4f9c"></i><i style="background:#faf7f0"></i></div>
 <script>
-// Easter egg: S or Space three times within 800 ms opens the old site.
+// Easter egg: S or Space three times within 500 ms opens the old site.
 (function(){var t=[];document.addEventListener('keydown',function(e){
-  if(e.ctrlKey||e.metaKey||e.altKey||(e.shiftKey&&e.key===' '))return;
-  var el=e.target;if(el&&(el.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))return;
-  if(e.key!=='s'&&e.key!=='S'&&e.key!==' '){if(e.key.length===1)t=[];return}
-  var n=Date.now();t=t.filter(function(x){return n-x<800});t.push(n);
+  if(e.key==='Shift'||e.key==='Control'||e.key==='Alt'||e.key==='Meta')return;
+  if(e.repeat||e.ctrlKey||e.metaKey||e.altKey||(e.shiftKey&&e.key===' ')){t=[];return}
+  var el=document.activeElement;
+  if(el&&(el.isContentEditable||/^(A|BUTTON|INPUT|TEXTAREA|SELECT)$/.test(el.tagName))){t=[];return}
+  if(e.key!=='s'&&e.key!=='S'&&e.key!==' '){t=[];return}
+  var n=Date.now();t=t.filter(function(x){return n-x<500});t.push(n);
   if(t.length>=3)location.href='/nostalgia/';
 })})();
 </script>
